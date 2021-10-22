@@ -29,31 +29,6 @@
     - nm-cloud-setup.timer
   when: ansible_facts.services[item] is defined
 
-#- name: Allow echo-request and echo-reply
-#  ansible.posix.firewalld:
-#    icmp_block: "{{ item }}"
-#    permanent: yes
-#    immediate: yes
-#    state: disabled
-#  loop:
-#    - echo-request
-#    - echo-reply
-#
-#- name: Open firewall ports
-#  ansible.posix.firewalld:
-#    port: "{{ item }}"
-#    permanent: yes
-#    immediate: yes
-#    state: enabled
-#  loop: "{{ firewalld }}"
-#
-#- name: Allow masquerade
-#  ansible.posix.firewalld:
-#    masquerade: yes
-#    permanent: yes
-#    immediate: yes
-#    state: enabled
-
 - name: Disable firewalld
   ansible.builtin.systemd:
     name: firewalld
@@ -122,21 +97,6 @@
     name: kubelet
     state: started
     enabled: yes
-
-- name: get all ipv4 addresses
-  setup:
-    filter: ansible_all_ipv4_addresses
-
-- name: Get ipv4
-  set_fact:
-    host_ipv4: "{{ item }}"
-  loop: "{{ ansible_all_ipv4_addresses }}"
-
-- name: host ipv4
-  debug: var=host_ipv4
-
-- name: host ipv4
-  debug: var=inventory_hostname
 
 - name: Get swap
   ansible.builtin.setup:
