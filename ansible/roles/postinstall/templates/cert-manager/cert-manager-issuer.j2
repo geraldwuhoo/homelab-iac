@@ -1,9 +1,9 @@
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: letsencrypt
-  namespace: default
+  name: letsencrypt{{ '' if letsencrypt_prod else '-staging' }}
+  namespace: cert-manager
 spec:
   acme:
     email: {{ letsencrypt_email }}
@@ -13,7 +13,7 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
 {% endif %}
     privateKeySecretRef:
-      name: letsencrypt
+      name: letsencrypt{{'' if letsencrypt_prod else '-staging' }}
     solvers:
       - dns01:
           cloudflare:

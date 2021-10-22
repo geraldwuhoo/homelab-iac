@@ -58,7 +58,7 @@
           default: true
         watchIngressWithoutClass: true
         extraArgs:
-          default-ssl-certificate: "default/wildcard-wuhoo-xyz-tls{{ '' if letsencrypt_prod else '-staging' }}"
+          default-ssl-certificate: "cert-manager/{{ letsencrypt_cert }}{{ '' if letsencrypt_prod else '-staging' }}"
 
 - name: Deploy cert-manager
   community.kubernetes.helm:
@@ -82,7 +82,7 @@
       kind: Secret
       metadata:
         name: cloudflare-api-key-secret
-        namespace: default
+        namespace: cert-manager
       type: Opaque
       stringData:
         api-key: "{{ cloudflare_api_key }}"
