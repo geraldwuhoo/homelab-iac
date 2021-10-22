@@ -1,0 +1,25 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: disallow password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+  register: ssh_config
+
+- name: disallow root SSH access
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+  register: ssh_config
+
+- name: restart sshd
+  systemd:
+    name: sshd
+    state: restarted
+    enabled: yes
+    masked: no
+  when: ssh_config.changed

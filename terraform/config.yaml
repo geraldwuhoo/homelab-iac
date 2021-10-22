@@ -1,0 +1,51 @@
+proxmox:
+    api_url: ENC[AES256_GCM,data:375+zKZ66bJVlgA552MynzekieNwMiMXU8uVSBw6vEO6e6LltQ==,iv:iTeztrGKZXKvhgXnLj8oyd/tXC9hJB4Jsg+AVOylXKI=,tag:LNi2ntzq2wFJ5aocz+rmPQ==,type:str]
+    api_token_id: ENC[AES256_GCM,data:wEtpJARujLYhjHa3rqcd1Hx66VeUMLHJSG5J2A==,iv:uS/Ehyi9bQmUWuDnyklHaDvAZdn+BUFQeuG5OQCDDus=,tag:O39yOgE5vVeNpeFW/KIuTQ==,type:str]
+    api_token_secret: ENC[AES256_GCM,data:AsGtco4o7nyWbWnpl9f7KNcnkP+c2GzhT9od22i/kLWzeN3k,iv:nBGvoap6tx1l9qWh60WYWonxi17dnxbmgdOsekzFNUU=,tag:+tqEmbTCyt9+P9D5x145lA==,type:str]
+nodes:
+    controlplane:
+        - vmid: 200
+          name: araragi
+          node: bake
+          macaddr: ENC[AES256_GCM,data:D4lni6zXbkCXvLnPlCe7GV4=,iv:Spy5hp07zqvi9P0OpCYldSyYCK73uTNGL9RdvL1LzFc=,tag:JwixPOfHcBEqX5DSIuMjyA==,type:str]
+        - vmid: 201
+          name: shinobu
+          node: nise
+          macaddr: ENC[AES256_GCM,data:A6OhUSvz/eRH+CUrMo1bC/0=,iv:URDI0RzeVNcsKyaqPfAoItiF/4KcVVuTJH8qrWiZ4cI=,tag:eyd7bAR+IoOZgKPRJLb6PA==,type:str]
+        - vmid: 202
+          name: senjougahara
+          node: neko
+          macaddr: ENC[AES256_GCM,data:o9As6ll+av0P8/a7W7UihGE=,iv:Jupy1irtlU7cnWABWTNYe6+Ubrfw2Twp+ctzNQTQrHA=,tag:3WnrgPpPdGWEOaEN3mQ+cg==,type:str]
+    workers:
+        - vmid: 300
+          name: hanekawa
+          node: bake
+          macaddr: ENC[AES256_GCM,data:EhOnzfBjIqH2NE3mDw5if0o=,iv:+nAs4AfIvE1ix5VuivvPTYxq/kNbkYjlxQzmLUiH5VM=,tag:BLI3riyPwQfJma/zaF0j3g==,type:str]
+        - vmid: 301
+          name: hachikuji
+          node: nise
+          macaddr: ENC[AES256_GCM,data:3Y+nNB7sIMENTtj3T9J5kfc=,iv:bI/qAqnLNLoRL7YlAP9UF2V+ikDCPBX8g0UaLzV/UvQ=,tag:VJ6Uw8VXuNYjVtUUt4axeA==,type:str]
+        - vmid: 302
+          name: kanbaru
+          node: neko
+          macaddr: ENC[AES256_GCM,data:O7b85QB46gIFeNVKx8OD4yA=,iv:ZQysuJBgmBpALM7jR4hlfgJ1G9wcEeNJ5yo/hdT4T2I=,tag:AIWWGHjkJl5aneR9rkt1lQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBwOFFMcHBkRzFHcEJ3MjZa
+            aWJVaU5TMEsydmtNVUFxbmNUODB6T2tkL200CkpOckRRdXhjV3RsSkFVSmNWMG8w
+            bHRNK0FaUWR2aEFQTVlubi9sc0RJZ0EKLS0tIHY5T1dzZEp5cjVMYTMzWmo3N1Yw
+            aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
+            DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2021-10-21T07:44:24Z"
+    mac: ENC[AES256_GCM,data:ZjMSG28k9j2xFi+WWPGEdIYtdd4MPO7NzQFm8mtqYJFRl3zDTgJ2khhJ9l0hNIuEa25CUJ7Mx6FqsMDv+2CLlWwnrRj0y51bS+NifEZ43JVfYMs/0NWO0Qc1Mw9kew1QQQTPW0HgzHkvivdq7E+aio8/s4bPpRdea2xbbMTJNuY=,iv:S/I8XhZF1DHqHCw4BMOqn3IQseV8s6srmHPYIgy2mb4=,tag:3EMQD2oHCrC0zrxLnZtd5A==,type:str]
+    pgp: []
+    encrypted_regex: (api.*|macaddr|username|password|connection_url)
+    version: 3.7.1

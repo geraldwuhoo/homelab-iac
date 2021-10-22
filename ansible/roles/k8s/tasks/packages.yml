@@ -1,0 +1,40 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Register system to Red Hat
+  community.general.redhat_subscription:
+    state: present
+    activationkey: "{{ activationkey }}"
+    org_id: "{{ org_id }}"
+
+- name: Add kubernetes repos
+  ansible.builtin.yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    enabled: yes
+    gpgcheck: yes
+    repo_gpgcheck: no
+    gpgkey: "{{ item.gpgkey }}"
+    exclude: "{{ item.exclude }}"
+  loop: "{{ repos }}"
+
+- name: Remove conflicting packages
+  ansible.builtin.dnf:
+    name: "{{ conflicting_packages }}"
+    state: absent
+
+- name: Enable RHSM codeready-builder
+  community.general.rhsm_repository:
+    name: codeready-builder-for-rhel-8-x86_64-rpms
+
+- name: Install epel repo
+  ansible.builtin.dnf:
+    name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm'
+    state: present
+    disable_gpg_check: yes
+
+- name: Install packages
+  ansible.builtin.dnf:
+    name: "{{ packages }}"
+    state: present
+    disable_excludes: kubernetes

@@ -1,0 +1,31 @@
+- name: Get join commands
+  block:
+    - name: Get the kubeadm join command
+      ansible.builtin.command: kubeadm token create --print-join-command
+      changed_when: false
+      register: kubernetes_join
+
+    - name: Create new certificate key
+      ansible.builtin.command: kubeadm init phase upload-certs --upload-certs
+      changed_when: false
+      register: kubernetes_cert_key_output
+
+    - name: Extract cert key
+      ansible.builtin.set_fact:
+        kubernetes_cert_key: "{{ kubernetes_cert_key_output.stdout_lines | last }}"
+
+    - name: Set kubeadm worker join commands
+      ansible.builtin.set_fact:
+        kubernetes_worker_join_command: "{{ kubernetes_join.stdout }}"
+      delegate_to: "{{ item }}"
+      delegate_facts: true
+      with_items: "{{ groups['k8s'] }}"
+
+    - name: Set kubeadm controlplane join commands
+      ansible.builtin.set_fact:
+        kubernetes_controlplane_join_command: "{{ kubernetes_join.stdout }} --control-plane --certificate-key {{ kubernetes_cert_key }}"
+      delegate_to: "{{ item }}"
+      delegate_facts: true
+      with_items: "{{ groups['k8s'] }}"
+
+  run_once: true

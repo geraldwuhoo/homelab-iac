@@ -1,0 +1,24 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt
+  namespace: default
+spec:
+  acme:
+    email: {{ letsencrypt_email }}
+{% if letsencrypt_prod %}
+    server: https://acme-v02.api.letsencrypt.org/directory
+{% else %}
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+{% endif %}
+    privateKeySecretRef:
+      name: letsencrypt
+    solvers:
+      - dns01:
+          cloudflare:
+            email: "{{ cloudflare_email }}"
+            apiKeySecretRef:
+              name: cloudflare-api-key-secret
+              key: api-key
+        selector: {}

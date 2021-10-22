@@ -1,0 +1,21 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Install python-openshift
+  ansible.builtin.dnf:
+    name: python3-openshift
+    state: present
+  become: yes
+
+- name: Check if helm exists
+  stat:
+    path: /usr/local/sbin/helm
+  register: helm
+- name: Install helm
+  include: helm.yml
+  become: yes
+  when: not helm.stat.exists
+
+- name: Install postinstall k8s deployments
+  include: services.yml
+  run_once: true
+  become: yes

@@ -1,0 +1,30 @@
+---
+- hosts: k8s
+  gather_facts: false
+  tags:
+    - prepare
+  roles:
+    - k8s
+
+- hosts: controlplane
+  gather_facts: false
+  tags:
+    - kubeadm
+    - controlplane
+  roles:
+    - controlplane
+
+- hosts: worker
+  gather_facts: false
+  tags:
+    - kubeadm
+    - worker
+  roles:
+    - worker
+
+- hosts: controlplane
+  gather_facts: false
+  tags:
+    - postinstall
+  roles:
+    - postinstall

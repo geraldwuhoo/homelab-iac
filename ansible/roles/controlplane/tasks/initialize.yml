@@ -1,0 +1,45 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Copy kube-vip config to the manifests
+  ansible.builtin.template:
+    src: kube-vip.j2
+    dest: /etc/kubernetes/manifests/kube-vip.yaml
+
+- name: Kubeadm init
+  ansible.builtin.command: kubeadm init --control-plane-endpoint "{{ vip_hostname }}.{{ domain }}:6443" --upload-certs
+
+- name: Wait until /etc/kubernetes/admin.conf is created before continuing
+  ansible.builtin.wait_for:
+    path: /etc/kubernetes/admin.conf
+    timeout: 60
+    delay: 5
+    msg: Timeout to find file /etc/kubernetes/admin.conf
+
+- name: Ensure .kube directory exists.
+  file:
+    path: ~/.kube
+    state: directory
+    mode: 0755
+
+- name: Link kubernetes config file on remote machine
+  file:
+    src: /etc/kubernetes/admin.conf
+    dest: ~/.kube/config
+    state: link
+    mode: 0644
+
+- name: Fetch kubernetes config file
+  ansible.builtin.fetch:
+    src: /etc/kubernetes/admin.conf
+    dest: ~/.kube/config
+    flat: yes
+
+- name: Get Kubernetes version for Weave installation
+  ansible.builtin.shell: kubectl version | base64 | tr -d '\n'
+  register: kubectl_version
+  changed_when: false
+
+- name: Configure weave networking
+  ansible.builtin.command: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version={{ kubectl_version.stdout_lines[0] }}&env.IPALLOC_RANGE=10.32.0.0/16"
+  register: weave_result
+  changed_when: "'created' in weave_result.stdout"

@@ -1,0 +1,39 @@
+---
+vms:
+  - name: araragi
+    target: bake
+    mac: "56:c4:29:f3:9e:e4"
+    cores: 2
+    memory: 4096
+    balloon: 4096
+  - name: shinobu
+    target: nise
+    mac: "ae:cd:08:65:54:c1"
+    cores: 2
+    memory: 4096
+    balloon: 4096
+  - name: senjougahara
+    target: neko
+    mac: "c6:4e:39:5d:45:6f"
+    cores: 2
+    memory: 4096
+    balloon: 4096
+  - name: hanekawa
+    target: bake
+    mac: "3e:3a:ca:e6:60:42"
+    cores: 4
+    memory: 16384
+    balloon: 4096
+  - name: hachikuji
+    target: nise
+    mac: "56:32:54:0c:09:4e"
+    cores: 4
+    memory: 16384
+    balloon: 4096
+  - name: kanbaru
+    target: neko
+    mac: "42:3b:cb:2b:df:0c"
+    cores: 4
+    memory: 16384
+    balloon: 4096
+

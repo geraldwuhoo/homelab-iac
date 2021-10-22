@@ -1,0 +1,5 @@
+---
+- hosts: pve
+  gather_facts: false
+  roles:
+    - pve

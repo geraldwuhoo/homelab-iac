@@ -1,0 +1,13 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Secure SSH
+  include: ssh.yml
+  become: yes
+
+- name: Install packages
+  include: packages.yml
+  become: yes
+
+- name: Configuration
+  include: config.yml
+  become: yes

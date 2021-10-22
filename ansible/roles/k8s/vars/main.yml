@@ -1,0 +1,55 @@
+---
+repos:
+  - name: kubernetes
+    description: Kubernetes
+    baseurl: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64"
+    gpgkey: "https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg"
+    exclude: kubelet kubeadm kubectl
+  - name: docker-ce-stable
+    description: Docker CE Stable - x86_64
+    baseurl: "https://download.docker.com/linux/centos/8/x86_64/stable"
+    gpgkey: "https://download.docker.com/linux/centos/gpg"
+    exclude:
+  - name: ceph
+    description: Ceph packages for x86_64
+    baseurl: "https://download.ceph.com/rpm-pacific/el8/x86_64"
+    gpgkey: "https://download.ceph.com/keys/release.gpg"
+    exclude:
+  - name: ceph-noarch
+    description: Ceph noarch packages
+    baseurl: "https://download.ceph.com/rpm-pacific/el8/noarch"
+    gpgkey: "https://download.ceph.com/keys/release.gpg"
+    exclude:
+
+conflicting_packages:
+  - docker-podman
+  - podman
+  - buildah
+  - runc
+
+packages:
+  - ceph
+  - containerd.io
+  - kubeadm
+  - kubectl
+  - kubelet
+  - rsync
+  - tc
+  - vim
+
+firewalld:
+  - 9345/tcp
+  - 6443/tcp
+  - 10250/tcp
+  - 2379/tcp
+  - 2380/tcp
+  - 30000-32767/tcp
+  - 9796/tcp
+  - 19090/tcp
+  - 6942/tcp
+  - 9091/tcp
+  - 4244/tcp
+  - 4240/tcp
+  - 6081/udp
+  - 80/tcp
+  - 443/tcp

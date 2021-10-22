@@ -1,0 +1,10 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Check if kubernetes already initialized
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: k8s_installed
+
+- name: Kubeadm join
+  shell: "{{ kubernetes_worker_join_command }}"
+  when: not k8s_installed.stat.exists

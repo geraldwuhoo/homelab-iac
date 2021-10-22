@@ -1,0 +1,158 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Configure NetworkManager to ignore calico/flannel
+  ansible.builtin.copy:
+    src: rke2-canal.conf
+    dest: /etc/NetworkManager/conf.d
+    owner: root
+    group: root
+    mode: '0644'
+  register: network
+
+- name: Restart NetworkManager
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: restarted
+  when: network.changed
+
+- name: Populate service facts
+  service_facts:
+
+- name: Disable nm-cloud services that add a routing table
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+    daemon_reload: yes
+  loop:
+    - nm-cloud-setup.service
+    - nm-cloud-setup.timer
+  when: ansible_facts.services[item] is defined
+
+#- name: Allow echo-request and echo-reply
+#  ansible.posix.firewalld:
+#    icmp_block: "{{ item }}"
+#    permanent: yes
+#    immediate: yes
+#    state: disabled
+#  loop:
+#    - echo-request
+#    - echo-reply
+#
+#- name: Open firewall ports
+#  ansible.posix.firewalld:
+#    port: "{{ item }}"
+#    permanent: yes
+#    immediate: yes
+#    state: enabled
+#  loop: "{{ firewalld }}"
+#
+#- name: Allow masquerade
+#  ansible.posix.firewalld:
+#    masquerade: yes
+#    permanent: yes
+#    immediate: yes
+#    state: enabled
+
+- name: Disable firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: Disable SELinux
+  ansible.posix.selinux:
+    state: disabled
+  register: selinux
+
+- name: Reboot for SELinux
+  ansible.builtin.reboot:
+  when: selinux.changed
+
+- name: containerd kernel modules
+  ansible.builtin.copy:
+    src: containerd.conf
+    dest: /etc/modules-load.d/
+    mode: 0644
+
+- name: load containerd kernel modules
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - overlay
+    - br_netfilter
+
+- name: containerd sysctl
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: yes
+  loop:
+    - name: net.bridge.bridge-nf-call-iptables
+      value: "1"
+    - name: net.ipv4.ip_forward
+      value: "1"
+    - name: net.bridge.bridge-nf-call-ip6tables
+      value: "1"
+
+- name: containerd conf
+  ansible.builtin.copy:
+    src: config.toml
+    dest: /etc/containerd/
+    mode: 0644
+  register: containerd
+
+- name: Restart containerd if applicable
+  ansible.builtin.systemd:
+    name: containerd
+    state: restarted
+    enabled: yes
+  when: containerd.changed
+
+- name: Start containerd
+  ansible.builtin.systemd:
+    name: containerd
+    state: started
+    enabled: yes
+
+- name: Start kubelet
+  ansible.builtin.systemd:
+    name: kubelet
+    state: started
+    enabled: yes
+
+- name: get all ipv4 addresses
+  setup:
+    filter: ansible_all_ipv4_addresses
+
+- name: Get ipv4
+  set_fact:
+    host_ipv4: "{{ item }}"
+  loop: "{{ ansible_all_ipv4_addresses }}"
+
+- name: host ipv4
+  debug: var=host_ipv4
+
+- name: host ipv4
+  debug: var=inventory_hostname
+
+- name: Get swap
+  ansible.builtin.setup:
+    filter: ansible_swaptotal_mb
+
+- name: Turn off swap
+  ansible.builtin.command: swapoff -a
+  when: ansible_swaptotal_mb > 0
+
+- name: Disable swap
+  ansible.builtin.lineinfile:
+    dest: /etc/fstab
+    regexp: '^/[\S]+\s+none\s+swap '
+    state: absent
+
+- name: Copy crictl yaml config
+  ansible.builtin.copy:
+    src: crictl.yaml
+    dest: /etc/

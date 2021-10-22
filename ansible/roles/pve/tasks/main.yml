@@ -1,0 +1,18 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Install proxmoxer
+  ansible.builtin.apt:
+    name:
+      - python3-proxmoxer
+    state: present
+  become: yes
+
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - ceph-mgr-dashboard
+      - vim
+      - htop
+    state: present
+  become: yes
+
