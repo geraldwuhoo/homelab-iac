@@ -13,7 +13,7 @@ Starting with a minimal working Proxmox cluster, Ceph cluster, and RHEL8-based V
 * Kube-vip floating IP via ARP for HA entrypoint to cluster
 * Kube-vip cloud controller for services of type LoadBalancer
 * Nginx-ingress-controller for services of type Ingress
-* Cert-manager with automatic Let's Encrypt certs via Cloudflare DNS-01 verification
+* Cert-manager with automatic Let's Encrypt wildcard certificates via Cloudflare DNS-01 verification
 * Ceph-CSI driver for both RBD-backed and CephFS-backed dynamic PersistentVolumeClaims 
 * Copies the generated Kubernetes config file to local `${HOME}/.kube/config` to allow local control of the remote cluster via `kubectl`
 
