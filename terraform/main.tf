@@ -52,7 +52,8 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
 
   provisioner "local-exec" {
     when = destroy
-    command = "cd ../ansible && kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name} && ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b && kubectl delete node ${self.name}"
+    command = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
+    on_failure = continue
   }
 }
 
@@ -94,7 +95,8 @@ resource "proxmox_vm_qemu" "kube-workers" {
 
   provisioner "local-exec" {
     when = destroy
-    command = "cd ../ansible && kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name} && ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b && kubectl delete node ${self.name}"
+    command = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
+    on_failure = continue
   }
 }
 
