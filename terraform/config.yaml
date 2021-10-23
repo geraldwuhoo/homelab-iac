@@ -2,6 +2,7 @@ proxmox:
     api_url: ENC[AES256_GCM,data:375+zKZ66bJVlgA552MynzekieNwMiMXU8uVSBw6vEO6e6LltQ==,iv:iTeztrGKZXKvhgXnLj8oyd/tXC9hJB4Jsg+AVOylXKI=,tag:LNi2ntzq2wFJ5aocz+rmPQ==,type:str]
     api_token_id: ENC[AES256_GCM,data:wEtpJARujLYhjHa3rqcd1Hx66VeUMLHJSG5J2A==,iv:uS/Ehyi9bQmUWuDnyklHaDvAZdn+BUFQeuG5OQCDDus=,tag:O39yOgE5vVeNpeFW/KIuTQ==,type:str]
     api_token_secret: ENC[AES256_GCM,data:AsGtco4o7nyWbWnpl9f7KNcnkP+c2GzhT9od22i/kLWzeN3k,iv:nBGvoap6tx1l9qWh60WYWonxi17dnxbmgdOsekzFNUU=,tag:+tqEmbTCyt9+P9D5x145lA==,type:str]
+sudo_password: ENC[AES256_GCM,data:dIOj9iAOpt4=,iv:xyvnp2WtEv7Fx9vDHl9a9S+MO30yaq/GbvGBL+2xtC4=,tag:EUfvU693nhaTt++T8GcbgQ==,type:str]
 nodes:
     controlplane:
         - vmid: 200
@@ -44,8 +45,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-10-21T07:44:24Z"
-    mac: ENC[AES256_GCM,data:ZjMSG28k9j2xFi+WWPGEdIYtdd4MPO7NzQFm8mtqYJFRl3zDTgJ2khhJ9l0hNIuEa25CUJ7Mx6FqsMDv+2CLlWwnrRj0y51bS+NifEZ43JVfYMs/0NWO0Qc1Mw9kew1QQQTPW0HgzHkvivdq7E+aio8/s4bPpRdea2xbbMTJNuY=,iv:S/I8XhZF1DHqHCw4BMOqn3IQseV8s6srmHPYIgy2mb4=,tag:3EMQD2oHCrC0zrxLnZtd5A==,type:str]
+    lastmodified: "2021-10-23T03:38:11Z"
+    mac: ENC[AES256_GCM,data:n/JOLpsNTkcQ0UJaBCiM1Xv95OzFBxXTybEmYUq5TkueOe5QKaQ17CfJ3BtTz7ONQo1GTCD3sXzM1jT+kFPMSN5npfpGLTZcDPqgE/gt+ZPgWmlZqG3Kakc/T//QtLNHSOLq42tb6blH9f8RrKxwwtl5qDgZsE67Uz3dav3GlUk=,iv:3ONMg8oB0Qn/xS3973/4jqqWvlQqFDruWqjZjCvcIS4=,tag:BxCoJq0XAgmSCMny4UOoRg==,type:str]
     pgp: []
     encrypted_regex: (api.*|macaddr|username|password|connection_url)
     version: 3.7.1

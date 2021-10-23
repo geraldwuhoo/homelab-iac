@@ -49,6 +49,11 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
     macaddr = var.controlplane[count.index]["macaddr"]
     bridge  = "vmbr2"
   }
+
+  provisioner "local-exec" {
+    when = destroy
+    command = "cd ../ansible && kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name} && ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b && kubectl delete node ${self.name}"
+  }
 }
 
 resource "proxmox_vm_qemu" "kube-workers" {
@@ -86,4 +91,25 @@ resource "proxmox_vm_qemu" "kube-workers" {
     macaddr = var.workers[count.index]["macaddr"]
     bridge  = "vmbr2"
   }
+
+  provisioner "local-exec" {
+    when = destroy
+    command = "cd ../ansible && kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name} && ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b && kubectl delete node ${self.name}"
+  }
+}
+
+resource "null_resource" "provisioner" {
+  triggers = {
+    "controlplane_instance_ids" = "${join(",", proxmox_vm_qemu.kube-controlplane.*.id)}"
+    "workers_instance_ids" = "${join(",", proxmox_vm_qemu.kube-workers.*.id)}"
+  }
+
+  provisioner "local-exec" {
+    command = "cd ../ansible && ansible-playbook k8s.yml"
+  }
+
+  depends_on = [
+    proxmox_vm_qemu.kube-controlplane,
+    proxmox_vm_qemu.kube-workers
+  ]
 }

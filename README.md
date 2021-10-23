@@ -83,16 +83,10 @@ pvenode config set --startall-onboot-delay 180
 ## Deployment steps
 
 
-### Step 1: Deploy VMs
+### Step 1: Deploy VMs and `kubeadm` cluster
 
 ```
 terragrunt apply
-```
-
-### Step 2: Run ansible-playbook to deploy kubernetes nodes with `kubeadm`
-
-```
-ansible-playbook k8s.yml
 ```
 
 That's it!
@@ -103,13 +97,15 @@ Let's say you want to update your base VM template, and you want to recreate you
 
 1. Point the `template_name` var in `terraform/vars.tf` at the name of the new template.
 1. Gracefully remove a node from the Kubernetes infrastructure:
-    1. `kubectl drain <node>`
-    1. `kubeadm reset` <-- run this command on the node itself
-    1. `kubectl delete node <node>`
-    1. `terragrunt destroy -target="proxmox_vm_qemu.<resource-name>[<resource-index>]"`
+
+    `terragrunt destroy -target="proxmox_vm_qemu.<resource-name>[<resource-index>]"`
+
+    ex: `terragrunt destroy -target="proxmox_vm_qemu.controlplane[0]"`
+
 1. Recreate and rejoin the node (now based on the new template) to the Kubernetes infrastructure:
-    1. `terragrunt apply`
-    1. `ansible-playbook k8s.yml`
+
+    `terragrunt apply`
+
 1. Repeat steps 2-3 for each node in the cluster
 
 **IT IS IMPORTANT THAT YOU RUN EACH STEP SEQUENTIALLY. DO NOT RUN IN PARALLEL.**

@@ -120,6 +120,7 @@
         userID: "{{ item.user_id }}"
         userKey: "{{ item.user_key }}"
   loop: "{{ ceph_rbd_users }}"
+  no_log: true
 
 - name: Ceph RBD storageclass
   community.kubernetes.k8s:
@@ -172,6 +173,7 @@
         adminID: "{{ item.admin_id }}"
         adminKey: "{{ item.admin_key }}"
   loop: "{{ ceph_cephfs_users }}"
+  no_log: true
 
 - name: Ceph cephfs storageclass
   community.kubernetes.k8s:

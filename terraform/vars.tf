@@ -31,7 +31,6 @@ variable "controlplane" {
     node    = string
     macaddr = string
   }))
-  sensitive = true
 }
 
 variable "workers" {
@@ -41,5 +40,4 @@ variable "workers" {
     node    = string
     macaddr = string
   }))
-  sensitive = true
 }
