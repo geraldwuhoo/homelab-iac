@@ -1,5 +1,5 @@
 locals {
-  config = yamldecode(sops_decrypt_file(("config.yaml")))
+  config = yamldecode(sops_decrypt_file(("config.sops.yaml")))
 }
 
 inputs = {
