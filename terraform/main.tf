@@ -51,8 +51,8 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
   }
 
   provisioner "local-exec" {
-    when = destroy
-    command = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
+    when       = destroy
+    command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
     on_failure = continue
   }
 }
@@ -94,8 +94,8 @@ resource "proxmox_vm_qemu" "kube-workers" {
   }
 
   provisioner "local-exec" {
-    when = destroy
-    command = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
+    when       = destroy
+    command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
     on_failure = continue
   }
 }
@@ -103,7 +103,7 @@ resource "proxmox_vm_qemu" "kube-workers" {
 resource "null_resource" "provisioner" {
   triggers = {
     "controlplane_instance_ids" = "${join(",", proxmox_vm_qemu.kube-controlplane.*.id)}"
-    "workers_instance_ids" = "${join(",", proxmox_vm_qemu.kube-workers.*.id)}"
+    "workers_instance_ids"      = "${join(",", proxmox_vm_qemu.kube-workers.*.id)}"
   }
 
   provisioner "local-exec" {
@@ -114,4 +114,16 @@ resource "null_resource" "provisioner" {
     proxmox_vm_qemu.kube-controlplane,
     proxmox_vm_qemu.kube-workers
   ]
+}
+
+resource "local_file" "ansible_inventory" {
+  content = templatefile("inventory.tmpl",
+    {
+      controlplane_names = proxmox_vm_qemu.kube-controlplane.*.name
+      worker_names       = proxmox_vm_qemu.kube-workers.*.name
+    }
+  )
+  filename             = "../ansible/hosts"
+  directory_permission = "0755"
+  file_permission      = "0644"
 }

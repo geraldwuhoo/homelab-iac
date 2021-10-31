@@ -15,4 +15,3 @@
       - htop
     state: present
   become: yes
-
