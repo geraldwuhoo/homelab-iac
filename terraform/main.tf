@@ -14,6 +14,18 @@ provider "proxmox" {
   pm_api_token_secret = var.pm_api_token_secret
 }
 
+resource "local_file" "ansible_inventory" {
+  content = templatefile("inventory.tmpl",
+    {
+      controlplane_names = var.controlplane.*.name
+      worker_names       = var.workers.*.name
+    }
+  )
+  filename             = "../ansible/hosts"
+  directory_permission = "0755"
+  file_permission      = "0644"
+}
+
 resource "proxmox_vm_qemu" "kube-controlplane" {
   count = length(var.controlplane)
   vmid  = var.controlplane[count.index]["vmid"]
@@ -55,6 +67,10 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
     command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
     on_failure = continue
   }
+
+  depends_on = [
+    local_file.ansible_inventory
+  ]
 }
 
 resource "proxmox_vm_qemu" "kube-workers" {
@@ -98,6 +114,10 @@ resource "proxmox_vm_qemu" "kube-workers" {
     command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
     on_failure = continue
   }
+
+  depends_on = [
+    local_file.ansible_inventory
+  ]
 }
 
 resource "null_resource" "provisioner" {
@@ -114,16 +134,4 @@ resource "null_resource" "provisioner" {
     proxmox_vm_qemu.kube-controlplane,
     proxmox_vm_qemu.kube-workers
   ]
-}
-
-resource "local_file" "ansible_inventory" {
-  content = templatefile("inventory.tmpl",
-    {
-      controlplane_names = proxmox_vm_qemu.kube-controlplane.*.name
-      worker_names       = proxmox_vm_qemu.kube-workers.*.name
-    }
-  )
-  filename             = "../ansible/hosts"
-  directory_permission = "0755"
-  file_permission      = "0644"
 }
