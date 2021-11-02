@@ -14,11 +14,6 @@ variable "pm_api_token_secret" {
   sensitive = true
 }
 
-variable "template_name" {
-  type    = string
-  default = "oddity"
-}
-
 variable "scsi_storage" {
   type    = string
   default = "rbd"
@@ -26,18 +21,20 @@ variable "scsi_storage" {
 
 variable "controlplane" {
   type = list(object({
-    vmid    = number
-    name    = string
-    node    = string
-    macaddr = string
+    vmid          = number
+    name          = string
+    node          = string
+    macaddr       = string
+    template_name = string
   }))
 }
 
 variable "workers" {
   type = list(object({
-    vmid    = number
-    name    = string
-    node    = string
-    macaddr = string
+    vmid          = number
+    name          = string
+    node          = string
+    macaddr       = string
+    template_name = string
   }))
 }

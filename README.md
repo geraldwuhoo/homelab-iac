@@ -95,18 +95,12 @@ That's it!
 
 Let's say you want to update your base VM template, and you want to recreate your Kubernetes nodes to point at the new template. This is trivial since both Terraform and Ansible are idempotent.
 
-1. Point the `template_name` var in `terraform/vars.tf` at the name of the new template.
-1. Gracefully remove a node from the Kubernetes infrastructure:
-
-    `terragrunt destroy -target="proxmox_vm_qemu.<resource-name>[<resource-index>]"`
-
-    ex: `terragrunt destroy -target="proxmox_vm_qemu.controlplane[0]"`
-
+1. Point the `template_name` var for a target node in `terraform/config.sops.yaml` at the name of the new template.
 1. Recreate and rejoin the node (now based on the new template) to the Kubernetes infrastructure:
 
     `terragrunt apply`
 
-1. Repeat steps 2-3 for each node in the cluster
+1. Repeat steps 1-2 for each node in the cluster
 
 **IT IS IMPORTANT THAT YOU RUN EACH STEP SEQUENTIALLY. DO NOT RUN IN PARALLEL.**
 

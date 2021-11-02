@@ -8,27 +8,33 @@ nodes:
           name: araragi
           node: bake
           macaddr: ENC[AES256_GCM,data:D4lni6zXbkCXvLnPlCe7GV4=,iv:Spy5hp07zqvi9P0OpCYldSyYCK73uTNGL9RdvL1LzFc=,tag:JwixPOfHcBEqX5DSIuMjyA==,type:str]
+          template_name: oddity
         - vmid: 201
           name: shinobu
           node: nise
           macaddr: ENC[AES256_GCM,data:A6OhUSvz/eRH+CUrMo1bC/0=,iv:URDI0RzeVNcsKyaqPfAoItiF/4KcVVuTJH8qrWiZ4cI=,tag:eyd7bAR+IoOZgKPRJLb6PA==,type:str]
+          template_name: oddity
         - vmid: 202
           name: senjougahara
           node: neko
           macaddr: ENC[AES256_GCM,data:o9As6ll+av0P8/a7W7UihGE=,iv:Jupy1irtlU7cnWABWTNYe6+Ubrfw2Twp+ctzNQTQrHA=,tag:3WnrgPpPdGWEOaEN3mQ+cg==,type:str]
+          template_name: oddity
     workers:
         - vmid: 300
           name: hanekawa
           node: bake
           macaddr: ENC[AES256_GCM,data:EhOnzfBjIqH2NE3mDw5if0o=,iv:+nAs4AfIvE1ix5VuivvPTYxq/kNbkYjlxQzmLUiH5VM=,tag:BLI3riyPwQfJma/zaF0j3g==,type:str]
+          template_name: oddity
         - vmid: 301
           name: hachikuji
           node: nise
           macaddr: ENC[AES256_GCM,data:3Y+nNB7sIMENTtj3T9J5kfc=,iv:bI/qAqnLNLoRL7YlAP9UF2V+ikDCPBX8g0UaLzV/UvQ=,tag:VJ6Uw8VXuNYjVtUUt4axeA==,type:str]
+          template_name: oddity
         - vmid: 302
           name: kanbaru
           node: neko
           macaddr: ENC[AES256_GCM,data:O7b85QB46gIFeNVKx8OD4yA=,iv:ZQysuJBgmBpALM7jR4hlfgJ1G9wcEeNJ5yo/hdT4T2I=,tag:AIWWGHjkJl5aneR9rkt1lQ==,type:str]
+          template_name: oddity
 sops:
     kms: []
     gcp_kms: []
@@ -44,8 +50,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-10-31T02:12:26Z"
-    mac: ENC[AES256_GCM,data:9wyks657lopomtiYjThtqpjWmavleH71uko6fSTbENyKqoDeT8iE+a01hrzWoRwyIc4nuZoFWuUUNMaBDsgfIuQoJpvSsKaeEvLfw6iM0r8N2degdNaU+M3Tr+7bQzawQPEp2gRyOcAMT1cIslD5aFD8aLa8ANJJqFPgCtpF8lM=,iv:GLSKpQgGG5m9BZhTAyxKICkly4LXgp/U7kJUBtPvFtk=,tag:heFwN7vrz1qIagiiIfSpGw==,type:str]
+    lastmodified: "2021-11-02T06:23:11Z"
+    mac: ENC[AES256_GCM,data:wTa1PN8RRoIk+6xcLbwzzaiLeXCk3GtzJSYP6ZHoD0kxY+25hifWfqkwUg8dcJV3jYXTF6OUOQhmE5Jjc8GODtHm9NDXLmdFn5/bybHroff5irg7NL6bR4kNeQtC3qXRke1mRlUFrThYPkZdU/ZAjAyteH2IEpXpQOlGJ7Fq1mM=,iv:DY2o85p8hsZhXRhfmXj6xJ+w/j5smDiNFLzIEkRq3JY=,tag:YWzCFSpeEmRLnfJcvMJvaA==,type:str]
     pgp: []
     encrypted_regex: (api.*|macaddr|username|password|connection_url)
     version: 3.7.1

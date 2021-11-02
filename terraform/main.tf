@@ -44,7 +44,7 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
   target_node = var.controlplane[count.index]["node"]
   hastate     = "ignored"
 
-  clone      = var.template_name
+  clone      = var.controlplane[count.index]["template_name"]
   full_clone = false
 
   cores    = 2
@@ -66,7 +66,7 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
 
   network {
     model   = "virtio"
-    macaddr = var.controlplane[count.index]["macaddr"]
+    macaddr = var.controlplane[count.index].macaddr
     bridge  = "vmbr2"
   }
 
@@ -96,7 +96,7 @@ resource "proxmox_vm_qemu" "kube-workers" {
   target_node = var.workers[count.index]["node"]
   hastate     = "ignored"
 
-  clone      = var.template_name
+  clone      = var.workers[count.index]["template_name"]
   full_clone = false
 
   cores    = 4
@@ -118,7 +118,7 @@ resource "proxmox_vm_qemu" "kube-workers" {
 
   network {
     model   = "virtio"
-    macaddr = var.workers[count.index]["macaddr"]
+    macaddr = var.workers[count.index].macaddr
     bridge  = "vmbr2"
   }
 
@@ -152,4 +152,10 @@ resource "null_resource" "provisioner" {
     proxmox_vm_qemu.kube-controlplane,
     proxmox_vm_qemu.kube-workers
   ]
+}
+
+resource "kubernetes_namespace" "flux-namespace" {
+  metadata {
+    name = "flux-system"
+  }
 }
