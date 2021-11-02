@@ -158,4 +158,23 @@ resource "kubernetes_namespace" "flux-namespace" {
   metadata {
     name = "flux-system"
   }
+
+  depends_on = [
+    null_resource.provisioner
+  ]
+}
+
+resource "kubernetes_secret" "flux-sops-age" {
+  metadata {
+    name      = "sops-age"
+    namespace = "flux-system"
+  }
+
+  data = {
+    "keys.agekey" = "${file("~/.config/sops/age/keys.txt")}"
+  }
+
+  depends_on = [
+    null_resource.provisioner
+  ]
 }
