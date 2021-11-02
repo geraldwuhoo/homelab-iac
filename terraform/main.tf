@@ -2,7 +2,11 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "2.8.0"
+      version = ">= 2.9.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.6.1"
     }
   }
   backend "pg" {}
@@ -12,6 +16,10 @@ provider "proxmox" {
   pm_api_url          = var.pm_api_url
   pm_api_token_id     = var.pm_api_token_id
   pm_api_token_secret = var.pm_api_token_secret
+}
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
 }
 
 resource "local_file" "ansible_inventory" {
@@ -31,8 +39,7 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
   vmid  = var.controlplane[count.index]["vmid"]
   name  = var.controlplane[count.index]["name"]
 
-  agent                     = 1
-  guest_agent_ready_timeout = 180
+  agent = 1
 
   target_node = var.controlplane[count.index]["node"]
   hastate     = "ignored"
@@ -46,6 +53,7 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
   balloon  = 4096
   bios     = "ovmf"
   bootdisk = "scsi0"
+  tablet   = false
 
   disk {
     slot    = 0
@@ -60,6 +68,11 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
     model   = "virtio"
     macaddr = var.controlplane[count.index]["macaddr"]
     bridge  = "vmbr2"
+  }
+
+  timeouts {
+    create = "10m"
+    delete = "5m"
   }
 
   provisioner "local-exec" {
@@ -78,8 +91,7 @@ resource "proxmox_vm_qemu" "kube-workers" {
   vmid  = var.workers[count.index]["vmid"]
   name  = var.workers[count.index]["name"]
 
-  agent                     = 1
-  guest_agent_ready_timeout = 180
+  agent = 1
 
   target_node = var.workers[count.index]["node"]
   hastate     = "ignored"
@@ -93,6 +105,7 @@ resource "proxmox_vm_qemu" "kube-workers" {
   balloon  = 2048
   bios     = "ovmf"
   bootdisk = "scsi0"
+  tablet   = false
 
   disk {
     slot    = 0
@@ -107,6 +120,11 @@ resource "proxmox_vm_qemu" "kube-workers" {
     model   = "virtio"
     macaddr = var.workers[count.index]["macaddr"]
     bridge  = "vmbr2"
+  }
+
+  timeouts {
+    create = "10m"
+    delete = "5m"
   }
 
   provisioner "local-exec" {
