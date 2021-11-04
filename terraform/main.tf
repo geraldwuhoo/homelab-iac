@@ -175,6 +175,7 @@ resource "kubernetes_secret" "flux-sops-age" {
   }
 
   depends_on = [
-    null_resource.provisioner
+    null_resource.provisioner,
+    kubernetes_namespace.flux-namespace
   ]
 }
