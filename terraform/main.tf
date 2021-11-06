@@ -159,6 +159,11 @@ resource "kubernetes_namespace" "flux-namespace" {
     name = "flux-system"
   }
 
+  provisioner "local-exec" {
+    when = destroy
+    command = "flux uninstall"
+  }
+
   depends_on = [
     null_resource.provisioner
   ]
