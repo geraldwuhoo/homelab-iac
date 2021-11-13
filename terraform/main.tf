@@ -68,6 +68,7 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
     model   = "virtio"
     macaddr = var.controlplane[count.index].macaddr
     bridge  = "vmbr2"
+    tag     = 70
   }
 
   timeouts {
@@ -120,6 +121,7 @@ resource "proxmox_vm_qemu" "kube-workers" {
     model   = "virtio"
     macaddr = var.workers[count.index].macaddr
     bridge  = "vmbr2"
+    tag     = 70
   }
 
   timeouts {
@@ -160,8 +162,8 @@ resource "kubernetes_namespace" "flux-namespace" {
   }
 
   provisioner "local-exec" {
-    when = destroy
-    command = "flux uninstall"
+    when    = destroy
+    command = "flux uninstall --silent"
   }
 
   depends_on = [

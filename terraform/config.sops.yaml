@@ -7,33 +7,33 @@ nodes:
         - vmid: 200
           name: araragi
           node: bake
-          macaddr: ENC[AES256_GCM,data:D4lni6zXbkCXvLnPlCe7GV4=,iv:Spy5hp07zqvi9P0OpCYldSyYCK73uTNGL9RdvL1LzFc=,tag:JwixPOfHcBEqX5DSIuMjyA==,type:str]
+          macaddr: ENC[AES256_GCM,data:8zqNHO3rZ1HAVj55MMDIQl0=,iv:ssniHz/yND4LxdONl/rHe3osDWuz6YPO1VNsKUpb8gw=,tag:jKrLC6aniorei04ildVhJg==,type:str]
           template_name: oddity
         - vmid: 201
           name: shinobu
           node: nise
-          macaddr: ENC[AES256_GCM,data:A6OhUSvz/eRH+CUrMo1bC/0=,iv:URDI0RzeVNcsKyaqPfAoItiF/4KcVVuTJH8qrWiZ4cI=,tag:eyd7bAR+IoOZgKPRJLb6PA==,type:str]
+          macaddr: ENC[AES256_GCM,data:E/i3X4LsXeJb1d48XavBGPw=,iv:og6H5OqjY0dbQLhvHELSdo+J0htUvGRjJs5cV+XbY+U=,tag:iG1IS1J8PJJDTCDbMtoW7A==,type:str]
           template_name: oddity
         - vmid: 202
           name: senjougahara
           node: neko
-          macaddr: ENC[AES256_GCM,data:o9As6ll+av0P8/a7W7UihGE=,iv:Jupy1irtlU7cnWABWTNYe6+Ubrfw2Twp+ctzNQTQrHA=,tag:3WnrgPpPdGWEOaEN3mQ+cg==,type:str]
+          macaddr: ENC[AES256_GCM,data:+G7K+dXbnlWnwd5rs8szn28=,iv:pANMDXY5qPxJDzyvRTOFg6rkVAJj7e8LskcUqAZPNcM=,tag:+aTXarb45cHChMIztBuY/g==,type:str]
           template_name: oddity
     workers:
         - vmid: 300
           name: hanekawa
           node: bake
-          macaddr: ENC[AES256_GCM,data:EhOnzfBjIqH2NE3mDw5if0o=,iv:+nAs4AfIvE1ix5VuivvPTYxq/kNbkYjlxQzmLUiH5VM=,tag:BLI3riyPwQfJma/zaF0j3g==,type:str]
+          macaddr: ENC[AES256_GCM,data:QXF05j5TdUJ5jSxuEUbbgR4=,iv:mHYTTybI/ROY50bEXSAcReZz4C7xQVeN8WYEw0cji9U=,tag:rp9LCqhcGlkJpYY1SKOFPg==,type:str]
           template_name: oddity
         - vmid: 301
           name: hachikuji
           node: nise
-          macaddr: ENC[AES256_GCM,data:3Y+nNB7sIMENTtj3T9J5kfc=,iv:bI/qAqnLNLoRL7YlAP9UF2V+ikDCPBX8g0UaLzV/UvQ=,tag:VJ6Uw8VXuNYjVtUUt4axeA==,type:str]
+          macaddr: ENC[AES256_GCM,data:5lP/pES0GxfjhsbQvS6W3Fw=,iv:NU0SPjpRweTjRxKtRbGs+dNWgo+FBKMKYcNbNRC2MZQ=,tag:5l25Y0Ek2/VlwZHCri3RSQ==,type:str]
           template_name: oddity
         - vmid: 302
           name: kanbaru
           node: neko
-          macaddr: ENC[AES256_GCM,data:O7b85QB46gIFeNVKx8OD4yA=,iv:ZQysuJBgmBpALM7jR4hlfgJ1G9wcEeNJ5yo/hdT4T2I=,tag:AIWWGHjkJl5aneR9rkt1lQ==,type:str]
+          macaddr: ENC[AES256_GCM,data:sjg1JN2UPOQSZHcJ0vekwuA=,iv:GwYVNVXvW5yZQb/YN/+Wk29MmG3Dv/GO5DZREKY1mH8=,tag:C/5GrVBspeLLrLuObbWcWQ==,type:str]
           template_name: oddity
 sops:
     kms: []
@@ -50,8 +50,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-11-02T06:23:11Z"
-    mac: ENC[AES256_GCM,data:wTa1PN8RRoIk+6xcLbwzzaiLeXCk3GtzJSYP6ZHoD0kxY+25hifWfqkwUg8dcJV3jYXTF6OUOQhmE5Jjc8GODtHm9NDXLmdFn5/bybHroff5irg7NL6bR4kNeQtC3qXRke1mRlUFrThYPkZdU/ZAjAyteH2IEpXpQOlGJ7Fq1mM=,iv:DY2o85p8hsZhXRhfmXj6xJ+w/j5smDiNFLzIEkRq3JY=,tag:YWzCFSpeEmRLnfJcvMJvaA==,type:str]
+    lastmodified: "2021-11-11T07:25:47Z"
+    mac: ENC[AES256_GCM,data:rZTJ0KmOgvk8Ty/ImQaeKnsBEqkeM1QxTAhTawp10idNh+NJkYA+Ux8yblzQQOrKTR5FRJ4MXoC73WSC9ZfxPQADic45P8SRs9YqQeK5C2yrIgSuKJw+SkxNI0pBzCuTZmMxMra9VgyV1nN+CDbvzwD+6snbWbkJeWTBfR5awKE=,iv:nA94lLgMUf+MLUGo2HfHq1Qi4CnUt9N4lGXY/Njs4Bw=,tag:Bkvlbn/U2EXIGgohRH29Sw==,type:str]
     pgp: []
     encrypted_regex: (api.*|macaddr|username|password|connection_url)
     version: 3.7.1
