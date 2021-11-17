@@ -30,12 +30,14 @@ conflicting_packages:
 packages:
   - ceph
   - containerd.io
+  - kmod-wireguard
   - kubeadm
   - kubectl
   - kubelet
   - rsync
   - tc
   - vim
+  - wireguard-tools
 
 firewalld:
   - 9345/tcp
