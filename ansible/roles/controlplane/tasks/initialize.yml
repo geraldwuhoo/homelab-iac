@@ -33,13 +33,3 @@
     src: /etc/kubernetes/admin.conf
     dest: ~/.kube/config
     flat: yes
-
-- name: Get Kubernetes version for Weave installation
-  ansible.builtin.shell: kubectl version | base64 | tr -d '\n'
-  register: kubectl_version
-  changed_when: false
-
-- name: Configure weave networking
-  ansible.builtin.command: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version={{ kubectl_version.stdout_lines[0] }}&env.IPALLOC_RANGE=10.32.0.0/16"
-  register: weave_result
-  changed_when: "'created' in weave_result.stdout"
