@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = ">= 2.6.1"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.4.1"
+    }
   }
   backend "pg" {}
 }
@@ -20,6 +24,12 @@ provider "proxmox" {
 
 provider "kubernetes" {
   config_path = "~/.kube/config"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
 }
 
 resource "local_file" "ansible_inventory" {
@@ -153,6 +163,22 @@ resource "null_resource" "provisioner" {
   depends_on = [
     proxmox_vm_qemu.kube-controlplane,
     proxmox_vm_qemu.kube-workers
+  ]
+}
+
+resource "helm_release" "cilium" {
+  name      = "cilium"
+  namespace = "kube-system"
+
+  repository = "https://helm.cilium.io"
+  chart      = "cilium"
+
+  values = [
+    "${file("cilium_values.yaml")}"
+  ]
+
+  depends_on = [
+    null_resource.provisioner
   ]
 }
 

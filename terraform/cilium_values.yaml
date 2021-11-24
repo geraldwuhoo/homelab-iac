@@ -1,0 +1,4 @@
+l7Proxy: false
+encryption:
+  enabled: true
+  type: wireguard
