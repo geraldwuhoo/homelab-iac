@@ -1,13 +1,13 @@
 # vim: ts=2 sw=2 smartindent
 
 - name: Secure SSH
-  include: ssh.yml
+  ansible.builtin.import_tasks: ssh.yml
   become: yes
 
 - name: Install packages
-  include: packages.yml
+  ansible.builtin.import_tasks: packages.yml
   become: yes
 
 - name: Configuration
-  include: config.yml
+  ansible.builtin.import_tasks: config.yml
   become: yes

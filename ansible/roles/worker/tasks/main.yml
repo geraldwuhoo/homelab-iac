@@ -1,5 +1,5 @@
 # vim: ts=2 sw=2 smartindent
 
 - name: Create cluster
-  include: kubeadm.yml
+  ansible.builtin.import_tasks: kubeadm.yml
   become: yes

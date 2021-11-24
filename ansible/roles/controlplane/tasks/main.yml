@@ -17,11 +17,11 @@
     - test
 
 - name: Initialize kubeadm
-  include: initialize.yml
+  ansible.builtin.import_tasks: initialize.yml
   when: not already_initialized
   run_once: true
   become: yes
 
 - name: Join controlplane nodes
-  include: kubeadm.yml
+  ansible.builtin.import_tasks: kubeadm.yml
   become: yes

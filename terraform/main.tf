@@ -88,7 +88,7 @@ resource "proxmox_vm_qemu" "kube-controlplane" {
 
   provisioner "local-exec" {
     when       = destroy
-    command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
+    command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}; sed -i '/^${self.name}/d' ~/.ssh/known_hosts"
     on_failure = continue
   }
 
@@ -141,7 +141,7 @@ resource "proxmox_vm_qemu" "kube-workers" {
 
   provisioner "local-exec" {
     when       = destroy
-    command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}"
+    command    = "cd ../ansible; kubectl drain --ignore-errors --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}; sed -i '/^${self.name}/d' ~/.ssh/known_hosts" 
     on_failure = continue
   }
 
@@ -163,52 +163,5 @@ resource "null_resource" "provisioner" {
   depends_on = [
     proxmox_vm_qemu.kube-controlplane,
     proxmox_vm_qemu.kube-workers
-  ]
-}
-
-resource "helm_release" "cilium" {
-  name      = "cilium"
-  namespace = "kube-system"
-
-  repository = "https://helm.cilium.io"
-  chart      = "cilium"
-
-  values = [
-    "${file("cilium_values.yaml")}"
-  ]
-
-  depends_on = [
-    null_resource.provisioner
-  ]
-}
-
-resource "kubernetes_namespace" "flux-namespace" {
-  metadata {
-    name = "flux-system"
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "flux uninstall --silent"
-  }
-
-  depends_on = [
-    null_resource.provisioner
-  ]
-}
-
-resource "kubernetes_secret" "flux-sops-age" {
-  metadata {
-    name      = "sops-age"
-    namespace = "flux-system"
-  }
-
-  data = {
-    "keys.agekey" = "${file("~/.config/sops/age/keys.txt")}"
-  }
-
-  depends_on = [
-    null_resource.provisioner,
-    kubernetes_namespace.flux-namespace
   ]
 }
