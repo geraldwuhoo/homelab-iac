@@ -30,6 +30,7 @@ conflicting_packages:
 packages:
   - ceph
   - containerd.io
+  - htop
   - kmod-wireguard
   - kubeadm
   - kubectl
