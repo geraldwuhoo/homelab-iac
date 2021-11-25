@@ -4,7 +4,7 @@
   tags:
     - prepare
   roles:
-    - k8s
+    - register
 
 - hosts: controlplane
   gather_facts: false

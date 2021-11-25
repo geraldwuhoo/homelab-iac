@@ -29,7 +29,6 @@
       metadata:
         name: flux-system
 
-
 - name: Create fluxCD sops secret
   community.kubernetes.k8s:
     state: present

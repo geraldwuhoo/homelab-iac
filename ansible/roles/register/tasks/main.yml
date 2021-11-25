@@ -1,0 +1,7 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Register system to Red Hat
+  community.general.redhat_subscription:
+    state: present
+    activationkey: "{{ activationkey }}"
+    org_id: "{{ org_id }}"
