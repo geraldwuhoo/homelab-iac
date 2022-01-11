@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: cluster-vars
+    namespace: flux-system
+type: Opaque
+stringData:
+    CLUSTER_ENV: ENC[AES256_GCM,data:wMz1Q7/0gIkJElo=,iv:k7Vg/b5ou/kQC6u/TP2By9mLdfk69djdWmTWNuynqbw=,tag:2HNhOnC3g5LoocnWRFSH2g==,type:str]
+    DOMAIN: ENC[AES256_GCM,data:HPOsQVvnhtFpo42uTYI3yg==,iv:LSX/CcDk+sMMZ2pDXTnMtyS/hIIhBjv8Kj/+eapt20Q=,tag:S3zduDNrhCWNesQPz7KPdg==,type:str]
+    S3_CREDENTIALS: ENC[AES256_GCM,data:YYQIWMqwKWeC7+q8p3M5pr3BewcY7WDiTFG+fiM62bjQx7Ka39+ey54h0wFOluex0ikdWKyhdRXLgxlXlYgKv0h7wJJjio1d4UINjvzWP5cv9gi4haaNFSbL3Io=,iv:tX4mBgIxDMHqYlzyPUJvlawXkEnCiMzqd+SO8yPZOnk=,tag:10JRlCRfzpQopGfP81HKNw==,type:str]
+    S3_URL: ENC[AES256_GCM,data:yrQ7Rpr+tQQgHBAhV7cAQ5Xhs8jJUaq/MA==,iv:HV65mqCmY6KeU4ZzpvGbIyQ5a6T4oAnfoFqXShDC638=,tag:zLUlaDuu0NOYBTPo2fapfg==,type:str]
+    NEXTCLOUD_ADMIN_PASSWORD: ENC[AES256_GCM,data:/fiOpbcfcCtPkQqXHQSAVVrpCESLK7cH/NIlvAFcPexJcuolgjtFNS2Y+iaBd4+D,iv:BZ/drOUyvPPmUqV4pYTQp5uF/IBWvTgl+/ZgBJ2CUDM=,tag:rQp7RZ+E5C4/iiEYc7q96A==,type:str]
+    NEXTCLOUD_DB_PASSWORD: ENC[AES256_GCM,data:FMk7Z7dV6BD5KLhSZuBAXfADUGn3iabOuobNJlC6cDAQa4XxDd8y0L2pllSHSc+y,iv:XcDABqoq4/ajtBplNjyEUyLDj4uPwubQMMa3VECfB8M=,tag:7mxckOJCo2I4emrJld+6uQ==,type:str]
+    NEXTCLOUD_REDIS_PASSWORD: ENC[AES256_GCM,data:Wh80IOj1N2KBlBZSJHovV7ucz4u4LhrvDGXCfzqvviZz0AytbZPUIWuHwYA0YEFZ,iv:4GAx7ENY4j6Yl9CKS02j9ZS+J2B1If3DdTXlpwCNu8s=,tag:LRNU40qiRjuQGass/0BCTQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB6eCtZV0FiR1VQMEcwSFBu
+            T0krUldLZHVCeWt5UlpZUGFXVEw0SFhFdkc4CmZPdGhiY3Via2RkVEI3RTRTRHh6
+            cWhDQVRrQWxDOTdvNGlydGdPUHZVdDQKLS0tIFN2dmFYdlpQM01wRWY2Tm1zNm84
+            STBlRUxoTFRvbWJWK21rZEo2aEpiQTQKkITQU3R6MPsdDGZ5ng4/ZRbkBHfFDM5E
+            6M/nTT1ToNDab3KSf8d/YrQCb8E8+dXypRZq1o5QHz7fmxFF5oFhiQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2021-12-30T19:48:26Z"
+    mac: ENC[AES256_GCM,data:dXOEIObt7wxgy+FFNri6yZHx8CyBUeXOYb2nYHfcoVfuEui0HpiJ8YQQuzkP6cdbYJbG7Go96wYNQs7Jie/PkqfEAKV5vi7ZZ15ORGxFF7heIUwaY7reO7fLENpBD3ThgcxrZvj31Seumvky5mNNVYj+TJyhj8OqLlwOS5wabqI=,iv:RzJn+s8EXDkkNK3piJcXA1gsx8fM0cpBsJ/6Dn4dNrQ=,tag:HOarn2/jocSs954W5a0ffQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.1

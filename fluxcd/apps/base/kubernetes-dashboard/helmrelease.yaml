@@ -1,0 +1,28 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+spec:
+  chart:
+    spec:
+      chart: kubernetes-dashboard
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-dashboard
+        namespace: flux-system
+  interval: 1m0s
+  values:
+    extraArgs:
+      - --enable-insecure-login
+      - --system-banner="${CLUSTER_ENV} Environment"
+    protocolHttp: true
+    ingress:
+      enabled: true
+      paths:
+        - /
+      hosts:
+        - dashboard.${DOMAIN}
+    rbac:
+      clusterReadOnlyRole: true

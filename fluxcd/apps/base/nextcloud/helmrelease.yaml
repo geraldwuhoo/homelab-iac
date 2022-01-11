@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  chart:
+    spec:
+      chart: nextcloud
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+  interval: 1m0s
+  values:
+    ingress:
+      enabled: true
+    nextcloud:
+      host: cloud.${DOMAIN}
+      username: admin
+      password: ${NEXTCLOUD_ADMIN_PASSWORD}
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: nextcloud-postgresql
+      database: nextcloud
+      password: ${NEXTCLOUD_DB_PASSWORD}
+      user: nextcloud
+    postgresql:
+      enabled: true
+      postgresqlUsername: nextcloud
+      postgresqlPassword: ${NEXTCLOUD_DB_PASSWORD}
+      postgresqlDatabase: nextcloud
+      persistence:
+        enabled: true
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+        password: ${NEXTCLOUD_REDIS_PASSWORD}
+    persistence:
+      enabled: true

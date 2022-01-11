@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  claimRef:
+    name: pvc
+  csi:
+    driver: rbd.csi.ceph.com
+    fsType: ext4
+    nodeStageSecretRef:
+      name: ceph-admin
+      namespace: default
+    volumeAttributes:
+      "clusterID": "${CEPH_CLUSTER_ID}"
+      "pool": "${KUBE_POOL}"
+      "staticVolume": "true"
+      "imageFeatures": "layering"
+    volumeHandle: volume
+  mountOptions:
+  - discard
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ceph-rbd-sc
+  volumeMode: Filesystem

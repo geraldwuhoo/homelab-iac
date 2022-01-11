@@ -1,0 +1,87 @@
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: foo-app
+  namespace: echo
+  labels:
+    app: foo
+    velero: echo
+spec:
+  containers:
+  - name: foo-app
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=foo"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: foo
+    velero: echo
+  name: foo-service
+  namespace: echo
+spec:
+  selector:
+    app: foo
+  ports:
+  # Default port used by the image
+  - port: 5678
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bar-app
+  namespace: echo
+  labels:
+    app: bar
+    velero: echo
+spec:
+  containers:
+  - name: bar-app
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=bar"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: foo
+    velero: echo
+  name: bar-service
+  namespace: echo
+spec:
+  selector:
+    app: bar
+  ports:
+  # Default port used by the image
+  - port: 5678
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: foo
+    velero: echo
+  name: example-ingress
+  namespace: echo
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/foo"
+        backend:
+          service:
+            name: foo-service
+            port:
+              number: 5678
+      - pathType: Prefix
+        path: "/bar"
+        backend:
+          service:
+            name: bar-service
+            port:
+              number: 5678

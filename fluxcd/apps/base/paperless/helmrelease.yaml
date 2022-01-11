@@ -1,0 +1,89 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: paperless
+  namespace: paperless
+spec:
+  chart:
+    spec:
+      chart: paperless
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 1m0s
+  valuesFrom:
+  - kind: Secret
+    name: paperless-secret
+    valuesKey: PAPERLESS_DBPASS
+    targetPath: env.PAPERLESS_DBPASS
+  - kind: Secret
+    name: paperless-secret
+    valuesKey: PAPERLESS_SECRET_KEY
+    targetPath: env.PAPERLESS_SECRET_KEY
+  - kind: Secret
+    name: paperless-secret
+    valuesKey: PAPERLESS_ADMIN_PASSWORD
+    targetPath: env.PAPERLESS_ADMIN_PASSWORD
+  - kind: Secret
+    name: paperless-secret
+    valuesKey: PAPERLESS_DBPASS
+    targetPath: postgresql.postgresqlPassword
+  values:
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - host: paperless.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    env:
+      COMPOSE_PROJECT_NAME: paperless
+      PAPERLESS_REDIS: redis://paperless-redis-master:6379
+      PAPERLESS_DBHOST: paperless-postgresql
+      PAPERLESS_DBNAME: paperless
+      PAPERLESS_DBUSER: paperless
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_ADMIN_USER: admin
+      PAPERLESS_ADMIN_MAIL: fake@example.com
+      PAPERLESS_CONSUMER_POLLING: 60
+      USERMAP_UID: 1000
+      USERMAP_GID: 1000
+    postgresql:
+      enabled: true
+      postgresqlUsername: paperless
+      postgresqlDatabase: paperless
+      persistence:
+        enabled: true
+        accessModes:
+        - ReadWriteOnce
+    redis:
+      enabled: true
+    persistence:
+      data:
+        accessMode: ReadWriteOnce
+        enabled: true
+        retain: true
+        size: 1Gi
+        type: pvc
+      media:
+        accessMode: ReadWriteOnce
+        enabled: true
+        retain: true
+        size: 1Gi
+        type: pvc
+      consume:
+        accessMode: ReadWriteOnce
+        enabled: true
+        retain: true
+        size: 1Gi
+        type: pvc
+      export:
+        accessMode: ReadWriteOnce
+        enabled: true
+        retain: true
+        size: 1Gi
+        type: pvc

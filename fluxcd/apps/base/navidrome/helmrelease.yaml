@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: navidrome
+  namespace: navidrome
+spec:
+  chart:
+    spec:
+      chart: navidrome
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 1m0s
+  values:
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - host: navidrome.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    podAnnotations:
+      backup.velero.io/backup-volumes-excludes: music
+    persistence:
+      config:
+        enabled: true
+        retain: true
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        type: pvc
+      music:
+        enabled: true
+        retain: true
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        type: pvc
