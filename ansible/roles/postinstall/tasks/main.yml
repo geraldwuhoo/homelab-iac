@@ -1,8 +1,10 @@
 # vim: ts=2 sw=2 smartindent
 
-- name: Install python-openshift
+- name: Install kubernetes management
   ansible.builtin.dnf:
-    name: python3-openshift
+    name:
+      - python3-openshift
+      - python3-kubernetes
     state: present
   become: yes
 
@@ -16,7 +18,7 @@
   when: not helm.stat.exists
 
 - name: Label worker nodes
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     definition:
       apiVersion: v1

@@ -8,33 +8,33 @@ nodes:
           name: araragi
           node: bake
           macaddr: ENC[AES256_GCM,data:8zqNHO3rZ1HAVj55MMDIQl0=,iv:ssniHz/yND4LxdONl/rHe3osDWuz6YPO1VNsKUpb8gw=,tag:jKrLC6aniorei04ildVhJg==,type:str]
-          template_name: oddity
+          template_name: apparition
         - vmid: 201
           name: shinobu
           node: nise
           macaddr: ENC[AES256_GCM,data:E/i3X4LsXeJb1d48XavBGPw=,iv:og6H5OqjY0dbQLhvHELSdo+J0htUvGRjJs5cV+XbY+U=,tag:iG1IS1J8PJJDTCDbMtoW7A==,type:str]
-          template_name: oddity
+          template_name: apparition
         - vmid: 202
           name: senjougahara
           node: neko
           macaddr: ENC[AES256_GCM,data:+G7K+dXbnlWnwd5rs8szn28=,iv:pANMDXY5qPxJDzyvRTOFg6rkVAJj7e8LskcUqAZPNcM=,tag:+aTXarb45cHChMIztBuY/g==,type:str]
-          template_name: oddity
+          template_name: apparition
     workers:
         - vmid: 300
           name: hanekawa
           node: bake
           macaddr: ENC[AES256_GCM,data:QXF05j5TdUJ5jSxuEUbbgR4=,iv:mHYTTybI/ROY50bEXSAcReZz4C7xQVeN8WYEw0cji9U=,tag:rp9LCqhcGlkJpYY1SKOFPg==,type:str]
-          template_name: oddity
+          template_name: apparition
         - vmid: 301
           name: hachikuji
           node: nise
           macaddr: ENC[AES256_GCM,data:5lP/pES0GxfjhsbQvS6W3Fw=,iv:NU0SPjpRweTjRxKtRbGs+dNWgo+FBKMKYcNbNRC2MZQ=,tag:5l25Y0Ek2/VlwZHCri3RSQ==,type:str]
-          template_name: oddity
+          template_name: apparition
         - vmid: 302
           name: kanbaru
           node: neko
           macaddr: ENC[AES256_GCM,data:sjg1JN2UPOQSZHcJ0vekwuA=,iv:GwYVNVXvW5yZQb/YN/+Wk29MmG3Dv/GO5DZREKY1mH8=,tag:C/5GrVBspeLLrLuObbWcWQ==,type:str]
-          template_name: oddity
+          template_name: apparition
 sops:
     kms: []
     gcp_kms: []
@@ -50,8 +50,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-11-21T09:46:37Z"
-    mac: ENC[AES256_GCM,data:LLErJNjVjWrwJbeojrIbYuTr9QTtwei4x7HuDE9LHUPJOHYT03YuK/oCh2VJSoWLwmoFYNRH+7dKm5eeuqPkf5bTHbCjtq/HgcGJailprwmQ6LjdAtBVwtWaWTgU9aXQvNHAyx1A60ygkFwB8eEhvcBNFMtfPgjc65uwk2jeyvQ=,iv:BEVmnqLZzm58lQsOXOP+3hH7gG8nZEHEmodO/Rv22ng=,tag:jZ+XnCtUG89joRBr7dhCZA==,type:str]
+    lastmodified: "2022-01-10T22:37:09Z"
+    mac: ENC[AES256_GCM,data:6Crn1z+NEctrk4no6UZJ1Ri4z+lJIHSBdPSgViTY6s4nM7tAcCy5V9BwxStyfCIftXeOGcXGQECFXayUnO4wfOznTbTpYbGc5X6Jhw+a8pRXmZjWZrN8akpOyt1v2v4U+aZ4ZkLpUFUy/OXH5eRe8JhSEcU5ywvzzIY5UEzEOfk=,iv:HdlIOvIdGzS1qiq3as9mQuzuPiAdQNoiPEzzzb2QuRM=,tag:SCt0qrx7UzvWOv+ZTqXSRA==,type:str]
     pgp: []
     encrypted_regex: (api.*|macaddr|username|password|connection_url)
     version: 3.7.1

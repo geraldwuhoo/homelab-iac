@@ -105,3 +105,20 @@ Let's say you want to update your base VM template, and you want to recreate you
 **IT IS IMPORTANT THAT YOU RUN EACH STEP SEQUENTIALLY. DO NOT RUN IN PARALLEL.**
 
 If you parallelize these instructions, it's possible to put your Kubernetes cluster in an inconsistent state. We are essentially doing a rolling upgrade of the cluster.
+
+## FluxCD gitops
+
+Deployments and services are managed by FluxCD, in the `fluxcd` directory. In order to use the CD managed by FluxCD, the cluster expects the correct SOPS key in the cluster as follows:
+
+```
+kubectl create namespace flux-system && kubectl -n flux-system create secret generic sops-age --from-file=keys.agekey=${HOME}/.config/sops/age/keys.txt
+```
+
+Then, the cluster can be bootstrapped with FluxCD with:
+
+```
+export GITLAB_TOKEN=<GITLAB_TOKEN>
+flux bootstrap gitlab --owner=98WuG --repository=homelab-iac --branch=master --path=fluxcd/clusters/production --token-auth --personal
+```
+
+FluxCD will now automatically monitor changes to the repo and deploy them to the cluster.

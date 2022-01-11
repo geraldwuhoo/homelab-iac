@@ -2,7 +2,7 @@
 # vim: ts=2 sw=2 smartindent
 
 - name: Add helm repos
-  community.kubernetes.helm_repository:
+  kubernetes.core.helm_repository:
     name: "{{ item.name }}"
     repo_url: "{{ item.url }}"
   loop:
@@ -10,7 +10,7 @@
       url: "https://helm.cilium.io"
 
 - name: Install Cilium CNI
-  community.kubernetes.helm:
+  kubernetes.core.helm:
     name: cilium
     chart_ref: cilium/cilium
     release_namespace: kube-system
@@ -19,9 +19,9 @@
       encryption:
         enabled: true
         type: wireguard
-        
+
 - name: Create fluxCD namespace
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     definition:
       apiVersion: v1
@@ -30,7 +30,7 @@
         name: flux-system
 
 - name: Create fluxCD sops secret
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     definition:
       apiVersion: v1
