@@ -7,7 +7,6 @@ metadata:
   labels:
     app: foo
     velero: echo
-    public: "true"
 spec:
   containers:
   - name: foo-app

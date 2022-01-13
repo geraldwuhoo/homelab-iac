@@ -6,6 +6,7 @@ resources:
 - kube-vip.yaml
 - ingress-nginx.yaml
 - cert-manager.yaml
+- loftsh.yaml
 - ceph-csi.yaml
 - openfaas.yaml
 - vmware-tanzu.yaml

@@ -21,5 +21,6 @@ spec:
       watchIngressWithoutClass: true
       extraArgs:
         default-ssl-certificate: "cert-manager/${LETSENCRYPT_CERT}"
+        enable-ssl-passthrough: ""
       service:
         loadBalancerIP: ${INGRESS_IP}
