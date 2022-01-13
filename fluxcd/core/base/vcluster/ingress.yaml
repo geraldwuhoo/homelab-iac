@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  name: staging-vcluster-ingress
+  name: staging-vcluster
   namespace: staging
 spec:
   rules:
