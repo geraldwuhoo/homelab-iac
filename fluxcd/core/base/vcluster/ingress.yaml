@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: staging-vcluster-ingress
+  namespace: staging
+spec:
+  rules:
+  - host: staging.${DOMAIN}
+    http:
+      paths:
+      - backend:
+          service:
+            name: staging-vcluster
+            port: 
+              number: 443
+        path: /
+        pathType: ImplementationSpecific
