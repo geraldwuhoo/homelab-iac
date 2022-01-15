@@ -43,3 +43,5 @@ spec:
         password: ${NEXTCLOUD_REDIS_PASSWORD}
     persistence:
       enabled: true
+      annotations:
+        helm.sh/resource-policy: keep
