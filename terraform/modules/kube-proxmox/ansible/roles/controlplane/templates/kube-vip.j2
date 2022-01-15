@@ -40,7 +40,7 @@ spec:
     - name: lb_fwdmethod
       value: local
     - name: address
-      value: {{ vip }}
+      value: {{ vip_hostname }}.{{ domain }}
     image: ghcr.io/kube-vip/kube-vip:v0.4.1
     imagePullPolicy: Always
     name: kube-vip

@@ -2,38 +2,50 @@ proxmox:
     api_url: ENC[AES256_GCM,data:375+zKZ66bJVlgA552MynzekieNwMiMXU8uVSBw6vEO6e6LltQ==,iv:iTeztrGKZXKvhgXnLj8oyd/tXC9hJB4Jsg+AVOylXKI=,tag:LNi2ntzq2wFJ5aocz+rmPQ==,type:str]
     api_token_id: ENC[AES256_GCM,data:wEtpJARujLYhjHa3rqcd1Hx66VeUMLHJSG5J2A==,iv:uS/Ehyi9bQmUWuDnyklHaDvAZdn+BUFQeuG5OQCDDus=,tag:O39yOgE5vVeNpeFW/KIuTQ==,type:str]
     api_token_secret: ENC[AES256_GCM,data:AsGtco4o7nyWbWnpl9f7KNcnkP+c2GzhT9od22i/kLWzeN3k,iv:nBGvoap6tx1l9qWh60WYWonxi17dnxbmgdOsekzFNUU=,tag:+tqEmbTCyt9+P9D5x145lA==,type:str]
-nodes:
-    controlplane:
+production:
+    - type: controlplane
+      specs:
+        cores: 2
+        memory: 8192
+        balloon: 4096
+        storage: 64G
+      nodes:
         - vmid: 200
           name: araragi
           node: bake
-          macaddr: ENC[AES256_GCM,data:8zqNHO3rZ1HAVj55MMDIQl0=,iv:ssniHz/yND4LxdONl/rHe3osDWuz6YPO1VNsKUpb8gw=,tag:jKrLC6aniorei04ildVhJg==,type:str]
+          macaddr: ENC[AES256_GCM,data:qubW9WS1S9eUxyLpxfC+TVA=,iv:mhpXHT75XMmrhUeqZfogl879sROMKPkhqrksZtRhW1U=,tag:IjVoWLmoQ1A5limIz/avSw==,type:str]
           template_name: apparition
         - vmid: 201
           name: shinobu
           node: nise
-          macaddr: ENC[AES256_GCM,data:E/i3X4LsXeJb1d48XavBGPw=,iv:og6H5OqjY0dbQLhvHELSdo+J0htUvGRjJs5cV+XbY+U=,tag:iG1IS1J8PJJDTCDbMtoW7A==,type:str]
+          macaddr: ENC[AES256_GCM,data:UNI/twv5OZfcE8ofyCS2frk=,iv:+DsYZ8F3JLZR1mIsF4VccgKA8xiqavdTwuYnl1EWC0g=,tag:A2hXp/6yTSCycUmCI2dHKg==,type:str]
           template_name: apparition
         - vmid: 202
           name: senjougahara
           node: neko
-          macaddr: ENC[AES256_GCM,data:+G7K+dXbnlWnwd5rs8szn28=,iv:pANMDXY5qPxJDzyvRTOFg6rkVAJj7e8LskcUqAZPNcM=,tag:+aTXarb45cHChMIztBuY/g==,type:str]
+          macaddr: ENC[AES256_GCM,data:OX4rfXfHlozIMczepjKGkNA=,iv:VBcxsJB2ICJxAxQ8v8ZHk5TMw9CgKfa45f5LOuVZ9eQ=,tag:j9kMm+JGxcgix0GJHzOz2w==,type:str]
           template_name: apparition
-    workers:
+    - type: worker
+      specs:
+        cores: 4
+        memory: 16384
+        balloon: 2048
+        storage: 64G
+      nodes:
         - vmid: 300
           name: hanekawa
           node: bake
-          macaddr: ENC[AES256_GCM,data:QXF05j5TdUJ5jSxuEUbbgR4=,iv:mHYTTybI/ROY50bEXSAcReZz4C7xQVeN8WYEw0cji9U=,tag:rp9LCqhcGlkJpYY1SKOFPg==,type:str]
+          macaddr: ENC[AES256_GCM,data:AokHyGN9aW71OCBjLgyxdh4=,iv:MZU5YpJ3ilJWft8BsEc0DeoJBb+HKt00H98vcB3DeN0=,tag:xvXWwMzpt/UvZVFAIlUtQQ==,type:str]
           template_name: apparition
         - vmid: 301
           name: hachikuji
           node: nise
-          macaddr: ENC[AES256_GCM,data:5lP/pES0GxfjhsbQvS6W3Fw=,iv:NU0SPjpRweTjRxKtRbGs+dNWgo+FBKMKYcNbNRC2MZQ=,tag:5l25Y0Ek2/VlwZHCri3RSQ==,type:str]
+          macaddr: ENC[AES256_GCM,data:HJ4jfeajYfI3Ue7s2PSh6BA=,iv:5IcUqChuPXvv5fywNOjAW0IK4etq0QHJtSQeRMgJ+Ag=,tag:aKmPLCb+i3SLEnZ4FuuLTQ==,type:str]
           template_name: apparition
         - vmid: 302
           name: kanbaru
           node: neko
-          macaddr: ENC[AES256_GCM,data:sjg1JN2UPOQSZHcJ0vekwuA=,iv:GwYVNVXvW5yZQb/YN/+Wk29MmG3Dv/GO5DZREKY1mH8=,tag:C/5GrVBspeLLrLuObbWcWQ==,type:str]
+          macaddr: ENC[AES256_GCM,data:fVy4a5xPhLo8ytHqaMicO4o=,iv:B6kd+I7h1jSFTSliCTfyyGN8ildybpX7FtJ6z94jXQA=,tag:FxiWB3H5nZJY1F8h8Fdc9g==,type:str]
           template_name: apparition
 sops:
     kms: []
@@ -50,8 +62,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-01-10T22:37:09Z"
-    mac: ENC[AES256_GCM,data:6Crn1z+NEctrk4no6UZJ1Ri4z+lJIHSBdPSgViTY6s4nM7tAcCy5V9BwxStyfCIftXeOGcXGQECFXayUnO4wfOznTbTpYbGc5X6Jhw+a8pRXmZjWZrN8akpOyt1v2v4U+aZ4ZkLpUFUy/OXH5eRe8JhSEcU5ywvzzIY5UEzEOfk=,iv:HdlIOvIdGzS1qiq3as9mQuzuPiAdQNoiPEzzzb2QuRM=,tag:SCt0qrx7UzvWOv+ZTqXSRA==,type:str]
+    lastmodified: "2022-01-14T21:58:05Z"
+    mac: ENC[AES256_GCM,data:gvn4OhFYXQAzWNnmYaQk3Y0NM7lY5i3zVHB9M1IA6J9V7YCTOfild+3JqB7WW1UWHbrtV/Sni/jKsKRZQyZbPmTwGrmSkom4Md8XXWV2hP/FjjNcRBOalkQ6v6eTHNAcEy/Gwjh9RTDD179HWhakrkncqsYpAE83Nc9WhoJXQ4E=,iv:OM2m0vXFzvoLnAm5FnXmNrsrFOIrQrJ8DkdXnv3a9QY=,tag:ZiLfHMV2mLJ3RZD3/PWVbA==,type:str]
     pgp: []
     encrypted_regex: (api.*|macaddr|username|password|connection_url)
     version: 3.7.1

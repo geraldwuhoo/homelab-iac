@@ -22,9 +22,9 @@
   roles:
     - worker
 
-- hosts: controlplane
-  gather_facts: false
-  tags:
-    - postinstall
-  roles:
-    - postinstall
+# - hosts: controlplane
+#   gather_facts: false
+#   tags:
+#     - postinstall
+#   roles:
+#     - postinstall

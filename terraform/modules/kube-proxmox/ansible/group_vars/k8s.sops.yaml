@@ -4,8 +4,7 @@ ansible_become_user: ENC[AES256_GCM,data:wk0a4A==,iv:Lw2QjpbtY5vfi3scb2Z9xZGE/JU
 activationkey: ENC[AES256_GCM,data:9OM=,iv:5ZfisDcY9Irrq8bH5ol068mm8bmreuAzPlxrX0tzGV0=,tag:bykV51ul4032P3LSbvOSIA==,type:str]
 org_id: ENC[AES256_GCM,data:+r/GaFaUAfk=,iv:P5/bAwgND66/fiVLXyYEA2PRxanfsmCTEWgJ0N12Njw=,tag:xotXXjtRVNqYj178DufszQ==,type:int]
 domain: ENC[AES256_GCM,data:QJzNwi4EArto,iv:OSaJN/EnnTwcBhwq9VWsqMiWU5UXt1/gITK6xlo3jVw=,tag:IhrdXVHkzs6pIrTPjEJ/5w==,type:str]
-vip_hostname: ENC[AES256_GCM,data:z+2hPAy5,iv:v2sm9v7NpAJr9q618HzdGh5va77Bq6kz6ma99B82hWk=,tag:pdGXnkhFlzH5Mj1RoxUmjQ==,type:str]
-vip: ENC[AES256_GCM,data:ENp+dKk2JlqgkA==,iv:1Wh0hIzmBM4c/1MUmS9Jui6eWOd2UMmCFxRJkxeP0ks=,tag:2Ao6sip+lb/xD1uXVt14lA==,type:str]
+vip_hostname: ENC[AES256_GCM,data:sg/ac+zB,iv:bj1eyoX268KvgOuqbhuA3iu8OWiagsh0XT+Lftujyfc=,tag:vVXj2umzwInd9slDpuGlWw==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -21,8 +20,8 @@ sops:
             L1dMTFRKS095YjI2NGs5Szk2cXMvcjgKJBXSMRiDuWMfDlR6a2JnEdFwxO2CxrXH
             GoS6cpgdOvYWCwsaWrBRddXGsj1F7R8+0UofEO3GVlK15N12XTCilQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-12-02T05:42:28Z"
-    mac: ENC[AES256_GCM,data:GoHe5wjjSkOgQ8bo0OYCdnfOxjlkXjDS3BOJu5D/+JUw/Pz6i68yMn3pLKkebNAXzi0HnFg8+RigSuMI3ge319oNnrTspTL/aZ5LKW4ZAgy9c6JQOoF6iP3U/JJeY2LQc42V7eNNgILRxdBYQOSmL4WC4PIsrKTHIHPuDjVNhlE=,iv:H/xMyZnMDSCzVpguSwXASZG6mjTb3RRnUryQF7NB7xM=,tag:sQPqRLfZlaklqxyttM2wkg==,type:str]
+    lastmodified: "2022-01-14T08:49:21Z"
+    mac: ENC[AES256_GCM,data:yJPEBwsBR5rtBbK2daBbzlIg7Gmmb4EFYmM8dqAyb1GHDM+N4Nn3bMclrWs4opJLy5vVK6PRXWpiLDBGlLvCs9xi3inH4U2SNZuJwxSWMMHBELO014PHNlZYkjpJWUlNVtTPQ/PoL7HkHxqEQcArtWlf+PlH7D23jHfqE6hCk0s=,iv:OE4pv9xUPT1eBShJiplaq0UU8mm1xCvdiBcJ4AmqmHc=,tag:VF3p7vT22F6u1J08bkEqFw==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1

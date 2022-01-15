@@ -31,5 +31,13 @@
 - name: Fetch kubernetes config file
   ansible.builtin.fetch:
     src: /etc/kubernetes/admin.conf
-    dest: ~/.kube/config
+    dest: "~/.kube/{{ vip_hostname }}.config"
     flat: yes
+
+- name: Fix kubernetes config context
+  local_action:
+    module: ansible.builtin.replace
+    path: "~/.kube/{{ vip_hostname }}.config"
+    regexp: 'kubernetes'
+    replace: "{{ vip_hostname }}"
+  become: no
