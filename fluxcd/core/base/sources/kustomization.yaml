@@ -8,6 +8,7 @@ resources:
 - cert-manager.yaml
 - loftsh.yaml
 - ceph-csi.yaml
+- bitnami.yaml
 - openfaas.yaml
 - vmware-tanzu.yaml
 - k8s-at-home.yaml
