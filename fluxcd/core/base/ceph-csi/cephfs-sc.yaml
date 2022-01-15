@@ -47,7 +47,7 @@ parameters:
   # If omitted, defaults to "csi-vol-".
   # volumeNamePrefix: "foo-bar-"
 
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 allowVolumeExpansion: true
 mountOptions:
   - debug
