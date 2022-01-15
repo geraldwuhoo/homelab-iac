@@ -23,8 +23,8 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: nginx
-        external-dns.alpha.kubernetes.io/hostname: cloud.staging.wuhoo.xyz
-        external-dns.alpha.kubernetes.io/target: staging.wuhoo.xyz
+        external-dns.alpha.kubernetes.io/hostname: cloud.${DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ${DOMAIN}
       hosts:
       - host: openfaas.${DOMAIN}
         serviceName: gateway
