@@ -42,7 +42,9 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: nginx-public
+        annotations:
+          homelab/public: "true"
         hosts:
         - host: vaultwarden.${DOMAIN}
           paths:
