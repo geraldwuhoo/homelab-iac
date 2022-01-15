@@ -1,8 +1,8 @@
 - type: controlplane
   specs:
     cores: 2
-    memory: 8192
-    balloon: 4096
+    memory: 4096
+    balloon: 2048
     storage: 64G
   nodes:
     - vmid: 1200
@@ -13,12 +13,22 @@
 - type: worker
   specs:
     cores: 4
-    memory: 16384
-    balloon: 2048
+    memory: 8192
+    balloon: 1024
     storage: 64G
   nodes:
     - vmid: 1300
-      name: kuro
+      name: cat
       node: bake
-      macaddr: 02:db:fb:19:49:81
+      macaddr: 02:41:24:d6:17:f2
+      template_name: apparition
+    - vmid: 1300
+      name: tiger
+      node: nise
+      macaddr: 02:a7:df:87:c3:4a
+      template_name: apparition
+    - vmid: 1300
+      name: reverse
+      node: neko
+      macaddr: 02:99:5b:4b:60:17
       template_name: apparition
