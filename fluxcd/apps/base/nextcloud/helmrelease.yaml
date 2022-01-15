@@ -16,6 +16,9 @@ spec:
   values:
     ingress:
       enabled: true
+      className: nginx-public
+      annotations:
+        homelab/public: "true"
     nextcloud:
       host: cloud.${DOMAIN}
       username: admin
