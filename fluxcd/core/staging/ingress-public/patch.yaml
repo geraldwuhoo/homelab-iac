@@ -1,0 +1,15 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  values:
+    controller:
+      setAsDefaultIngress: false
+      ingressClassResource:
+        default: false
+      watchIngressWithoutClass: false
+      service:
+        loadBalancerIP: ${PUBLIC_INGRESS_IP}

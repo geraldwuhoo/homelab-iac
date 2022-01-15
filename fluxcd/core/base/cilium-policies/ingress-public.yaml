@@ -3,12 +3,12 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: ingress-controller
-  namespace: ingress-nginx
+  namespace: ingress-public
 spec:
   description: "Allow egress from nginx controller to kube-dns, k8s API, and public labeled pods"
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: ingress-nginx
+      app.kubernetes.io/instance: ingress-public
       app.kubernetes.io/name: ingress-nginx
   egress:
   - toEndpoints:
