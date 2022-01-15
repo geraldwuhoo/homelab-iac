@@ -52,14 +52,6 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-          - path: /notifications/hub/negotiate
-            pathType: Prefix
-            service:
-              port: http
-          - path: /notifications/hub
-            pathType: Prefix
-            service:
-              port: websocket
     env:
       SIGNUPS_ALLOWED: "false"
       WEBSOCKET_ENABLED: "true"
