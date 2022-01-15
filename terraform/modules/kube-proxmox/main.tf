@@ -8,7 +8,7 @@ terraform {
 }
 
 locals {
-  cluster = nonsensitive(flatten([
+  cluster = flatten([
     for type in var.cluster : [
       for node in type.nodes : {
         type = type.type
@@ -25,7 +25,7 @@ locals {
         template_name = node.template_name
       }
     ]
-  ]))
+  ])
 }
 
 resource "local_file" "ansible_inventory" {

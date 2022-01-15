@@ -2,31 +2,6 @@ proxmox:
     api_url: ENC[AES256_GCM,data:375+zKZ66bJVlgA552MynzekieNwMiMXU8uVSBw6vEO6e6LltQ==,iv:iTeztrGKZXKvhgXnLj8oyd/tXC9hJB4Jsg+AVOylXKI=,tag:LNi2ntzq2wFJ5aocz+rmPQ==,type:str]
     api_token_id: ENC[AES256_GCM,data:wEtpJARujLYhjHa3rqcd1Hx66VeUMLHJSG5J2A==,iv:uS/Ehyi9bQmUWuDnyklHaDvAZdn+BUFQeuG5OQCDDus=,tag:O39yOgE5vVeNpeFW/KIuTQ==,type:str]
     api_token_secret: ENC[AES256_GCM,data:AsGtco4o7nyWbWnpl9f7KNcnkP+c2GzhT9od22i/kLWzeN3k,iv:nBGvoap6tx1l9qWh60WYWonxi17dnxbmgdOsekzFNUU=,tag:+tqEmbTCyt9+P9D5x145lA==,type:str]
-production:
-    - type: controlplane
-      specs:
-        cores: 2
-        memory: 8192
-        balloon: 4096
-        storage: 64G
-      nodes:
-        - vmid: 1200
-          name: ougi
-          node: bake
-          macaddr: ENC[AES256_GCM,data:V/ObjWCU694YfhWCuIVRbLY=,iv:v0l/L4zPAC5vRZKOnZu9oTzFtp7s9l+17l+0HrI3rrg=,tag:KRoPLqhMGLlfNTuS7BrOMw==,type:str]
-          template_name: apparition
-    - type: worker
-      specs:
-        cores: 4
-        memory: 16384
-        balloon: 2048
-        storage: 64G
-      nodes:
-        - vmid: 1300
-          name: kuro
-          node: bake
-          macaddr: ENC[AES256_GCM,data:rvfvEuK8jpWPLisssRT55ps=,iv:5WBkXym0wXrXW2bbfkHIHqSZ/9pILnAbRqgVMXBk9Eo=,tag:u1b8TaCErKaPdwBMs50KGA==,type:str]
-          template_name: apparition
 sops:
     kms: []
     gcp_kms: []
@@ -42,8 +17,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-01-14T23:19:11Z"
-    mac: ENC[AES256_GCM,data:0pOewZZ9uxNW0nrCWTQD2Aj20IyF9D7uICVi8SqfUtcB4M/9Agc0tODvT1eGDn8dpY7WIRxq9bF5JZZZ6IZCUXgcTts+mjbpRbxz9AEhby6YXzSnELJjaKI+471cSd9SXQr89v+QHJnSJgLDAFaQvzzjUNEhtnHIkZq59Sz3YXo=,iv:8Udv7CbMNXPmCA81lzJ7au0lO1uKAGc0CFvSOsdj9iw=,tag:pUSmYdl7MDAZ560KdstLgg==,type:str]
+    lastmodified: "2022-01-15T02:42:03Z"
+    mac: ENC[AES256_GCM,data:bKaNsY1SQ9YXbZYgV9nf0nrMax09ArJKbu11sLMXJPM4Svjv7q9MJA6E+1wQLcmVylS9L/cqHXEnZWZAeP3zbYtANPBCmK3pU0cONX3DAIqf67IhYlXnLYoZo+wVeJTfJ1tXSznDcREDZYzr3slzD4okSoxQxX68Op5ASpfPNx8=,iv:D0RBLpzzsMeb6pwkoZIaDjJWQx2O3f9RrCVhuY63jlA=,tag:1ESj7Ej9LDjY8TF/U6ShPQ==,type:str]
     pgp: []
     encrypted_regex: (api.*|macaddr|username|password|connection_url)
     version: 3.7.1

@@ -1,0 +1,44 @@
+- type: controlplane
+  specs:
+    cores: 2
+    memory: 8192
+    balloon: 4096
+    storage: 64G
+  nodes:
+    - vmid: 200
+      name: araragi
+      node: bake
+      macaddr: 02:95:a7:a0:ee:b5
+      template_name: apparition
+    - vmid: 201
+      name: shinobu
+      node: nise
+      macaddr: 02:c9:f2:01:b1:45
+      template_name: apparition
+    - vmid: 202
+      name: senjougahara
+      node: neko
+      macaddr: 02:1a:ca:a2:d9:3e
+      template_name: apparition
+- type: worker
+  specs:
+    cores: 4
+    memory: 16384
+    balloon: 2048
+    storage: 64G
+  nodes:
+    - vmid: 300
+      name: hanekawa
+      node: bake
+      macaddr: 02:ad:d6:ec:15:d1
+      template_name: apparition
+    - vmid: 301
+      name: hachikuji
+      node: nise
+      macaddr: 02:ba:fd:cd:73:48
+      template_name: apparition
+    - vmid: 302
+      name: kanbaru
+      node: neko
+      macaddr: 02:a3:3e:14:c0:78
+      template_name: apparition
