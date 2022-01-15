@@ -22,12 +22,12 @@
       node: bake
       macaddr: 02:41:24:d6:17:f2
       template_name: apparition
-    - vmid: 1300
+    - vmid: 1301
       name: tiger
       node: nise
       macaddr: 02:a7:df:87:c3:4a
       template_name: apparition
-    - vmid: 1300
+    - vmid: 1302
       name: reverse
       node: neko
       macaddr: 02:99:5b:4b:60:17
