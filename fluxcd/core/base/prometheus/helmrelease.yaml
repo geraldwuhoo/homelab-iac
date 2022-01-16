@@ -20,3 +20,13 @@ spec:
         ingressClassName: nginx
         hosts:
           - grafana.${DOMAIN}
+    prometheus:
+      prometheusSpec:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-rbd-sc
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 16Gi
