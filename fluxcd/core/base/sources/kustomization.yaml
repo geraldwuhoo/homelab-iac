@@ -13,4 +13,5 @@ resources:
 - vmware-tanzu.yaml
 - k8s-at-home.yaml
 - nextcloud.yaml
+- prometheus-community.yaml
 - kubernetes-dashboard.yaml
