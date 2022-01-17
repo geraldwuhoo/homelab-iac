@@ -48,7 +48,8 @@ resource "proxmox_vm_qemu" "kube-nodes" {
   agent = 1
 
   target_node = each.value.node
-  hastate     = "ignored"
+  hastate     = each.value.hastate
+  onboot      = true
 
   clone      = each.value.template_name
   full_clone = false

@@ -49,6 +49,7 @@ variable "cluster" {
       vmid          = number
       name          = string
       node          = string
+      hastate       = string
       macaddr       = string
       template_name = string
     }))

@@ -8,6 +8,7 @@
     - vmid: 1200
       name: ougi
       node: bake
+      hastate: started
       macaddr: 02:6a:fa:1d:2b:ef
       template_name: apparition
 - type: worker
@@ -20,15 +21,18 @@
     - vmid: 1300
       name: cat
       node: bake
+      hastate: ignored
       macaddr: 02:41:24:d6:17:f2
       template_name: apparition
     - vmid: 1301
       name: tiger
       node: nise
+      hastate: ignored
       macaddr: 02:a7:df:87:c3:4a
       template_name: apparition
     - vmid: 1302
       name: reverse
       node: neko
+      hastate: ignored
       macaddr: 02:99:5b:4b:60:17
       template_name: apparition
