@@ -21,6 +21,7 @@ locals {
         vmid          = node.vmid
         name          = node.name
         node          = node.node
+        hastate       = node.hastate
         macaddr       = node.macaddr
         template_name = node.template_name
       }
