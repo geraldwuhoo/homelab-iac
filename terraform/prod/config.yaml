@@ -8,19 +8,19 @@
     - vmid: 200
       name: araragi
       node: bake
-      hastate: ignored
+      hastate: started
       macaddr: 02:95:a7:a0:ee:b5
       template_name: apparition
     - vmid: 201
       name: shinobu
       node: nise
-      hastate: ignored
+      hastate: started
       macaddr: 02:c9:f2:01:b1:45
       template_name: apparition
     - vmid: 202
       name: senjougahara
       node: neko
-      hastate: ignored
+      hastate: started
       macaddr: 02:1a:ca:a2:d9:3e
       template_name: apparition
 - type: worker
@@ -33,18 +33,18 @@
     - vmid: 300
       name: hanekawa
       node: bake
-      hastate: ignored
+      hastate: started
       macaddr: 02:ad:d6:ec:15:d1
       template_name: apparition
     - vmid: 301
       name: hachikuji
       node: nise
-      hastate: ignored
+      hastate: started
       macaddr: 02:ba:fd:cd:73:48
       template_name: apparition
     - vmid: 302
       name: kanbaru
       node: neko
-      hastate: ignored
+      hastate: started
       macaddr: 02:a3:3e:14:c0:78
       template_name: apparition

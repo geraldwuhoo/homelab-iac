@@ -21,18 +21,18 @@
     - vmid: 1300
       name: cat
       node: bake
-      hastate: ignored
+      hastate: started
       macaddr: 02:41:24:d6:17:f2
       template_name: apparition
     - vmid: 1301
       name: tiger
       node: nise
-      hastate: ignored
+      hastate: started
       macaddr: 02:a7:df:87:c3:4a
       template_name: apparition
     - vmid: 1302
       name: reverse
       node: neko
-      hastate: ignored
+      hastate: started
       macaddr: 02:99:5b:4b:60:17
       template_name: apparition
