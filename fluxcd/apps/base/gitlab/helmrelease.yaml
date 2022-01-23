@@ -28,3 +28,7 @@ spec:
       install: false
     postgresql:
       install: true
+    redis:
+      install: true
+      cluster:
+        enabled: true
