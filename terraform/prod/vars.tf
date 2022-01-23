@@ -26,3 +26,9 @@ variable "cluster" {
     }))
   }))
 }
+
+variable "kubernetes" {
+  type = object({
+    config_path = string
+  })
+}
