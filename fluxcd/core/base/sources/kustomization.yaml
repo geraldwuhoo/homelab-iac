@@ -7,11 +7,13 @@ resources:
 - ingress-nginx.yaml
 - cert-manager.yaml
 - loftsh.yaml
+- appscode.yaml
 - ceph-csi.yaml
 - bitnami.yaml
 - openfaas.yaml
 - vmware-tanzu.yaml
 - k8s-at-home.yaml
+- gitlab.yaml
 - nextcloud.yaml
 - prometheus-community.yaml
 - kubernetes-dashboard.yaml

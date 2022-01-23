@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitlab
+  namespace: gitlab
+spec:
+  global:
+    ingress:
+      configureCertmanager: False
+      class: nginx-public
+      annotations:
+        kubernetes.io/tls-acme: True
+        cert-manager.io/cluster-issuer: "letsencrypt"
+        acme.cert-manager.io/http01-ingress-class: "nginx-public"
+    hosts:
+      domain: "${DOMAIN}"
+  nginx-ingress:
+    enabled: False
+  gitlab:
+    webservice:
+      ingress:
+        tls:
+          secretName: ${LETSENCRYPT_CERT}
+  registry:
+    ingress:
+      tls:
+        secretName: ${LETSENCRYPT_CERT}
+  minio:
+    ingress:
+      tls:
+        secretName: ${LETSENCRYPT_CERT}
+  certmanager:
+    install: False
+  postgresql:
+    install: True

@@ -13,3 +13,6 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt
   secretName: ${LETSENCRYPT_CERT}
+  secretTemplate:
+    annotations:
+      kubed.appscode.com/sync: "cert-manager-tls=gitlab"

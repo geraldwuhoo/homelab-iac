@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kubed
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: kubed
+      sourceRef:
+        kind: HelmRepository
+        name: appscode
+        namespace: flux-system
+  interval: 10m0s
+  values:
+    enableAnalytics: false
+    config:
+      clusterName: ${CLUSTER_ENV}
