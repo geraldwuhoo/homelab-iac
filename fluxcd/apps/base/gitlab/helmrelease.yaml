@@ -18,10 +18,10 @@ spec:
       ingress:
         configureCertmanager: false
         class: nginx-public
+        tls:
+          secretName: ${LETSENCRYPT_CERT}
       hosts:
         domain: "${DOMAIN}"
-      tls:
-        secretName: ${LETSENCRYPT_CERT}
     nginx-ingress:
       enabled: false
     certmanager:
