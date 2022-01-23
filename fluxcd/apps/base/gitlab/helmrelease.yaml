@@ -16,30 +16,15 @@ spec:
   values:
     global:
       ingress:
-        configureCertmanager: False
+        configureCertmanager: false
         class: nginx-public
-        annotations:
-          kubernetes.io/tls-acme: True
-          cert-manager.io/cluster-issuer: "letsencrypt"
-          acme.cert-manager.io/http01-ingress-class: "nginx-public"
       hosts:
         domain: "${DOMAIN}"
+      tls:
+        secretName: ${LETSENCRYPT_CERT}
     nginx-ingress:
-      enabled: False
-    gitlab:
-      webservice:
-        ingress:
-          tls:
-            secretName: ${LETSENCRYPT_CERT}
-    registry:
-      ingress:
-        tls:
-          secretName: ${LETSENCRYPT_CERT}
-    minio:
-      ingress:
-        tls:
-          secretName: ${LETSENCRYPT_CERT}
+      enabled: false
     certmanager:
-      install: False
+      install: false
     postgresql:
-      install: True
+      install: true
