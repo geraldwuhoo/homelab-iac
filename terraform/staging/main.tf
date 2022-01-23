@@ -4,7 +4,7 @@ terraform {
   }
 }
 
-module "kube_proxmox_production" {
+module "kube_proxmox" {
   source       = "../modules/kube-proxmox"
   scsi_storage = "rbd"
   cluster      = var.cluster
