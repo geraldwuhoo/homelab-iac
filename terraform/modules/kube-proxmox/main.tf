@@ -169,7 +169,9 @@ resource "tls_locally_signed_cert" "issuer_cert" {
 
 resource "kubernetes_namespace" "flux-system" {
   metadata {
-    name = "flux-system"
+    name        = "flux-system"
+    annotations = {}
+    labels      = {}
   }
 
   provisioner "local-exec" {
@@ -184,8 +186,10 @@ resource "kubernetes_namespace" "flux-system" {
 
 resource "kubernetes_secret" "flux-sops-age" {
   metadata {
-    name      = "sops-age"
-    namespace = "flux-system"
+    name        = "sops-age"
+    namespace   = "flux-system"
+    annotations = {}
+    labels      = {}
   }
 
   depends_on = [
