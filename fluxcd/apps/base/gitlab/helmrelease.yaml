@@ -15,6 +15,7 @@ spec:
   interval: 1m0s
   values:
     global:
+      edition: ce
       ingress:
         configureCertmanager: false
         class: nginx-public
