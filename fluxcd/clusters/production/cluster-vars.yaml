@@ -6,6 +6,7 @@ metadata:
 type: Opaque
 stringData:
     INGRESS_IP: ENC[AES256_GCM,data:iy2QFCz5tyVb2A==,iv:/neWQ+YgGAoLtAf/Xl/LEIugZjsLz66o1q6YTvhh+64=,tag:J1sz0PVrCmxbXTOQzhlM9Q==,type:str]
+    PUBLIC_INGRESS_IP: ENC[AES256_GCM,data:rUN8LwlL3MbSWw==,iv:9MZhqF1ahTgfd9u8F5sEUTxljxsnnz0W8d1mY2abV5A=,tag:MoikE8y/PvMleoIyWIpb/Q==,type:str]
     KUBE_VIP_RANGE: ENC[AES256_GCM,data:sZX5YCWkJLoTyv5G4VBPbeCSSU7R,iv:nKIFKlue6JfAplg10mXfflFGbseA1Tc0NUL+FNJlRtM=,tag:FdNyV3vxVPtJWfhorWdYKQ==,type:str]
     CLUSTER_ENV: ENC[AES256_GCM,data:4Nv1r9kmnUOvIw==,iv:urAJYQ9MNFw92gQFzR/SCOI43FkcQGH0HXiNGGMKm6s=,tag:dI20T63Yo5xUEk2VNSHu5g==,type:str]
     DOMAIN: ENC[AES256_GCM,data:y2YNZxC0Hi2q,iv:tew9wSW+p/+XqPMcYpIoLxKpyre3F9IDsaHsJCtzbsg=,tag:gS+Y9/XuoUsqZCXNxjNBEQ==,type:str]
@@ -44,8 +45,8 @@ sops:
             STBlRUxoTFRvbWJWK21rZEo2aEpiQTQKkITQU3R6MPsdDGZ5ng4/ZRbkBHfFDM5E
             6M/nTT1ToNDab3KSf8d/YrQCb8E8+dXypRZq1o5QHz7fmxFF5oFhiQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-01-15T04:54:33Z"
-    mac: ENC[AES256_GCM,data:7MwYIPA8OxFPb+/z14w6YH3GWqIYzXsFoqV1OU6z/ysXp7GuvFRC+QQBs7VgJLueTqy+3OIEzv+yXi6v1kNgQl0n4Dhm/ZD22OJVTKq2xVGHBp6Cyz6t3hHSwDpypquQoZPzrrLrO6JdSp6eE741dzlIlKCaWhlxB8RISAKtXBQ=,iv:D9LyTAM+JAydqpguZNr4xocqsP1wYiYR4kpTirHw59E=,tag:N1pTpLM4AlC9Z4qYwrjD2w==,type:str]
+    lastmodified: "2022-01-24T00:00:40Z"
+    mac: ENC[AES256_GCM,data:e1s7NLZf3tk5mCKHmYxtLONXa5fPt8i8oEMo5DnKleWeo1tYXIfEDB1H3oUb2SfaKkq4+H3K+4iS0PgBhPz34mmK1BRLHI3TF1Ej+LOC7royYCMch3LCacJDsNNcIqWQR5GcLxYX4VohL20l4DF/dJd+uXtgaL2MFcjeDyMDh/4=,iv:UzYdiV1HaiyeUhmxa3QuWrczDhHrEvlTi38kVHuTYiE=,tag:wjs9PoiwvZ1wGofGFo3J2g==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.1
