@@ -216,3 +216,16 @@ resource "helm_release" "linkerd" {
   }
 }
 
+resource "helm_release" "linkerd-viz" {
+  name       = "linkerd-viz"
+  repository = "https://helm.linkerd.io/stable"
+  chart      = "linkerd-viz"
+
+  depends_on = [
+    helm_release.linkerd
+  ]
+
+  values = [
+    "${file("${path.module}/linkerd_viz_values.yaml")}"
+  ]
+}
