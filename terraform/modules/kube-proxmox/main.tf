@@ -167,44 +167,11 @@ resource "tls_locally_signed_cert" "issuer_cert" {
   ]
 }
 
-resource "kubernetes_namespace" "flux-system" {
-  metadata {
-    name        = "flux-system"
-    annotations = {}
-    labels      = {}
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "flux uninstall --silent"
-  }
-
-  depends_on = [
-    null_resource.provisioner
-  ]
-}
-
-resource "kubernetes_secret" "flux-sops-age" {
-  metadata {
-    name        = "sops-age"
-    namespace   = "flux-system"
-    annotations = {}
-    labels      = {}
-  }
-
-  depends_on = [
-    null_resource.provisioner
-  ]
-
-  data = {
-    "keys.agekey" = "${file("~/.config/sops/age/keys.txt")}"
-  }
-}
-
 resource "helm_release" "cilium" {
   name       = "cilium"
   repository = "https://helm.cilium.io"
   chart      = "cilium"
+  namespace  = "kube-system"
 
   depends_on = [
     null_resource.provisioner

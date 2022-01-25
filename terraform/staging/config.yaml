@@ -2,7 +2,7 @@
   specs:
     cores: 2
     memory: 8192
-    balloon: 2048
+    balloon: 4096
     storage: 64G
   nodes:
     - vmid: 1200
@@ -15,7 +15,7 @@
   specs:
     cores: 4
     memory: 16384
-    balloon: 4096
+    balloon: 6144
     storage: 64G
   nodes:
     - vmid: 1300
