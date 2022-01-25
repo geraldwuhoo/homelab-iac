@@ -28,6 +28,9 @@ spec:
       matchExpressions:
       - key: io.kubernetes.pod.namespace
         operator: Exists
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: linkerd
   - toEntities:
     - kube-apiserver
     toPorts:
