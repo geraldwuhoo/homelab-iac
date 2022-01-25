@@ -4,3 +4,5 @@ metadata:
   name: gitlab
   labels:
     cert-manager-tls: gitlab
+  annotations:
+    linkerd.io/inject: enabled
