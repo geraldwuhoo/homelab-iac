@@ -19,10 +19,10 @@ spec:
       className: nginx-public
       annotations:
         homelab/public: "true"
-        external-dns.alpha.kubernetes.io/hostname: cloud.${DOMAIN}
+        external-dns.alpha.kubernetes.io/hostname: nextcloud.${DOMAIN}
         external-dns.alpha.kubernetes.io/target: ${DOMAIN}
     nextcloud:
-      host: cloud.${DOMAIN}
+      host: nextcloud.${DOMAIN}
       username: admin
       password: ${NEXTCLOUD_ADMIN_PASSWORD}
     internalDatabase:
