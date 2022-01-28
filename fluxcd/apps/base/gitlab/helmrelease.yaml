@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: gitlab
         namespace: flux-system
-  interval: 1m0s
+  interval: 10m0s
   values:
     global:
       edition: ce
