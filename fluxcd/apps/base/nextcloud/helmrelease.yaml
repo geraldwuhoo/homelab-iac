@@ -13,6 +13,23 @@ spec:
         name: nextcloud
         namespace: flux-system
   interval: 10m0s
+  valuesFrom:
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: ADMIN_PASSWORD
+    targetPath: nextcloud.password
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: DB_PASSWORD
+    targetPath: externalDatabase.password
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: DB_PASSWORD
+    targetPath: postgresql.postgresqlPassword
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: REDIS_PASSWORD
+    targetPath: redis.auth.password
   values:
     ingress:
       enabled: true
@@ -24,7 +41,6 @@ spec:
     nextcloud:
       host: nextcloud.${DOMAIN}
       username: admin
-      password: ${NEXTCLOUD_ADMIN_PASSWORD}
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -32,12 +48,10 @@ spec:
       type: postgresql
       host: nextcloud-postgresql
       database: nextcloud
-      password: ${NEXTCLOUD_DB_PASSWORD}
       user: nextcloud
     postgresql:
       enabled: true
       postgresqlUsername: nextcloud
-      postgresqlPassword: ${NEXTCLOUD_DB_PASSWORD}
       postgresqlDatabase: nextcloud
       persistence:
         enabled: true
@@ -45,7 +59,6 @@ spec:
       enabled: true
       auth:
         enabled: true
-        password: ${NEXTCLOUD_REDIS_PASSWORD}
     persistence:
       enabled: true
       annotations:

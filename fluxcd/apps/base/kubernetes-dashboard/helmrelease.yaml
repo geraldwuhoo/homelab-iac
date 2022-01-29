@@ -15,14 +15,14 @@ spec:
   interval: 1m0s
   values:
     extraArgs:
-      - --enable-insecure-login
-      - --system-banner="${CLUSTER_ENV} Environment"
+    - --enable-insecure-login
+    - --system-banner="${CLUSTER_ENV} Environment"
     protocolHttp: true
     ingress:
       enabled: true
       paths:
-        - /
+      - /
       hosts:
-        - dashboard.${DOMAIN}
+      - dashboard.${DOMAIN}
     rbac:
       clusterReadOnlyRole: true

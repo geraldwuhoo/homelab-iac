@@ -27,9 +27,6 @@ stringData:
     CEPHFS_NAME: ENC[AES256_GCM,data:XBJ8a5m0,iv:YREXshnoB/a+TVKGDxH1Xc550KIDlTc/wgJfSBrA8Uo=,tag:UlICWfNUBb8kGMZbU3cyiA==,type:str]
     CEPHFS_ADMIN: ENC[AES256_GCM,data:f6vNz06pL/pLcSg=,iv:93rlLbYyV1+KbdxkeU6Oa4my6qT7Ur3uv8+12hLHrf4=,tag:8CdRSCYbYXCy/9/VwScgnQ==,type:str]
     CEPHFS_ADMIN_KEY: ENC[AES256_GCM,data:0fMKOYfx//W0E8jibJrFtbjgkqbrRtqRI4ug8yemCzLZ6en1uQI5Zg==,iv:N1XxE2esS+mFHAl6X4jLgnINuAYKzFNyDBr8yutNB4g=,tag:qZC8NfIJ2OflNhAp7qhb2Q==,type:str]
-    NEXTCLOUD_ADMIN_PASSWORD: ENC[AES256_GCM,data:aT98dQoH2yNoSkp7jEoxMthPtk2jErgN+NU6PO8+uU+JrWLW,iv:iELi/2VOe2PgxY+V+i+qHxYPFK6AQxkXTRwl3srCcwk=,tag:LBV4re3kDnOyFEEcg7mDwg==,type:str]
-    NEXTCLOUD_DB_PASSWORD: ENC[AES256_GCM,data:G/FAuA4QA7n8QRxFuQig1zCAOjVlcVk+9U1cNdUg14phQ5bS6dBkQfNSzVw8Yhg3,iv:j7p0VLrQlvxUgyG/yN2x/hbLmpu0fkFP4l0xcbtDWg0=,tag:Dfc7FiNJkZHzA86I2lNmsw==,type:str]
-    NEXTCLOUD_REDIS_PASSWORD: ENC[AES256_GCM,data:NgvPfQztA7Vu+wCkRZmm8v5RWciRMmqqg6uq7eT1r+F+vkQhTiqq2OycYRi7BK3N,iv:uIumarnQGoa0GVoh3qSJQV6c54XEsWgaajsujH7lyEE=,tag:bhu1LEZbMPhRJoloKDQTsQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -45,8 +42,8 @@ sops:
             STBlRUxoTFRvbWJWK21rZEo2aEpiQTQKkITQU3R6MPsdDGZ5ng4/ZRbkBHfFDM5E
             6M/nTT1ToNDab3KSf8d/YrQCb8E8+dXypRZq1o5QHz7fmxFF5oFhiQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-01-24T00:00:40Z"
-    mac: ENC[AES256_GCM,data:e1s7NLZf3tk5mCKHmYxtLONXa5fPt8i8oEMo5DnKleWeo1tYXIfEDB1H3oUb2SfaKkq4+H3K+4iS0PgBhPz34mmK1BRLHI3TF1Ej+LOC7royYCMch3LCacJDsNNcIqWQR5GcLxYX4VohL20l4DF/dJd+uXtgaL2MFcjeDyMDh/4=,iv:UzYdiV1HaiyeUhmxa3QuWrczDhHrEvlTi38kVHuTYiE=,tag:wjs9PoiwvZ1wGofGFo3J2g==,type:str]
+    lastmodified: "2022-01-29T04:27:36Z"
+    mac: ENC[AES256_GCM,data:8t/gxFncE9DHBkzHDLa6m3zFu/qmKKM2FV9mjAQhMiAKYEx+KiMaAp8GRNOfp9fahNcug0a4+HdRw6kJdrNhMRPYQkLUy8aQONnqSB7fA9BLfMia7LDwAgbV8hDfThsSo+AOiYKIkz4rcF1tP2rvJI5G6gltl08jjmzaNcw7nF0=,iv:aPhbewrOGqM5Ns2cbjmkkQGNmIDz0pfKRjmiAj0ifa8=,tag:aC363sntVpskuuJt/jso5A==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.1
