@@ -3,6 +3,6 @@ kind: Namespace
 metadata:
   name: gitlab
   labels:
-    cert-manager-tls: gitlab
+    cert-manager-tls: wildcard
   annotations:
     linkerd.io/inject: enabled

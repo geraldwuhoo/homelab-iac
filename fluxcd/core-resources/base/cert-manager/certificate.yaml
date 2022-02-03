@@ -15,4 +15,4 @@ spec:
   secretName: ${LETSENCRYPT_CERT}
   secretTemplate:
     annotations:
-      kubed.appscode.com/sync: "cert-manager-tls=gitlab"
+      kubed.appscode.com/sync: "cert-manager-tls=wildcard"
