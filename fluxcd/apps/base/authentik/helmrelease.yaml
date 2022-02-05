@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  chart:
+    spec:
+      chart: authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: flux-system
+  interval: 10m0s
+  valuesFrom:
+  - kind: Secret
+    name: authentik-secret
+    valuesKey: SECRET_KEY
+    targetPath: authentik.secret_key
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: DB_PASSWORD
+    targetPath: authentik.postgresql.password
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: DB_PASSWORD
+    targetPath: postgresql.postgresqlPassword
+  values:
+    authentik:
+      error_reporting:
+        enabled: true
+    ingress:
+      enabled: true
+      ingressClassName: nginx-public
+      hosts:
+      - host: authentik.${DOMAIN}
+        paths:
+        - path: "/"
+          pathType: Prefix
+    postgresql:
+      enabled: true
+      persistence:
+        enabled: true
+    redis:
+      enabled: true

@@ -16,4 +16,5 @@ resources:
 - gitlab.yaml
 - nextcloud.yaml
 - prometheus-community.yaml
+- authentik.yaml
 - kubernetes-dashboard.yaml
