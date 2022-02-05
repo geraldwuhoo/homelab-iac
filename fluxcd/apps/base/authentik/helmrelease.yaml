@@ -30,6 +30,8 @@ spec:
     authentik:
       error_reporting:
         enabled: true
+    env:
+      PROXY_ADDRESS_FORWARDING: true
     ingress:
       enabled: true
       ingressClassName: nginx-public
