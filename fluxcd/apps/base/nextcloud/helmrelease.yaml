@@ -41,6 +41,12 @@ spec:
     nextcloud:
       host: nextcloud.${DOMAIN}
       username: admin
+      configs:
+        custom.config.php: |-
+          <?php
+          $CONFIG = array (
+            'overwriteprotocol' => 'https'
+          );
     internalDatabase:
       enabled: false
     externalDatabase:
