@@ -26,6 +26,10 @@ spec:
     name: authentik-secret
     valuesKey: DB_PASSWORD
     targetPath: postgresql.postgresqlPassword
+  - kind: Secret
+    name: authentik-secret
+    valuesKey: AK_ADMIN_PASS
+    targetPath: env.AK_ADMIN_PASS
   values:
     authentik:
       error_reporting:
