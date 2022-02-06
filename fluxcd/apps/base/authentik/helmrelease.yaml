@@ -36,7 +36,7 @@ spec:
       enabled: true
       ingressClassName: nginx-public
       hosts:
-      - host: authentik.${DOMAIN}
+      - host: auth.${DOMAIN}
         paths:
         - path: "/"
           pathType: Prefix
