@@ -8,8 +8,6 @@ spec:
   - ReadWriteMany
   capacity:
     storage: 1Ti
-  claimRef:
-    name: pvc
   csi:
     driver: cephfs.csi.ceph.com
     nodeStageSecretRef:

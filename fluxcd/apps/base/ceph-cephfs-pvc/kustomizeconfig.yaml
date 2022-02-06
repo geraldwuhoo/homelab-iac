@@ -1,10 +1,4 @@
 ---
-namespace:
-- kind: PersistentVolume
-  path: spec/claimRef/namespace
-  create: true
 namePrefix:
-- kind: PersistentVolume
-  path: spec/claimRef/name
 - kind: PersistentVolume
   path: spec/csi/volumeHandle
