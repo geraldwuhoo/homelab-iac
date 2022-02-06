@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv
+spec:
+  csi:
+    volumeAttributes:
+      "rootPath": /volumes/nas/media/efcb5014-11cd-48d3-9999-75b6dc4d8c80
