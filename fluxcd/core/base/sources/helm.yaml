@@ -1,0 +1,135 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: appscode
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.appscode.com/stable
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: authentik
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.goauthentik.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: bitnami
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.bitnami.com/bitnami
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: ceph-csi
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://ceph.github.io/csi-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.jetstack.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: gitlab
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.gitlab.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: ingress-nginx
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://kubernetes.github.io/ingress-nginx
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: k8s-at-home
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://k8s-at-home.com/charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: kubernetes-dashboard
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://kubernetes.github.io/dashboard/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: kube-vip
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://kube-vip.io/helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: loftsh
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.loft.sh
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: nextcloud
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://nextcloud.github.io/helm/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: openfaas
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://openfaas.github.io/faas-netes/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: prometheus-community
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: vmware-tanzu
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://vmware-tanzu.github.io/helm-charts

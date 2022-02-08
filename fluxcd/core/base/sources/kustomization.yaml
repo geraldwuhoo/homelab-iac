@@ -3,18 +3,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
 resources:
-- kube-vip.yaml
-- ingress-nginx.yaml
-- cert-manager.yaml
-- loftsh.yaml
-- appscode.yaml
-- ceph-csi.yaml
-- bitnami.yaml
-- openfaas.yaml
-- vmware-tanzu.yaml
-- k8s-at-home.yaml
-- gitlab.yaml
-- nextcloud.yaml
-- prometheus-community.yaml
-- authentik.yaml
-- kubernetes-dashboard.yaml
+- helm.yaml
