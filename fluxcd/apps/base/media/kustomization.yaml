@@ -4,6 +4,8 @@ kind: Kustomization
 namespace: media
 resources:
 - namespace.yaml
+- secret.yaml
 - jellyfin.yaml
+- transmission.yaml
 - sonarr.yaml
 - radarr.yaml

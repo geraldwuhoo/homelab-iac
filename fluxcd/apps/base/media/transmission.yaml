@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: transmission
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: transmission-openvpn
+      sourceRef:
+        kind: HelmRepository
+        name: utkuozdemir
+        namespace: flux-system
+  interval: 10m0s
+  valuesFrom:
+  - kind: Secret
+    name: transmission-secret
+    valuesKey: TRANSMISSION_RPC_USERNAME
+    targetPath: secretEnv.TRANSMISSION_RPC_USERNAME
+  - kind: Secret
+    name: transmission-secret
+    valuesKey: TRANSMISSION_RPC_PASSWORD
+    targetPath: secretEnv.TRANSMISSION_RPC_PASSWORD
+  - kind: Secret
+    name: transmission-secret
+    valuesKey: OPENVPN_USERNAME
+    targetPath: secretEnv.OPENVPN_USERNAME
+  - kind: Secret
+    name: transmission-secret
+
+
+  values:
+    ingress:
+      enabled: true
+      className: nginx
+      hosts:
+      - host: transmission.${DOMAIN}
+        paths:
+        - path: /
+          pathType: ImplementationSpecific
+    persistence:
+      enabled: true
+    env:
+      OPENVPN_PROVIDER: MULLVAD
+      OPENVPN_CONFIG: se_got
+      OPENVPN_OPTS: "--inactive 3600 --ping 10 --ping-exit 60 --mssfix 1450"
+      PUID: "1000"
+      GUID: "1000"
+      LOCAL_NETWORK: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+      TRANSMISSION_WEB_UI: combustion
+      TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "true"
+      TRANSMISSION_SPEED_LIMIT_DOWN: "15000"
+      TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED: "true"
+      TRANSMISSION_SPEED_LIMIT_UP: "15000"
+      TRANSMISSION_SPEED_LIMIT_UP_ENABLED: "true"
+      TRANSMISSION_LPD_ENABLED: "true"
+      TRANSMISSION_IDLE_SEEDING_LIMIT: "60"
+      TRANSMISSION_IDLE_SEEDING_LIMIT_ENABLED: "false"
+      TRANSMISSION_RATIO_LIMIT: "10"
+      TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
+      TRANSMISSION_DOWNLOAD_QUEUE_SIZE: "10"
+      TRANSMISSION_DOWNLOAD_QUEUE_ENABLED: "true"
+      TRANSMISSION_QUEUE_STALLED_MINUTES: "60"
+      TRANSMISSION_QUEUE_STALLED_ENABLED: "false"
+      TRANSMISSION_PORT_FORWARDING_ENABLED: "true"
+      TRANSMISSION_PEER_PORT: "57154"
+    secretEnv:
+
+
+
+
