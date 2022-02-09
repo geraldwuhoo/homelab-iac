@@ -37,17 +37,23 @@ spec:
         ingressClassName: nginx-public
         annotations:
           homelab/public: "true"
-          external-dns.alpha.kubernetes.io/hostname: latex.${DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: overleaf.${DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${DOMAIN}
         hosts:
-        - host: latex.${DOMAIN}
+        - host: overleaf.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
     env:
       TZ: UTC
+      SHARELATEX_SITE_URL: "https://overleaf.${DOMAIN}"
+      SHARELATEX_APP_NAME: "Overleaf (${DOMAIN})"
       SHARELATEX_REDIS_HOST: overleaf-redis-master
       REDIS_HOST: overleaf-redis-master
+      SHARELATEX_BEHIND_PROXY: true
+      SHARELATEX_RESTRICT_INVITES_TO_EXISTING_ACCOUNTS: true
+      SHARELATEX_ALLOW_PUBLIC_ACCESS: true
+      SHARELATEX_ALLOW_ANONYMOUS_READ_AND_WRITE_SHARING: true
     persistence:
       data:
         accessMode: ReadWriteOnce
