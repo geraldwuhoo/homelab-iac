@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  {% for repo in repos -%}
+  {{ repo.name }}:
+    image: docker.io/registry:2
+    restart: unless-stopped
+    environment:
+      REGISTRY_PROXY_REMOTEURL: "{{ repo.url }}"
+    networks:
+      - main
+  {% endfor %}
+
+networks:
+  main:
+    external:
+      name: main

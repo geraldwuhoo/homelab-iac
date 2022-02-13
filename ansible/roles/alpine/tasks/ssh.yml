@@ -1,0 +1,24 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: disallow password authentication
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+  register: ssh_config
+
+- name: disallow root SSH access
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+  register: ssh_config
+
+- name: restart sshd
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+    enabled: yes
+  when: ssh_config.changed

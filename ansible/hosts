@@ -1,0 +1,12 @@
+[template]
+10.40.0.200
+
+[internal]
+caddy-internal
+
+[public]
+caddy-public
+
+[alpine:children]
+internal
+public

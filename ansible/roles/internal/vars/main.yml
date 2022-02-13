@@ -1,0 +1,18 @@
+---
+packages:
+- docker
+- docker-compose
+
+repos:
+- name: hub
+  url: https://registry-1.docker.io
+- name: k8sgcr
+  url: https://k8s.gcr.io
+- name: quay
+  url: https://quay.io
+- name: gcr
+  url: https://gcr.io
+- name: ghcr
+  url: https://ghcr.io
+- name: rgitlab
+  url: https://registry.gitlab.com

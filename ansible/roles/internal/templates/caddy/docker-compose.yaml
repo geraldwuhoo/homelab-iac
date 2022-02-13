@@ -1,0 +1,22 @@
+version: '2'
+  
+services:
+  caddy:
+    image: registry.gitlab.com/geraldwuhoo/caddy-extended
+    container_name: caddy
+    restart: unless-stopped
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./data:/data
+      - ./config:/config
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      CF_API_TOKEN: {{ cf_api_token }}
+    networks:
+      - main
+
+networks:
+  main:
+    name: main

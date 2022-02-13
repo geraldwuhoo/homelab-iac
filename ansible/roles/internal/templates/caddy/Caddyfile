@@ -1,0 +1,66 @@
+{
+	email caddy@geraldwu.com
+	#acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+	acme_ca https://acme-v02.api.letsencrypt.org/directory
+	order replace after encode
+}
+
+(local-net) {
+        @not-allowed {
+                not {
+                        remote_ip 192.168.0.0/16 10.0.0.0/8 172.16.0.0/12
+                }
+        }
+        respond @not-allowed 200 {
+                body `wuhoo`
+                close
+        }
+}
+
+(dnstls) {
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+		resolvers 1.1.1.1
+	}
+}
+
+{{ domain }}, *.{{ domain }} {
+	import dnstls
+
+	@pve host pve.{{ domain }} 
+	handle @pve {
+		import local-net
+		reverse_proxy https://bake.{{ domain }}:8006 https://nise.{{ domain }}:8006 https://neko.{{ domain }}:8006 {
+			lb_policy round_robin
+			lb_try_duration 15s
+			lb_try_interval 250ms
+		}
+	}
+
+	{% for repo in repos -%}
+	@hub host {{ repo.name }}.{{ domain }}
+	handle @hub {
+		import local-net
+		reverse_proxy http://{{ repo.name }}:5000 {
+			header_up Docker-Distribution-Api-Version "registry/2.0"
+		}
+	}
+
+	{% endfor %}
+
+	respond 200 {
+		body `wuhoo`
+		close
+	}
+}
+
+s3.{{ domain }}, *.s3.{{ domain }} {
+	import dnstls
+	import local-net
+	reverse_proxy bake:7480 nise:7480 neko:7480 {
+		lb_policy round_robin
+		lb_try_duration 15s
+		lb_try_interval 250ms
+	}
+
+}

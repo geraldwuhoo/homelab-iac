@@ -1,0 +1,14 @@
+---
+- hosts: alpine
+  gather_facts: false
+  tags:
+    - alpine
+  roles:
+    - alpine
+
+- hosts: internal
+  gather_facts: false
+  tags:
+    - internal
+  roles:
+    - internal
