@@ -16,7 +16,6 @@
   ansible.builtin.cron:
     name: "Mirror arch linux repos"
     minute: "3"
-    hour: "*/2"
     job: "${HOME}/mirror/syncrepo.sh 2>&1 | logger"
 
 - name: Ensure .profile exists
