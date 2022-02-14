@@ -1,6 +1,9 @@
 # vim: ts=2 sw=2 smartindent
 
-- name: Add cephfs-fuse mount to /etc/fstab
-  ansible.builtin.lineinfile:
-    path: /etc/fstab
-    line: "none /mnt/archlinux  fuse.ceph ceph.id=sodachi,ceph.client_mountpoint=/volumes/nas/archlinux/7f2f7432-e549-4184-95c1-461d6c037b36,_netdev,defaults  0 0"
+- name: Add cephfs-fuse mount to /etc/fstab and mount
+  ansible.posix.mount:
+    src: none
+    path: /mnt/archlinux
+    fstype: fuse.ceph
+    opts: ceph.id=sodachi,ceph.client_mountpoint=/volumes/nas/archlinux/7f2f7432-e549-4184-95c1-461d6c037b36,_netdev,defaults
+    state: mounted
