@@ -7,3 +7,13 @@
     fstype: fuse.ceph
     opts: ceph.id=sodachi,ceph.client_mountpoint=/volumes/nas/archlinux/7f2f7432-e549-4184-95c1-461d6c037b36,_netdev,defaults
     state: mounted
+
+- name: Create relevant arch linux mirror directories
+  ansible.builtin.file:
+    path: "/mnt/archlinux/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - aur
+    - mirror
+    - tmp
