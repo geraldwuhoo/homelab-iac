@@ -7,6 +7,10 @@ caddy-internal
 [public]
 caddy-public
 
+[archrepo]
+sodachi
+
 [alpine:children]
 internal
 public
+archrepo

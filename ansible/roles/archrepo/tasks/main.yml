@@ -1,0 +1,13 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Install packages
+  ansible.builtin.import_tasks: packages.yml
+  become: true
+
+- name: Mount cephfs
+  ansible.builtin.import_tasks: cephfs.yml
+  become: true
+
+- name: Configure mirror of official repos
+  ansible.builtin.import_tasks: mirror.yml
+  become: false

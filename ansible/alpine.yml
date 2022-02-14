@@ -12,3 +12,10 @@
     - internal
   roles:
     - internal
+
+- hosts: archrepo
+  gather_facts: false
+  tags:
+    - archrepo
+  roles:
+    - archrepo

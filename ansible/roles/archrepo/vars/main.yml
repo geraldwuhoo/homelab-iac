@@ -1,0 +1,5 @@
+---
+packages:
+- docker
+- docker-compose
+- ceph-fuse

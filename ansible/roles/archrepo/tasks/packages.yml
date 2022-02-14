@@ -1,0 +1,6 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Install packages
+  ansible.builtin.apk:
+    name: "{{ packages }}"
+    state: present
