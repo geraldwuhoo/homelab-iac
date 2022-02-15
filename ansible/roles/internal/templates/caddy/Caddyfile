@@ -38,8 +38,8 @@
 	}
 
 	{% for repo in repos -%}
-	@hub host {{ repo.name }}.{{ domain }}
-	handle @hub {
+	@{{ repo.name }} host {{ repo.name }}.{{ domain }}
+	handle @{{ repo.name }} {
 		import local-net
 		reverse_proxy http://{{ repo.name }}:5000 {
 			header_up Docker-Distribution-Api-Version "registry/2.0"

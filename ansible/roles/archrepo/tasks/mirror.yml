@@ -30,22 +30,3 @@
   ansible.builtin.lineinfile:
     path: .profile
     line: "alias daur='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.gitlab.com/geraldwuhoo/docker-aurutils:latest aur'"
-
-- name: Create docker-compose directory
-  ansible.builtin.file:
-    path: nginx
-    state: directory
-    mode: '0755'
-
-- name: Copy docker-compose for nginx static webservers
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: nginx
-  loop:
-    - docker-compose.yaml
-    - nginx.conf
-
-- name: Activate docker-compose nginx static webservers
-  community.docker.docker_compose:
-    project_src: nginx
-  become: true

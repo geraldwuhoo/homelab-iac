@@ -11,3 +11,7 @@
 - name: Configure mirror of official repos
   ansible.builtin.import_tasks: mirror.yml
   become: false
+
+- name: Configure nginx to serve mirror
+  ansible.builtin.import_tasks: nginx.yml
+  become: true
