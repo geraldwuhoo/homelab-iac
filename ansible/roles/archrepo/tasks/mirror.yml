@@ -29,4 +29,7 @@
 - name: Add aur docker alias to .profile
   ansible.builtin.lineinfile:
     path: .profile
-    line: "alias daur='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.gitlab.com/geraldwuhoo/docker-aurutils:latest aur'"
+    line: "{{ item }}"
+  loop:
+    - "alias daur='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.gitlab.com/geraldwuhoo/docker-aurutils:latest aur'"
+    - "alias daursh='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.gitlab.com/geraldwuhoo/docker-aurutils:latest /bin/bash'"
