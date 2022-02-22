@@ -3,6 +3,8 @@ ansible_become_method: ENC[AES256_GCM,data:h5x8KQ==,iv:qeD8SK8OMQP+yMTsavjIiy2Qm
 ansible_become_user: ENC[AES256_GCM,data:1wfG/g==,iv:c6kIunUdN2ckYRdZXbhT7jY0qpiSBBiRhzhTPIyV7nI=,tag:b2BpRQgvrkqUluik64If6g==,type:str]
 domain: ENC[AES256_GCM,data:9Gf6HRgcVOba,iv:w6qS+Y9ryF/uIPKnK0YED4WjJ+42vyDHIR3JrdZ0n1w=,tag:djHcfSWXhzqQfJmyEajWBg==,type:str]
 cf_api_token: ENC[AES256_GCM,data:OGIoZHnSO8wB3yilhodQJ5ldv8Z1ZidikB1aCb88HwAZ99/C2l+oXQ==,iv:x27XoGyLewxrB4pco6O6L+OZrMppJ2lHuTdEoiw1q8E=,tag:aTi0UVKdOd77O+6kJEdPAw==,type:str]
+watchtower_gotify_url: ENC[AES256_GCM,data:Ustbmz1EvP4PC9MBCW7B/EfLkUKQxeuwV3mX,iv:krY3aD5HY1CBEZimfhflRLIu6Er6DNoO/I33As2LkF8=,tag:B100q1S3QR5P5zVjeXffrw==,type:str]
+watchtower_gotify_token: ENC[AES256_GCM,data:CTzk5d4dmmf5Ee0I+7EW,iv:38BFxaixCu61ZoCFFFdm+IuFBwiQgH9WzvDJKB2kD80=,tag:hceT2nFMfox9SsMymHIN3g==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -18,8 +20,8 @@ sops:
             STFXaUIxdU9yNlFWS2cyTTBGMVFpU1kKrflUig1KMZW6SqOajJ9dsUoGF3PYSh1f
             G3jl44LuhWTwlq3yhZDTo2B3iqWRpRg9EOu++cCGOw4aKbFqRaYU3A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-02-13T20:41:18Z"
-    mac: ENC[AES256_GCM,data:T/6eTTBkUJSK+QBV22pqLWqbPY1OUwlDla/bU5G66u58mc+N3c/RDUpwu7fD3OwQLP2XwLfSkVYvhJEj5V8hC2fp3EmD5wpw7y/dKRb0nsuHbR64OqEUBXtqNpCbTa/XrCxfwWpeYu17XrGG8SFuFZkMue/gF2KxP386IoV01sc=,iv:KA3vl7lW0uxCAPEVGs624mCciH52CbHLiVOKtTuCMzY=,tag:yVEDquxxQi9CwIABbY4cuw==,type:str]
+    lastmodified: "2022-02-21T06:40:39Z"
+    mac: ENC[AES256_GCM,data:oATo0+MYoffr5DBzE9XgmiaHCu3YttDo+knwR/vblGFo8M8bIRbFCd7c4bZPB/H170rMDaaI6eHre4RvJTrV+KkMdXIr3Q3jLUB7j52Q5QWaCs46dxmyGGdK/rZMxUAnGW+vnmII2qiYu2n+Hm1ngxj3e15EVzZVuBW0gl0TiNU=,iv:4yeaub2XRoUD99RnZTs2vdujPi+YJIxvYATe/KwzYTM=,tag:E8sKAQq8bWCjPig5g4Kn4g==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
