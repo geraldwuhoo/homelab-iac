@@ -35,7 +35,7 @@ spec:
         provider: aws
         default:
         config:
-          region: minio
+          region: default
           s3ForcePathStyle: "true"
           s3Url: "${S3_URL}"
       defaultVolumesToRestic: true
