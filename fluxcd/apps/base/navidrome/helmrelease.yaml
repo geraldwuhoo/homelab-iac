@@ -28,7 +28,7 @@ spec:
           - path: /
             pathType: Prefix
     podAnnotations:
-      backup.velero.io/backup-volumes-excludes: music
+      backup.velero.io/backup-volumes-excludes: navidrome-music
     persistence:
       config:
         enabled: true
