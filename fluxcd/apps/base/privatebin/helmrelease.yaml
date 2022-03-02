@@ -10,17 +10,41 @@ spec:
       chart: privatebin
       sourceRef:
         kind: HelmRepository
-        name: privatebin
+        name: k8s-at-home
         namespace: flux-system
   interval: 10m0s
+  valuesFrom:
+    - kind: Secret
+      name: privatebin-secret
+      valuesKey: POSTGRESQL_PASSWORD
+      targetPath: postgresql.postgresqlPassword
   values:
-    controller:
-      pvc:
-        requests: "5Gi"
     ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: paste.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        hosts:
+        - host: paste.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    persistence:
+      data:
+        accessMode: ReadWriteOnce
+        enabled: true
+        retain: true
+        size: 20Gi
+        type: pvc
+        mountPath: /srv/data
+    postgresql:
       enabled: true
-      className: nginx-public
-      hosts:
-      - host: paste.${DOMAIN}
-        paths:
-        - "/"
+      postgresqlUsername: privatebin
+      postgresqlDatabase: privatebin
+      persistence:
+        enabled: true
+        accessModes:
+        - ReadWriteOnce
