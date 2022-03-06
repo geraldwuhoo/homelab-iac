@@ -3,6 +3,7 @@ version: '3'
 services:
   watchtower:
     image: containrrr/watchtower
+    restart: unless-stopped
     environment:
       WATCHTOWER_NOTIFICATIONS: gotify
       WATCHTOWER_NOTIFICATION_GOTIFY_URL: "{{ watchtower_gotify_url }}"
