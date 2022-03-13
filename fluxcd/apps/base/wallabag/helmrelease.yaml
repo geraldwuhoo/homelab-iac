@@ -40,7 +40,7 @@ spec:
       SYMFONY__ENV__DOMAIN_NAME: http://wallabag.${DOMAIN}
       SYMFONY__ENV__SERVER_NAME: "${DOMAIN} Wallabag"
       SYMFONY__ENV__FOSUSER_REGISTRATION: false
-      POPULATE_DATABASE: false
+      POPULATE_DATABASE: true
     ingress:
       main:
         enabled: true
