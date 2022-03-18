@@ -12,7 +12,8 @@ spec:
         kind: HelmRepository
         name: kubernetes-dashboard
         namespace: flux-system
-  interval: 1m0s
+  interval: 10m0s
+  timeout: 10m0s
   values:
     extraArgs:
     - --enable-insecure-login

@@ -13,6 +13,7 @@ spec:
         name: k8s-at-home
         namespace: flux-system
   interval: 10m0s
+  timeout: 10m0s
   valuesFrom:
   - kind: Secret
     name: vaultwarden-secret
