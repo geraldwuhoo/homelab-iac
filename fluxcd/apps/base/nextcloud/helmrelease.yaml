@@ -58,6 +58,10 @@ spec:
       user: nextcloud
     postgresql:
       enabled: true
+      image:
+        registry: quay.io
+        repository: bitnami/postgresql
+        tag: 13
       postgresqlUsername: nextcloud
       postgresqlDatabase: nextcloud
       persistence:
