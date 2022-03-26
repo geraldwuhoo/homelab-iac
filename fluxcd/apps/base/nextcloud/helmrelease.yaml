@@ -50,6 +50,11 @@ spec:
           $CONFIG = array (
             'overwriteprotocol' => 'https'
           );
+    cronjob:
+      enabled: true
+      image:
+        repository: curlimages/curl
+        tag: 7.82.0
     internalDatabase:
       enabled: false
     externalDatabase:
