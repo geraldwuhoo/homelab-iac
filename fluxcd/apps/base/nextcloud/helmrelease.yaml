@@ -32,6 +32,8 @@ spec:
     valuesKey: REDIS_PASSWORD
     targetPath: redis.auth.password
   values:
+    image:
+      tag: stable-apache
     ingress:
       enabled: true
       className: nginx-public
