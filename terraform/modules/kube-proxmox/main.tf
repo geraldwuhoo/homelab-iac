@@ -88,7 +88,7 @@ resource "proxmox_vm_qemu" "kube-nodes" {
 
   provisioner "local-exec" {
     when       = destroy
-    command    = "cd ${path.module}/ansible; kubectl drain --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible --inventory=\"hosts.${self.tags}\" ${self.name} -m shell -a \"subscription-manager remove --all; subscription-manager unregister; subscription-manager clean; kubeadm reset --force\" -b; kubectl delete node ${self.name}; sed -i '/^${self.name}/d' ~/.ssh/known_hosts"
+    command    = "cd ${path.module}/ansible; kubectl drain --ignore-daemonsets --delete-emptydir-data ${self.name}; ansible --inventory=\"hosts.${self.tags}\" ${self.name} -m shell -a \"kubeadm reset --force\" -b; kubectl delete node ${self.name}; sed -i '/^${self.name}/d' ~/.ssh/known_hosts"
     on_failure = continue
   }
 

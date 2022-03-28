@@ -2,12 +2,12 @@
 
 - name: Secure SSH
   ansible.builtin.import_tasks: ssh.yml
-  become: yes
+  become: true
 
 - name: Install packages
   ansible.builtin.import_tasks: packages.yml
-  become: yes
+  become: true
 
 - name: Configuration
   ansible.builtin.import_tasks: config.yml
-  become: yes
+  become: true

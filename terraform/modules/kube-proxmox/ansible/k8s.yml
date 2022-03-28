@@ -1,10 +1,10 @@
 ---
-- hosts: k8s
-  gather_facts: false
-  tags:
-    - prepare
-  roles:
-    - register
+# - hosts: k8s
+#   gather_facts: false
+#   tags:
+#     - prepare
+#   roles:
+#     - register
 
 - hosts: controlplane
   gather_facts: false

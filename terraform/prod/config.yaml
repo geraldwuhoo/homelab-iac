@@ -10,19 +10,19 @@
       node: bake
       hastate: started
       macaddr: 02:95:a7:a0:ee:b5
-      template_name: apparition
+      template_name: oddity
     - vmid: 201
       name: shinobu
       node: nise
       hastate: started
       macaddr: 02:c9:f2:01:b1:45
-      template_name: apparition
+      template_name: oddity
     - vmid: 202
       name: senjougahara
       node: neko
       hastate: started
       macaddr: 02:1a:ca:a2:d9:3e
-      template_name: apparition
+      template_name: oddity
 - type: worker
   specs:
     cores: 4
@@ -35,16 +35,16 @@
       node: bake
       hastate: started
       macaddr: 02:ad:d6:ec:15:d1
-      template_name: apparition
+      template_name: oddity
     - vmid: 301
       name: hachikuji
       node: nise
       hastate: started
       macaddr: 02:ba:fd:cd:73:48
-      template_name: apparition
+      template_name: oddity
     - vmid: 302
       name: kanbaru
       node: neko
       hastate: started
       macaddr: 02:a3:3e:14:c0:78
-      template_name: apparition
+      template_name: oddity
