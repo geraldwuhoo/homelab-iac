@@ -51,7 +51,7 @@ spec:
     snapshotsEnabled: false
     deployRestic: true
     schedules:
-      dailyBackup:
+      dailybackup:
         disabled: false
         schedule: "0 6 * * *"
         template:
