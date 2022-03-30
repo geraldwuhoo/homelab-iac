@@ -50,3 +50,21 @@ spec:
     backupsEnabled: true
     snapshotsEnabled: false
     deployRestic: true
+    schedules:
+      dailyBackup:
+        disabled: false
+        schedule: "0 6 * * *"
+        template:
+          ttl: "30d"
+          includedNamespaces:
+          - authentik
+          - gitlab
+          - media
+          - navidrome
+          - nextcloud
+          - overleaf
+          - paperless
+          - privatebin
+          - prometheus
+          - vaultwarden
+          - wallabag
