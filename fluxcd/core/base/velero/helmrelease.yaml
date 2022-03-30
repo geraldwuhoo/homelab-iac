@@ -55,7 +55,7 @@ spec:
         disabled: false
         schedule: "0 6 * * *"
         template:
-          ttl: "30d"
+          ttl: "720h"
           includedNamespaces:
           - authentik
           - gitlab
