@@ -53,7 +53,7 @@ spec:
     schedules:
       dailybackup:
         disabled: false
-        schedule: "12 6 * * *"
+        schedule: "12 13 * * *"
         template:
           ttl: "720h"
           includedNamespaces:
