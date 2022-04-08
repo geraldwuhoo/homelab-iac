@@ -17,14 +17,6 @@ spec:
   valuesFrom:
     - kind: Secret
       name: gotify-secret
-      valuesKey: POSTGRES_CONNECTION
-      targetPath: env.GOTIFY_DATABASE_CONNECTION
-    - kind: Secret
-      name: gotify-secret
-      valuesKey: POSTGRES_PASSWORD
-      targetPath: postgresql.postgresqlPassword
-    - kind: Secret
-      name: gotify-secret
       valuesKey: GOTIFY_DEFAULTUSER_PASS
       targetPath: env.GOTIFY_DEFAULTUSER_PASS
   values:
@@ -41,8 +33,6 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    env:
-      GOTIFY_DATABASE_DIALECT: postgres
     persistence:
       data:
         enabled: true
@@ -51,11 +41,3 @@ spec:
         size: 1Gi
         type: pvc
         mountPath: /app/data
-    postgresql:
-      enabled: true
-      postgresqlUsername: gotify
-      postgresqlDatabase: gotify
-      persistence:
-        enabled: true
-        accessModes:
-        - ReadWriteOnce
