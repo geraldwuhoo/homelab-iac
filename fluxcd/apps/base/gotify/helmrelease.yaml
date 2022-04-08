@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gotify
+  namespace: gotify
+spec:
+  chart:
+    spec:
+      chart: gotify
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  valuesFrom:
+    - kind: Secret
+      name: gotify-secret
+      valuesKey: POSTGRES_CONNECTION
+      targetPath: env.GOTIFY_DATABASE_CONNECTION
+    - kind: Secret
+      name: gotify-secret
+      valuesKey: POSTGRES_PASSWORD
+      targetPath: postgresql.postgresqlPassword
+    - kind: Secret
+      name: gotify-secret
+      valuesKey: GOTIFY_DEFAULTUSER_PASS
+      targetPath: env.GOTIFY_DEFAULTUSER_PASS
+  values:
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: gotify.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        hosts:
+        - host: gotify.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    env:
+      GOTIFY_DATABASE_DIALECT: postgres
+    persistence:
+      data:
+        enabled: true
+        retain: true
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        type: pvc
+        mountPath: /app/data
+    postgresql:
+      enabled: true
+      postgresqlUsername: gotify
+      postgresqlDatabase: gotify
+      persistence:
+        enabled: true
+        accessModes:
+        - ReadWriteOnce
