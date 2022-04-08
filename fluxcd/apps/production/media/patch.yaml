@@ -83,3 +83,4 @@ spec:
         accessMode: null
         retain: null
         subPath: Music
+        readOnly: true
