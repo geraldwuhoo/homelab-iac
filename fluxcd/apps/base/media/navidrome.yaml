@@ -30,9 +30,6 @@ spec:
             pathType: Prefix
     podAnnotations:
       backup.velero.io/backup-volumes-excludes: media
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
     persistence:
       config:
         enabled: true
