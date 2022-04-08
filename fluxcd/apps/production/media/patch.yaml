@@ -68,3 +68,18 @@ spec:
         size: null
         accessMode: null
         retain: null
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: navidrome
+  namespace: media
+spec:
+  values:
+    persistence:
+      media:
+        existingClaim: media-media-pvc
+        size: null
+        accessMode: null
+        retain: null
+        subPath: Music
