@@ -59,8 +59,8 @@ spec:
           includedNamespaces:
           - authentik
           - gitlab
+          - gotify
           - media
-          - navidrome
           - nextcloud
           - overleaf
           - paperless
