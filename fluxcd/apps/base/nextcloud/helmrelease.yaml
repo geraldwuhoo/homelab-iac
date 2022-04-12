@@ -68,6 +68,7 @@ spec:
       image:
         registry: quay.io
         repository: bitnami/postgresql
+        tag: 11-debian-10
       postgresqlUsername: nextcloud
       postgresqlDatabase: nextcloud
       persistence:
