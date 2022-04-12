@@ -71,6 +71,12 @@
       value: "1"
     - name: net.bridge.bridge-nf-call-ip6tables
       value: "1"
+    - name: net.ipv4.conf.all.src_valid_mark
+      value: "1"
+    - name: net.core.rmem_max
+      value: "4194304"
+    - name: net.core.wmem_max
+      value: "1048576"
 
 - name: containerd conf
   ansible.builtin.copy:

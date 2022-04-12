@@ -63,11 +63,12 @@ metadata:
 spec:
   values:
     persistence:
-      media:
+      downloads:
         existingClaim: media-media-pvc
         size: null
         accessMode: null
         retain: null
+        subPath: torrent
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease

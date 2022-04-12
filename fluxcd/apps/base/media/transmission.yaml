@@ -7,64 +7,87 @@ metadata:
 spec:
   chart:
     spec:
-      chart: transmission-openvpn
+      chart: transmission
       sourceRef:
         kind: HelmRepository
-        name: utkuozdemir
+        name: k8s-at-home
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
   valuesFrom:
-  - kind: Secret
-    name: transmission-secret
-    valuesKey: TRANSMISSION_RPC_USERNAME
-    targetPath: secretEnv.TRANSMISSION_RPC_USERNAME
-  - kind: Secret
-    name: transmission-secret
-    valuesKey: TRANSMISSION_RPC_PASSWORD
-    targetPath: secretEnv.TRANSMISSION_RPC_PASSWORD
-  - kind: Secret
-    name: transmission-secret
-    valuesKey: OPENVPN_USERNAME
-    targetPath: secretEnv.OPENVPN_USERNAME
-  - kind: Secret
-    name: transmission-secret
-    valuesKey: OPENVPN_PASSWORD
-    targetPath: secretEnv.OPENVPN_PASSWORD
+    - kind: Secret
+      name: transmission-secret
+      valuesKey: CONFIG_FILE
+      targetPath: addons.vpn.configFile
   values:
+    image:
+      repository: ghcr.io/k8s-at-home/transmission
+      tag: v3.00
     ingress:
-      enabled: true
-      className: nginx
-      hosts:
-      - host: transmission.${DOMAIN}
-        paths:
-        - path: /
-          pathType: ImplementationSpecific
+      main:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - host: transmission.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    podAnnotations:
+      backup.velero.io/backup-volumes-excludes: downloads
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
-      enabled: true
-    env:
-      OPENVPN_PROVIDER: MULLVAD
-      OPENVPN_CONFIG: se_got
-      OPENVPN_OPTS: "--inactive 3600 --ping 10 --ping-exit 60 --mssfix 1450"
-      PUID: "1000"
-      GUID: "1000"
-      LOCAL_NETWORK: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
-      TRANSMISSION_WEB_UI: combustion
-      TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "true"
-      TRANSMISSION_SPEED_LIMIT_DOWN: "15000"
-      TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED: "true"
-      TRANSMISSION_SPEED_LIMIT_UP: "15000"
-      TRANSMISSION_SPEED_LIMIT_UP_ENABLED: "true"
-      TRANSMISSION_LPD_ENABLED: "true"
-      TRANSMISSION_IDLE_SEEDING_LIMIT: "60"
-      TRANSMISSION_IDLE_SEEDING_LIMIT_ENABLED: "false"
-      TRANSMISSION_RATIO_LIMIT: "10"
-      TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
-      TRANSMISSION_DOWNLOAD_QUEUE_SIZE: "10"
-      TRANSMISSION_DOWNLOAD_QUEUE_ENABLED: "true"
-      TRANSMISSION_QUEUE_STALLED_MINUTES: "60"
-      TRANSMISSION_QUEUE_STALLED_ENABLED: "false"
-      TRANSMISSION_PORT_FORWARDING_ENABLED: "true"
-      TRANSMISSION_PEER_PORT: "57154"
-    secretEnv:
-      TRANSMISSION_RPC_USERNAME: admin
+      config:
+        enabled: true
+        retain: true
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        type: pvc
+      downloads:
+        enabled: true
+        retain: true
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        type: pvc
+      shared:
+        enabled: true
+        type: emptyDir
+        mountPath: /shared
+    addons:
+      vpn:
+        enabled: true
+        # This Should be set to `wireguard`. This will set the add-on to use the default settings for Wireguard based connections.
+        type: wireguard
+
+        # If the podSecurityContext is set to run as a different user, make sure to run the Wireguard container as UID/GID 568.
+        # This is required for it to be able to read certain configuration files.
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+
+        env:
+          # Enable a killswitch that kills all trafic when the VPN is not connected
+          KILLSWITCH: "true"
+          KILLSWITCH_EXCLUDEDNETWORKS_IPV4: "10.0.0.0/8;192.168.0.0/16;172.16.0.0/12"
+
+        # The wireguard configuration file provided by your VPN provider goes here.
+        #
+        # Set AllowedIPs to 0.0.0.0/0 to route all traffic through the VPN.
+        #
+        # Pay close attention to the PostUp and PreDown lines. They must be added if you wish to run a script when the connection
+        # is opened / closed.
+
+        # The scripts that get run when the VPN connection opens/closes are defined here.
+        # The default scripts will write a string to represent the current connection state to a file.
+        # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
+        scripts:
+          up: |-
+            #!/bin/bash
+            echo "connected" > /shared/vpnstatus
+
+          down: |-
+            #!/bin/bash
+            echo "disconnected" > /shared/vpnstatus
