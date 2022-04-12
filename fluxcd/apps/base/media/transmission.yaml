@@ -32,6 +32,20 @@ spec:
       valuesKey: TRANSMISSION_PEER_PORT
       targetPath: env.TRANSMISSION_PEER_PORT
   values:
+    initContainers:
+      custom-webui:
+        name: custom-webui
+        image: curlimages/curl:7.76.1
+        command:
+        - "/bin/sh"
+        - "-c"
+        - "curl -o- -sL https://github.com/johman10/flood-for-transmission/releases/download/latest/flood-for-transmission.tar.gz | tar xzf - -C /config"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
     image:
       repository: ghcr.io/k8s-at-home/transmission
       tag: v3.00
@@ -70,7 +84,7 @@ spec:
         mountPath: /shared
     env:
       WAIT_FOR_VPN: "true"
-      TRANSMISSION_WEB_UI: combustion
+      TRANSMISSION_WEB_HOME: /config/flood-for-transmission
       TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: true
       TRANSMISSION_SPEED_LIMIT_DOWN: 15000
       TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED: true
