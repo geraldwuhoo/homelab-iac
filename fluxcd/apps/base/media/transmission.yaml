@@ -19,6 +19,18 @@ spec:
       name: transmission-secret
       valuesKey: CONFIG_FILE
       targetPath: addons.vpn.configFile
+    - kind: Secret
+      name: transmission-secret
+      valuesKey: TRANSMISSION_RPC_USERNAME
+      targetPath: env.TRANSMISSION_RPC_USERNAME
+    - kind: Secret
+      name: transmission-secret
+      valuesKey: TRANSMISSION_RPC_PASSWORD
+      targetPath: env.TRANSMISSION_RPC_PASSWORD
+    - kind: Secret
+      name: transmission-secret
+      valuesKey: TRANSMISSION_PEER_PORT
+      targetPath: env.TRANSMISSION_PEER_PORT
   values:
     image:
       repository: ghcr.io/k8s-at-home/transmission
@@ -58,6 +70,22 @@ spec:
         mountPath: /shared
     env:
       WAIT_FOR_VPN: "true"
+      TRANSMISSION_WEB_UI: combustion
+      TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: true
+      TRANSMISSION_SPEED_LIMIT_DOWN: 15000
+      TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED: true
+      TRANSMISSION_SPEED_LIMIT_UP: 15000
+      TRANSMISSION_SPEED_LIMIT_UP_ENABLED: true
+      TRANSMISSION_LPD_ENABLED: true
+      TRANSMISSION_IDLE_SEEDING_LIMIT: 60
+      TRANSMISSION_IDLE_SEEDING_LIMIT_ENABLED: false
+      TRANSMISSION_RATIO_LIMIT: 10
+      TRANSMISSION_RATIO_LIMIT_ENABLED: true
+      TRANSMISSION_DOWNLOAD_QUEUE_SIZE: 10
+      TRANSMISSION_DOWNLOAD_QUEUE_ENABLED: true
+      TRANSMISSION_QUEUE_STALLED_MINUTES: 60
+      TRANSMISSION_QUEUE_STALLED_ENABLED: false
+      TRANSMISSION_PORT_FORWARDING_ENABLED: true
     addons:
       vpn:
         enabled: true
