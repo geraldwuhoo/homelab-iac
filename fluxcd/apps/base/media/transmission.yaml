@@ -29,8 +29,8 @@ spec:
     targetPath: secretEnv.OPENVPN_USERNAME
   - kind: Secret
     name: transmission-secret
-
-
+    valuesKey: OPENVPN_PASSWORD
+    targetPath: secretEnv.OPENVPN_PASSWORD
   values:
     ingress:
       enabled: true
@@ -67,7 +67,4 @@ spec:
       TRANSMISSION_PORT_FORWARDING_ENABLED: "true"
       TRANSMISSION_PEER_PORT: "57154"
     secretEnv:
-
-
-
-
+      TRANSMISSION_RPC_USERNAME: admin
