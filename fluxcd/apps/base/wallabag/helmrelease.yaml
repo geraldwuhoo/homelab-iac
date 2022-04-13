@@ -28,6 +28,9 @@ spec:
     valuesKey: WALLABAG_DB_PASS
     targetPath: postgresql.postgresqlPassword
   values:
+    image:
+      repository: docker.io/wallabag/wallabag
+      tag: 2.4.3
     env:
       TZ: UTC
       POSTGRES_USER: wallabag
