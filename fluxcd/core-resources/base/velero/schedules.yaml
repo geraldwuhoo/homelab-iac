@@ -20,6 +20,9 @@ spec:
     - prometheus
     - vaultwarden
     - wallabag
+    includedResources:
+    - persistentvolumes
+    - persistentvolumeclaims
     storageLocation: default
 ---
 apiVersion: velero.io/v1
@@ -43,4 +46,7 @@ spec:
     - prometheus
     - vaultwarden
     - wallabag
+    includedResources:
+    - persistentvolumes
+    - persistentvolumeclaims
     storageLocation: remote
