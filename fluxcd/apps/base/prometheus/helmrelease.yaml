@@ -25,7 +25,13 @@ spec:
         enabled: true
         ingressClassName: nginx
         hosts:
-          - grafana.${DOMAIN}
+        - grafana.${DOMAIN}
+    alertmanager:
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - alertmanager.${DOMAIN}
     prometheus:
       prometheusSpec:
         storageSpec:
@@ -36,3 +42,8 @@ spec:
               resources:
                 requests:
                   storage: 16Gi
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - prometheus.${DOMAIN}
