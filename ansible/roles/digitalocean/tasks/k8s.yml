@@ -1,0 +1,18 @@
+# vim: ts=2 sw=2 smartindent
+
+- name: Fetch kubernetes config file
+  ansible.builtin.fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: "~/.kube/digitalocean.config"
+    flat: yes
+
+- name: Fix kubernetes config context
+  local_action:
+    module: ansible.builtin.replace
+    path: "~/.kube/digitalocean.config"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  loop:
+    - { regexp: 'default', replace: 'digitalocean' }
+    - { regexp: '127.0.0.1', replace: 'netmaker.wuhoo.xyz' }
+  become: false

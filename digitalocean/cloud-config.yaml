@@ -1,0 +1,38 @@
+#cloud-config
+# mounts:
+#   - [ sda, /mnt/netmaker, "ext4", "defaults,uid=1000,gid=1000,umask=022", "0", "0" ]
+
+# apt:
+#   sources:
+#     docker-ce:
+#       source: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+#       keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+package_update: true
+package_upgrade: true
+packages:
+  - tmux
+  - vim
+  - wget
+  - wireguard
+
+users:
+  - name: jerry
+    groups: wheel
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDfl1dB7NdK3ShSTbdkOFfxD5c6jKsEDJiwU6HlfPA1XtfFbauzOlUtpLRMG22wnFai7Xd0ejpt2f5eh2w5g9P4QCZawInMC4kgK5qN/hIB+LHIe+go89pI1s27Zy+aOCciWSfv9O0HeCWtB0mUxnGRjBLtBQaIwENzi2MiPw0ce5QuLrP1Zm60TXdKpbHeThni5SNp4mAVfFWgGqxDI5xzLo61Ad6D97hR+dz0hR8DVUhDSfath9zovglxoyIn5m7oNlApzg3OmFeIdLThwZwXeagXHFJqoub0TsnUNT4v1fOYhwMk0XXE/3faj8Gex2Xs4s/PtWyULfV4oaajgUtG8MmDJR+OdhAI3Mu1Yds7e22FB22zeMdq1UWRLutMbkM+XgXvRdsd1+tq9lOm2YVGydKFL2Wh4nmR6cz4+/aSN23xqBYDGMR3IjYje4oVk57XyWpjeWXpDU68vZ90lToVJB0q2SUufpjPW4vg64Im2pw59D6p+E2xbQe/TMgSe6MjoEMKNTnqJ5/08atF7tprZZ2KPIPtU9/tbi5Gkocnjls2Mp0E28PxZ5h7ghDa2zKkRxTRg/0YOUJ9JKFxaDt2WeLnodeKcuYVHl02Qa9kstNJX7DpysH9zKROUgk1Lju8IpUjt6RX6B05YbRH1UxV+rP+l2dCEyhdu0KFHopQ0w== jerry@Arch-Desktop
+
+runcmd:
+  - echo "export TERM=linux" >> /home/jerry/.bash_profile
+  - sed -i 's/^PasswordAuthentication.*/PasswordAuthentication no/g' /etc/ssh/sshd_config
+  - sed -i 's/^PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
+  - systemctl restart sshd
+  - curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--no-deploy=traefik --no-deploy=local-storage" INSTALL_K3S_VERSION=v1.22.7+k3s1 sh -s -
+
+power_state:
+  delay: now
+  mode: reboot
+  message: Rebooting machine
+  condition: true

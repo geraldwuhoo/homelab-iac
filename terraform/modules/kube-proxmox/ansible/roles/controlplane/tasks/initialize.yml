@@ -40,4 +40,4 @@
     path: "~/.kube/{{ vip_hostname }}.config"
     regexp: 'kubernetes'
     replace: "{{ vip_hostname }}"
-  become: no
+  become: false
