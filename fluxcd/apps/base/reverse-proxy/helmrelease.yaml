@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: reverse-proxy
+  namespace: reverse-proxy
+spec:
+  chart:
+    spec:
+      chart: reverse-proxy
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    generateTLS:
+      enabled: false
+    instances:
+    - name: archlinux
+      enabled: true
+      externalName: sodachi
+      port: 8080
+      ingress:
+        ingressClassName: nginx-public
+        hosts:
+        - host: archlinux.wuhoo.xyz
+          path: /
+    - name: aur
+      enabled: true
+      externalName: sodachi
+      port: 8081
+      ingress:
+        ingressClassName: nginx-public
+        hosts:
+        - host: aur.wuhoo.xyz
+          path: /
