@@ -68,7 +68,8 @@ spec:
         custom.config.php: |-
           <?php
           $CONFIG = array (
-            'overwriteprotocol' => 'https'
+            'overwriteprotocol' => 'https',
+            'trusted_proxies' => ['10.0.0.0/8']
           );
     cronjob:
       enabled: true
