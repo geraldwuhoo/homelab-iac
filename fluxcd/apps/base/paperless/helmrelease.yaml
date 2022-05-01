@@ -54,6 +54,7 @@ spec:
       PAPERLESS_OCR_LANGUAGE: eng
       PAPERLESS_ADMIN_USER: admin
       PAPERLESS_ADMIN_MAIL: fake@example.com
+      PAPERLESS_URL: https://paperless.${DOMAIN}
       PAPERLESS_CONSUMER_POLLING: 60
       USERMAP_UID: 1000
       USERMAP_GID: 1000
