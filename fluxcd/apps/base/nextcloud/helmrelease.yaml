@@ -17,10 +17,6 @@ spec:
   valuesFrom:
   - kind: Secret
     name: nextcloud-secret
-    valuesKey: ADMIN_PASSWORD
-    targetPath: nextcloud.password
-  - kind: Secret
-    name: nextcloud-secret
     valuesKey: DB_PASSWORD
     targetPath: postgresql.postgresqlPassword
   - kind: Secret
@@ -41,6 +37,7 @@ spec:
       host: cloud.${DOMAIN}
       existingSecret:
         enabled: true
+        secretName: nextcloud-secret
         usernameKey: ADMIN_USERNAME
         passwordKey: ADMIN_PASSWORD
       configs:
