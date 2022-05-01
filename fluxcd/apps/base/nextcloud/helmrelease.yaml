@@ -53,16 +53,6 @@ spec:
         tag: 7.82.0
     internalDatabase:
       enabled: false
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      host: nextcloud-postgresql
-      database: nextcloud
-      existingSecret:
-        enabled: true
-        secretName: nextcloud-secret
-        usernameKey: DB_USERNAME
-        passwordKey: DB_PASSWORD
     postgresql:
       enabled: true
       image:
