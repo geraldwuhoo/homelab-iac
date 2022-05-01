@@ -22,10 +22,6 @@ spec:
   - kind: Secret
     name: nextcloud-secret
     valuesKey: DB_PASSWORD
-    targetPath: externalDatabase.password
-  - kind: Secret
-    name: nextcloud-secret
-    valuesKey: DB_PASSWORD
     targetPath: postgresql.postgresqlPassword
   - kind: Secret
     name: nextcloud-secret
@@ -43,7 +39,10 @@ spec:
         external-dns.alpha.kubernetes.io/target: ${DOMAIN}
     nextcloud:
       host: cloud.${DOMAIN}
-      username: admin
+      existingSecret:
+        enabled: true
+        usernameKey: ADMIN_USERNAME
+        passwordKey: ADMIN_PASSWORD
       configs:
         custom.config.php: |-
           <?php
@@ -62,7 +61,11 @@ spec:
       type: postgresql
       host: nextcloud-postgresql
       database: nextcloud
-      user: nextcloud
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secret
+        usernameKey: DB_USERNAME
+        passwordKey: DB_PASSWORD
     postgresql:
       enabled: true
       image:
