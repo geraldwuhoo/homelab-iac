@@ -18,7 +18,7 @@ spec:
   - kind: Secret
     name: nextcloud-secret
     valuesKey: DB_PASSWORD
-    targetPath: postgresql.postgresqlPassword
+    targetPath: mariadb.auth.password
   - kind: Secret
     name: nextcloud-secret
     valuesKey: REDIS_PASSWORD
@@ -50,19 +50,24 @@ spec:
       enabled: true
       image:
         repository: curlimages/curl
-        tag: 7.82.0
+        tag: 7.83.0
     internalDatabase:
       enabled: false
-    postgresql:
+    mariadb:
       enabled: true
       image:
-        registry: quay.io
-        repository: bitnami/postgresql
-        tag: 11-debian-10
-      postgresqlUsername: nextcloud
-      postgresqlDatabase: nextcloud
-      persistence:
-        enabled: true
+        registry: docker.io
+        repository: bitnami/mariadb
+        tag: 10.7-debian-10
+      architecture: standalone
+      auth:
+        database: nextcloud
+        username: nextcloud
+      primary:
+        persistence:
+          enabled: true
+          accessMode: ReadWriteOnce
+          size: 8Gi
     redis:
       enabled: true
       auth:
