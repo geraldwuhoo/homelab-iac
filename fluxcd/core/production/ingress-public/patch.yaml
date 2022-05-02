@@ -13,6 +13,7 @@ spec:
         enabled: true
         default: false
         controllerValue: k8s.io/ingress-nginx-public
+      ingressClass: nginx-public
       watchIngressWithoutClass: false
       service:
         loadBalancerIP: ${PUBLIC_INGRESS_IP}
