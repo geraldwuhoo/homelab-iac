@@ -5,4 +5,5 @@ namespace: nextcloud
 resources:
 - namespace.yaml
 - secret.yaml
-- helmrelease.yaml
+- nextcloud.yaml
+- collabora.yaml
