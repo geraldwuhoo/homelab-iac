@@ -25,7 +25,7 @@ spec:
       - domain: https://cloud.${DOMAIN}:443
       dictionaries: en_US
       extra_params: --o:ssl.termination=true --o:ssl.enable=false
-      server_name: collabora\.wuhoo\.xyz
+      server_name: collabora\.${DOMAIN_ESCAPED}
       username: admin
     ingress:
       annotations:
