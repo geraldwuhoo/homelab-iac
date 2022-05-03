@@ -9,4 +9,5 @@ resources:
 - rbd-helmrelease.yaml
 - rbd-namespace.yaml
 - rbd-sc.yaml
+- rbd-hdd-sc.yaml
 - rbd-secret.yaml
