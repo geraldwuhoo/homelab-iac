@@ -34,7 +34,8 @@ spec:
   values:
     authentik:
       error_reporting:
-        enabled: true
+        enabled: false
+      disable_startup_analytics: true
     env:
       PROXY_ADDRESS_FORWARDING: true
     ingress:
