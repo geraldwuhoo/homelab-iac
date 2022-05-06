@@ -18,22 +18,13 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/sonarr
       tag: v3.0.7.1477
-    # service:
-    #   main:
-    #     enabled: true
-    #     type: ClusterIP
-    #     ports:
-    #       http:
-    #         port: 8989
-    ingress:
+    service:
       main:
         enabled: true
-        ingressClassName: nginx
-        hosts:
-        - host: sonarr.${DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
+        type: ClusterIP
+        ports:
+          http:
+            port: 8989
     podAnnotations:
       backup.velero.io/backup-volumes-excludes: media
     podSecurityContext:
