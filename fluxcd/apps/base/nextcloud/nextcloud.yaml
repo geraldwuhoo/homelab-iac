@@ -18,7 +18,7 @@ spec:
   - kind: Secret
     name: nextcloud-secret
     valuesKey: DB_PASSWORD
-    targetPath: mariadb.auth.password
+    targetPath: postgresql.global.postgresql.auth.password
   - kind: Secret
     name: nextcloud-secret
     valuesKey: REDIS_PASSWORD
@@ -78,17 +78,16 @@ spec:
         tag: 7.83.0
     internalDatabase:
       enabled: false
-    mariadb:
+    postgresql:
       enabled: true
-      architecture: standalone
-      auth:
-        database: nextcloud
-        username: nextcloud
+      global:
+        postgresql:
+          auth:
+            username: nextcloud
+            database: nextcloud
       primary:
         persistence:
           enabled: true
-          accessMode: ReadWriteOnce
-          size: 8Gi
     redis:
       enabled: true
       auth:
