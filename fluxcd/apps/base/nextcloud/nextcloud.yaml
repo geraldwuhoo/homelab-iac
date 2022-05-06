@@ -80,6 +80,10 @@ spec:
       enabled: false
     postgresql:
       enabled: true
+      image:
+        registry: docker.io
+        repository: bitnami/postgresql
+        tag: 11-debian-10
       global:
         postgresql:
           auth:
