@@ -17,3 +17,5 @@ spec:
       watchIngressWithoutClass: false
       service:
         loadBalancerIP: ${PUBLIC_INGRESS_IP}
+    tcp:
+      22: "gitlab/gitlab-gitlab-shell:22"
