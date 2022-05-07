@@ -26,14 +26,10 @@ spec:
         domain: "${DOMAIN}"
       omniauth:
         enabled: true
-        allowSingleSignOn:
-        - saml
-        syncProfileAttributes:
-        - email
-        syncProfileFromProvider:
-        - saml
-        autoSignInWithProvider:
-        - saml
+        allowSingleSignOn: [saml]
+        syncProfileFromProvider: [saml]
+        syncProfileAttributes: [email]
+        autoSignInWithProvider: saml
         blockAutoCreatedUsers: false
         autoLinkSamlUser: true
         providers:
