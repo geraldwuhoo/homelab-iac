@@ -16,7 +16,7 @@ spec:
   timeout: 15m0s
   values:
     global:
-      edition: ce
+      edition: ee
       ingress:
         configureCertmanager: false
         class: nginx-public
