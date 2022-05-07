@@ -54,6 +54,8 @@ spec:
         email:
           from: gitlab@no-reply.${DOMAIN}
           reply_to: noreply@no-reply.${DOMAIN}
+        initialDefaults:
+          signupEnabled: false
     nginx-ingress:
       enabled: false
     certmanager:
