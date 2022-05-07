@@ -24,6 +24,34 @@ spec:
           secretName: ${LETSENCRYPT_CERT}
       hosts:
         domain: "${DOMAIN}"
+      omniauth:
+        enabled: true
+        allowSingleSignOn:
+        - saml
+        syncProfileAttributes:
+        - email
+        syncProfileFromProvider:
+        - saml
+        autoSignInWithProvider:
+        - saml
+        blockAutoCreatedUsers: false
+        autoLinkSamlUser: true
+        providers:
+        - secret: gitlab-secret
+          key: provider
+      smtp:
+        enabled: true
+        address: smtp.sendgrid.net
+        port: 587
+        user_name: apikey
+        password:
+          secret: gitlab-secret
+          key: SMTP_KEY
+        authentication: plain
+        starttls_auto: true
+        tls: false
+      appConfig:
+        enableUsagePing: false
     nginx-ingress:
       enabled: false
     certmanager:
