@@ -24,33 +24,36 @@ spec:
           secretName: ${LETSENCRYPT_CERT}
       hosts:
         domain: "${DOMAIN}"
-      omniauth:
-        enabled: true
-        allowSingleSignOn: [saml]
-        syncProfileFromProvider: [saml]
-        syncProfileAttributes: [email]
-        autoSignInWithProvider: saml
-        blockAutoCreatedUsers: false
-        autoLinkSamlUser: true
-        providers:
-        - secret: gitlab-secret
-          key: provider
-      smtp:
-        enabled: true
-        address: smtp.sendgrid.net
-        port: 587
-        user_name: apikey
-        password:
-          secret: gitlab-secret
-          key: SMTP_KEY
-        authentication: plain
-        starttls_auto: true
-        tls: false
-      email:
-        from: gitlab@no-reply.${DOMAIN}
-        reply_to: noreply@no-reply.${DOMAIN}
       appConfig:
         enableUsagePing: false
+        omniauth:
+          enabled: true
+          allowSingleSignOn:
+          - saml
+          syncProfileFromProvider:
+          - saml
+          syncProfileAttributes:
+          - email
+          autoSignInWithProvider: saml
+          blockAutoCreatedUsers: false
+          autoLinkSamlUser: true
+          providers:
+          - secret: gitlab-secret
+            key: provider
+        smtp:
+          enabled: true
+          address: smtp.sendgrid.net
+          port: 587
+          user_name: apikey
+          password:
+            secret: gitlab-secret
+            key: SMTP_KEY
+          authentication: plain
+          starttls_auto: true
+          tls: false
+        email:
+          from: gitlab@no-reply.${DOMAIN}
+          reply_to: noreply@no-reply.${DOMAIN}
     nginx-ingress:
       enabled: false
     certmanager:
