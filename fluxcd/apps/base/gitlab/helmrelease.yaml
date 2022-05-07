@@ -50,6 +50,9 @@ spec:
         authentication: plain
         starttls_auto: true
         tls: false
+      email:
+        from: gitlab@no-reply.${DOMAIN}
+        reply_to: noreply@no-reply.${DOMAIN}
       appConfig:
         enableUsagePing: false
     nginx-ingress:
