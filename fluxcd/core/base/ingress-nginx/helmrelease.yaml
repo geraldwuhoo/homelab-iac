@@ -24,6 +24,7 @@ spec:
         enable-ssl-passthrough: ""
       service:
         loadBalancerIP: ${INGRESS_IP}
+        externalTrafficPolicy: Local
       resources:
         requests:
           cpu: 300m
