@@ -18,15 +18,13 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/prowlarr
       tag: v0.3.0.1679
-    ingress:
+    service:
       main:
         enabled: true
-        ingressClassName: nginx
-        hosts:
-        - host: prowlarr.${DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
+        type: ClusterIP
+        ports:
+          http:
+            port: 9696
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
