@@ -33,6 +33,7 @@ spec:
         external-dns.alpha.kubernetes.io/hostname: collabora.${DOMAIN}
         external-dns.alpha.kubernetes.io/target: ${DOMAIN}
       enabled: true
+      className: nginx-public
       hosts:
       - collabora.${DOMAIN}
       paths:
