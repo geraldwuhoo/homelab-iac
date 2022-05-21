@@ -106,6 +106,8 @@ spec:
       size: 8Gi
       nextcloudData:
         enabled: true
+        annotations:
+          helm.sh/resource-policy: keep
         storageClass: ceph-rbd-hdd-sc
         accessMode: ReadWriteOnce
         size: 32Gi
