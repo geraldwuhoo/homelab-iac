@@ -20,6 +20,9 @@ spec:
       valuesKey: POSTGRESQL_PASSWORD
       targetPath: postgresql.postgresqlPassword
   values:
+    image:
+      repository: docker.io/privatebin/pdo
+      tag: 1.4.0
     ingress:
       main:
         enabled: true

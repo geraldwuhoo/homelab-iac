@@ -32,6 +32,9 @@ spec:
     valuesKey: PAPERLESS_DBPASS
     targetPath: postgresql.postgresqlPassword
   values:
+    image:
+      repository: ghcr.io/paperless-ngx/paperless-ngx
+      tag: 1.7.1
     ingress:
       main:
         enabled: true

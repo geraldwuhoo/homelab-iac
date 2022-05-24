@@ -25,7 +25,8 @@ spec:
     targetPath: redis.auth.password
   values:
     image:
-      tag: 23-apache
+      repository: docker.io/library/nextcloud
+      tag: 23.0.5-apache
     ingress:
       enabled: true
       className: nginx-public

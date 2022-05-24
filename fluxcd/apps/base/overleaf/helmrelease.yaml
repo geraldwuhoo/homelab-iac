@@ -32,6 +32,9 @@ spec:
     valuesKey: OVERLEAF_REDIS_PASSWORD
     targetPath: redis.auth.password
   values:
+    image:
+      repository: docker.io/sharelatex/sharelatex
+      tag: 2.7.1
     ingress:
       main:
         enabled: true

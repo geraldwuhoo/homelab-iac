@@ -15,6 +15,9 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
+    image:
+      repository: docker.io/kubernetesui/dashboard
+      tag: v2.5.1
     extraArgs:
     - --enable-insecure-login
     - --system-banner="${CLUSTER_ENV} Environment"

@@ -40,6 +40,9 @@ spec:
     valuesKey: postgresqlDatabase
     targetPath: postgresql.postgresqlDatabase
   values:
+    image:
+      repository: docker.io/vaultwarden/server
+      tag: 1.25.0
     ingress:
       main:
         enabled: true

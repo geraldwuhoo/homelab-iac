@@ -15,6 +15,9 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
+    image:
+      repository: ghcr.io/linuxserver/librespeed
+      tag: 5.2.5
     ingress:
       main:
         enabled: true

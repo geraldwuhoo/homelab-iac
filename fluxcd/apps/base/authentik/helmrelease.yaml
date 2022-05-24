@@ -32,6 +32,9 @@ spec:
     valuesKey: AK_ADMIN_PASS
     targetPath: env.AK_ADMIN_PASS
   values:
+    image:
+      repository: ghcr.io/goauthentik/server
+      tag: 2022.5.2
     authentik:
       error_reporting:
         enabled: false

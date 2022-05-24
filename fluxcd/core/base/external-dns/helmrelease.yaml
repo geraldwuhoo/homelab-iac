@@ -14,6 +14,10 @@ spec:
         namespace: flux-system
   interval: 10m0s
   values:
+    image:
+      registry: docker.io
+      repository: bitnami/external-dns
+      tag: 0.11.1-debian-10-r25
     provider: cloudflare
     cloudflare:
       apiKey: "${CLOUDFLARE_API_KEY}"
