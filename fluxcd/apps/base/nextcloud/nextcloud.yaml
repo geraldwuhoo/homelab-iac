@@ -78,7 +78,7 @@ spec:
       enabled: true
       image:
         repository: curlimages/curl
-        tag: 7.83.0
+        tag: 7.83.1
     internalDatabase:
       enabled: false
     postgresql:
