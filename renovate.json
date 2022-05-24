@@ -3,6 +3,8 @@
   "extends": [
     "config:base"
   ],
+  "prConcurrentLimit": 20,
+  "prHourlyLimit": 10,
   "flux": {
     "fileMatch": ["fluxcd/.+\\.yaml$"]
   },
