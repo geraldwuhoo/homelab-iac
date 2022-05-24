@@ -5,5 +5,11 @@
   ],
   "flux": {
     "fileMatch": ["fluxcd/.+\\.yaml$"]
+  },
+  "kubernetes": {
+    "fileMatch": ["fluxcd/.+\\.yaml$"]
+  },
+  "helm-values": {
+    "fileMatch": ["fluxcd/.+\\.yaml$"]
   }
 }
