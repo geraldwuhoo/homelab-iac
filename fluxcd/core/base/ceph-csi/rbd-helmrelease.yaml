@@ -20,3 +20,4 @@ spec:
       - ${CEPH_MON_0}
       - ${CEPH_MON_1}
       - ${CEPH_MON_2}
+      - ${CEPH_MON_3}

@@ -20,6 +20,7 @@ stringData:
     CEPH_MON_0: ENC[AES256_GCM,data:ah+R1ojh5uk1+qo6088I,iv:EuFCoU1De5jABAxEfl9TuZ/2SJKPkR7A0QAIxblhCAA=,tag:MvMZXNHRpTPUdeU8S5eDmg==,type:str]
     CEPH_MON_1: ENC[AES256_GCM,data:loSIkWIdLNSavUsG2EqI,iv:e5N4pjVmsGvkD4CCwoQ3aVYcyknTQJ/TYUI+AUYft3I=,tag:SRnyN96mVdawMJnKhS5szA==,type:str]
     CEPH_MON_2: ENC[AES256_GCM,data:GlPJNo1Kfkn3A1q5QHeR,iv:smbum3aKVY5QefD/v/3oyrdBbnSM1ImnuwNRCuWmjeQ=,tag:oBcONJ8IEfSECgds8rELWA==,type:str]
+    CEPH_MON_3: ENC[AES256_GCM,data:JRmWzrOYeWCOTb+JZCVB,iv:BCLb4r6EX8hrOgym7cefejcizehfnrq1PpHpo+RNABU=,tag:k0jSN4HDvz8PFy6fVtFkPw==,type:str]
     KUBE_POOL: ENC[AES256_GCM,data:ZAbc7A==,iv:GOoskn3toVbl9jMkliaGLNiEkG6pr9jtu+1eG7OX2qk=,tag:RjxS71BDvCZDKDL9yDhSsA==,type:str]
     KUBE_USER: ENC[AES256_GCM,data:prJbwtSNXUw=,iv:RsQqdzgE3zRy/FYV5RN0NDU9JgqhqlV19IP0zRXRYpc=,tag:KzSCrFqN4i0SinSEhitBTQ==,type:str]
     KUBE_USER_KEY: ENC[AES256_GCM,data:FxQz5Vu+hUVFTQeMVotMXdR7epDyHfVpeZKEQ3aAvlnmANq9ROKtYw==,iv:U3o3Jk8nEoixM4f7CDhieG2ah4rWSmzklFKRFc2L6RU=,tag:Vdg0NfUiKV8UHhlM7uEHlA==,type:str]
@@ -49,8 +50,8 @@ sops:
             STBlRUxoTFRvbWJWK21rZEo2aEpiQTQKkITQU3R6MPsdDGZ5ng4/ZRbkBHfFDM5E
             6M/nTT1ToNDab3KSf8d/YrQCb8E8+dXypRZq1o5QHz7fmxFF5oFhiQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-05-02T08:31:04Z"
-    mac: ENC[AES256_GCM,data:Cf0P9m0ScDPXlt6PN+tkQN6Ft40it0s9cK+5J5VXHC8oVFw8awNRNXh/aWmvr+3A3l83Kv7QDQMulHnA5ETxSJ12meKzi3mL8TLZgqmBtBhNOeVwlCappWnci5LWqRiK3pAmKpZ0qXyStjx18I3yS5Zr779KoNl8ijbc5wNL1ek=,iv:bOhOPtWzxWZBsI/IOiv9El7GlojtMG5gavfLsWY/66w=,tag:uY144km7LR1b0xr5RBNntw==,type:str]
+    lastmodified: "2022-05-25T22:42:03Z"
+    mac: ENC[AES256_GCM,data:DS/1bbh9wmlO08WmWSqOd+dNoobo5YtRFxgORgM1xyodbCtwqLFk01ZdqK79CRldA4q8ZdP6DFJMoxTGwsLnphpI+omPyAarqV6P6e724Uv6S6XQZNnH0EMdvlZYmhmbrAiuy+VRGeAKSKvHnCI9PASzHc8jgEvbUDAzFYzALhU=,iv:JOy59SD/yxMgPBrzkSoW3TdC+6A00zcqx+5hP+9eIBI=,tag:KRKJtbk+flMExj3/OR+whw==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
-    version: 3.7.2
+    version: 3.7.3
