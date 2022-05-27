@@ -41,6 +41,7 @@ spec:
       disable_startup_analytics: true
     env:
       PROXY_ADDRESS_FORWARDING: true
+      AUTHENTIK_DEFAULT_USER_CHANGE_USERNAME: false
     ingress:
       enabled: true
       ingressClassName: nginx-public
