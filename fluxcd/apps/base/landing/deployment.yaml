@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: landing
+spec:
+  selector:
+    matchLabels:
+      app: landing
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: landing
+    spec:
+      containers:
+      - name: landing
+        image: registry.wuhoo.xyz/jerry/wuhoo.xyz:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
