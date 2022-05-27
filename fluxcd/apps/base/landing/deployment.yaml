@@ -16,6 +16,7 @@ spec:
       containers:
       - name: landing
         image: registry.wuhoo.xyz/jerry/wuhoo.xyz:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "128Mi"
