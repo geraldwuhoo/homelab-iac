@@ -52,6 +52,7 @@ spec:
           password:
             secret: gitlab-secret
             key: SMTP_KEY
+          domain: smtp.sendgrid.net
           authentication: plain
           starttls_auto: true
           tls: false
