@@ -67,6 +67,17 @@ spec:
         secretName: nextcloud-secret
         usernameKey: ADMIN_USERNAME
         passwordKey: ADMIN_PASSWORD
+        smtpUsernameKey: SMTP_NAME
+        smtpPasswordKey: SMTP_PASSWORD
+      mail:
+        enabled: true
+        fromAddress: nextcloud
+        domain: no-reply.${DOMAIN}
+        smtp:
+          host: smtp.sendgrid.net
+          secure: tls
+          port: 587
+          authtype: plain
       configs:
         custom.config.php: |-
           <?php
