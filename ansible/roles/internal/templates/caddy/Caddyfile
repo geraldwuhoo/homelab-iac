@@ -31,7 +31,7 @@
 	handle @pve {
 		import local-net
 		reverse_proxy https://bake.{{ domain }}:8006 https://nise.{{ domain }}:8006 https://neko.{{ domain }}:8006 https://kabuki.{{ domain }}:8006 {
-			lb_policy round_robin
+			lb_policy ip_hash
 			lb_try_duration 15s
 			lb_try_interval 250ms
 		}
