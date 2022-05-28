@@ -41,8 +41,8 @@ spec:
     targetPath: env.SMTP_PORT
   - kind: Secret
     name: vaultwarden-secret
-    valuesKey: SMTP_SSL
-    targetPath: env.SMTP_SSL
+    valuesKey: SMTP_SECURITY
+    targetPath: env.SMTP_SECURITY
   - kind: Secret
     name: vaultwarden-secret
     valuesKey: SMTP_USERNAME
