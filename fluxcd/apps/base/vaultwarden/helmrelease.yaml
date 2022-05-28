@@ -29,6 +29,30 @@ spec:
     targetPath: env.DATABASE_URL
   - kind: Secret
     name: vaultwarden-secret
+    valuesKey: SMTP_HOST
+    targetPath: env.SMTP_HOST
+  - kind: Secret
+    name: vaultwarden-secret
+    valuesKey: SMTP_FROM
+    targetPath: env.SMTP_FROM
+  - kind: Secret
+    name: vaultwarden-secret
+    valuesKey: SMTP_PORT
+    targetPath: env.SMTP_PORT
+  - kind: Secret
+    name: vaultwarden-secret
+    valuesKey: SMTP_SSL
+    targetPath: env.SMTP_SSL
+  - kind: Secret
+    name: vaultwarden-secret
+    valuesKey: SMTP_USERNAME
+    targetPath: env.SMTP_USERNAME
+  - kind: Secret
+    name: vaultwarden-secret
+    valuesKey: SMTP_PASSWORD
+    targetPath: env.SMTP_PASSWORD
+  - kind: Secret
+    name: vaultwarden-secret
     valuesKey: postgresqlUsername
     targetPath: postgresql.postgresqlUsername
   - kind: Secret
