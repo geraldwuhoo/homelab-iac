@@ -31,11 +31,25 @@ spec:
     name: authentik-secret
     valuesKey: AK_ADMIN_PASS
     targetPath: env.AK_ADMIN_PASS
+  - kind: Secret
+    name: authentik-secret
+    valuesKey: SMTP_USER
+    targetPath: authentik.email.username
+  - kind: Secret
+    name: authentik-secret
+    valuesKey: SMTP_PASSWORD
+    targetPath: authentik.email.password
   values:
     image:
       repository: ghcr.io/goauthentik/server
       tag: 2022.5.3
     authentik:
+      email:
+        host: smtp.sendgrid.net
+        port: 587
+        use_tls: true
+        use_ssl: false
+        from: "authentik@no-reply.${DOMAIN}"
       error_reporting:
         enabled: false
       disable_startup_analytics: true
