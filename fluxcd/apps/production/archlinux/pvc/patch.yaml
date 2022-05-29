@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv
+spec:
+  csi:
+    volumeAttributes:
+      "rootPath": /volumes/nas/archlinux/7f2f7432-e549-4184-95c1-461d6c037b36

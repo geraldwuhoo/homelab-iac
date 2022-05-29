@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directory-deployment
+spec:
+  selector:
+    matchLabels:
+      app: directory
+  template:
+    metadata:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: files
+      labels:
+        app: directory
+    spec:
+      containers:
+      - name: directory
+        image: docker.io/joseluisq/static-web-server:2.9.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        env:
+        - name: SERVER_DIRECTORY_LISTING
+          value: "true"
+        - name: SERVER_ROOT
+          value: /public

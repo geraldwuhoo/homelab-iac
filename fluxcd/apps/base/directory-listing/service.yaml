@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: directory-service
+spec:
+  selector:
+    app: directory
+  ports:
+  - port: 8080
+    targetPort: 80
+  type: ClusterIP
