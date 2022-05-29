@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   name: directory-ingress
 spec:
+  ingressClassName: nginx-public
   rules:
   - host: domain
     http:
