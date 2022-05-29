@@ -17,5 +17,8 @@ spec:
       watchIngressWithoutClass: false
       service:
         loadBalancerIP: ${PUBLIC_INGRESS_IP}
+      config:
+        ssl-redirect: "true"
+        force-ssl-redirect: "true"
     tcp:
       "22": "gitlab/gitlab-gitlab-shell:22"
