@@ -7,7 +7,7 @@ commonLabels:
   app: aur-directory
 resources:
 - ../../../base/directory-listing
-patches:
+patchesStrategicMerge:
 - patch.yaml
 patchesJson6902:
 - target:
