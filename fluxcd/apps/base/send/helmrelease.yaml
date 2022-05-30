@@ -60,4 +60,6 @@ spec:
       master:
         persistence:
           enabled: true
+          annotations:
+            helm.sh/resource-policy: keep
       fullNameOverride: send-redis
