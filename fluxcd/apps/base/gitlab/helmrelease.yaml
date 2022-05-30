@@ -44,23 +44,23 @@ spec:
           providers:
           - secret: gitlab-secret
             key: provider
-        smtp:
-          enabled: true
-          address: smtp.sendgrid.net
-          port: 587
-          user_name: apikey
-          password:
-            secret: gitlab-secret
-            key: SMTP_KEY
-          domain: smtp.sendgrid.net
-          authentication: plain
-          starttls_auto: true
-          tls: false
-        email:
-          from: gitlab@no-reply.${DOMAIN}
-          reply_to: noreply@no-reply.${DOMAIN}
         initialDefaults:
           signupEnabled: false
+      smtp:
+        enabled: true
+        address: smtp.sendgrid.net
+        port: 587
+        user_name: apikey
+        password:
+          secret: gitlab-secret
+          key: SMTP_KEY
+        domain: smtp.sendgrid.net
+        authentication: plain
+        starttls_auto: true
+        tls: false
+      email:
+        from: gitlab@no-reply.${DOMAIN}
+        reply_to: noreply@no-reply.${DOMAIN}
     nginx-ingress:
       enabled: false
     certmanager:
