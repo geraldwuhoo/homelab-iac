@@ -22,7 +22,7 @@ spec:
         class: nginx-public
         annotations:
           homelab/public: "true"
-          external-dns.alpha.kubernetes.io/hostname: gitlab.${DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: gitlab.${DOMAIN},registry.${DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${DOMAIN}
         tls:
           secretName: ${LETSENCRYPT_CERT}
