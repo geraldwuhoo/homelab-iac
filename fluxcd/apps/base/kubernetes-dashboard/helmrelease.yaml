@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/kubernetesui/dashboard
-      tag: v2.5.1
+      tag: v2.6.0
     extraArgs:
     - --enable-insecure-login
     - --system-banner="${CLUSTER_ENV} Environment"
