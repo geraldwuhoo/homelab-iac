@@ -23,6 +23,10 @@ spec:
     name: nextcloud-secret
     valuesKey: REDIS_PASSWORD
     targetPath: redis.auth.password
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: METRICS_TOKEN
+    targetPath: metrics.token
   values:
     image:
       repository: docker.io/library/nextcloud
@@ -123,3 +127,9 @@ spec:
         storageClass: ceph-rbd-hdd-sc
         accessMode: ReadWriteOnce
         size: 64Gi
+    metrics:
+      enabled: true
+      https: true
+      image:
+        repository: docker.io/xperimental/nextcloud-exporter
+        tag: 0.5.1
