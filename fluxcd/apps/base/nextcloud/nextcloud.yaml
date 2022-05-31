@@ -23,10 +23,6 @@ spec:
     name: nextcloud-secret
     valuesKey: REDIS_PASSWORD
     targetPath: redis.auth.password
-  - kind: Secret
-    name: nextcloud-secret
-    valuesKey: METRICS_TOKEN
-    targetPath: metrics.token
   values:
     image:
       repository: docker.io/library/nextcloud
