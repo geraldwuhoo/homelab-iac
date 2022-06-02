@@ -25,6 +25,10 @@ spec:
       volumeMounts:
       - mountPath: /target
         name: plugins
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     upgradeCRDs: true
     cleanUpCRDs: false
     configuration:
