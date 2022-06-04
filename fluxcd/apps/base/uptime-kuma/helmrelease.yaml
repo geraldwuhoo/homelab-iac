@@ -35,6 +35,9 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
+    env:
+      PUID: "0"
+      PGID: "0"
     persistence:
       data:
         accessMode: ReadWriteOnce
