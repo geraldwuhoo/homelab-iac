@@ -38,3 +38,8 @@ spec:
         size: 1Gi
         type: pvc
         mountPath: /app/data
+    dnsPolicy: "None"
+    dnsConfig:
+      nameservers:
+        - "1.1.1.1"
+        - "9.9.9.9"
