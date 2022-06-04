@@ -9,7 +9,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./fluxcd/core/digitalocean
+  path: ./fluxcd/core/hetzner
   prune: true
   validation: client
   decryption:
