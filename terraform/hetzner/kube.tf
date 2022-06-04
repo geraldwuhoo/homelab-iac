@@ -87,7 +87,7 @@ module "kube-hetzner" {
   control_plane_nodepools = [
     {
       name        = "control-plane-ash",
-      server_type = "cpx11",
+      server_type = "cpx21",
       location    = "ash",
       labels      = [],
       taints      = [],
