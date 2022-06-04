@@ -156,6 +156,15 @@ module "kube-hetzner" {
 
   # Adding extra firewall rules, like opening a port
   # More info on the format here https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/firewall
+  extra_firewall_rules = [
+    {
+      direction = "out"
+      protocol = "tcp"
+      port = "587"
+      source_ips = []
+      destination_ips = ["0.0.0.0/0", "::/0"]
+    }
+  ]
   # extra_firewall_rules = [
   #   # For Postgres
   #   {
