@@ -163,7 +163,21 @@ module "kube-hetzner" {
       port = "587"
       source_ips = []
       destination_ips = ["0.0.0.0/0", "::/0"]
-    }
+    },
+    {
+      direction = "in"
+      protocol = "udp"
+      port: "3478"
+      source_ips = ["0.0.0.0/0", "::/0"]
+      destination_ips = []
+    },
+    {
+      direction = "in"
+      protocol = "tcp"
+      port: "3478"
+      source_ips = ["0.0.0.0/0", "::/0"]
+      destination_ips = []
+    },
   ]
   # extra_firewall_rules = [
   #   # For Postgres
