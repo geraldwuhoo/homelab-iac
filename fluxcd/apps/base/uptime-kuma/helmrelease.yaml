@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: uptime
-  namespace: uptime
+  name: uptime-kuma
+  namespace: uptime-kuma
 spec:
   chart:
     spec:
