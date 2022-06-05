@@ -5,6 +5,7 @@ metadata:
   name: velero
   namespace: velero
 spec:
+  default: true
   config:
     region: default
     s3Url: "${S3_URL}"
