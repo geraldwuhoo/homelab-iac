@@ -2,7 +2,7 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: daily-onprem
+  name: daily
   namespace: velero
 spec:
   schedule: 12 12 * * *
@@ -21,26 +21,3 @@ spec:
     - vaultwarden
     - wallabag
     storageLocation: default
----
-apiVersion: velero.io/v1
-kind: Schedule
-metadata:
-  name: daily-remote
-  namespace: velero
-spec:
-  schedule: 12 13 * * *
-  template:
-    ttl: "720h"
-    includedNamespaces:
-    - authentik
-    - gitlab
-    - gotify
-    - media
-    - nextcloud
-    - overleaf
-    - paperless
-    - privatebin
-    - prometheus
-    - vaultwarden
-    - wallabag
-    storageLocation: remote

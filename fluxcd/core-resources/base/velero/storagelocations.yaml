@@ -2,7 +2,7 @@
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
-  name: remote
+  name: velero
   namespace: velero
 spec:
   provider: aws

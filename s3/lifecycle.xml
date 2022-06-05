@@ -1,0 +1,14 @@
+<LifecycleConfiguration>
+    <Rule>
+        <ID>GlacierRule</ID>
+        <Filter/>
+        <Status>Enabled</Status>
+        <Transition>        
+           <Days>2</Days>        
+           <StorageClass>GLACIER</StorageClass>
+        </Transition>    
+        <Expiration>
+             <Days>365</Days>
+        </Expiration>
+    </Rule>
+</LifecycleConfiguration>
