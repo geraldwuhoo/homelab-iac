@@ -37,11 +37,6 @@ spec:
     rbac:
       create: true
       clusterAdministrator: true
-    credentials:
-      useSecret: true
-      name: velero
-      existingSecret: velero
-      secretContents: {}
     backupsEnabled: true
     snapshotsEnabled: false
     deployRestic: true
