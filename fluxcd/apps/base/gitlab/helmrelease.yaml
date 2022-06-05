@@ -65,6 +65,9 @@ spec:
       enabled: false
     certmanager:
       install: false
+    gitlab-runner:
+      podAnnotations:
+        backup.velero.io/backup-volumes-excludes: runner-secrets
     postgresql:
       install: true
     redis:
