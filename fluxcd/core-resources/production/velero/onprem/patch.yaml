@@ -1,24 +1,17 @@
 ---
+$patch: delete
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
   name: velero
   namespace: velero
-spec:
-  default: true
-  config:
-    region: default
-    s3Url: "${S3_URL}"
-  credential:
-    name: velero-onprem
 ---
+$patch: delete
 apiVersion: v1
 kind: Secret
 metadata:
   name: velero
   namespace: velero
-data:
-  cloud: ${S3_CREDENTIALS}
 ---
 apiVersion: velero.io/v1
 kind: Schedule
