@@ -18,6 +18,7 @@ spec:
     - paperless
     - privatebin
     - prometheus
+    - send
     - vaultwarden
     - wallabag
     storageLocation: default
