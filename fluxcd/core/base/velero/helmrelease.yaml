@@ -37,7 +37,7 @@ spec:
         name: velero-onprem
         bucket: velero
         provider: aws
-        default:
+        default: true
         config:
           region: default
           s3ForcePathStyle: "true"
