@@ -11,6 +11,7 @@ spec:
   credential:
     name: velero-b2
   backupSyncPeriod: 120m
+  validationFrequency: 60m
 ---
 apiVersion: v1
 kind: Secret
