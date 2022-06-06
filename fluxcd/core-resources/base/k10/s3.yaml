@@ -1,0 +1,23 @@
+---
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Profile
+metadata:
+  name: s3
+  namespace: kasten-io
+spec:
+  locationSpec:
+    type: ObjectStore
+    objectStore:
+      endpoint: ${S3_URL}
+      name: k10
+      objectStoreType: S3
+      pathType: Directory
+      region: default
+    credential:
+      secretType: AwsAccessKey
+      secret:
+        apiVersion: v1
+        kind: secret
+        name: k10secret
+        namespace: kasten-io
+  type: Location

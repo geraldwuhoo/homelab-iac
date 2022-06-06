@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: k10
+  namespace: kasten-io
+spec:
+  chart:
+    spec:
+      chart: k10
+      sourceRef:
+        kind: HelmRepository
+        name: kasten
+        namespace: flux-system
+  interval: 10m0s
+  values:
+    eula:
+      accept: true
+      company: "no u"
+      email: "no@u.com"

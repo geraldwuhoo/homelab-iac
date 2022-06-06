@@ -142,3 +142,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://chrisingenhaag.github.io/helm
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: kasten
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.kasten.io/
