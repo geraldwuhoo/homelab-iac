@@ -5,3 +5,5 @@ metadata:
   name: nextcloud
   annotations:
     linkerd.io/inject: enabled
+  labels:
+    enable-backup: "true"

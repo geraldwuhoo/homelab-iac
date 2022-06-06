@@ -4,5 +4,6 @@ metadata:
   name: gitlab
   labels:
     cert-manager-tls: wildcard
+    enable-backup: "true"
   annotations:
     linkerd.io/inject: enabled
