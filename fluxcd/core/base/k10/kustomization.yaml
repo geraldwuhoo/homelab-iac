@@ -5,7 +5,6 @@ namespace: kasten-io
 resources:
 - namespace.yaml
 - https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v4.2.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
-- https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.6/scripts/snapshot-controller-psp.yaml
 - https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v4.2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
 - https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v4.2.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
 - https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v4.2.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
