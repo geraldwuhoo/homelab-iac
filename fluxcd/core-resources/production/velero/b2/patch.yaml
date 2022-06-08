@@ -10,8 +10,8 @@ spec:
     s3Url: "${S3_B2_URL}"
   credential:
     name: velero-b2
-  backupSyncPeriod: 120m
-  validationFrequency: 60m
+  backupSyncPeriod: 240m
+  validationFrequency: 120m
 ---
 apiVersion: v1
 kind: Secret
