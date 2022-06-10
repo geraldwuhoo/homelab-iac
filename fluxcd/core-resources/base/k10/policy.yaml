@@ -1,0 +1,48 @@
+---
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Policy
+metadata:
+  name: policy
+  namespace: kasten-io
+spec:
+  comment: ""
+  frequency: "@hourly"
+  paused: false
+  actions:
+    - action: backup
+      backupParameters:
+        profile:
+          namespace: kasten-io
+          name: s3
+        filters:
+          includeResources: []
+          excludeResources:
+            - matchExpressions:
+                - key: no-backup
+                  operator: In
+                  values:
+                    - "true"
+    - action: export
+      exportParameters:
+        frequency: "@daily"
+        migrationToken:
+          name: ""
+          namespace: ""
+        profile:
+          name: s3
+          namespace: kasten-io
+        receiveString: ""
+        exportData:
+          enabled: true
+      retention: {}
+  retention:
+    hourly: 24
+    daily: 7
+    weekly: 4
+    monthly: 3
+  selector:
+    matchExpressions:
+      - key: enable-backup
+        operator: In
+        values:
+          - "true"

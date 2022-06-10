@@ -5,3 +5,4 @@ namespace: kasten-io
 resources:
 - secret.yaml
 - s3.yaml
+- policy.yaml
