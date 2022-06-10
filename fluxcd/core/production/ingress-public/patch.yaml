@@ -20,5 +20,6 @@ spec:
       config:
         ssl-redirect: "true"
         force-ssl-redirect: "true"
+      replicaCount: 2
     tcp:
       "22": "gitlab/gitlab-gitlab-shell:22"
