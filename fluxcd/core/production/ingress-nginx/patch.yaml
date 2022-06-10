@@ -11,3 +11,6 @@ spec:
         ssl-redirect: "true"
         force-ssl-redirect: "true"
       replicaCount: 2
+      autoscaling:
+        minReplicas: 2
+        maxReplicas: 10
