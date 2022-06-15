@@ -1,0 +1,12 @@
+[
+    {
+        "op": "replace",
+        "path": "/spec/actions/0/backupParameters/profile/name",
+        "value": "s3-minio"
+    },
+    {
+        "op": "replace",
+        "path": "/spec/actions/1/exportParameters/profile/name",
+        "value": "s3-minio"
+    }
+]

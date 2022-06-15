@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: kasten-io
 resources:
 - radosgw
+- minio
