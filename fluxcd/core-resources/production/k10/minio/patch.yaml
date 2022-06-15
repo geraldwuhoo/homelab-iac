@@ -20,4 +20,4 @@ spec:
       region: minio
     credential:
       secret:
-        name: k10secret-radosgw
+        name: k10secret-minio
