@@ -17,6 +17,7 @@ spec:
   locationSpec:
     objectStore:
       endpoint: ${S3_REMOTE_URL}
+      region: minio
     credential:
       secret:
         name: k10secret-radosgw
