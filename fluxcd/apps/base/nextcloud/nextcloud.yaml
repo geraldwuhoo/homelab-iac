@@ -90,6 +90,11 @@ spec:
       image:
         repository: curlimages/curl
         tag: 7.83.1
+    lifecycle:
+      postStartCommand:
+      - "sh"
+      - "-c"
+      - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
     internalDatabase:
       enabled: false
     postgresql:
