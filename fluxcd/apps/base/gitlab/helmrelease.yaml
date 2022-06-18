@@ -80,6 +80,7 @@ spec:
         annotations: 
           helm.sh/resource-policy: keep
     webservice:
+      enabled: true
       workerProcesses: 2
       resources:
         requests:
@@ -87,6 +88,7 @@ spec:
         limits:
           memory: 3Gi
     sidekiq:
+      enabled: true
       resources:
         requests:
           memory: 1Gi
