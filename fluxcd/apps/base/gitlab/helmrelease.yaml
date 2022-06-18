@@ -79,3 +79,9 @@ spec:
         enabled: true
         annotations: 
           helm.sh/resource-policy: keep
+    webservice:
+      workerProcesses: 2
+      resources:
+        memory: 1G
+      limits:
+        memory: 3G
