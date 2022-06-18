@@ -82,6 +82,6 @@ spec:
     webservice:
       workerProcesses: 2
       resources:
-        memory: 1G
+        memory: 1Gi
       limits:
-        memory: 3G
+        memory: 3Gi
