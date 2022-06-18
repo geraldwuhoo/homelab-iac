@@ -10,6 +10,7 @@ spec:
     ttl: "720h"
     includedNamespaces:
     - authentik
+    - cert-manager
     - gitlab
     - gotify
     - media
@@ -20,4 +21,8 @@ spec:
     - send
     - vaultwarden
     - wallabag
+    excludedResources:
+    - orders.acme.cert-manager.io
+    - challenges.acme.cert-manager.io
+    - certificaterequests.cert-manager.io 
     storageLocation: default
