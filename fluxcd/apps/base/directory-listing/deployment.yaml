@@ -19,9 +19,12 @@ spec:
         image: docker.io/joseluisq/static-web-server:2.9.0
         imagePullPolicy: IfNotPresent
         resources:
+          requests:
+            memory: "32Mi"
+            cpu: "50m"
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "250m"
         ports:
         - containerPort: 80
         env:
