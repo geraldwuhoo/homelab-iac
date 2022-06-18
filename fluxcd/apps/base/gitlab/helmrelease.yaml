@@ -79,18 +79,19 @@ spec:
         enabled: true
         annotations: 
           helm.sh/resource-policy: keep
-    webservice:
-      enabled: true
-      workerProcesses: 2
-      resources:
-        requests:
-          memory: 1Gi
-        limits:
-          memory: 3Gi
-    sidekiq:
-      enabled: true
-      resources:
-        requests:
-          memory: 1Gi
-        limits:
-          memory: 3Gi
+    gitlab:
+      webservice:
+        enabled: true
+        workerProcesses: 2
+        resources:
+          requests:
+            memory: 1Gi
+          limits:
+            memory: 3Gi
+      sidekiq:
+        enabled: true
+        resources:
+          requests:
+            memory: 1Gi
+          limits:
+            memory: 3Gi
