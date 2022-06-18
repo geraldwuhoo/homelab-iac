@@ -82,6 +82,13 @@ spec:
     webservice:
       workerProcesses: 2
       resources:
-        memory: 1Gi
-      limits:
-        memory: 3Gi
+        requests:
+          memory: 1Gi
+        limits:
+          memory: 3Gi
+    sidekiq:
+      resources:
+        requests:
+          memory: 1Gi
+        limits:
+          memory: 3Gi
