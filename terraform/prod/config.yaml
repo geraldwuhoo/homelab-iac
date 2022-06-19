@@ -1,7 +1,7 @@
 - type: controlplane
   specs:
     cores: 2
-    memory: 8192
+    memory: 4096
     balloon: 4096
     storage: 64G
   nodes:
