@@ -5,6 +5,8 @@ resources:
 - cephfs-helmrelease.yaml
 - cephfs-namespace.yaml
 - cephfs-sc.yaml
+- cephfs-ssd-sc.yaml
+- cephfs-hdd-sc.yaml
 - cephfs-secret.yaml
 - rbd-helmrelease.yaml
 - rbd-namespace.yaml
