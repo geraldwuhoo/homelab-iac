@@ -17,7 +17,6 @@ spec:
     - nextcloud
     - paperless
     - privatebin
-    - prometheus
     - send
     - vaultwarden
     - wallabag
