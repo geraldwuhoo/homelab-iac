@@ -1,0 +1,32 @@
+---
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: velero
+  namespace: velero
+spec:
+  config:
+    region: us-west-004
+    s3Url: "${S3_B2_URL}"
+  credential:
+    name: velero-b2
+  backupSyncPeriod: 240m
+  validationFrequency: 120m
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: velero
+  namespace: velero
+data:
+  cloud: ${S3_B2_CREDENTIALS}
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily
+  namespace: velero
+spec:
+  schedule: 52 13 * * *
+  template:
+    storageLocation: velero-b2
