@@ -19,10 +19,6 @@ spec:
     name: nextcloud-secret
     valuesKey: DB_PASSWORD
     targetPath: postgresql.global.postgresql.auth.password
-  - kind: Secret
-    name: nextcloud-secret
-    valuesKey: REDIS_PASSWORD
-    targetPath: redis.auth.password
   values:
     image:
       repository: docker.io/library/nextcloud
@@ -60,6 +56,7 @@ spec:
           location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
             deny all;
           }
+    replicaCount: 3
     nextcloud:
       host: cloud.${DOMAIN}
       existingSecret:
@@ -78,12 +75,32 @@ spec:
           secure: tls
           port: 587
           authtype: plain
+      defaultConfigs:
+        apcu.config.php: true
+        redis.config.php: false
+        autoconfig.php: true
+      livenessProbe:
+        enabled: true
+        initialDelaySeconds: 300  # first install may slow in rsync
       configs:
         custom.config.php: |-
           <?php
           $CONFIG = array (
             'overwriteprotocol' => 'https',
-            'trusted_proxies' => ['10.0.0.0/8']
+            'trusted_proxies' => ['10.0.0.0/8'],
+            'filelocking.enabled' => 'true',
+            'enable_previews' => 'true'
+          );
+        redis.config.php: |-
+          <?php
+          $CONFIG = array (
+            'memcache.distributed' => '\OC\Memcache\Redis',
+            'memcache.locking' => '\OC\Memcache\Redis',
+            'redis' => array(
+              'host' => getenv('REDIS_HOST'),
+              'port' => getenv('REDIS_HOST_PORT') ?: 6379,
+              'password' => getenv('REDIS_HOST_PASSWORD')
+            )
           );
     lifecycle:
       postStartCommand:
@@ -110,6 +127,7 @@ spec:
       enabled: true
       auth:
         enabled: true
+        password: ${NEXTCLOUD_REDIS_PASS}
     persistence:
       enabled: true
       annotations:
