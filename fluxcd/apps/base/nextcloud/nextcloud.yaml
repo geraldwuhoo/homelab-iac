@@ -125,7 +125,7 @@ spec:
         accessMode: ReadWriteMany
         size: 64Gi
     metrics:
-      enabled: true
+      enabled: false
       https: true
       image:
         repository: docker.io/xperimental/nextcloud-exporter
