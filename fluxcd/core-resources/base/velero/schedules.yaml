@@ -15,7 +15,6 @@ spec:
     - gotify
     - media
     - nextcloud
-    - paperless
     - privatebin
     - send
     - vaultwarden
