@@ -19,7 +19,7 @@ parameters:
   fsName: ${CEPHFS_NAME}
 
   # (optional) Ceph pool into which volume data shall be stored
-  pool: ceph.cephfs_hdd.data
+  pool: cephfs.cephfs_hdd.data
 
   # (optional) Comma separated string of Ceph-fuse mount options.
   # For eg:
