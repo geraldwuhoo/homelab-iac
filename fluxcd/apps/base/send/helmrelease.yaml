@@ -15,6 +15,14 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
+    initContainers:
+      redis-isready:
+        name: redis-isready
+        image: docker.io/bitnami/redis:6.2.7-debian-10-r23
+        command:
+        - "/bin/sh"
+        - "-c"
+        - "until redis-cli -h send-redis-headless ping ; do sleep 2 ; done"
     image:
       repository: registry.gitlab.com/timvisee/send
       tag: v3.4.20
