@@ -66,6 +66,24 @@ spec:
     certmanager:
       install: false
     gitlab-runner:
+      runners:
+        config: |
+          [[runners]]
+            executors = "kubernetes"
+            environment = [ "container=kube" ]
+            [runners.kubernetes]
+            image = "ubuntu:18.04"
+            {{- if .Values.global.minio.enabled }}
+            [runners.cache]
+              Type = "s3"
+              Path = "gitlab-runner"
+              Shared = true
+              [runners.cache.s3]
+                ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
+                BucketName = "runner-cache"
+                BucketLocation = "us-east-1"
+                Insecure = false
+            {{ end }}
       podAnnotations:
         backup.velero.io/backup-volumes-excludes: runner-secrets
     postgresql:
@@ -80,25 +98,6 @@ spec:
         annotations: 
           helm.sh/resource-policy: keep
     gitlab:
-      gitlab-runner:
-        runners:
-          config: |
-            [[runners]]
-              executors = "kubernetes"
-              environment = [ "container=kube" ]
-              [runners.kubernetes]
-              image = "ubuntu:18.04"
-              {{- if .Values.global.minio.enabled }}
-              [runners.cache]
-                Type = "s3"
-                Path = "gitlab-runner"
-                Shared = true
-                [runners.cache.s3]
-                  ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
-                  BucketName = "runner-cache"
-                  BucketLocation = "us-east-1"
-                  Insecure = false
-              {{ end }}
       webservice:
         enabled: true
         workerProcesses: 2
