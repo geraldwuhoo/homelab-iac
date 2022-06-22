@@ -10,7 +10,7 @@ spec:
       config:
         ssl-redirect: "true"
         force-ssl-redirect: "true"
-      replicaCount: 2
+      replicaCount: 3
       autoscaling:
-        minReplicas: 2
+        minReplicas: 3
         maxReplicas: 10

@@ -6,6 +6,6 @@ metadata:
   namespace: authentik
 spec:
   values:
-    replicas: 2
+    replicas: 3
     worker:
       replicas: 1
