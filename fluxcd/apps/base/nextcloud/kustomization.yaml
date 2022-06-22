@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: nextcloud
 resources:
 - namespace.yaml
+- poddisruptionbudget.yaml
 - secret.yaml
 - nextcloud.yaml
 - collabora.yaml
