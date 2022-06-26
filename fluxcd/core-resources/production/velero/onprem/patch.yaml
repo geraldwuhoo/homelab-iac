@@ -19,6 +19,7 @@ metadata:
   name: daily
   namespace: velero
 spec:
-  schedule: 12 */3 * * *
+  schedule: 12 */4 * * *
   template:
+    ttl: "168h"
     storageLocation: velero-onprem
