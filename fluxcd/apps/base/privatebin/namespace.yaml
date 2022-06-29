@@ -5,3 +5,5 @@ metadata:
   name: privatebin
   labels:
     enable-backup: "true"
+  annotations:
+    linkerd.io/inject: enabled

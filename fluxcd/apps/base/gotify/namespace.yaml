@@ -5,3 +5,5 @@ metadata:
   name: gotify
   labels:
     enable-backup: "true"
+  annotations:
+    linkerd.io/inject: enabled

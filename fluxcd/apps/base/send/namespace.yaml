@@ -5,3 +5,5 @@ metadata:
   name: send
   labels:
     enable-backup: "true"
+  annotations:
+    linkerd.io/inject: enabled
