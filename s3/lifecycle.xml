@@ -3,12 +3,12 @@
         <ID>GlacierRule</ID>
         <Filter/>
         <Status>Enabled</Status>
-        <Transition>        
-           <Days>2</Days>        
+        <Transition>
+           <Days>1</Days>
            <StorageClass>GLACIER</StorageClass>
-        </Transition>    
+        </Transition>
         <Expiration>
-             <Days>365</Days>
+             <Days>60</Days>
         </Expiration>
     </Rule>
 </LifecycleConfiguration>
