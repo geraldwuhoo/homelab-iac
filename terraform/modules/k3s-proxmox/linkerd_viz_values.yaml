@@ -1,0 +1,41 @@
+enablePodAntiAffinity: true
+resources:
+  cpu:
+    limit: ""
+    request: 100m
+  memory:
+    limit: 250Mi
+    request: 50Mi
+tap:
+  replicas: 3
+  resources:
+    cpu:
+      limit: ""
+      request: 100m
+    memory:
+      limit: 250Mi
+      request: 50Mi
+dashboard:
+  resources:
+    cpu:
+      limit: ""
+      request: 100m
+    memory:
+      limit: 250Mi
+      request: 50Mi
+grafana:
+  resources:
+    cpu:
+      limit: ""
+      request: 100m
+    memory:
+      limit: 1024Mi
+      request: 50Mi
+prometheus:
+  resources:
+    cpu:
+      limit: ""
+      request: 300m
+    memory:
+      limit: 8192Mi
+      request: 300Mi

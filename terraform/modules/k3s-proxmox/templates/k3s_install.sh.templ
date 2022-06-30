@@ -1,0 +1,12 @@
+#!/bin/sh
+
+curl -sfL https://get.k3s.io | K3S_TOKEN=${secret} sh -s - ${mode} \
+${init} \
+%{ if server ~}
+--tls-san ${vip} \
+--disable traefik \
+--disable servicelb \
+--disable local-storage \
+--disable-cloud-controller \
+%{ endif ~}
+--log $HOME/.k3s-install-log.txt

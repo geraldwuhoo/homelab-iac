@@ -1,0 +1,361 @@
+#cloud-config
+
+ssh_authorized_keys:
+  - ${pubkey}
+
+write_files:
+  # Disable ssh password authentication
+  - content: |
+      PasswordAuthentication no
+      X11Forwarding no
+      MaxAuthTries 2
+      AllowTcpForwarding no
+      AllowAgentForwarding no
+      AuthorizedKeysFile .ssh/authorized_keys
+    path: /etc/ssh/sshd_config.d/k3s.conf
+  # Set reboot method as "kured"
+  - content: |
+      REBOOT_METHOD=kured
+    path: /etc/transactional-update.conf
+  # Create Rancher repo config
+  - content: |
+      [rancher-k3s-common-stable]
+      name=Rancher K3s Common (stable)
+      baseurl=https://rpm.rancher.io/k3s/stable/common/microos/noarch
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=0
+      gpgkey=https://rpm.rancher.io/public.key
+    path: /etc/zypp/repos.d/rancher-k3s-common.repo
+  # Enable ceph at boot
+  - content: |
+      ceph
+    path: /etc/modules-load.d/ceph.conf
+  - content: |
+      rbd
+    path: /etc/modules-load.d/rbd.conf
+  # Configure mirrors for images
+  - content: |
+      mirrors:
+        "docker.io":
+          endpoint:
+          - "https://hub.wuhoo.xyz"
+        "quay.io":
+          endpoint:
+          - "https://quay.wuhoo.xyz"
+        "ghcr.io":
+          endpoint:
+          - "https://ghcr.wuhoo.xyz"
+        "gcr.io":
+          endpoint:
+          - "https://gcr.wuhoo.xyz"
+        "k8s.gcr.io":
+          endpoint:
+          - "https://k8sgcr.wuhoo.xyz"
+        "registry.gitlab.com":
+          endpoint:
+          - "https://rgitlab.wuhoo.xyz"
+    path: /etc/rancher/k3s/registries.yaml
+  # Configure kube-vip
+  - content: |
+      ---
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: kube-vip
+        namespace: kube-system
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      metadata:
+        annotations:
+          rbac.authorization.kubernetes.io/autoupdate: "true"
+        name: system:kube-vip-role
+      rules:
+        - apiGroups: [""]
+          resources: ["services", "services/status", "nodes"]
+          verbs: ["list","get","watch", "update"]
+        - apiGroups: ["coordination.k8s.io"]
+          resources: ["leases"]
+          verbs: ["list", "get", "watch", "update", "create"]
+      ---
+      kind: ClusterRoleBinding
+      apiVersion: rbac.authorization.k8s.io/v1
+      metadata:
+        name: system:kube-vip-binding
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: system:kube-vip-role
+      subjects:
+      - kind: ServiceAccount
+        name: kube-vip
+        namespace: kube-system
+    path: /var/lib/rancher/k3s/server/manifests/kube-vip-rbac.yaml
+  - content: |
+      ---
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: kube-vip-ds
+          app.kubernetes.io/version: v0.4.4
+        name: kube-vip-ds
+        namespace: kube-system
+      spec:
+        selector:
+          matchLabels:
+            app.kubernetes.io/name: kube-vip-ds
+        template:
+          metadata:
+            creationTimestamp: null
+            labels:
+              app.kubernetes.io/name: kube-vip-ds
+              app.kubernetes.io/version: v0.4.4
+          spec:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: node-role.kubernetes.io/master
+                      operator: Exists
+                  - matchExpressions:
+                    - key: node-role.kubernetes.io/control-plane
+                      operator: Exists
+            containers:
+            - args:
+              - manager
+              env:
+              - name: vip_arp
+                value: "true"
+              - name: port
+                value: "6443"
+              - name: vip_interface
+                value: eth0
+              - name: vip_cidr
+                value: "32"
+              - name: cp_enable
+                value: "true"
+              - name: cp_namespace
+                value: kube-system
+              - name: vip_ddns
+                value: "false"
+              - name: svc_enable
+                value: "true"
+              - name: vip_leaderelection
+                value: "true"
+              - name: vip_leaseduration
+                value: "5"
+              - name: vip_renewdeadline
+                value: "3"
+              - name: vip_retryperiod
+                value: "1"
+              - name: lb_enable
+                value: "true"
+              - name: lb_port
+                value: "6443"
+              - name: lb_fwdmethod
+                value: local
+              - name: address
+                value: ${vip}
+              image: ghcr.io/kube-vip/kube-vip:v0.4.4
+              imagePullPolicy: Always
+              name: kube-vip
+              resources: {}
+              securityContext:
+                capabilities:
+                  add:
+                  - NET_ADMIN
+                  - NET_RAW
+            hostNetwork: true
+            serviceAccountName: kube-vip
+            tolerations:
+            - effect: NoSchedule
+              operator: Exists
+            - effect: NoExecute
+              operator: Exists
+        updateStrategy: {}
+      status:
+        currentNumberScheduled: 0
+        desiredNumberScheduled: 0
+        numberMisscheduled: 0
+        numberReady: 0
+    path: /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+  # Configure kured
+  - content: |
+      ---
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: kured
+        namespace: kube-system
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: kured
+        namespace: kube-system
+      rules:
+      - apiGroups:
+        - apps
+        resourceNames:
+        - kured
+        resources:
+        - daemonsets
+        verbs:
+        - update
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      metadata:
+        name: kured
+      rules:
+      - apiGroups:
+        - ""
+        resources:
+        - nodes
+        verbs:
+        - get
+        - patch
+      - apiGroups:
+        - ""
+        resources:
+        - pods
+        verbs:
+        - list
+        - delete
+        - get
+      - apiGroups:
+        - apps
+        resources:
+        - daemonsets
+        verbs:
+        - get
+      - apiGroups:
+        - ""
+        resources:
+        - pods/eviction
+        verbs:
+        - create
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: kured
+        namespace: kube-system
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: kured
+      subjects:
+      - kind: ServiceAccount
+        name: kured
+        namespace: kube-system
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: kured
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: kured
+      subjects:
+      - kind: ServiceAccount
+        name: kured
+        namespace: kube-system
+      ---
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        name: kured
+        namespace: kube-system
+      spec:
+        selector:
+          matchLabels:
+            name: kured
+        template:
+          metadata:
+            labels:
+              name: kured
+          spec:
+            containers:
+            - command:
+              - /usr/bin/kured
+              - --reboot-command=/usr/bin/systemctl reboot
+              - --period=15m0s
+              env:
+              - name: KURED_NODE_ID
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
+              image: docker.io/weaveworks/kured:1.10.0
+              imagePullPolicy: IfNotPresent
+              name: kured
+              securityContext:
+                privileged: true
+            hostPID: true
+            restartPolicy: Always
+            serviceAccountName: kured
+            tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/control-plane
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/master
+        updateStrategy:
+          type: RollingUpdate
+    path: /var/lib/rancher/k3s/server/manifests/kured.yaml
+
+# Resize /var, not /, as that's the last partition in MicroOS image.
+growpart:
+  devices: ["/var"]
+
+hostname: ${hostname}
+fqdn: ${hostname}.${domain}
+preserve_hostname: true
+
+runcmd:
+  # As above, make sure the hostname is not reset
+  - [
+      sed,
+      "-i",
+      's/NETCONFIG_NIS_SETDOMAINNAME="yes"/NETCONFIG_NIS_SETDOMAINNAME="no"/g',
+      /etc/sysconfig/network/config,
+    ]
+  - [
+      sed,
+      "-i",
+      's/DHCLIENT_SET_HOSTNAME="yes"/DHCLIENT_SET_HOSTNAME="no"/g',
+      /etc/sysconfig/network/dhcp,
+    ]
+  # Bounds the amount of logs that can survive on the system
+  - [
+      sed,
+      "-i",
+      "s/#SystemMaxUse=/SystemMaxUse=3G/g",
+      /etc/systemd/journald.conf,
+    ]
+  - [
+      sed,
+      "-i",
+      "s/#MaxRetentionSec=/MaxRetentionSec=1week/g",
+      /etc/systemd/journald.conf,
+    ]
+  # Reduces the default number of snapshots from 2-10 number limit, to 4 and from 4-10 number limit important, to 2
+  - [
+      sed,
+      "-i",
+      's/NUMBER_LIMIT="2-10"/NUMBER_LIMIT="4"/g',
+      /etc/snapper/configs/root,
+    ]
+  - [
+      sed,
+      "-i",
+      's/NUMBER_LIMIT_IMPORTANT="4-10"/NUMBER_LIMIT_IMPORTANT="3"/g',
+      /etc/snapper/configs/root,
+    ]
+  - [hostnamectl, "set-hostname", "${hostname}"]
+  # Disables unneeded services
+  - [systemctl, disable, "--now", "rebootmgr.service"]

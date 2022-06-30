@@ -1,0 +1,52 @@
+enablePodAntiAffinity: true
+proxy:
+  resources:
+    cpu:
+      request: 100m
+    memory:
+      limit: 250Mi
+      request: 20Mi
+controllerReplicas: 3
+controllerResources:
+  cpu:
+    limit: ""
+    request: 100m
+  memory:
+    limit: 250Mi
+    request: 50Mi
+destinationResources:
+  cpu:
+    limit: ""
+    request: 100m
+  memory:
+    limit: 250Mi
+    request: 50Mi
+identityResources:
+  cpu:
+    limit: ""
+    request: 100m
+  memory:
+    limit: 250Mi
+    request: 10Mi
+heartbeatResources:
+  cpu:
+    limit: ""
+    request: 100m
+  memory:
+    limit: 250Mi
+    request: 50Mi
+proxyInjectorResources:
+  cpu:
+    limit: ""
+    request: 100m
+  memory:
+    limit: 250Mi
+    request: 50Mi
+webhookFailurePolicy: Fail
+spValidatorResources:
+  cpu:
+    limit: ""
+    request: 100m
+  memory:
+    limit: 250Mi
+    request: 50Mi
