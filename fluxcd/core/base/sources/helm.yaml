@@ -87,7 +87,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  url: https://kube-vip.io/helm-charts
+  url: https://kube-vip.github.io/helm-charts/
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
