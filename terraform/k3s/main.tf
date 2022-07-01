@@ -90,7 +90,7 @@ module "k3s" {
   }
 }
 
-output "kubeconfig" {
-  value     = module.k3s.k3s_kubeconfig
-  sensitive = true
+resource "local_sensitive_file" "kubeconfig" {
+  content  = module.k3s.k3s_kubeconfig
+  filename = pathexpand("~/.kube/k3s.config")
 }
