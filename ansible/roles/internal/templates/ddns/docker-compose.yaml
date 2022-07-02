@@ -1,0 +1,11 @@
+version: '2'
+  
+services:
+  caddy:
+    image: docker.io/oznu/cloudflare-ddns
+    container_name: cloudflare-ddns
+    restart: unless-stopped
+    environment:
+      API_KEY: {{ cf_api_token }}
+      ZONE: wuhoo.xyz
+      PROXIED: "false"

@@ -5,7 +5,7 @@
     path: "{{ item.path }}"
     state: directory
     mode: '0755'
-  with_filetree:
+  with_community.general.filetree:
     - ../templates
   when: item.state == 'directory'
 
@@ -13,14 +13,14 @@
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.path }}"
-  with_filetree:
+  with_community.general.filetree:
     - ../templates
   when: item.state == 'file'
 
 - name: Activate docker-compose
   community.docker.docker_compose:
     project_src: "{{ item.path }}"
-  with_filetree:
+  with_community.general.filetree:
     - ../templates
   when: item.state == 'directory'
   become: true
