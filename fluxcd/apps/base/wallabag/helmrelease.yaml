@@ -74,6 +74,6 @@ spec:
         enabled: true
       image:
         repository: bitnami/postgresql
-        tag: 11.16.0-debian-11-r12
+        tag: 13.7.0-debian-11-r12
     redis:
       enabled: true

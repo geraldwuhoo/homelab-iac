@@ -92,7 +92,7 @@ spec:
         - ReadWriteOnce
       image:
         repository: bitnami/postgresql
-        tag: 11.16.0-debian-11-r12
+        tag: 13.7.0-debian-11-r12
     persistence:
       config:
         accessMode: ReadWriteOnce
