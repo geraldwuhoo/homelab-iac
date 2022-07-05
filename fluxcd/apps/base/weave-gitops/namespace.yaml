@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: librespeed
-  annotations:
-    linkerd.io/inject: enabled
