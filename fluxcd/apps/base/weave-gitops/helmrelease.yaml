@@ -26,4 +26,4 @@ spec:
       - host: gitops.${DOMAIN}
         paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
