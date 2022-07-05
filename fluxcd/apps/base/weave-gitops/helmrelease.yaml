@@ -18,7 +18,7 @@ spec:
     adminUser:
       create: true
       username: admin
-      passwordHash: "$2a$10$3wrjjowrijZHbaio2llP7.861NncKWdNU2Cke2a3GG1Wyk4/zQfkK"
+      passwordHash: $2a$10$C8OpQ9YnMt/hZQvUNxL07.YclW5zxnbYO3tENnO7RrvDY6ECBxEoq
     ingress:
       enabled: true
       className: nginx
