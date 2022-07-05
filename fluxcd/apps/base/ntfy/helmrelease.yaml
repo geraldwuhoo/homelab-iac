@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: uptime-kuma
+      chart: ntfy
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home
