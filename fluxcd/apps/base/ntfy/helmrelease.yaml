@@ -38,6 +38,13 @@ spec:
         size: 2Gi
         type: pvc
         mountPath: /var/cache/ntfy
+      data:
+        accessMode: ReadWriteOnce
+        enabled: true
+        retain: true
+        size: 1Gi
+        type: pvc
+        mountPath: /var/lib/ntfy
       config:
         accessMode: ReadWriteOnce
         enabled: true
