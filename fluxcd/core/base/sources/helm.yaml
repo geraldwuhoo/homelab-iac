@@ -1,5 +1,5 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: appscode
@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   url: https://charts.appscode.com/stable
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: authentik
@@ -17,7 +17,7 @@ spec:
   interval: 10m0s
   url: https://charts.goauthentik.io
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: bitnami
@@ -26,7 +26,7 @@ spec:
   interval: 10m0s
   url: https://charts.bitnami.com/bitnami
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: ceph-csi
@@ -35,7 +35,7 @@ spec:
   interval: 10m0s
   url: https://ceph.github.io/csi-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: cert-manager
@@ -44,7 +44,7 @@ spec:
   interval: 10m0s
   url: https://charts.jetstack.io
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: gitlab
@@ -53,7 +53,7 @@ spec:
   interval: 10m0s
   url: https://charts.gitlab.io
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: ingress-nginx
@@ -62,7 +62,7 @@ spec:
   interval: 10m0s
   url: https://kubernetes.github.io/ingress-nginx
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: k8s-at-home
@@ -71,7 +71,7 @@ spec:
   interval: 10m0s
   url: https://k8s-at-home.com/charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: kubernetes-dashboard
@@ -80,7 +80,7 @@ spec:
   interval: 10m0s
   url: https://kubernetes.github.io/dashboard/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: kube-vip
@@ -89,7 +89,7 @@ spec:
   interval: 10m0s
   url: https://kube-vip.github.io/helm-charts/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: loftsh
@@ -98,7 +98,7 @@ spec:
   interval: 10m0s
   url: https://charts.loft.sh
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: nextcloud
@@ -107,7 +107,7 @@ spec:
   interval: 10m0s
   url: https://nextcloud.github.io/helm/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: openfaas
@@ -116,7 +116,7 @@ spec:
   interval: 10m0s
   url: https://openfaas.github.io/faas-netes/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: prometheus-community
@@ -125,7 +125,7 @@ spec:
   interval: 10m0s
   url: https://prometheus-community.github.io/helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: vmware-tanzu
@@ -134,7 +134,7 @@ spec:
   interval: 10m0s
   url: https://vmware-tanzu.github.io/helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: chrisingenhaag
@@ -143,7 +143,7 @@ spec:
   interval: 10m0s
   url: https://chrisingenhaag.github.io/helm
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: kasten
@@ -151,3 +151,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://charts.kasten.io/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: ww-gitops
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://helm.gitops.weave.works
