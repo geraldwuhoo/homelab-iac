@@ -204,7 +204,7 @@ resource "helm_release" "linkerd" {
   name       = "linkerd"
   repository = "https://helm.linkerd.io/stable"
   chart      = "linkerd2"
-  version    = "2.11.2"
+  version    = "2.11.3"
 
   depends_on = [
     data.external.kubeconfig
