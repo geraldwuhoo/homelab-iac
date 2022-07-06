@@ -239,7 +239,7 @@ resource "helm_release" "linkerd-viz" {
   name       = "linkerd-viz"
   repository = "https://helm.linkerd.io/stable"
   chart      = "linkerd-viz"
-  version    = "2.11.2"
+  version    = "2.11.3"
 
   depends_on = [
     helm_release.linkerd
