@@ -117,7 +117,7 @@ spec:
 
         env:
           # Enable a killswitch that kills all trafic when the VPN is not connected
-          KILLSWITCH: "true"
+          KILLSWITCH: "false"
           KILLSWITCH_EXCLUDEDNETWORKS_IPV4: "10.0.0.0/8;192.168.0.0/16;172.16.0.0/12"
 
         # The wireguard configuration file provided by your VPN provider goes here.
