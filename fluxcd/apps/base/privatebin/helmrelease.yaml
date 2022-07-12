@@ -16,9 +16,13 @@ spec:
   timeout: 10m0s
   valuesFrom:
     - kind: Secret
-      name: privatebin-secret
-      valuesKey: POSTGRESQL_PASSWORD
-      targetPath: postgresql.postgresqlPassword
+      name: privatebin.privatebin-postgres-cluster.credentials.postgresql.acid.zalan.do
+      valuesKey: username
+      targetPath: config.model_options.usr
+    - kind: Secret
+      name: privatebin.privatebin-postgres-cluster.credentials.postgresql.acid.zalan.do
+      valuesKey: password
+      targetPath: config.model_options.pwd
   values:
     image:
       repository: docker.io/privatebin/pdo
@@ -36,6 +40,12 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+    config:
+      model:
+        class: Database
+      model_options:
+        dsn: "pgsql:host=privatebin-postgres-cluster;dbname=privatebin"
+        tbl: "privatebin_"
     persistence:
       data:
         accessMode: ReadWriteOnce
@@ -44,14 +54,3 @@ spec:
         size: 20Gi
         type: pvc
         mountPath: /srv/data
-    postgresql:
-      enabled: true
-      postgresqlUsername: privatebin
-      postgresqlDatabase: privatebin
-      persistence:
-        enabled: true
-        accessModes:
-        - ReadWriteOnce
-      image:
-        repository: bitnami/postgresql
-        tag: 11.16.0-debian-11-r12
