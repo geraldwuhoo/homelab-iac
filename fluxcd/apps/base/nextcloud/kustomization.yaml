@@ -5,6 +5,7 @@ namespace: nextcloud
 resources:
 - namespace.yaml
 - poddisruptionbudget.yaml
+- zalando-secret.yaml
 - secret.yaml
 - postgres.yaml
 - nextcloud.yaml
