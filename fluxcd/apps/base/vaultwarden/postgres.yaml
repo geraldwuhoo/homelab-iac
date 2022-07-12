@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: vaultwarden-postgres-cluster
+spec:
+  teamId: "vaultwarden"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    vaultwarden:
+    - superuser
+    - createdb
+  databases:
+    vaultwarden: vaultwarden
+  postgresql:
+    version: "14"
