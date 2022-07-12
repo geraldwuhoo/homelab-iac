@@ -51,18 +51,6 @@ spec:
     name: vaultwarden-secret
     valuesKey: SMTP_PASSWORD
     targetPath: env.SMTP_PASSWORD
-  - kind: Secret
-    name: vaultwarden-secret
-    valuesKey: postgresqlUsername
-    targetPath: postgresql.postgresqlUsername
-  - kind: Secret
-    name: vaultwarden-secret
-    valuesKey: postgresqlPassword
-    targetPath: postgresql.postgresqlPassword
-  - kind: Secret
-    name: vaultwarden-secret
-    valuesKey: postgresqlDatabase
-    targetPath: postgresql.postgresqlDatabase
   values:
     image:
       repository: docker.io/vaultwarden/server
@@ -84,15 +72,6 @@ spec:
       SIGNUPS_ALLOWED: "false"
       WEBSOCKET_ENABLED: "true"
       LOG_FILE: /config/vaultwarden.log
-    postgresql:
-      enabled: true
-      persistence:
-        enabled: true
-        accessModes:
-        - ReadWriteOnce
-      image:
-        repository: bitnami/postgresql
-        tag: 11.16.0-debian-11-r12
     persistence:
       config:
         accessMode: ReadWriteOnce
