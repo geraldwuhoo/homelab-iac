@@ -11,3 +11,4 @@ resources:
 - sonarr.yaml
 - radarr.yaml
 - prowlarr.yaml
+- komga.yaml
