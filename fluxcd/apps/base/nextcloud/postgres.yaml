@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: nextcloud-postgres-cluster
+spec:
+  teamId: "nextcloud"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    nextcloud:
+    - superuser
+    - createdb
+  databases:
+    nextcloud: nextcloud
+  postgresql:
+    version: "14"

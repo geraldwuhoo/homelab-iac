@@ -6,5 +6,6 @@ resources:
 - namespace.yaml
 - poddisruptionbudget.yaml
 - secret.yaml
+- postgres.yaml
 - nextcloud.yaml
 - collabora.yaml
