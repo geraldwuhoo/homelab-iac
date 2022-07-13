@@ -20,13 +20,13 @@ spec:
     valuesKey: SECRET_KEY
     targetPath: authentik.secret_key
   - kind: Secret
-    name: authentik-secret
-    valuesKey: DB_PASSWORD
-    targetPath: authentik.postgresql.password
+    name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
+    valuesKey: username
+    targetPath: authentik.postgresql.user
   - kind: Secret
-    name: authentik-secret
-    valuesKey: DB_PASSWORD
-    targetPath: postgresql.postgresqlPassword
+    name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
+    valuesKey: password
+    targetPath: authentik.postgresql.password
   - kind: Secret
     name: authentik-secret
     valuesKey: AK_ADMIN_PASS
@@ -50,6 +50,9 @@ spec:
         use_tls: true
         use_ssl: false
         from: "authentik@no-reply.${DOMAIN}"
+      postgresql:
+        host: authentik-postgres-cluster
+        name: authentik
       error_reporting:
         enabled: false
       disable_startup_analytics: true
@@ -68,9 +71,5 @@ spec:
         paths:
         - path: "/"
           pathType: Prefix
-    postgresql:
-      enabled: true
-      persistence:
-        enabled: true
     redis:
       enabled: true
