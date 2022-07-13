@@ -14,6 +14,6 @@ spec:
     - superuser
     - createdb
   databases:
-    gitlab: gitlab
+    gitlabhq_production: gitlab
   postgresql:
     version: "14"
