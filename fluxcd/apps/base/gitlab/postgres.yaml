@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: gitlab-postgres-cluster
+spec:
+  teamId: "gitlab"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    gitlab:
+    - superuser
+    - createdb
+  databases:
+    gitlab: gitlab
+  postgresql:
+    version: "14"

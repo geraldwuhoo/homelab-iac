@@ -4,5 +4,7 @@ kind: Kustomization
 namespace: gitlab
 resources:
 - namespace.yaml
+- zalando-secret.yaml
 - secret.yaml
+- postgres.yaml
 - helmrelease.yaml
