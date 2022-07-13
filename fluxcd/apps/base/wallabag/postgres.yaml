@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: wallabag-postgres-cluster
+spec:
+  teamId: "wallabag"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    wallabag:
+    - superuser
+    - createdb
+  databases:
+    wallabag: wallabag
+  postgresql:
+    version: "14"

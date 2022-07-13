@@ -16,17 +16,13 @@ spec:
   timeout: 10m0s
   valuesFrom:
   - kind: Secret
-    name: wallabag-secret
-    valuesKey: WALLABAG_DB_PASS
+    name: wallabag.wallabag-postgres-cluster.credentials.postgresql.acid.zalan.do
+    valuesKey: password
     targetPath: env.POSTGRES_PASSWORD
   - kind: Secret
-    name: wallabag-secret
-    valuesKey: WALLABAG_DB_PASS
+    name: wallabag.wallabag-postgres-cluster.credentials.postgresql.acid.zalan.do
+    valuesKey: password
     targetPath: env.SYMFONY__ENV__DATABASE_PASSWORD
-  - kind: Secret
-    name: wallabag-secret
-    valuesKey: WALLABAG_DB_PASS
-    targetPath: postgresql.postgresqlPassword
   values:
     image:
       repository: docker.io/wallabag/wallabag
@@ -35,7 +31,7 @@ spec:
       TZ: UTC
       POSTGRES_USER: wallabag
       SYMFONY__ENV__DATABASE_DRIVER: pdo_pgsql
-      SYMFONY__ENV__DATABASE_HOST: wallabag-postgresql
+      SYMFONY__ENV__DATABASE_HOST: wallabag-postgres-cluster
       SYMFONY__ENV__DATABASE_PORT: "5432"
       SYMFONY__ENV__DATABASE_NAME: wallabag
       SYMFONY__ENV__DATABASE_USER: wallabag
@@ -66,14 +62,5 @@ spec:
         size: 1Gi
         type: pvc
         mountPath: /var/www/wallabag/web/assets/images
-    postgresql:
-      enabled: true
-      postgresqlUsername: wallabag
-      postgresqlDatabase: wallabag
-      persistence:
-        enabled: true
-      image:
-        repository: bitnami/postgresql
-        tag: 11.16.0-debian-11-r12
     redis:
       enabled: true
