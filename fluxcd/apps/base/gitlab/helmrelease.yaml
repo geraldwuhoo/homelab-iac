@@ -46,6 +46,14 @@ spec:
             key: provider
         initialDefaults:
           signupEnabled: false
+      psql:
+        host: gitlab-postgres-cluster
+        database: gitlabhq_production
+        username: gitlab
+        password:
+          useSecret: true
+          secret: gitlab.gitlab-postgres-cluster.credentials.postgresql.acid.zalan.do
+          key: password
       smtp:
         enabled: true
         address: smtp.sendgrid.net
@@ -87,7 +95,7 @@ spec:
       podAnnotations:
         backup.velero.io/backup-volumes-excludes: runner-secrets
     postgresql:
-      install: true
+      install: false
     redis:
       install: true
       cluster:
