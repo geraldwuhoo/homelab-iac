@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/gotson/komga
-      tag: 0.155.0
+      tag: 0.155.1
     ingress:
       main:
         enabled: true
