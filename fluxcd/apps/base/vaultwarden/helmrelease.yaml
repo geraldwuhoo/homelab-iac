@@ -54,7 +54,7 @@ spec:
   values:
     image:
       repository: docker.io/vaultwarden/server
-      tag: 1.25.0
+      tag: 1.25.1
     ingress:
       main:
         enabled: true
