@@ -8,3 +8,10 @@ metadata:
     keel.sh/trigger: poll
     keel.sh/match-tag: "true"
     keel.sh/pollSchedule: "@every 1m"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
