@@ -60,12 +60,17 @@ spec:
         mountPath: /uploads
     redis:
       enabled: true
-      architecture: standalone
+      architecture: replication
       auth:
         enabled: false
       commonConfiguration: |-
         appendonly yes
       master:
+        persistence:
+          enabled: true
+          annotations:
+            helm.sh/resource-policy: keep
+      replica:
         persistence:
           enabled: true
           annotations:
