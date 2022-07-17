@@ -30,7 +30,7 @@ spec:
   - kind: Secret
     name: authentik-secret
     valuesKey: AK_ADMIN_PASS
-    targetPath: env.AK_ADMIN_PASS
+    targetPath: env.AUTHENTIK_BOOTSTRAP_PASSWORD
   - kind: Secret
     name: authentik-secret
     valuesKey: SMTP_USER

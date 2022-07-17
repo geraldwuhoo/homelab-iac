@@ -8,4 +8,4 @@ spec:
   values:
     replicas: 3
     worker:
-      replicas: 1
+      replicas: 3
