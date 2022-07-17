@@ -71,5 +71,10 @@ spec:
         paths:
         - path: "/"
           pathType: Prefix
+    postgresql:
+      enabled: false
     redis:
       enabled: true
+      architecture: replication
+      auth:
+        enabled: false
