@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   name: directory-deployment
 spec:
+  replicas: 3
   template:
     spec:
       containers:

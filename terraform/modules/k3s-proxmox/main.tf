@@ -92,7 +92,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
   }
 
   timeouts {
-    create = "10m"
+    create = "15m"
     delete = "5m"
   }
 
