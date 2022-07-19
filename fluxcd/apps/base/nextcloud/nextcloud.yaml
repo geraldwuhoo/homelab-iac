@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/library/nextcloud
-      tag: 24.0.2-apache
+      tag: 24.0.3-apache
     ingress:
       enabled: true
       className: nginx-public
