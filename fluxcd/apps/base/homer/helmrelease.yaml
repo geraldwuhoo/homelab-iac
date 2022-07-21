@@ -1,0 +1,101 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: homer
+  namespace: homer
+spec:
+  chart:
+    spec:
+      chart: homer
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    image:
+      repository: docker.io/b4bz/homer
+      tag: v22.07.2
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: homer.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        hosts:
+        - host: homer.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    initContainers:
+      dashboard-icons:
+        name: dashboard-icons
+        image: docker.io/bitnami/git:2.37.1-debian-11-r2
+        command:
+        - "/bin/sh"
+        - "-c"
+        - "cp /config/* /www/assets/* && git clone https://github.com/walkxhub/dashboard-icons /www/assets/icons"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: assets
+          mountPath: /www/assets
+    persistence:
+      config:
+        enabled: false
+        mountPath: /config
+      assets:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Gi
+        mountPath: /www/assets
+    configmap:
+      config:
+        enabled: true
+        data:
+          config.yml: |
+            title: "${DOMAIN} dashboard"
+            subtitle: "Homer"
+
+            header: false
+            footer: false
+
+            theme: default
+            colors:
+              light:
+                highlight-primary: "#3367d6"
+                highlight-secondary: "#4285f4"
+                highlight-hover: "#5a95f5"
+                background: "#f5f5f5"
+                card-background: "#ffffff"
+                text: "#363636"
+                text-header: "#ffffff"
+                text-title: "#303030"
+                text-subtitle: "#424242"
+                card-shadow: rgba(0, 0, 0, 0.1)
+                link-hover: "#363636"
+              dark:
+                highlight-primary: "#3367d6"
+                highlight-secondary: "#4285f4"
+                highlight-hover: "#5a95f5"
+                background: "#131313"
+                card-background: "#2b2b2b"
+                text: "#eaeaea"
+                text-header: "#ffffff"
+                text-title: "#fafafa"
+                text-subtitle: "#f5f5f5"
+                card-shadow: rgba(0, 0, 0, 0.4)
+                link-hover: "#ffdd57"
+            services:
+              - name: "Media"
+                icon: "fas fa-film"
+                items:
+                  - name: "Jellyfin"
+                    logo: "/assets/icons/svg/jellyfin.svg"
+                    subtitle: "Media streaming server"
+                    url: "https://jellyfin.${DOMAIN}"
