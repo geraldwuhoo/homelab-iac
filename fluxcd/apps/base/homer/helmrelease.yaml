@@ -132,7 +132,7 @@ spec:
                     subtitle: "File share and collaboration platform"
                     url: "https://cloud.${DOMAIN}"
                   - name: "Vaultwarden"
-                    logo: "/assets/icons/svg/bitwarden.svg"
+                    logo: "/assets/icons/png/bitwarden.png"
                     subtitle: "Password manager"
                     url: "https://vaultwarden.${DOMAIN}"
                   - name: "Send"
