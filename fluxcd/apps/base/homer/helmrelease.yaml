@@ -17,6 +17,7 @@ spec:
   values:
     controller:
       replicas: 3
+      strategy: RollingUpdate
     image:
       repository: docker.io/b4bz/homer
       tag: v22.07.2
@@ -66,6 +67,8 @@ spec:
 
             header: false
             footer: false
+            defaults:
+              layout: list
 
             theme: default
             colors:
@@ -105,6 +108,10 @@ spec:
                     logo: "/assets/icons/svg/jellyseerr.svg"
                     subtitle: "Media request service"
                     url: "https://jellyseerr.${DOMAIN}"
+                  - name: "Komga"
+                    logo: "/assets/icons/png/komga.png"
+                    subtitle: "Comic book library"
+                    url: "https://komga.${DOMAIN}"
               - name: "Downloads"
                 icon: "fas fa-download"
                 items:
