@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: quay.io/jetstack/cert-manager-controller
-      tag: v1.8.2
+      tag: v1.9.0
     installCRDs: true
     podDnsPolicy: "None"
     podDnsConfig:
