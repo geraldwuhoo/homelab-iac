@@ -17,6 +17,10 @@ spec:
     controller:
       podAnnotations:
         linkerd.io/inject: enabled
+      config:
+        enable-brotli: true
+        brotli-level: "6"
+        use-gzip: true
       setAsDefaultIngress: true
       ingressClassResource:
         default: true
