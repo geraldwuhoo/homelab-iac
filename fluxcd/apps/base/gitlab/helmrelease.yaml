@@ -102,6 +102,7 @@ spec:
         enabled: true
     minio:
       persistence:
+        size: 50Gi
         enabled: true
         annotations: 
           helm.sh/resource-policy: keep
