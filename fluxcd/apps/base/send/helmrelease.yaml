@@ -34,6 +34,8 @@ spec:
           homelab/public: "true"
           external-dns.alpha.kubernetes.io/hostname: send.${DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+          nginx.ingress.kubernetes.io/proxy-body-size: 100G
+          nginx.ingress.kubernetes.io/proxy-buffer-size: "32k"
         hosts:
         - host: send.${DOMAIN}
           paths:
@@ -43,7 +45,7 @@ spec:
       REDIS_HOST: send-redis-headless
       FILE_DIR: /uploads
       BASE_URL: "https://send.${DOMAIN}"
-      MAX_FILE_SIZE: "10737418240"
+      MAX_FILE_SIZE: "53687091200"
       MAX_EXPIRE_SECONDS: "2592000"
     podSecurityContext:
       runAsUser: 1000
@@ -55,7 +57,7 @@ spec:
         accessMode: ReadWriteOnce
         enabled: true
         retain: true
-        size: 10Gi
+        size: 100Gi
         type: pvc
         mountPath: /uploads
     redis:
