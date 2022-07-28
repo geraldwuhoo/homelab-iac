@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: synapse
+namePrefix: discord-synapse-
+resources:
+- postgres.yaml
+- ../../../base/kah-common
+patches:
+- target:
+    kind: HelmRelease
+  patch: |-
+    apiVersion: apps/v1
+    kind: HelmRelease
+    metadata:
+      name: common
+    spec:
+      values:
+        image:
+          repository: registry.gitlab.com/mx-puppet/discord/mx-puppet-discord
+          tag: v0.1.1
+        persistence:
+          data:
+            accessMode: ReadWriteOnce
+            enabled: true
+            retain: true
+            size: 1Gi
+            type: pvc
+            mountPath: /data

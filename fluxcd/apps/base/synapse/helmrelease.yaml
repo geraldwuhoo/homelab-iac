@@ -1,0 +1,64 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: synapse
+  namespace: synapse
+spec:
+  chart:
+    spec:
+      chart: matrix-synapse
+      sourceRef:
+        kind: HelmRepository
+        name: ananace
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    wellknown:
+      enabled: true
+    config:
+      reportStats: false
+      enableRegistration: false
+    extraConfig:
+      use_presence: true
+      enable_search: true
+    synapse:
+      strategy:
+        type: Recreate
+    # workers:
+    #   pusher:
+    #     enabled: true
+    #   appservice:
+    #     enabled: true
+    #   federation_sender:
+    #     enabled: true
+    #   media_repository:
+    #     enabled: true
+    #   user_dir:
+    #     enabled: true
+    #   frontend_proxy:
+    #     enabled: true
+    postgresql:
+      enabled: false
+    externalPostgresql:
+      host: synapse-postgres-cluster
+      port: 5432
+      username: synapse
+      existingSecret: synapse.synapse-postgres-cluster.credentials.postgresql.acid.zalan.do
+      existingSecretPasswordKey: password
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+        existingSecret: synapse-secret
+      architecture: replication
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 20Gi
+    ingress:
+      enabled: true
+      className: nginx-public
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: 100Mi

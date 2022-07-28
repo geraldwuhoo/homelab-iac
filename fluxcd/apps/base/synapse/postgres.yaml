@@ -1,0 +1,20 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: synapse-postgres-cluster
+  namespace: synapse
+spec:
+  teamId: "synapse"
+  volume:
+    size: 20Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    synapse:
+    - superuser
+    - createdb
+  databases:
+    synapse: synapse
+  postgresql:
+    version: "14"
