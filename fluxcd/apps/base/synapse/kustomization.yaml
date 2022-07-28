@@ -7,3 +7,4 @@ resources:
 - synapse-redis-secret.yaml
 - postgres.yaml
 - helmrelease.yaml
+- element.yaml
