@@ -51,7 +51,7 @@ spec:
       enabled: true
       auth:
         enabled: true
-        existingSecret: synapse-secret
+        existingSecret: synapse-redis
       architecture: replication
     persistence:
       enabled: true

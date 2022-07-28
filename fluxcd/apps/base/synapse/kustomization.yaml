@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - zalando-secret.yaml
-- secret.yaml
+- synapse-redis-secret.yaml
 - postgres.yaml
 - helmrelease.yaml
