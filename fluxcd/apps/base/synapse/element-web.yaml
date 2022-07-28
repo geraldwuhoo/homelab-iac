@@ -17,7 +17,7 @@ spec:
   values:
     replicaCount: 3
     defaultServer:
-      url: ${DOMAIN}
+      url: https://matrix.${DOMAIN}
       name: ${DOMAIN}
     ingress:
       enabled: true
