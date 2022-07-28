@@ -31,19 +31,6 @@ spec:
     synapse:
       strategy:
         type: Recreate
-    workers:
-      pusher:
-        enabled: true
-      appservice:
-        enabled: true
-      federation_sender:
-        enabled: true
-      media_repository:
-        enabled: true
-      user_dir:
-        enabled: true
-      frontend_proxy:
-        enabled: true
     postgresql:
       enabled: false
     externalPostgresql:
