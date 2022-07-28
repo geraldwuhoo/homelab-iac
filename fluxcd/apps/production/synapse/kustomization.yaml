@@ -40,21 +40,6 @@ patches:
           storageClass: ceph-cephfs-ssd-sc
           size: 60Gi
           accessMode: ReadWriteMany
-        workers:
-          generic_worker:
-            enabled: true
-          pusher:
-            enabled: true
-          appservice:
-            enabled: true
-          federation_sender:
-            enabled: true
-          media_repository:
-            enabled: true
-          user_dir:
-            enabled: true
-          frontend_proxy:
-            enabled: true
         ingress:
           annotations:
             external-dns.alpha.kubernetes.io/hostname: matrix.${DOMAIN}
