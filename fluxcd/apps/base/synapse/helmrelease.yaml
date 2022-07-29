@@ -28,6 +28,11 @@ spec:
     extraConfig:
       use_presence: true
       enable_search: true
+    extraSecrets:
+      redis:
+        enabled: true
+        host: synapse-redis-master
+        port: 6379
     synapse:
       strategy:
         type: Recreate

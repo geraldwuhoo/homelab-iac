@@ -45,6 +45,17 @@ patches:
           - name: extra-config
             mountPath: /synapse/config/conf.d/oidc.yaml
             subPath: oidc.yaml
+        workers:
+          generic_worker:
+            enabled: true
+          pusher:
+            enabled: true
+          federation_sender:
+            enabled: true
+          media_repository:
+            enabled: true
+          frontend_proxy:
+            enabled: true
         persistence:
           enabled: true
           storageClass: ceph-cephfs-ssd-sc
