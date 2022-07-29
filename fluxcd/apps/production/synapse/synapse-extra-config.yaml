@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: synapse-extra-config
+    namespace: synapse
+stringData:
+    oidc.yaml: ENC[AES256_GCM,data:xWPwIr9Q2zzl83u/E9143ZrzZHnwTxwO2gWeMyjoc5/DaZ3kQX45ve5quH2NQg29rOTZd4Fr0RaSCYDtg2gohvUH0IHbI/H7LJpZ/V4aMaywGiDpFNhxrROlMWtaEVD89WWTMPzD+7fTK4CalQUviYP69jYRq95oKtlEJmaoVNVw3xazRr9igbbowToozp+v6fKBWGQnuLqFOpVIRwRBGr4d8IzIDx1JF51hBt+VLmWNJGep8oqBPWDzYQwKZvVprJ8WSMCBnMV7NhjO972XAKeHrwTVPvS9CV0Zl840CniWU4NOi7Dc8N1z4Iwcfv2EKXIcvpQVJeolfwgJolBlhqHLsjRGwFTBNoiDpn3oJClgcsKdA+Z2MihjMnEFVlSHxG2EHNRqZqqgC2vLNTFKhpTYchD0I8KWk04IxfN4bZahy+pyUD/o2v8Dti0U5/KjghFd4LF2TpTML9uJ0Xa+D5qYDuMg1IyTGGIOT3JK3C7FuZMPkbwnFJBt7H7kBG68g8H6W5SZ8kWjhstveSIjvf0jkjQ3YFPoFvlKiF0LVyhemgD7A/9T2h0Be0CZ8ZwV5PfAq1VSunnr/opLBqn/etNsT7d+c8a54gf66IQvYn513NTkDVmUINp74eDf/+r3iusAE+ZXvAPaA2KMdoKIthxNm/cHUdKjYyQ3G7GVQpIxwdfkDBRSYmqcWPJCtsy4X869fp087iXSE6ovISWH3TAAFMrdCoQmLvzAFJZyF1S2RSZcsUdrynsatGTrwr9IX10PQQ9ZfNedY3jK3Gm1ztR6nU7VwfLHjRrkTrA2d83o3h0=,iv:MylWLfOP7Hm6SP3thJ3/EHP0OmC1MYF0zSVyrChR1xw=,tag:CNGMubVPti+HU3AhP78B4Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3bUZNN09yaWREMUR1eWpv
+            b3dJcEh3WEFlT3BVYWhyMzgxZ3FxMVlsaEFvCnJWb0Q0Sk1mamJjMnJ2a3pzVDZn
+            OUJ3ZmsrQXMvbWNDUUhPNWMyTk5HTnMKLS0tIFpOZUV3YWlYUi9kVHp2bFFLcUJv
+            dS9zT2dXakdxUXJxZHBCNXpVdE9FMFUKuAsrsm9rtF/GymfpIdSHfIFMOQ6vipi2
+            Pb+iY1+tWdiq5lIZARCvav7mR/jaVGQDFmRLK2rvxUvHBf0tlgrDCg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-07-29T02:30:51Z"
+    mac: ENC[AES256_GCM,data:tk/PbCh+arkRAaRXd+z/URS3eZloGt4KYaRMF5vhsbJnkHJBrPpLyS1hpSbTP9OizQxzxJYF5J/3fy4+hcChBcpzZ+jfFL1wfW2DT9zYobodBDcaK7Sl0Uc2I0U0GRSkZHdGMS4x0Xr0gcprhMFBnSONxn6rJvDKF2K6t4pFLdo=,iv:5niipb2IKjzReOhHySGKYIIpAUYGfErFW+WiIl+f990=,tag:aqir11ptl94X2YTeFy0lPQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

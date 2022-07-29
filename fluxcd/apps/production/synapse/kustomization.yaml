@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: synapse
 resources:
+- synapse-extra-config.yaml
 - ../../base/synapse
 - discord
 patches:
@@ -22,19 +23,28 @@ patches:
           max_upload_size: 100M
           url_preview_enabled: true
           url_preview_ip_range_blacklist:
-            - '127.0.0.0/8'
-            - '10.0.0.0/8'
-            - '172.16.0.0/12'
-            - '192.168.0.0/16'
-            - '100.64.0.0/10'
-            - '169.254.0.0/16'
-            - '::1/128'
-            - 'fe80::/64'
-            - 'fc00::/7'
+          - '127.0.0.0/8'
+          - '10.0.0.0/8'
+          - '172.16.0.0/12'
+          - '192.168.0.0/16'
+          - '100.64.0.0/10'
+          - '169.254.0.0/16'
+          - '::1/128'
+          - 'fe80::/64'
+          - 'fc00::/7'
           max_spider_size: 10M
         synapse:
           strategy:
             type: RollingUpdate
+          extraVolumes:
+          - name: extra-config
+            secret:
+              secretName: synapse-extra-config
+              optional: false
+          extraVolumeMounts:
+          - name: extra-config
+            mountPath: /synapse/config/conf.d
+            subPath: oidc.yaml
         persistence:
           enabled: true
           storageClass: ceph-cephfs-ssd-sc
