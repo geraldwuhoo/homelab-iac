@@ -17,6 +17,7 @@ spec:
     - nextcloud
     - privatebin
     - send
+    - synapse
     - vaultwarden
     - wallabag
     excludedResources:
