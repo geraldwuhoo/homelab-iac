@@ -52,8 +52,6 @@ patches:
             enabled: true
           federation_sender:
             enabled: true
-          media_repository:
-            enabled: true
           frontend_proxy:
             enabled: true
         persistence:
