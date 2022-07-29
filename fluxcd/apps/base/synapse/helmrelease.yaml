@@ -50,6 +50,12 @@ spec:
         enabled: true
         existingSecret: synapse-redis
       architecture: replication
+      master:
+        persistence:
+          enabled: false
+      replica:
+        persistence:
+          enabled: false
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
