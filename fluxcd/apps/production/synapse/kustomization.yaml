@@ -43,7 +43,7 @@ patches:
               optional: false
           extraVolumeMounts:
           - name: extra-config
-            mountPath: /synapse/config/conf.d
+            mountPath: /synapse/config/conf.d/oidc.yaml
             subPath: oidc.yaml
         persistence:
           enabled: true
