@@ -65,7 +65,6 @@ patches:
             - "/_matrix/client/(api/v1|r0|v3|unstable)/voip/turnServer"
             - "/_matrix/client/(api/v1|r0|v3|unstable)/joined_groups"
             - "/_matrix/client/(api/v1|r0|v3|unstable)/publicised_groups"
-            - "/_matrix/client/(api/v1|r0|v3|unstable)/publicised_groups/"
             - "/_matrix/client/(api/v1|r0|v3|unstable)/login"
             - "/_matrix/client/(r0|v3|unstable)/register"
             - "/_matrix/client/(r0|v3|unstable)/auth/.*/fallback/web"
@@ -96,32 +95,32 @@ patches:
             - "/_matrix/federation/v1/user/devices/"
             - "/_matrix/federation/v1/get_groups_publicised"
             - "/_matrix/key/v2/query"
-          # federation_reader:
-          #   enabled: true
-          #   generic: true
-          #   listeners: [federation]
-          #   paths:
-          #   - "/_matrix/federation/v1/send/"
-          # synchrotron:
-          #   enabled: true
-          #   generic: true
-          #   listeners: [client]
-          #   csPaths:
-          #   - "/_matrix/client/(v2_alpha|r0|v3)/sync"
-          #   - "/_matrix/client/(api/v1|v2_alpha|r0|v3)/events"
-          #   - "/_matrix/client/(api/v1|r0|v3)/initialSync"
-          #   - "/_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync"
-          # sso:
-          #   enabled: true
-          #   generic: true
-          #   listeners: [client]
-          #   csPaths:
-          #   - /_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
-          #   - /_synapse/client/pick_idp$
-          #   - /_synapse/client/pick_username
-          #   - /_synapse/client/new_user_consent$
-          #   - /_synapse/client/sso_register$
-          #   - /_synapse/client/oidc/callback$
+          federation_reader:
+            enabled: true
+            generic: true
+            listeners: [federation]
+            paths:
+            - "/_matrix/federation/v1/send/"
+          synchrotron:
+            enabled: true
+            generic: true
+            listeners: [client]
+            csPaths:
+            - "/_matrix/client/(v2_alpha|r0|v3)/sync"
+            - "/_matrix/client/(api/v1|v2_alpha|r0|v3)/events"
+            - "/_matrix/client/(api/v1|r0|v3)/initialSync"
+            - "/_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync"
+          sso:
+            enabled: true
+            generic: true
+            listeners: [client]
+            csPaths:
+            - /_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
+            - /_synapse/client/pick_idp$
+            - /_synapse/client/pick_username
+            - /_synapse/client/new_user_consent$
+            - /_synapse/client/sso_register$
+            - /_synapse/client/oidc/callback$
           pusher:
             enabled: true
           federation_sender:
