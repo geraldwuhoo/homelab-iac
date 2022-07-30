@@ -57,6 +57,8 @@ patches:
             secret:
               secretName: synapse-extra-config
               optional: false
+          - name: appservice-config
+            emptyDir: {}
           - name: discord-config
             secret:
               secretName: discord-config
@@ -65,8 +67,10 @@ patches:
           - name: extra-config
             mountPath: /synapse/config/conf.d/oidc.yaml
             subPath: oidc.yaml
+          - name: appservice-config
+            mountPath: /synapse/appservice
           - name: discord-config
-            mountPath: /synapse/config/discord-registration.yaml
+            mountPath: /synapse/appservice/discord-registration.yaml
             subPath: discord-registration.yaml
         workers:
           generic_worker:
