@@ -18,7 +18,8 @@ patches:
       name: synapse-postgres-cluster
     spec:
       users:
-        discord: []
+        discord:
+        - createdb
       databases:
         discord: discord
 - target:
