@@ -52,7 +52,7 @@ patches:
         synapse:
           strategy:
             type: RollingUpdate
-          extraVolumes:
+          extraVolumes: &volumes
           - name: extra-config
             secret:
               secretName: synapse-extra-config
@@ -63,7 +63,7 @@ patches:
             secret:
               secretName: discord-config
               optional: false
-          extraVolumeMounts:
+          extraVolumeMounts: &volumeMounts
           - name: extra-config
             mountPath: /synapse/config/conf.d/oidc.yaml
             subPath: oidc.yaml
@@ -73,6 +73,9 @@ patches:
             mountPath: /synapse/appservice/discord-registration.yaml
             subPath: discord-registration.yaml
         workers:
+          default:
+            volumes: *volumes
+            volumeMounts: *volumeMounts
           generic_worker:
             enabled: true
             listeners: [client, federation]
