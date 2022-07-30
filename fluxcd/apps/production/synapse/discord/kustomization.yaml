@@ -2,10 +2,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: synapse
-namePrefix: discord-synapse-
 resources:
-- postgres.yaml
+- zalando-secret.yaml
 - ../../../base/kah-common
+transformers:
+- deploy-transformer.yaml
 patches:
 - target:
     kind: HelmRelease

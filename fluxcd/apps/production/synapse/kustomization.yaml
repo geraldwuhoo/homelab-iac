@@ -8,6 +8,19 @@ resources:
 - discord
 patches:
 - target:
+    kind: postgresql
+    name: synapse-postgres-cluster
+  patch: |-
+    apiVersion: "acid.zalan.do/v1"
+    kind: postgresql
+    metadata:
+      name: synapse-postgres-cluster
+    spec:
+      users:
+        discord: []
+      databases:
+        discord: discord
+- target:
     kind: HelmRelease
     name: synapse
   patch: |-
