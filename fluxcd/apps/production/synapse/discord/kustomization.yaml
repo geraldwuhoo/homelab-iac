@@ -38,7 +38,8 @@ patches:
             type: custom
             volumeSpec:
               secret:
-                name: discord-config
+                secretName: discord-config
+                optional: false
             subPath:
             - path: config.yaml
               mountPath: /data/config.yaml
