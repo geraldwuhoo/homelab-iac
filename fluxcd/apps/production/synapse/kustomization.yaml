@@ -139,6 +139,17 @@ patches:
             - "/_matrix/client/(api/v1|v2_alpha|r0|v3)/events"
             - "/_matrix/client/(api/v1|r0|v3)/initialSync"
             - "/_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync"
+          sso:
+            enabled: true
+            generic: true
+            listeners: [client]
+            csPaths:
+            - /_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
+            - /_synapse/client/pick_idp
+            - /_synapse/client/pick_username
+            - /_synapse/client/new_user_consent
+            - /_synapse/client/sso_register
+            - /_synapse/client/oidc/callback
           pusher:
             enabled: true
           federation_sender:
