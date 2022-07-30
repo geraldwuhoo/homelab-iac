@@ -48,7 +48,7 @@ patches:
           - 'fc00::/7'
           max_spider_size: 10M
           app_service_config_files:
-          - /synapse/config/discord-registration.yaml
+          - /synapse/appservice/discord-registration.yaml
         synapse:
           strategy:
             type: RollingUpdate
