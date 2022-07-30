@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: synapse
 resources:
 - synapse-extra-config.yaml
+- discord-config.yaml
 - ../../base/synapse
 - discord
 patches:
@@ -46,6 +47,8 @@ patches:
           - 'fe80::/64'
           - 'fc00::/7'
           max_spider_size: 10M
+          app_service_config_files:
+          - /synapse/config/discord-registration.yaml
         synapse:
           strategy:
             type: RollingUpdate
@@ -54,10 +57,17 @@ patches:
             secret:
               secretName: synapse-extra-config
               optional: false
+          - name: discord-config
+            secret:
+              secretName: discord-config
+              optional: false
           extraVolumeMounts:
           - name: extra-config
             mountPath: /synapse/config/conf.d/oidc.yaml
             subPath: oidc.yaml
+          - name: discord-config
+            mountPath: /synapse/config/discord-registration.yaml
+            subPath: discord-registration.yaml
         workers:
           generic_worker:
             enabled: true

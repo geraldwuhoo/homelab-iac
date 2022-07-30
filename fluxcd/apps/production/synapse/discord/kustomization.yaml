@@ -20,6 +20,11 @@ patches:
         image:
           repository: registry.gitlab.com/mx-puppet/discord/mx-puppet-discord
           tag: v0.1.1
+        service:
+          main:
+            ports:
+              http:
+                port: 8434
         persistence:
           data:
             accessMode: ReadWriteOnce
@@ -28,3 +33,16 @@ patches:
             size: 1Gi
             type: pvc
             mountPath: /data
+          discord-config:
+            enabled: true
+            type: custom
+            volumeSpec:
+              secret:
+                name: discord-config
+            subPath:
+            - path: config.yaml
+              mountPath: /data/config.yaml
+              readOnly: true
+            - path: discord-registration.yaml
+              mountPath: /data/discord-registration.yaml
+              readOnly: true
