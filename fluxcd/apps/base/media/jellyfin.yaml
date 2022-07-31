@@ -57,3 +57,8 @@ spec:
         accessMode: ReadWriteOnce
         size: 20Gi
         type: pvc
+    resources:
+      requests:
+        memory: 512Mi
+      limits:
+        memory: 1Gi

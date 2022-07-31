@@ -39,3 +39,10 @@ spec:
         size: 20Gi
         type: pvc
         mountPath: /app/config
+    resources:
+      requests:
+        cpu: 50m
+        memory: 256Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
