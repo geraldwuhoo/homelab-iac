@@ -97,6 +97,17 @@ spec:
                 card-shadow: rgba(0, 0, 0, 0.4)
                 link-hover: "#ffdd57"
             services:
+              - name: "Federated"
+                icon: "fas fa-project-diagram"
+                items:
+                  - name: "Element"
+                    logo: "/assets/icons/png/element.png"
+                    subtitle: "Federated, E2EE messaging"
+                    url: "https://element.${DOMAIN}"
+                  - name: "Matrix"
+                    logo: "/assets/icons/png/matrix.png"
+                    subtitle: "Federated protocol"
+                    url: "https://matrix.${DOMAIN}/_matrix/static/"
               - name: "Media"
                 icon: "fas fa-film"
                 items:
