@@ -78,6 +78,9 @@ patches:
           - name: extra-config
             mountPath: /synapse/config/conf.d/oidc.yaml
             subPath: oidc.yaml
+          - name: extra-config
+            mountPath: /synapse/config/conf.d/turn.yaml
+            subPath: turn.yaml
           - name: appservice-config
             mountPath: /synapse/appservice
           - name: discord-config

@@ -25,6 +25,11 @@ spec:
       - name: coturn
         image: quay.io/coturn/coturn:4.5.2-alpine
         imagePullPolicy: Always
+        volumeMounts:
+        - name: coturn-config
+          mountPath: /etc/coturn/turnserver.conf
+          subPath: turnserver.conf
+          readOnly: true
         ports:
         - name: turn-port1
           containerPort: 3478
@@ -36,3 +41,8 @@ spec:
           protocol: TCP
         args:
         - -v
+      volumes:
+        - name: coturn-config
+          secret:
+            secretName: coturn-secret
+            option: false
