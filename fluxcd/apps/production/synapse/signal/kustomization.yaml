@@ -1,0 +1,65 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: synapse
+resources:
+- zalando-secret.yaml
+- ../../../base/kah-common
+transformers:
+- deploy-transformer.yaml
+patches:
+- target:
+    kind: HelmRelease
+  patch: |-
+    apiVersion: apps/v1
+    kind: HelmRelease
+    metadata:
+      name: common
+    spec:
+      values:
+        image:
+          repository: dock.mau.dev/mautrix/signal
+          tag: v0.3.0
+        service:
+          main:
+            ports:
+              http:
+                port: 29328
+        persistence:
+          data:
+            accessMode: ReadWriteOnce
+            enabled: true
+            retain: true
+            size: 10Gi
+            type: pvc
+            mountPath: /data
+          signald:
+            accessMode: ReadWriteMany
+            enabled: true
+            retain: true
+            size: 10Gi
+            type: pvc
+            storageClass: ceph-cephfs-ssd-sc
+            mountPath: /signald
+          discord-config:
+            enabled: true
+            type: custom
+            volumeSpec:
+              secret:
+                secretName: signal-config
+                optional: false
+            subPath:
+            - path: config.yaml
+              mountPath: /data/config.yaml
+              readOnly: true
+            - path: registration.yaml
+              mountPath: /data/registration.yaml
+              readOnly: true
+        additionalContainers:
+          signald:
+            name: signald
+            image: docker.io/signald/signald:0.20.0
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+            - name: signald
+              mountPath: /signald

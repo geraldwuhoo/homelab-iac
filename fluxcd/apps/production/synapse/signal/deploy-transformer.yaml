@@ -1,0 +1,9 @@
+---
+apiVersion: builtin
+kind: PrefixSuffixTransformer
+metadata:
+  name: customPrefixer
+prefix: signal-synapse-
+fieldSpecs:
+- kind: HelmRelease
+  path: metadata/name
