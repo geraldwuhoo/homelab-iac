@@ -23,7 +23,7 @@ spec:
       hostNetwork: true
       containers:
       - name: coturn
-        image: coturn/coturn:alpine
+        image: quay.io/coturn/coturn:4.5.2-alpine
         imagePullPolicy: Always
         ports:
         - name: turn-port1
