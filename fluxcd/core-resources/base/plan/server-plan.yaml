@@ -1,0 +1,35 @@
+---
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: k3s-server
+  namespace: system-upgrade
+  labels:
+    k3s_upgrade: server
+spec:
+  concurrency: 1
+  channel: https://update.k3s.io/v1-release/channels/stable
+  serviceAccountName: system-upgrade
+  nodeSelector:
+    matchExpressions:
+    - key: k3s_upgrade
+      operator: Exists
+    - key: k3s_upgrade
+      operator: NotIn
+      values:
+      - disabled
+      - "false"
+    - key: node-role.kubernetes.io/master
+      operator: In
+      values:
+      - "true"
+  tolerations:
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
+    operator: Exists
+  - key: CriticalAddonsOnly
+    effect: NoExecute
+    operator: Exists
+  cordon: true
+  upgrade:
+    image: rancher/k3s-upgrade
