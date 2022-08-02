@@ -4,5 +4,7 @@ kind: Kustomization
 namespace: wiki
 resources:
 - namespace.yaml
+- secret.yaml
+- zalando-secret.yaml
 - postgres.yaml
 - helmrelease.yaml

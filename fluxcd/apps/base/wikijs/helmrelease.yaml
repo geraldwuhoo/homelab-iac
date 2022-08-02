@@ -16,9 +16,9 @@ spec:
   timeout: 10m0s
   valuesFrom:
   - kind: Secret
-    name: wiki.wiki-postgres-cluster.credentials.postgresql.acid.zalan.do
-    valuesKey: username
-    targetPath: postgresql.postgresqlUser
+    name: wiki-secret
+    valuesKey: databaseURL
+    targetPath: externalPostgresql.databaseURL
   values:
     image:
       repository: ghcr.io/requarks/wiki
@@ -35,9 +35,5 @@ spec:
         paths:
         - path: /
           pathType: Prefix
-    postgresql: 
-      enabled: false
-      postgresqlHost: wiki-postgres-cluster
-      ssl: true
-      existingSecret: wiki.wiki-postgres-cluster.credentials.postgresql.acid.zalan.do
-      existingSecretKey: password
+    externalPostgresql: 
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
