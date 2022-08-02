@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wiki
+  labels:
+    enable-backup: "true"
+  annotations:
+    linkerd.io/inject: enabled
