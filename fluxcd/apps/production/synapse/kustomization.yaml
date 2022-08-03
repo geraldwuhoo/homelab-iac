@@ -58,6 +58,9 @@ patches:
           - /synapse/appservice/signal-registration.yaml
           password_config:
             enabled: false
+          sso:
+            client_whitelist:
+            - https://element.wuhoo.xyz/
         synapse:
           strategy:
             type: RollingUpdate
