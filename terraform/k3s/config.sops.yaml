@@ -2,6 +2,7 @@ proxmox:
     api_url: ENC[AES256_GCM,data:B8yuSUmrC9t1CzIhYeIwgs5carowL69xzyNLZ15kPw==,iv:JiWsMpro/OzNWKce2clA+g4GoTYgpNUlXdN5/8/X+IY=,tag:zuW0of/yQ4AaAt9FxqC1Bw==,type:str]
     api_token_id: ENC[AES256_GCM,data:wEtpJARujLYhjHa3rqcd1Hx66VeUMLHJSG5J2A==,iv:uS/Ehyi9bQmUWuDnyklHaDvAZdn+BUFQeuG5OQCDDus=,tag:O39yOgE5vVeNpeFW/KIuTQ==,type:str]
     api_token_secret: ENC[AES256_GCM,data:AsGtco4o7nyWbWnpl9f7KNcnkP+c2GzhT9od22i/kLWzeN3k,iv:nBGvoap6tx1l9qWh60WYWonxi17dnxbmgdOsekzFNUU=,tag:+tqEmbTCyt9+P9D5x145lA==,type:str]
+notify_url: ENC[AES256_GCM,data:0RxKV1c5H6Kv/iVYwev6zLVc9Q5a9YeSShOnd9U1gTA05XdzZ7sg7ny38Hb1ArAJr+2Vx6t0eU2Ju30QF7hQykW0OedVh71bsCQd,iv:1ksNhCZf8qP8849zc6RrDBYnNRfrJP2IQL8IE9ki4t8=,tag:+LBHJbm9ocCr7Tpt8Wb3Pw==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -17,8 +18,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-01-23T23:32:53Z"
-    mac: ENC[AES256_GCM,data:wX0o3/2/vX4RjZeO+bGsxs8FqDkjpKqNlAN/zaUlmd/P2yOkM7yFyHvybPgHKwA1ZvsSp10c1o8w0n8BsPXt38G+Zi2EfIzYyvy8k2tB6ofe1M/Xh3FsLb/3z2mPMzFXtJ0k0YtYG516eKLhh3NvVGk1mTfAQPKlgyyK1zbQhB0=,iv:cpBWS/Bp2YgxGRYYEhtOwiaWTkQEoTirk1yahNfAZxU=,tag:ve62WVygM+7vKmPZgqa8MQ==,type:str]
+    lastmodified: "2022-08-03T06:21:01Z"
+    mac: ENC[AES256_GCM,data:a+o8baHffE/i0Jp8bLWjtcaAL16EEsYUSoVXV2RrYD09h3H1ghL5vwyYVsd1y+HLvVLU12asr/bK9+TrT/1pmHmWsXf7I/9Tvs7OhnX6UGc7cM+VqEiEGBAHKKuXCc4dWyaW2bi0jwpUZQizcb65IAgq1eWKakZ9aNPVrZDb+zI=,iv:QdOhiQPiXgME4AwLZFVKWX+zj0uUS98MIcbxwmvSYoo=,tag:qMtnLcep9mWP0IXxyWefHg==,type:str]
     pgp: []
-    encrypted_regex: (api.*|macaddr|username|password|connection_url)
-    version: 3.7.1
+    encrypted_regex: (api.*|macaddr|username|password|connection_url|notify_url)
+    version: 3.7.3

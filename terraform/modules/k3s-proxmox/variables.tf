@@ -61,3 +61,11 @@ variable "specs" {
     bridge  = string,
   })
 }
+
+variable "notify" {
+  type = bool
+}
+
+variable "notify_url" {
+  type = string
+}

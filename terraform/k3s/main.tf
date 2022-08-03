@@ -88,6 +88,9 @@ module "k3s" {
     sockets = 1
     storage = "rbd"
   }
+
+  notify     = true
+  notify_url = data.sops_file.secret.data["notify_url"]
 }
 
 resource "local_sensitive_file" "kubeconfig" {

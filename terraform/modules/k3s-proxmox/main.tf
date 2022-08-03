@@ -45,10 +45,12 @@ resource "null_resource" "cloud_init_config_file" {
 
   provisioner "file" {
     content = templatefile("${path.module}/templates/user_data.yaml.templ", {
-      pubkey   = file(pathexpand(var.pubkey))
-      hostname = var.hosts[count.index].hostname
-      domain   = var.domain
-      vip      = "${var.vip_hostname}.${var.domain}"
+      pubkey     = file(pathexpand(var.pubkey))
+      hostname   = var.hosts[count.index].hostname
+      domain     = var.domain
+      vip        = "${var.vip_hostname}.${var.domain}"
+      notify     = var.notify
+      notify_url = var.notify_url
     })
     destination = "/mnt/pve/cephfs/snippets/user_data_${count.index}.yaml"
   }
