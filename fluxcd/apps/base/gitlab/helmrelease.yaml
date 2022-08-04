@@ -103,7 +103,7 @@ spec:
       master:
         persistence:
           enabled: false
-      replica:
+      slave:
         persistence:
           enabled: false
     minio:
