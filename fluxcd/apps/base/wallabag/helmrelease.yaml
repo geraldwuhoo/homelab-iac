@@ -64,3 +64,12 @@ spec:
         mountPath: /var/www/wallabag/web/assets/images
     redis:
       enabled: true
+      architecture: replication
+      auth:
+        enabled: false
+      master:
+        persistence:
+          enabled: false
+      replica:
+        persistence:
+          enabled: false

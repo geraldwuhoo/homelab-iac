@@ -100,6 +100,12 @@ spec:
       install: true
       cluster:
         enabled: true
+      master:
+        persistence:
+          enabled: false
+      replica:
+        persistence:
+          enabled: false
     minio:
       persistence:
         size: 50Gi

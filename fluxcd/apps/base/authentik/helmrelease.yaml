@@ -78,3 +78,9 @@ spec:
       architecture: replication
       auth:
         enabled: false
+      master:
+        persistence:
+          enabled: false
+      replica:
+        persistence:
+          enabled: false
