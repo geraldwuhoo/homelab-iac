@@ -37,6 +37,11 @@ patches:
       name: synapse
     spec:
       values:
+        signingkey:
+          job:
+            enabled: false
+          existingSecret: synapse-extra-config
+          existingSecretKey: signing.key
         serverName: ${DOMAIN}
         publicServerName: matrix.${DOMAIN}
         extraConfig:
