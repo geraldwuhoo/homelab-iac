@@ -67,4 +67,4 @@ spec:
       enabled: true
       className: nginx-public
       annotations:
-        nginx.ingress.kubernetes.io/proxy-body-size: 100Mi
+        nginx.ingress.kubernetes.io/proxy-body-size: 200M
