@@ -6,6 +6,7 @@ resources:
 - synapse-extra-config.yaml
 - discord-config.yaml
 - signal-config.yaml
+- keydb
 - ../../base/synapse
 - discord
 - signal
@@ -66,6 +67,11 @@ patches:
           sso:
             client_whitelist:
             - https://element.wuhoo.xyz/
+        extraSecrets:
+          redis:
+            enabled: true
+            host: synapse-keydb-headless
+            port: 6379
         synapse:
           strategy:
             type: RollingUpdate
@@ -187,6 +193,12 @@ patches:
             enabled: true
           frontend_proxy:
             enabled: true
+        redis:
+          enabled: false
+        externalRedis:
+          host: synapse-keydb-headless
+          existingSecret: synapse-redis
+          existingSecretPasswordKey: redis-password
         persistence:
           enabled: true
           storageClass: ceph-cephfs-ssd-sc
