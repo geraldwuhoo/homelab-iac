@@ -20,6 +20,12 @@ patches:
         valuesKey: password
         targetPath: env.REDIS_PASSWORD
       values:
+        initContainers:
+          redis-isready:
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "until redis-cli -h send-keydb-headless ping ; do sleep 2 ; done"
         env:
           REDIS_HOST: send-keydb-headless
         redis:
