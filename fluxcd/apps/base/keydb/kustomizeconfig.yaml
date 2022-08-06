@@ -1,0 +1,4 @@
+---
+namePrefix:
+- kind: HelmRelease
+  path: spec/values/existingSecret

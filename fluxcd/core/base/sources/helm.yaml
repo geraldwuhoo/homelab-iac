@@ -205,3 +205,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://charts.js.wiki
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: enapter
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://enapter.github.io/charts/
