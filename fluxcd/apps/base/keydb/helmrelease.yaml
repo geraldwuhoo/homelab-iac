@@ -19,4 +19,4 @@ spec:
     multiMaster: "yes"
     activeReplicas: "yes"
     persistentVolume:
-      enabled: false
+      enabled: true
