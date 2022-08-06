@@ -124,12 +124,6 @@ spec:
       auth:
         enabled: true
         password: ${NEXTCLOUD_REDIS_PASS}
-      master:
-        persistence:
-          enabled: false
-      replica:
-        persistence:
-          enabled: false
     persistence:
       enabled: true
       annotations:
