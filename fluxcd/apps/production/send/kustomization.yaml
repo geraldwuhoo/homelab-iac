@@ -2,4 +2,25 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+- keydb
 - ../../base/send
+patches:
+- target:
+    kind: HelmRelease
+    name: send
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2beta1
+    kind: HelmRelease
+    metadata:
+      name: send
+    spec:
+      valuesFrom:
+      - kind: Secret
+        name: send-keydb-secret
+        valuesKey: password
+        targetPath: env.REDIS_PASSWORD
+      values:
+        env:
+          REDIS_HOST: send-keydb-headless
+        redis:
+          enabled: false
