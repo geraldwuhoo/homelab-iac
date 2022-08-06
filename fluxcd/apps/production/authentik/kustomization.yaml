@@ -22,7 +22,7 @@ patches:
         authentik:
           redis:
             host: authentik-keydb-headless
-        envFrom:
+        envValueFrom:
           AUTHENTIK_REDIS__PASSWORD:
             secretKeyRef:
               key: password
