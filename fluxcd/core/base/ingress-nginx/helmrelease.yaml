@@ -35,7 +35,6 @@ spec:
           cpu: 300m
           memory: 1Gi
         limits:
-          cpu: 500m
           memory: 1Gi
       autoscaling:
         enabled: true

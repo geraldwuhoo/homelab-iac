@@ -18,8 +18,10 @@ spec:
         image: registry.wuhoo.xyz/jerry/wuhoo.xyz:latest
         imagePullPolicy: Always
         resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: 128Mi
         ports:
         - containerPort: 80

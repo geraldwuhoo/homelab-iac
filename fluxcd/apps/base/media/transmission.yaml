@@ -83,9 +83,8 @@ spec:
     resources:
       requests:
         cpu: 100m
-        memory: 128Mi
+        memory: 256Mi
       limits:
-        cpu: 250m
         memory: 256Mi
     env:
       WAIT_FOR_VPN: "true"
