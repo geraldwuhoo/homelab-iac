@@ -63,9 +63,9 @@ spec:
         data:
           config.yml: |
             title: "${DOMAIN} dashboard"
-            subtitle: "Homer"
+            subtitle: "A full list of ${DOMAIN} services. Note: some services may be internal-only."
 
-            header: false
+            header: true
             footer: false
             defaults:
               layout: list
