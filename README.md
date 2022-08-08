@@ -19,6 +19,9 @@ Starting with a minimal working Proxmox cluster, Ceph cluster, and [openSUSE Mic
 * Automatic rolling upgrades of the OS via `kured`
 * Automatic rolling upgrades of `k3s` via `system-upgrade-controller`
 * Deploys many pre-configured services using `flux` gitops (see [FluxCD gitops](#fluxcd-gitops) section)
+* Fully HA backed services with HA Postgres and HA Redis/KeyDB
+  * Zalando's Postgres operator is used for multi-replica Postgres for true HA failover during rolling upgrades
+  * KeyDB is used in place of Redis for multi-master "Redis" for true HA during rolling upgrades
 
 ## Requirements
 
