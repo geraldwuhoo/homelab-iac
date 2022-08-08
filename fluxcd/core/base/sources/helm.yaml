@@ -214,3 +214,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://enapter.github.io/charts/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: renovate
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://docs.renovatebot.com/helm-charts

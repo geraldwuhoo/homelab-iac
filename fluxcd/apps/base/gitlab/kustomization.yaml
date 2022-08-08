@@ -8,3 +8,5 @@ resources:
 - secret.yaml
 - postgres.yaml
 - helmrelease.yaml
+- renovate-secret.yaml
+- renovate.yaml
