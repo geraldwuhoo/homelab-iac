@@ -175,7 +175,7 @@ spec:
                   - name: "GitLab"
                     logo: "/assets/icons/png/gitlab.png"
                     subtitle: "GitLab instance"
-                    url: "https://gitlab.${DOMAIN}"
+                    url: "https://gitlab.${DOMAIN}/explore/"
                   - name: "Ntfy"
                     logo: "/assets/icons/png/ntfy.png"
                     subtitle: "Push notifications"
