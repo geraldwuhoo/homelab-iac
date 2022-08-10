@@ -33,7 +33,6 @@ spec:
         name: renovate-secret
     env:
       LOG_LEVEL: debug
-      LOG_FORMAT: json
       RENOVATE_AUTODISCOVER: "true"
       RENOVATE_DETECT_HOST_RULES_FROM_ENV: "true"
       RENOVATE_ONBOARDING: "true"
