@@ -21,7 +21,7 @@ spec:
       successfulJobsHistoryLimit: 3
     image:
       repository: renovate/renovate
-      tag: 32.153.4
+      tag: 32.154.7
     renovate:
       config: |
         {
