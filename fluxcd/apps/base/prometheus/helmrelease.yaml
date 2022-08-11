@@ -23,6 +23,9 @@ spec:
       envFromSecrets:
       - name: grafana-oauth
         optional: false
+      grafana.ini:
+        server:
+          root_url: https://grafana.${DOMAIN}/
       ingress:
         enabled: true
         ingressClassName: nginx
