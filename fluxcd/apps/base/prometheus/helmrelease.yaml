@@ -21,7 +21,8 @@ spec:
         userKey: user
         passwordKey: password
       envFromSecrets:
-      - grafana-oauth
+      - name: grafana-oauth
+        optional: false
       ingress:
         enabled: true
         ingressClassName: nginx
