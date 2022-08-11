@@ -150,3 +150,6 @@ spec:
       image:
         repository: docker.io/xperimental/nextcloud-exporter
         tag: 0.5.1
+      serviceMonitor:
+        enabled: true
+        namespace: prometheus
