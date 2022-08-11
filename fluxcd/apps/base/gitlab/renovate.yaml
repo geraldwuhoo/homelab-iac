@@ -19,9 +19,6 @@ spec:
       schedule: "7 */2 * * *"
       failedJobsHistoryLimit: 1
       successfulJobsHistoryLimit: 3
-    image:
-      repository: renovate/renovate
-      tag: 32.153.4
     renovate:
       config: |
         {
