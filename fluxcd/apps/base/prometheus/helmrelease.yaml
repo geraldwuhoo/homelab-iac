@@ -46,7 +46,7 @@ spec:
         ruleSelectorNilUsesHelmValues: "false"
         probeSelectorNilUsesHelmValues: "false"
         replicaExternalLabelName: "replica"
-        retention: 6h
+        retention: 24h
         enableAdminAPI: true
         walCompression: true
         storageSpec:
