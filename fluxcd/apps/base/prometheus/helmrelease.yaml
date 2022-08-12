@@ -61,16 +61,20 @@ spec:
       enabled: true
       serviceMonitor:
         metricRelabelings:
-          - action: replace
-            sourceLabels:
-              - node
-            targetLabel: instance
+        - action: replace
+          sourceLabels:
+          - node
+          targetLabel: instance
+        - action: drop
+          sourceLabels:
+          - id
+          regex: '.*'
     kubeControllerManager:
       enabled: true
       endpoints: &endpoints
-        - 10.40.0.81
-        - 10.40.0.82
-        - 10.40.0.83
+      - 10.40.0.81
+      - 10.40.0.82
+      - 10.40.0.83
     coreDns:
       enabled: true
     kubeDns:
@@ -98,41 +102,41 @@ spec:
         monitor:
           enabled: true
           relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
-    nodeExporter:
-      enabled: true
-      serviceMonitor:
-        relabelings:
           - action: replace
             regex: (.*)
             replacement: $1
             sourceLabels:
-              - __meta_kubernetes_pod_node_name
+            - __meta_kubernetes_pod_node_name
             targetLabel: kubernetes_node
+    nodeExporter:
+      enabled: true
+      serviceMonitor:
+        relabelings:
+        - action: replace
+          regex: (.*)
+          replacement: $1
+          sourceLabels:
+          - __meta_kubernetes_pod_node_name
+          targetLabel: kubernetes_node
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       podLabels:
         jobLabel: node-exporter
       extraArgs:
-        - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
-        - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+      - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
       service:
         portName: http-metrics
       prometheus:
         monitor:
           enabled: true
           relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+            - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
       resources:
         requests:
           memory: 512Mi
