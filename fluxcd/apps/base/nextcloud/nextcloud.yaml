@@ -145,7 +145,7 @@ spec:
       limits:
         memory: 1Gi
     metrics:
-      enabled: true
+      enabled: false
       https: true
       image:
         repository: docker.io/xperimental/nextcloud-exporter
