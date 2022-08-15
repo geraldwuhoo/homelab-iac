@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: directory
-        image: docker.io/joseluisq/static-web-server:2.10.0
+        image: docker.io/joseluisq/static-web-server:2.11.0
         imagePullPolicy: IfNotPresent
         resources:
           requests:
