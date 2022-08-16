@@ -10,37 +10,39 @@ spec:
       chart: privatebin
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: privatebin
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
+  valuesFrom:
+    - kind: Secret
+      name: privatebin-config
+      valuesKey: "conf.php"
+      targetPath: configs."conf.php"
   values:
     image:
       repository: docker.io/privatebin/pdo
       tag: 1.4.0-alpine3.16.1
     ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx-public
-        annotations:
-          homelab/public: "true"
-          external-dns.alpha.kubernetes.io/hostname: paste.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
-        hosts:
-        - host: paste.${DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
+      enabled: true
+      className: nginx-public
+      annotations:
+        homelab/public: "true"
+        external-dns.alpha.kubernetes.io/hostname: paste.${DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+      hosts:
+      - host: paste.${DOMAIN}
+        paths:
+        - path: /
+          pathType: Prefix
     podSecurityContext:
       runAsUser: 65534
       runAsGroup: 82
       fsGroup: 82
-      fsGroupChangePolicy: "OnRootMismatch"
-    persistence:
-      data:
-        accessMode: ReadWriteOnce
-        enabled: true
-        retain: true
-        size: 20Gi
-        type: pvc
-        mountPath: /srv/data
+    controller:
+      kind: Deployment
+      pvc:
+        requests: 5Gi
+        accessModes: ReadWriteMany
+        storageClass: ceph-cephfs-ssd-sc
+        emptyDir: false

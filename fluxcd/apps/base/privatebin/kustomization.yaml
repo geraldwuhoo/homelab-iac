@@ -4,4 +4,7 @@ kind: Kustomization
 namespace: privatebin
 resources:
 - namespace.yaml
+- secret.yaml
+- zalando-secret.yaml
+- postgres.yaml
 - helmrelease.yaml
