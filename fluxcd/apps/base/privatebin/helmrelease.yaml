@@ -15,10 +15,9 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   valuesFrom:
-    - kind: Secret
-      name: privatebin-config
-      valuesKey: conf.php
-      targetPath: configs.conf\.php
+  - kind: Secret
+    name: privatebin-config
+    valuesKey: values.yaml
   values:
     image:
       repository: docker.io/privatebin/pdo
