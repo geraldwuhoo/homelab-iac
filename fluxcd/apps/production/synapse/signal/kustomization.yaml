@@ -41,7 +41,7 @@ patches:
             type: pvc
             storageClass: ceph-cephfs-ssd-sc
             mountPath: /signald
-          discord-config:
+          signal-config:
             enabled: true
             type: custom
             volumeSpec:
