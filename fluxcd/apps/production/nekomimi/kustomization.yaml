@@ -1,0 +1,51 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: nekomimi
+nameSuffix: -nekomimi
+resources:
+- ../../base/landing
+images:
+- name: registry.wuhoo.xyz/jerry/wuhoo.xyz
+  newName: registry.wuhoo.xyz/jerry/nekomimi.org
+  newTag: latest
+patches:
+- target:
+    kind: Deployment
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: landing
+      annotations:
+        keel.sh/policy: force
+        keel.sh/trigger: poll
+        keel.sh/match-tag: "true"
+        keel.sh/pollSchedule: "@every 1m"
+    spec:
+      replicas: 3
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 1
+- target:
+    kind: Ingress
+  patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: nekomimi.org
+- target:
+    kind: Ingress
+  patch: |-
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: landing-ingress
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+    spec:
+      tls:
+      - hosts:
+        - nekomimi.org
+        secretName: nekomimi-org-tls
