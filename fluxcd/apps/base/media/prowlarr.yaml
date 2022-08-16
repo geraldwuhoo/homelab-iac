@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: ghcr.io/k8s-at-home/prowlarr-develop
-      tag: v0.4.3.1921
+      tag: v0.4.4.1947
     service:
       main:
         enabled: true
