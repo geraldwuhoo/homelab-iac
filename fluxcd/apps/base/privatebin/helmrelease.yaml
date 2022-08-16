@@ -19,6 +19,7 @@ spec:
     name: privatebin-config
     valuesKey: values.yaml
   values:
+    replicaCount: 3
     image:
       repository: docker.io/privatebin/pdo
       tag: 1.4.0-alpine3.16.1
