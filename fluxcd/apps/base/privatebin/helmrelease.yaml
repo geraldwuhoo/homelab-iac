@@ -17,8 +17,8 @@ spec:
   valuesFrom:
     - kind: Secret
       name: privatebin-config
-      valuesKey: "conf.php"
-      targetPath: configs."conf.php"
+      valuesKey: conf.php
+      targetPath: configs.conf\.php
   values:
     image:
       repository: docker.io/privatebin/pdo
