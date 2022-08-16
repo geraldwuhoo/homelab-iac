@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/privatebin/pdo
-      tag: 1.4.0
+      tag: 1.4.0-alpine3.16.1
     ingress:
       main:
         enabled: true
@@ -31,6 +31,11 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+    podSecurityContext:
+      runAsUser: 65534
+      runAsGroup: 82
+      fsGroup: 82
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       data:
         accessMode: ReadWriteOnce
