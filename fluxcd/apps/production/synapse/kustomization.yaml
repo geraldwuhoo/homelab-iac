@@ -67,6 +67,7 @@ patches:
           sso:
             client_whitelist:
             - https://element.${DOMAIN}/
+            - https://cinny.${DOMAIN}/
             - https://app.element.io/
         extraSecrets:
           redis:
