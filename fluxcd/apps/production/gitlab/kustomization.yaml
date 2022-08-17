@@ -3,3 +3,20 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../base/gitlab
+patches:
+- target:
+    kind: HelmRelease
+    name: gitlab
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2beta1
+    kind: HelmRelease
+    metadata:
+      name: gitlab
+    spec:
+      values:
+        global:
+          ingress:
+            annotations:
+              nginx.ingress.kubernetes.io/configuration-snippet: |-
+                subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/5302f4a6-4bf7-4d71-b1ae-206cabe0f326/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/5302f4a6-4bf7-4d71-b1ae-206cabe0f326/script.js\"></script></body>";
+                proxy_set_header Accept-Encoding "";
