@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/matrixdotorg/synapse
-      tag: v1.64.0
+      tag: v1.65.0
     wellknown:
       enabled: true
     config:
