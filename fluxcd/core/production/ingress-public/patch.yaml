@@ -17,6 +17,7 @@ spec:
       watchIngressWithoutClass: false
       service:
         loadBalancerIP: ${PUBLIC_INGRESS_IP}
+        externalTrafficPolicy: Local
       config:
         ssl-redirect: "true"
         force-ssl-redirect: "true"

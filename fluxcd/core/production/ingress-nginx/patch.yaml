@@ -10,6 +10,8 @@ spec:
       config:
         ssl-redirect: "true"
         force-ssl-redirect: "true"
+      service:
+        externalTrafficPolicy: Local
       replicaCount: 3
       autoscaling:
         minReplicas: 3
