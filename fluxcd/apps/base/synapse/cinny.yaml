@@ -21,6 +21,11 @@ spec:
     image:
       repository: docker.io/ajbura/cinny
       tag: v2.1.2
+    service:
+      main:
+        ports:
+          http:
+            port: 80
     ingress:
       main:
         enabled: true
