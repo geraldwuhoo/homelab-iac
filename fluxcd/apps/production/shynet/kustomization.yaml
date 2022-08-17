@@ -22,7 +22,9 @@ patches:
       name: common
     spec:
       values:
-        replicaCount: 3
+        controller:
+          replicas: 3
+          strategy: RollingUpdate
         image:
           repository: docker.io/milesmcc/shynet
           tag: v0.12.0
