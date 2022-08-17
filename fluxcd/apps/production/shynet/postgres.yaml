@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: shynet-postgres-cluster
+spec:
+  teamId: "shynet"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    shynet:
+    - superuser
+    - createdb
+  databases:
+    shynet: shynet
+  postgresql:
+    version: "14"
