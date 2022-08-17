@@ -73,7 +73,7 @@ write_files:
         name: system:kube-vip-role
       rules:
         - apiGroups: [""]
-          resources: ["services", "services/status", "nodes"]
+          resources: ["services", "services/status", "nodes", "endpoints"]
           verbs: ["list","get","watch", "update"]
         - apiGroups: ["coordination.k8s.io"]
           resources: ["leases"]
@@ -158,10 +158,12 @@ write_files:
                 value: "6443"
               - name: lb_fwdmethod
                 value: local
-              - name: enableServicesElection
+              - name: svc_election
                 value: "true"
               - name: address
                 value: ${vip}
+              - name: prometheus_server
+                value: :2112
               image: ghcr.io/kube-vip/kube-vip:v0.5.0
               imagePullPolicy: Always
               name: kube-vip
@@ -185,6 +187,83 @@ write_files:
         numberMisscheduled: 0
         numberReady: 0
     path: /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+  - content: |
+      ---
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: kube-vip-worker-ds
+          app.kubernetes.io/version: v0.5.0
+        name: kube-vip-worker-ds
+        namespace: kube-system
+      spec:
+        selector:
+          matchLabels:
+            app.kubernetes.io/name: kube-vip-worker-ds
+        template:
+          metadata:
+            creationTimestamp: null
+            labels:
+              app.kubernetes.io/name: kube-vip-worker-ds
+              app.kubernetes.io/version: v0.5.0
+          spec:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: node-role.kubernetes.io/master
+                      operator: DoesNotExist
+                  - matchExpressions:
+                    - key: node-role.kubernetes.io/control-plane
+                      operator: DoesNotExist
+            containers:
+            - args:
+              - manager
+              env:
+              - name: vip_arp
+                value: "true"
+              - name: port
+                value: "6443"
+              - name: vip_interface
+                value: eth0
+              - name: vip_cidr
+                value: "32"
+              - name: svc_enable
+                value: "true"
+              - name: svc_election
+                value: "true"
+              - name: vip_leaderelection
+                value: "true"
+              - name: vip_leaseduration
+                value: "5"
+              - name: vip_renewdeadline
+                value: "3"
+              - name: vip_retryperiod
+                value: "1"
+              - name: vip_address
+              - name: prometheus_server
+                value: :2112
+              image: ghcr.io/kube-vip/kube-vip:v0.5.0
+              imagePullPolicy: Always
+              name: kube-vip
+              resources: {}
+              securityContext:
+                capabilities:
+                  add:
+                  - NET_ADMIN
+                  - NET_RAW
+            hostNetwork: true
+            serviceAccountName: kube-vip
+        updateStrategy: {}
+      status:
+        currentNumberScheduled: 0
+        desiredNumberScheduled: 0
+        numberMisscheduled: 0
+        numberReady: 0
+    path: /var/lib/rancher/k3s/server/manifests/kube-vip-worker.yaml
   # Configure kured
   - content: |
       ---
