@@ -5,3 +5,17 @@ resources:
 - ../../base/landing
 patchesStrategicMerge:
 - patch.yaml
+patches:
+- target:
+    kind: Ingress
+    name: landing-ingress
+  patch: |-
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: landing-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/configuration-snippet: |-
+          subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/script.js\"></script></body>";
+          proxy_set_header Accept-Encoding "";
+
