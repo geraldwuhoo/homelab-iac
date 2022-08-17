@@ -22,6 +22,7 @@ patches:
       name: common
     spec:
       values:
+        replicaCount: 3
         image:
           repository: docker.io/milesmcc/shynet
           tag: v0.12.0
