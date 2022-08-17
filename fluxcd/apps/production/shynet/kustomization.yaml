@@ -3,14 +3,18 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: shynet
 resources:
+- namespace.yaml
 - keydb
 - secret.yaml
 - zalando-secret.yaml
 - postgres.yaml
 - ../../base/kah-common
+transformers:
+- deploy-transformer.yaml
 patches:
 - target:
     kind: HelmRelease
+    name: common
   patch: |-
     apiVersion: helm.toolkit.fluxcd.io/v2beta1
     kind: HelmRelease
