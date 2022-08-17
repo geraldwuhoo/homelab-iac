@@ -44,6 +44,9 @@ patches:
       name: landing-ingress
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
+        nginx.ingress.kubernetes.io/configuration-snippet: |-
+          subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/script.js\"></script></body>";
+          proxy_set_header Accept-Encoding "";
     spec:
       tls:
       - hosts:
