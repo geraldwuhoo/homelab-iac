@@ -8,3 +8,5 @@ resources:
 - postgres.yaml
 - helmrelease.yaml
 - element-web.yaml
+- cinny-config.yaml
+- cinny.yaml
