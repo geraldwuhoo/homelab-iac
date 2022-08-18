@@ -63,7 +63,7 @@ spec:
         data:
           config.yml: |
             title: "${DOMAIN} dashboard"
-            subtitle: "A full list of ${DOMAIN} services. Note: some services may be internal-only."
+            subtitle: "A full list of ${DOMAIN} services. Some services may be internal-only."
 
             header: true
             footer: false
