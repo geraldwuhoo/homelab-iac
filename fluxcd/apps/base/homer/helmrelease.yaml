@@ -41,7 +41,7 @@ spec:
         command:
         - "/bin/sh"
         - "-c"
-        - "cp /config/* /www/assets/* && git clone https://github.com/walkxhub/dashboard-icons /www/assets/icons"
+        - "cp /config/* /www/assets/* && git clone https://github.com/walkxcode/Dashboard-Icons /www/assets/icons"
         volumeMounts:
         - name: config
           mountPath: /config
@@ -188,6 +188,10 @@ spec:
                     logo: "/assets/icons/png/librespeed.png"
                     subtitle: "Internet speedtest"
                     url: "https://speedtest.${DOMAIN}"
+                  - name: "Wiki"
+                    logo: "/assets/icons/png/wikijs.png"
+                    subtitle: "wiki.js instance"
+                    url: "https://mirror.${DOMAIN}"
                   - name: "Arch Linux mirror"
                     logo: "/assets/icons/png/files.png"
                     subtitle: "Arch Linux repositories mirror"
