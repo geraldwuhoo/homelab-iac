@@ -5,4 +5,4 @@ namespace: authentik
 namePrefix: authentik-
 resources:
 - secret.yaml
-- ../../../base/keydb
+- ../../keydb

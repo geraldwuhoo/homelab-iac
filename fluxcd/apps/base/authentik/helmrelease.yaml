@@ -39,6 +39,10 @@ spec:
     name: authentik-secret
     valuesKey: SMTP_PASSWORD
     targetPath: authentik.email.password
+  - kind: Secret
+    name: authentik-keydb-secret
+    valuesKey: password
+    targetPath: authentik.redis.password
   values:
     image:
       repository: ghcr.io/goauthentik/server
@@ -53,6 +57,8 @@ spec:
       postgresql:
         host: authentik-postgres-cluster
         name: authentik
+      redis:
+        host: authentik-keydb-headless
       error_reporting:
         enabled: false
       disable_startup_analytics: true
@@ -74,13 +80,4 @@ spec:
     postgresql:
       enabled: false
     redis:
-      enabled: true
-      architecture: replication
-      auth:
-        enabled: false
-      master:
-        persistence:
-          enabled: false
-      replica:
-        persistence:
-          enabled: false
+      enabled: false
