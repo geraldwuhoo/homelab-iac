@@ -113,6 +113,7 @@ patches:
             volumeMounts: *volumeMounts
           generic_worker:
             enabled: true
+            replicaCount: 3
             listeners: [client, federation]
             csPaths:
             - "/_matrix/client/(api/v1|r0|v3|unstable)/publicRooms"
