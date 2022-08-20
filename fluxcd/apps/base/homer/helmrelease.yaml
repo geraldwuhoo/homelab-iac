@@ -114,7 +114,7 @@ spec:
                     url: "https://matrix.${DOMAIN}/_matrix/static/"
                   - name: "Matrix Federation Tester"
                     logo: "/assets/icons/png/matrix.png"
-                    subtitle: "Federated protocol"
+                    subtitle: "Tool to test Matrix federation"
                     url: "https://federationtester.${DOMAIN}"
               - name: "Media"
                 icon: "fas fa-film"
