@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cattle-system
+  annotations:
+    linkerd.io/inject: enabled
+  labels:
+    cert-manager-tls: wildcard
