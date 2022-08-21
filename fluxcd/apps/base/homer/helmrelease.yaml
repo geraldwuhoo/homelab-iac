@@ -227,3 +227,5 @@ spec:
                     logo: "/assets/icons/svg/uptime-kuma.svg"
                     subtitle: "Uptime monitoring"
                     url: "https://uptime.${DOMAIN}"
+                    slug: "services"
+                    type: "UptimeKuma"
