@@ -37,3 +37,4 @@ spec:
       RENOVATE_PR_CONCURRENT_LIMIT: "20"
       RENOVATE_PR_HOURLY_LIMIT: "10"
       RENOVATE_ONBOARDING_CONFIG: '{"$$schema": "https://docs.renovatebot.com/renovate-schema.json", "extends": ["config:base"] }'
+      RENOVATE_REPOSITORY_CACHE: enabled
