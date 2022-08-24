@@ -94,7 +94,7 @@ spec:
             'redis' => array(
               'host' => 'nextcloud-redis-master',
               'port' => 6379,
-              'password' => ${NEXTCLOUD_REDIS_PASS}
+              'password' => '${NEXTCLOUD_REDIS_PASS}'
             )
           );
       strategy:
