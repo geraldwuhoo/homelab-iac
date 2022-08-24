@@ -8,6 +8,10 @@ ${init} \
 --disable servicelb \
 --disable local-storage \
 --disable-cloud-controller \
+--kubelet-arg node-status-update-frequency=5s \
+--kube-controller-manager-arg node-monitor-period=5s \
+--kube-controller-manager-arg node-monitor-grace-period=20s \
+--kube-controller-manager-arg pod-eviction-timeout=1m \
 --kube-controller-manager-arg bind-address=0.0.0.0 \
 --kube-proxy-arg metrics-bind-address=0.0.0.0 \
 --kube-scheduler-arg bind-address=0.0.0.0 \
