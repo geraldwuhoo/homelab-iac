@@ -38,44 +38,48 @@ module "k3s" {
   template = "microos-template"
   start_id = 3000
 
-  nodes = ["bake", "nise", "neko"]
-
   hosts = [
     {
       hostname    = "k3s-master-0"
       mac_address = "02:26:d4:2a:16:48"
       hastate     = "started"
       server      = true
+      node        = "bake"
     },
     {
       hostname    = "k3s-master-1"
       mac_address = "02:1c:d6:7f:47:04"
       hastate     = "started"
       server      = true
+      node        = "nise"
     },
     {
       hostname    = "k3s-master-2"
       mac_address = "02:42:36:8e:95:13"
       hastate     = "started"
       server      = true
+      node        = "neko"
     },
     {
       hostname    = "k3s-worker-0"
       mac_address = "02:1a:f5:3c:85:0b"
       hastate     = "started"
       server      = false
+      node        = "bake"
     },
     {
       hostname    = "k3s-worker-1"
       mac_address = "02:b7:6e:fa:43:e2"
       hastate     = "started"
       server      = false
+      node        = "nise"
     },
     {
       hostname    = "k3s-worker-2"
       mac_address = "02:b1:a9:5e:03:10"
       hastate     = "started"
       server      = false
+      node        = "neko"
     },
   ]
 

@@ -66,7 +66,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
   name = var.hosts[count.index].hostname
   desc = "k3s node ${count.index}"
 
-  target_node = var.nodes[count.index % length(var.nodes)]
+  target_node = var.hosts[count.index].node
   hastate     = var.hosts[count.index].hastate
   onboot      = true
 

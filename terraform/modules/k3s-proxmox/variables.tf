@@ -37,16 +37,13 @@ variable "start_id" {
   type = number
 }
 
-variable "nodes" {
-  type = list(string)
-}
-
 variable "hosts" {
   type = list(object({
     mac_address = string,
     hostname    = string,
     hastate     = string,
     server      = bool,
+    node        = string,
   }))
 }
 
