@@ -81,6 +81,13 @@ module "k3s" {
       server      = false
       node        = "neko"
     },
+    {
+      hostname    = "k3s-worker-3"
+      mac_address = "02:91:3f:f7:28:e5"
+      hastate     = "started"
+      server      = false
+      node        = "kabuki"
+    },
   ]
 
   specs = {
