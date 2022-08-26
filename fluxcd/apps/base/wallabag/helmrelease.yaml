@@ -23,6 +23,10 @@ spec:
     name: wallabag.wallabag-postgres-cluster.credentials.postgresql.acid.zalan.do
     valuesKey: password
     targetPath: env.SYMFONY__ENV__DATABASE_PASSWORD
+  - kind: Secret
+    name: wallabag-keydb-secret
+    valuesKey: password
+    targetPath: env.SYMFONY__ENV__REDIS_PASSWORD
   values:
     image:
       repository: docker.io/wallabag/wallabag
@@ -35,7 +39,7 @@ spec:
       SYMFONY__ENV__DATABASE_PORT: "5432"
       SYMFONY__ENV__DATABASE_NAME: wallabag
       SYMFONY__ENV__DATABASE_USER: wallabag
-      SYMFONY__ENV__REDIS_HOST: wallabag-redis-headless
+      SYMFONY__ENV__REDIS_HOST: wallabag-keydb-headless
       SYMFONY__ENV__REDIS_PORT: 6379
       SYMFONY__ENV__DOMAIN_NAME: http://wallabag.${DOMAIN}
       SYMFONY__ENV__SERVER_NAME: "${DOMAIN} Wallabag"
@@ -63,13 +67,4 @@ spec:
         type: pvc
         mountPath: /var/www/wallabag/web/assets/images
     redis:
-      enabled: true
-      architecture: replication
-      auth:
-        enabled: false
-      master:
-        persistence:
-          enabled: false
-      replica:
-        persistence:
-          enabled: false
+      enabled: false
