@@ -43,6 +43,9 @@ patches:
     metadata:
       name: landing-ingress
       annotations:
+        nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+        external-dns.alpha.kubernetes.io/hostname: www.geraldwu.com
+        external-dns.alpha.kubernetes.io/target: geraldwu.com
         cert-manager.io/cluster-issuer: letsencrypt
         nginx.ingress.kubernetes.io/configuration-snippet: |-
           subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/script.js\"></script></body>";
@@ -51,4 +54,5 @@ patches:
       tls:
       - hosts:
         - geraldwu.com
+        - www.geraldwu.com
         secretName: geraldwu-com-tls
