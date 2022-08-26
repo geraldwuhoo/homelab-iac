@@ -51,6 +51,7 @@ spec:
         ingressClassName: nginx-public
         annotations:
           homelab/public: "true"
+          nginx.ingress.kubernetes.io/proxy-body-size: 25M
           external-dns.alpha.kubernetes.io/hostname: wallabag.${DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${DOMAIN}
         hosts:
