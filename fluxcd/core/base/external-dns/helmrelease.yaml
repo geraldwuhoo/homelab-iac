@@ -32,3 +32,5 @@ spec:
         enabled: true
         namespace: prometheus
         interval: 30s
+        labels:
+          release: prometheus
