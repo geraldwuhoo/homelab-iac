@@ -24,6 +24,8 @@ spec:
       - name: grafana-oauth
         optional: false
       grafana.ini:
+        auth:
+          disable_login_form: true
         server:
           root_url: https://grafana.${DOMAIN}/
       ingress:
