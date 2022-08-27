@@ -154,3 +154,5 @@ spec:
       serviceMonitor:
         enabled: true
         namespace: prometheus
+        labels:
+          release: prometheus
