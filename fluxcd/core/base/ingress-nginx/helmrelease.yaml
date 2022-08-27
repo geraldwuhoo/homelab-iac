@@ -42,3 +42,9 @@ spec:
         maxReplicas: 3
         targetCPUUtilizationPercentage: 75
         targetMemoryUtilizationPercentage: 75
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          additionalLabels:
+            release: prometheus
