@@ -26,3 +26,9 @@ spec:
     annotationFilter: "homelab/public in (true)"
     source:
     - ingress
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        namespace: prometheus
+        interval: 30s
