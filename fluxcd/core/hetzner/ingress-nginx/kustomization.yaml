@@ -4,5 +4,24 @@ kind: Kustomization
 namespace: ingress-nginx
 resources:
 - ../../base/ingress-nginx
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- target:
+    kind: HelmRelease
+    name: ingress-nginx
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2beta1
+    kind: HelmRelease
+    metadata:
+      name: ingress-nginx
+    spec:
+      values:
+        controller:
+          extraArgs:
+            default-ssl-certificate: null
+            enable-ssl-passthrough: null
+          service:
+            loadBalancerIP: null
+          metrics:
+            enabled: false
+            serviceMonitor:
+              enabled: false
