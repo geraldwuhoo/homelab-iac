@@ -75,6 +75,12 @@ spec:
           secure: tls
           port: 587
           authtype: plain
+      phpConfigs:
+        z-nextcloud.ini: |-
+          upload_max_filesize=25G
+          post_max_size=25G
+          apc.enable_cli=1
+          memory_limit=1024M
       defaultConfigs:
         apcu.config.php: true
         redis.config.php: false
