@@ -94,6 +94,9 @@ spec:
             {{ end }}
       podAnnotations:
         backup.velero.io/backup-volumes-excludes: runner-secrets
+    pages:
+      enabled: true
+      host: pages.${DOMAIN}
     postgresql:
       install: false
     redis:
