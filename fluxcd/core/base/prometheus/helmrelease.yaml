@@ -33,6 +33,12 @@ spec:
         ingressClassName: nginx
         hosts:
         - grafana.${DOMAIN}
+      persistence:
+        type: pvc
+        enabled: true
+        accessModes:
+        - ReadWriteOnce
+        size: 10Gi
     alertmanager:
       ingress:
         enabled: true
