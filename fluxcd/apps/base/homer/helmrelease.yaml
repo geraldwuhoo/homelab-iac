@@ -158,7 +158,7 @@ spec:
                 icon: "fas fa-align-center"
                 items:
                   - name: "Authentik"
-                    logo: "/assets/icons/svg/authentik.svg"
+                    logo: "/assets/icons/svg/authentik-orange.svg"
                     subtitle: "Identity Provider and Single Sign-On"
                     url: "https://auth.${DOMAIN}"
                   - name: "GitLab"
