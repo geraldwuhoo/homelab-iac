@@ -57,6 +57,11 @@ spec:
         accessMode: ReadWriteOnce
         size: 20Gi
         type: pvc
+      transcode:
+        enabled: true
+        type: emptyDir
+        sizeLimit: 50Gi
+        mountPath: /config/transcodes
     resources:
       requests:
         memory: 1Gi
