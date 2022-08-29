@@ -10,6 +10,7 @@ stringData:
     KUBE_VIP_RANGE: ENC[AES256_GCM,data:sZX5YCWkJLoTyv5G4VBPbeCSSU7R,iv:nKIFKlue6JfAplg10mXfflFGbseA1Tc0NUL+FNJlRtM=,tag:FdNyV3vxVPtJWfhorWdYKQ==,type:str]
     CLUSTER_ENV: ENC[AES256_GCM,data:4Nv1r9kmnUOvIw==,iv:urAJYQ9MNFw92gQFzR/SCOI43FkcQGH0HXiNGGMKm6s=,tag:dI20T63Yo5xUEk2VNSHu5g==,type:str]
     DOMAIN: ENC[AES256_GCM,data:y2YNZxC0Hi2q,iv:tew9wSW+p/+XqPMcYpIoLxKpyre3F9IDsaHsJCtzbsg=,tag:gS+Y9/XuoUsqZCXNxjNBEQ==,type:str]
+    PAGES_DOMAIN: ENC[AES256_GCM,data:OZfq1RpMpJVl,iv:6vSM5jVqv6KCtp//dMfm/8Hy86tWXoXcn9xDwffiGYg=,tag:9Y5mMGbz+5IcqxTZr3Y91Q==,type:str]
     DOMAIN_ESCAPED: ENC[AES256_GCM,data:l/M8gjj71wXaKg==,iv:V8ojOux8gCw6wchxWXAj+Xd7vnvE/VBwUscNdkc8u9g=,tag:nfkKlCzgxhA2zjJYOYVnuQ==,type:str]
     LETSENCRYPT_URL: ENC[AES256_GCM,data:OjcLArk2X7UmaYBVUKoGD/J1u6rn9kS2N8yWznAxnD+NlIGkcETJ2C10+8rt1w==,iv:XVHyK9n58mZLLPlHi+H5V8LQfgHP9f4S7BCOlcAMcjY=,tag:kAW6boNFMfG9dSIKy8GsrQ==,type:str]
     LETSENCRYPT_CERT: ENC[AES256_GCM,data:pjF50heyLaFqq7q1VlRGzTS6xXkewg==,iv:yPEqkYXPUsZfTwsgjtzToPZybdxooV6Oq/DZLEqNiwc=,tag:OXp6ACNvmvOd9UkmIsOBnQ==,type:str]
@@ -57,8 +58,8 @@ sops:
             STBlRUxoTFRvbWJWK21rZEo2aEpiQTQKkITQU3R6MPsdDGZ5ng4/ZRbkBHfFDM5E
             6M/nTT1ToNDab3KSf8d/YrQCb8E8+dXypRZq1o5QHz7fmxFF5oFhiQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-07-27T03:32:26Z"
-    mac: ENC[AES256_GCM,data:jwx1GtJS4xGpO4O01N/h7AVeYzD41fdEH4wDGSj9L5KAlUlE3ImiOw1TEEdzcj+OJsCbier7GLXpekx1NagIy6WprnOtVELNTT3fCmmALB2P4oKcBmrI5KOOC9rqDafnIhn2Jes3r7pH/R12lPtqLoUP/ym0RUCm7ZFxajsJ0RU=,iv:RLLmG6RM2aQtHvIWfMdRdXkVwn/gOvXSWMSkg3KwjTo=,tag:nzLn9zKKWbVy6208DyAnzg==,type:str]
+    lastmodified: "2022-08-29T11:13:18Z"
+    mac: ENC[AES256_GCM,data:r8C03wM7wY3T2d6eC5VTwB4wlsxZ3FP6WMoTrnSgRQvPv1DtxC96XYZSxDoBwue38MU0bo4p/xSqEz0I+GldxVkQa2/Lb7bDtk9422QxaLAw+T8AsOMdH5c2H0OishbXj3Vf5TVuwImVzklg3cNfaUSHlaVng0T/tZ3hXQblZUY=,iv:tON2QSuvrqYnJV415UJsijlKzYe95ZL3sjq6JjDT0FQ=,tag:+u9aENgVa/jEUMCuDfPuBA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3

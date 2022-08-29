@@ -9,7 +9,8 @@ spec:
   dnsNames:
   - ${DOMAIN}
   - "*.${DOMAIN}"
-  - "*.pages.${DOMAIN}"
+  - "${PAGES_DOMAIN}"
+  - "*.${PAGES_DOMAIN}"
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt

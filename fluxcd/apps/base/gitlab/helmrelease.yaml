@@ -48,7 +48,7 @@ spec:
           signupEnabled: false
       pages:
         enabled: true
-        host: pages.${DOMAIN}
+        host: ${PAGES_DOMAIN}
       psql:
         host: gitlab-postgres-cluster
         database: gitlabhq_production
