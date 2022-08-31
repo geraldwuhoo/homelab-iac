@@ -180,7 +180,7 @@ spec:
                   - name: "Wiki"
                     logo: "/assets/icons/png/wikijs.png"
                     subtitle: "wiki.js instance"
-                    url: "https://mirror.${DOMAIN}"
+                    url: "https://wiki.${DOMAIN}"
                   - name: "Arch Linux mirror"
                     logo: "/assets/icons/png/files.png"
                     subtitle: "Arch Linux repositories mirror"
