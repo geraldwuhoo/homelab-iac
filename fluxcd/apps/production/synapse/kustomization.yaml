@@ -32,6 +32,17 @@ patches:
     kind: HelmRelease
     name: synapse
   patch: |-
+    - op: add
+      path: /spec/valuesFrom/-
+      value:
+        kind: Secret
+        name: synapse-extra-config
+        valuesKey: turnSecret
+        targetPath: config.turnSecret
+- target:
+    kind: HelmRelease
+    name: synapse
+  patch: |-
     apiVersion: apps/v1
     kind: HelmRelease
     metadata:
@@ -45,6 +56,8 @@ patches:
           existingSecretKey: signing.key
         serverName: ${DOMAIN}
         publicServerName: matrix.${DOMAIN}
+        config:
+          turnUris: ["turn:turn.${DOMAIN}?transport=udp", "turn:turn.${DOMAIN}?transport=tcp"]
         extraConfig:
           max_upload_size: 100M
           url_preview_enabled: true
@@ -96,9 +109,6 @@ patches:
           - name: extra-config
             mountPath: /synapse/config/conf.d/oidc.yaml
             subPath: oidc.yaml
-          - name: extra-config
-            mountPath: /synapse/config/conf.d/turn.yaml
-            subPath: turn.yaml
           - name: appservice-config
             mountPath: /synapse/appservice
           - name: discord-config
