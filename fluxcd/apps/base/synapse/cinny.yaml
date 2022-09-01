@@ -21,6 +21,9 @@ spec:
     image:
       repository: docker.io/ajbura/cinny
       tag: v2.1.3
+    resources:
+      requests:
+        cpu: 25m
     service:
       main:
         ports:
