@@ -19,4 +19,4 @@ spec:
       requests:
         cpu: 25Mi
       limits:
-        cpu: 100Mi
+        cpu: ""
