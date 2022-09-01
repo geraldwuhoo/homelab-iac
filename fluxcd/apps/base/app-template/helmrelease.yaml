@@ -16,6 +16,6 @@ spec:
   values:
     resources:
       requests:
-        cpu: 25Mi
+        cpu: 25m
       limits:
         cpu: null
