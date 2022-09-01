@@ -46,6 +46,10 @@ spec:
         memory:
           limit: 250Mi
           request: 20Mi
+    proxyInit:
+      resources:
+        cpu:
+          request: 25m
     controllerReplicas: 3
     controllerResources:
       cpu:
