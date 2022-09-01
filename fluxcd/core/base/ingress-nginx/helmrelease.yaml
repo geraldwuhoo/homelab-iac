@@ -32,7 +32,7 @@ spec:
         loadBalancerIP: ${INGRESS_IP}
       resources:
         requests:
-          cpu: 300m
+          cpu: 75m
           memory: 1Gi
         limits:
           memory: 1Gi
