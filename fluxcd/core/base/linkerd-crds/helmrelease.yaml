@@ -15,8 +15,8 @@ spec:
         name: linkerd
         namespace: flux-system
   dependsOn:
-    - name: cert-manager-trust
-      namespace: cert-manager
+  - name: cert-manager-trust
+    namespace: cert-manager
   install:
     crds: Create
     remediation: # perform remediation when helm install fails

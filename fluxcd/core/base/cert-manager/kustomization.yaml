@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - helmrelease.yaml
-- cert-manager-trust.yaml
 - secret.yaml
 - linkerd
+- trust
