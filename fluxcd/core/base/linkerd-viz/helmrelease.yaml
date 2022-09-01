@@ -58,7 +58,6 @@ spec:
           limit: 250Mi
           request: 50Mi
     grafana:
-      enabled: false
       resources:
         cpu:
           limit: ""
@@ -67,7 +66,6 @@ spec:
           limit: 1024Mi
           request: 50Mi
     prometheus:
-      enabled: false
       resources:
         cpu:
           limit: ""
