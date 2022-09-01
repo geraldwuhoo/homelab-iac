@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - ../../base/linkerd-crds
 - ../../base/linkerd-control-plane
+- ../../base/linkerd-viz

@@ -1,0 +1,77 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkerd-viz
+  namespace: linkerd
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: linkerd-viz
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd
+        namespace: flux-system
+  dependsOn:
+  - name: linkerd-control-plane
+    namespace: linkerd
+  install:
+    crds: Create
+    remediation: # perform remediation when helm install fails
+      retries: 5
+  upgrade:
+    crds: CreateReplace
+    remediation: # perform remediation when helm upgrade fails
+      retries: 5
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  rollback:
+    timeout: 20m
+    recreate: true
+    cleanupOnFail: true
+  values: 
+    enablePodAntiAffinity: true
+    resources:
+      cpu:
+        limit: ""
+        request: 100m
+      memory:
+        limit: 250Mi
+        request: 50Mi
+    tap:
+      replicas: 3
+      resources:
+        cpu:
+          limit: ""
+          request: 100m
+        memory:
+          limit: 250Mi
+          request: 50Mi
+    dashboard:
+      resources:
+        cpu:
+          limit: ""
+          request: 100m
+        memory:
+          limit: 250Mi
+          request: 50Mi
+    grafana:
+      enabled: false
+      resources:
+        cpu:
+          limit: ""
+          request: 100m
+        memory:
+          limit: 1024Mi
+          request: 50Mi
+    prometheus:
+      enabled: false
+      resources:
+        cpu:
+          limit: ""
+          request: 300m
+        memory:
+          limit: 4096Mi
+          request: 300Mi
