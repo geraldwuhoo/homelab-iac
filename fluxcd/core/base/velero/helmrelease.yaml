@@ -31,6 +31,13 @@ spec:
         enabled: true
     upgradeCRDs: true
     cleanUpCRDs: false
+    resources:
+      requests:
+        cpu: 125m
+        memory: 128Mi
+      limits:
+        cpu: ""
+        memory: 512Mi
     configuration:
       provider: aws
       backupStorageLocation:
