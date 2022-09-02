@@ -29,6 +29,9 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+        additionalLabels:
+          release: prometheus
+        namespace: prometheus
     upgradeCRDs: true
     cleanUpCRDs: false
     resources:
