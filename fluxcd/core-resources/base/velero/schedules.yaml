@@ -15,11 +15,14 @@ spec:
     - gotify
     - media
     - nextcloud
+    - portainer
     - privatebin
     - send
+    - shynet
     - synapse
     - vaultwarden
     - wallabag
+    - wiki
     excludedResources:
     - orders.acme.cert-manager.io
     - challenges.acme.cert-manager.io
