@@ -259,3 +259,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://helm.linkerd.io/stable
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: portainer
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://portainer.github.io/k8s/
