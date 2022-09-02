@@ -18,6 +18,13 @@ spec:
       repository: quay.io/jetstack/cert-manager-controller
       tag: v1.9.1
     installCRDs: true
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
+        namespace: prometheus
+        labels:
+          release: prometheus
     podDnsPolicy: "None"
     podDnsConfig:
       nameservers:
