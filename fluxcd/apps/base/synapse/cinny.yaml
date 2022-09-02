@@ -7,10 +7,10 @@ metadata:
 spec:
   chart:
     spec:
-      chart: kah-common-chart
+      chart: app-template
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
@@ -24,6 +24,11 @@ spec:
     resources:
       requests:
         cpu: 25m
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 10
+      targetCPUUtilizationPercentage: 80
     service:
       main:
         ports:
