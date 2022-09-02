@@ -10,4 +10,5 @@ resources:
 - element-web.yaml
 - cinny-config.yaml
 - cinny.yaml
+- hydrogen-web.yaml
 - federation-tester.yaml
