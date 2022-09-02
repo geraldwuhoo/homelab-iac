@@ -81,6 +81,7 @@ patches:
             client_whitelist:
             - https://element.${DOMAIN}/
             - https://cinny.${DOMAIN}/
+            - https://hydrogen.${DOMAIN}/
             - https://app.element.io/
         extraSecrets:
           redis:
