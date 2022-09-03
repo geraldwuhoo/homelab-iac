@@ -12,3 +12,4 @@ resources:
 - prowlarr.yaml
 - jellyseerr.yaml
 - komga.yaml
+- jf-vue.yaml
