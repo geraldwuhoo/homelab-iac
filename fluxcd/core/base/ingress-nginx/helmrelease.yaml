@@ -21,7 +21,7 @@ spec:
         enable-brotli: true
         brotli-level: "6"
         use-gzip: true
-      kind: Deployment
+      kind: DaemonSet
       setAsDefaultIngress: true
       ingressClassResource:
         default: true
