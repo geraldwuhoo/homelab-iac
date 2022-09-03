@@ -8,7 +8,6 @@ resources:
 - signal-config.yaml
 - keydb
 - ../../base/synapse
-- discord
 - signal
 patches:
 - target:
