@@ -21,6 +21,7 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: nginx-public
         hosts:
         - host: jellyseerr.${DOMAIN}
           paths:
