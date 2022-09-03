@@ -25,6 +25,18 @@ spec:
       tag: v1.66.0
     wellknown:
       enabled: true
+      replicaCount: 3
+      extraData:
+        support:
+          admins:
+          - matrix_id: '@jerry:${DOMAIN}'
+            role: 'admin'
+      resources:
+        limits:
+          memory: 15Mi
+        requests:
+          cpu: 5m
+          memory: 15Mi
     config:
       reportStats: false
       enableRegistration: false
