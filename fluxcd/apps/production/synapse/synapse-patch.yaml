@@ -40,6 +40,12 @@ spec:
         - https://cinny.${DOMAIN}/
         - https://hydrogen.${DOMAIN}/
         - https://app.element.io/
+      instance_map:
+        event_persister1:
+          host: synapse-event-persister1
+          port: 8083
+      stream_writers:
+        events: event_persister1
     extraSecrets:
       redis:
         enabled: true
@@ -128,6 +134,11 @@ spec:
         - "/_matrix/federation/v1/user/devices/"
         - "/_matrix/federation/v1/get_groups_publicised"
         - "/_matrix/key/v2/query"
+      event_persister1:
+        enabled: true
+        generic: true
+        name: event_persister1
+        listeners: [replication]
       federation_reader:
         enabled: true
         generic: true
