@@ -25,7 +25,7 @@ spec:
         - "until redis-cli -h send-redis-headless ping ; do sleep 2 ; done"
     image:
       repository: registry.gitlab.com/timvisee/send
-      tag: v3.4.20
+      tag: v3.4.21
     ingress:
       main:
         enabled: true
