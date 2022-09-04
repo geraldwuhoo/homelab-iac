@@ -51,6 +51,14 @@ spec:
     synapse:
       strategy:
         type: Recreate
+      extraEnv: &extraEnv
+      - name: LD_PRELOAD
+        value: /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+      - name: SYNAPSE_CACHE_FACTOR
+        value: "1.0"
+    workers:
+      default:
+        extraEnv: *extraEnv
     postgresql:
       enabled: false
     externalPostgresql:
