@@ -163,21 +163,21 @@ spec:
         enabled: true
         generic: true
         name: typing_persister
-        listeners: [replication]
+        listeners: [client, replication]
         csPaths:
         - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/typing"
       to_device_persister:
         enabled: true
         generic: true
         name: to_device_persister
-        listeners: [replication]
+        listeners: [client, replication]
         csPaths:
         - "/_matrix/client/(r0|v3|unstable)/sendToDevice/"
       account_data_persister:
         enabled: true
         generic: true
         name: account_data_persister
-        listeners: [replication]
+        listeners: [client, replication]
         csPaths:
         - "/_matrix/client/(r0|v3|unstable)/.*/tags"
         - "/_matrix/client/(r0|v3|unstable)/.*/account_data"
@@ -185,7 +185,7 @@ spec:
         enabled: true
         generic: true
         name: receipts_persister
-        listeners: [replication]
+        listeners: [client, replication]
         csPaths:
         - "/_matrix/client/(r0|v3|unstable)/rooms/.*/receipt"
         - "/_matrix/client/(r0|v3|unstable)/rooms/.*/read_markers"
@@ -193,7 +193,7 @@ spec:
         enabled: true
         generic: true
         name: presence_persister
-        listeners: [replication]
+        listeners: [client, replication]
         csPaths:
         - "/_matrix/client/(api/v1|r0|v3|unstable)/presence/"
       federation_reader:
