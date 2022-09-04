@@ -44,8 +44,28 @@ spec:
         event_persister1:
           host: synapse-event-persister1
           port: 8083
+        typing_persister:
+          host: synapse-typing-persister
+          port: 8083
+        to_device_persister:
+          host: synapse-to-device-persister
+          port: 8083
+        account_data_persister:
+          host: synapse-account-data-persister
+          port: 8083
+        receipts_persister:
+          host: synapse-receipts-persister
+          port: 8083
+        presence_persister:
+          host: synapse-presence-persister
+          port: 8083
       stream_writers:
         events: event_persister1
+        typing: typing_persister
+        to_device: to_device_persister
+        account_data: account_data_persister
+        receipts: receipts_persister
+        presence: presence_persister
     extraSecrets:
       redis:
         enabled: true
@@ -139,6 +159,43 @@ spec:
         generic: true
         name: event_persister1
         listeners: [replication]
+      typing_persister:
+        enabled: true
+        generic: true
+        name: typing_persister
+        listeners: [replication]
+        csPaths:
+        - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/typing"
+      to_device_persister:
+        enabled: true
+        generic: true
+        name: to_device_persister
+        listeners: [replication]
+        csPaths:
+        - "/_matrix/client/(r0|v3|unstable)/sendToDevice/"
+      account_data_persister:
+        enabled: true
+        generic: true
+        name: account_data_persister
+        listeners: [replication]
+        csPaths:
+        - "/_matrix/client/(r0|v3|unstable)/.*/tags"
+        - "/_matrix/client/(r0|v3|unstable)/.*/account_data"
+      receipts_persister:
+        enabled: true
+        generic: true
+        name: receipts_persister
+        listeners: [replication]
+        csPaths:
+        - "/_matrix/client/(r0|v3|unstable)/rooms/.*/receipt"
+        - "/_matrix/client/(r0|v3|unstable)/rooms/.*/read_markers"
+      presence_persister:
+        enabled: true
+        generic: true
+        name: presence_persister
+        listeners: [replication]
+        csPaths:
+        - "/_matrix/client/(api/v1|r0|v3|unstable)/presence/"
       federation_reader:
         enabled: true
         generic: true
