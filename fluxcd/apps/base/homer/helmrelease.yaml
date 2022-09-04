@@ -128,7 +128,7 @@ spec:
                     subtitle: "Media streaming server"
                     url: "https://jellyfin.${DOMAIN}"
                   - name: "Jellyfin Vue"
-                    logo: "/assets/icons/svg/jellyfin.svg"
+                    logo: "/assets/icons/png/jellyfin-vue.png"
                     subtitle: "Alternative Jellyfin frontend"
                     url: "https://jf-vue.${DOMAIN}"
                   - name: "Jellyseerr"
