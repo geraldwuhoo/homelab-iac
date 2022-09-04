@@ -62,7 +62,7 @@ spec:
     postgresql:
       enabled: false
     externalPostgresql:
-      host: synapse-postgres-cluster
+      host: synapse-postgres-cluster-pooler
       port: 5432
       username: synapse
       existingSecret: synapse.synapse-postgres-cluster.credentials.postgresql.acid.zalan.do
