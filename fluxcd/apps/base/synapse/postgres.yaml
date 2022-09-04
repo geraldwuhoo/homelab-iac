@@ -18,3 +18,5 @@ spec:
     synapse: synapse
   postgresql:
     version: "14"
+  enableConnectionPooler: true
+  enableReplicaConnectionPooler: true
