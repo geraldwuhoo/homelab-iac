@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: libreddit
 resources:
 - namespace.yaml
-- keydb
 - ../../base/app-template
 namePrefix: libreddit-
 patches:
