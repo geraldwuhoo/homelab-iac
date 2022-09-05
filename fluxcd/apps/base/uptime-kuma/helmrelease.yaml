@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: louislam/uptime-kuma
-      tag: 1.17.1-alpine
+      tag: 1.18.0-alpine
     ingress:
       main:
         enabled: true
