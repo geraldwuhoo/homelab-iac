@@ -1,12 +1,12 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: teddit
+namespace: libreddit
 resources:
 - namespace.yaml
 - keydb
 - ../../base/app-template
-namePrefix: teddit-
+namePrefix: libreddit-
 patches:
 - target:
     kind: HelmRelease
@@ -17,23 +17,10 @@ patches:
     metadata:
       name: app-template
     spec:
-      valuesFrom:
-      - kind: Secret
-        name: teddit-keydb-secret
-        valuesKey: password
-        targetPath: env.REDIS_PASSWORD
       values:
         image:
-          repository: docker.io/teddit/teddit
+          repository: docker.io/spikecodes/libreddit
           tag: latest
-        initContainers:
-          redis-isready:
-            name: redis-isready
-            image: docker.io/bitnami/redis:6.2.7-debian-10-r23
-            command:
-            - "/bin/sh"
-            - "-c"
-            - "until redis-cli -h teddit-keydb-headless ping ; do sleep 2 ; done"
         controller:
           annotations:
             keel.sh/policy: force
@@ -45,12 +32,6 @@ patches:
           rollingUpdate:
             surge: 1
             unavailable: 1
-        env:
-          DOMAIN: teddit.net
-          USE_HELMET: "true"
-          USE_HELMET_HSTS: "true"
-          TRUST_PROXY: "true"
-          REDIS_HOST: teddit-keydb-headless
         service:
           main:
             ports:
@@ -62,15 +43,15 @@ patches:
             annotations:
               homelab/public: "true"
               cert-manager.io/cluster-issuer: letsencrypt
-              external-dns.alpha.kubernetes.io/hostname: teddit.${DOMAIN}
+              external-dns.alpha.kubernetes.io/hostname: libreddit.${DOMAIN}
               external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
             hosts:
-            - host: teddit.${DOMAIN}
+            - host: libreddit.${DOMAIN}
               paths:
               - path: /
                 pathType: Prefix
             tls:
             - hosts:
-              - teddit.${DOMAIN}
-              secretName: teddit-cert
+              - libreddit.${DOMAIN}
+              secretName: libreddit-cert
 
