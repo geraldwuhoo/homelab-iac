@@ -6,9 +6,11 @@ resources:
 - synapse-extra-config.yaml
 - discord-config.yaml
 - signal-config.yaml
+- mautrix-discord-config.yaml
 - keydb
 - ../../base/synapse
 - signal
+- mautrix-discord
 patchesStrategicMerge:
 - synapse-patch.yaml
 patches:
@@ -26,9 +28,12 @@ patches:
         - createdb
         signal:
         - createdb
+        mautrix_discord:
+        - createdb
       databases:
         discord: discord
         signal: signal
+        mautrix_discord: mautrix_discord
 - target:
     kind: HelmRelease
     name: synapse

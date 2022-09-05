@@ -32,6 +32,7 @@ spec:
       app_service_config_files:
       - /synapse/appservice/discord-registration.yaml
       - /synapse/appservice/signal-registration.yaml
+      - /synapse/appservice/mautrix-discord-registration.yaml
       password_config:
         enabled: false
       sso:
@@ -89,6 +90,10 @@ spec:
         secret:
           secretName: signal-config
           optional: false
+      - name: mautrix-discord-config
+        secret:
+          secretName: mautrix-discord-config
+          optional: false
       extraVolumeMounts: &volumeMounts
       - name: extra-config
         mountPath: /synapse/config/conf.d/oidc.yaml
@@ -100,6 +105,9 @@ spec:
         subPath: discord-registration.yaml
       - name: signal-config
         mountPath: /synapse/appservice/signal-registration.yaml
+        subPath: registration.yaml
+      - name: mautrix-discord-config
+        mountPath: /synapse/appservice/mautrix-discord-registration.yaml
         subPath: registration.yaml
     workers:
       default:
