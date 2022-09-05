@@ -46,7 +46,7 @@ patches:
             surge: 1
             unavailable: 1
         env:
-          DOMAIN: teddit.net
+          DOMAIN: teddit.${DOMAIN}
           USE_HELMET: "true"
           USE_HELMET_HSTS: "true"
           TRUST_PROXY: "true"
