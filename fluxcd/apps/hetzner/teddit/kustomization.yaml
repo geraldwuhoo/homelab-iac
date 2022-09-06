@@ -40,11 +40,8 @@ patches:
             keel.sh/trigger: poll
             keel.sh/match-tag: "true"
             keel.sh/pollSchedule: "@every 60m"
-          replicas: 3
+          replicas: 1
           strategy: RollingUpdate
-          rollingUpdate:
-            surge: 1
-            unavailable: 1
         env:
           DOMAIN: teddit.${DOMAIN}
           USE_HELMET: "true"
