@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/syncthing/syncthing
-      tag: 1.20.4
+      tag: 1.21.0
     persistence:
       data:
         accessMode: ReadWriteOnce
