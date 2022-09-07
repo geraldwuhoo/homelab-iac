@@ -15,14 +15,14 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   valuesFrom:
-    - kind: Secret
-      name: nextcloud-secret
-      valuesKey: nextcloud-token
-      targetPath: metrics.token
+  - kind: Secret
+    name: nextcloud-secret
+    valuesKey: nextcloud-token
+    targetPath: metrics.token
   values:
     image:
       repository: docker.io/library/nextcloud
-      tag: 24.0.4-fpm
+      tag: 24.0.4-fpm-alpine
     ingress:
       enabled: true
       className: nginx-public
@@ -58,6 +58,9 @@ spec:
           }
     nginx:
       enabled: true
+      image:
+        repository: docker.io/library/nginx
+        tag: 1.23.1-alpine
     replicaCount: 3
     nextcloud:
       host: cloud.${DOMAIN}
@@ -120,7 +123,7 @@ spec:
       postStartCommand:
       - "sh"
       - "-c"
-      - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
+      - "apk update && apk add openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
     internalDatabase:
       enabled: false
     externalDatabase:
