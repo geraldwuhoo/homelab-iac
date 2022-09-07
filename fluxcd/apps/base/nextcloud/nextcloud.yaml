@@ -81,6 +81,20 @@ spec:
           port: 587
           authtype: plain
       phpConfigs:
+        z-opcache.ini: |-
+          opcache.enable=1
+          opcache.enable_cli=1
+          opcache.interned_strings_buffer=8
+          opcache.max_accelerated_files=10000
+          opcache.memory_consumption=128
+          opcache.save_comments=1
+          opcache.revalidate_freq=1
+        z-pm.ini: |-
+          pm = dynamic
+          pm.max_children = 144
+          pm.start_servers = 36
+          pm.min_spare_servers = 36
+          pm.max_spare_servers = 108
         z-nextcloud.ini: |-
           upload_max_filesize=25G
           post_max_size=25G
