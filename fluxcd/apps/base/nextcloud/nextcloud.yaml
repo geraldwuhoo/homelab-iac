@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/library/nextcloud
-      tag: 24.0.4-apache
+      tag: 24.0.4-fpm
     ingress:
       enabled: true
       className: nginx-public
@@ -56,7 +56,9 @@ spec:
           location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
             deny all;
           }
-    replicaCount: 3
+    nginx:
+      enabled: true
+    replicaCount: 1
     nextcloud:
       host: cloud.${DOMAIN}
       existingSecret:
