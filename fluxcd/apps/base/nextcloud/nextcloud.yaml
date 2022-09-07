@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/library/nextcloud
-      tag: 24.0.4-fpm-alpine
+      tag: 24.0.4-fpm
     ingress:
       enabled: true
       className: nginx-public
@@ -137,7 +137,7 @@ spec:
       postStartCommand:
       - "sh"
       - "-c"
-      - "apk update && apk add openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
+      - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
     internalDatabase:
       enabled: false
     externalDatabase:
