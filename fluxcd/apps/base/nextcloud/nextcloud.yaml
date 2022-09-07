@@ -159,13 +159,13 @@ spec:
       limits:
         memory: 1Gi
     metrics:
-      enabled: true
+      enabled: false
       https: true
       image:
         repository: docker.io/xperimental/nextcloud-exporter
         tag: 0.5.1
       serviceMonitor:
-        enabled: true
+        enabled: false
         namespace: prometheus
         labels:
           release: prometheus
