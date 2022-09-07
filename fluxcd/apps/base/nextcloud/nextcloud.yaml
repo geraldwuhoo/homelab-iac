@@ -58,7 +58,7 @@ spec:
           }
     nginx:
       enabled: true
-    replicaCount: 1
+    replicaCount: 3
     nextcloud:
       host: cloud.${DOMAIN}
       existingSecret:
