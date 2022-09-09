@@ -5,5 +5,3 @@ resources:
 - namespace.yaml
 - helmrelease.yaml
 - secret.yaml
-- linkerd
-- trust
