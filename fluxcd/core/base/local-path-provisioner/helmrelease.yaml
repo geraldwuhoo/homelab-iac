@@ -9,8 +9,8 @@ spec:
     spec:
       chart: local-path-provisioner
       sourceRef:
-        kind: HelmRepository
-        name: local-path-provisioner
+        kind: GitRepository
+        name: ./deploy/chart/local-path-provisioner
         namespace: flux-system
   interval: 10m0s
   values:
