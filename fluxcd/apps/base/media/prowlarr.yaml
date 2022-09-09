@@ -16,8 +16,8 @@ spec:
   timeout: 10m0s
   values:
     image:
-      repository: ghcr.io/k8s-at-home/prowlarr-develop
-      tag: v0.4.4.1947
+      repository: ghcr.io/onedr0p/prowlarr-develop
+      tag: 0.4.5.1960
     service:
       main:
         enabled: true
