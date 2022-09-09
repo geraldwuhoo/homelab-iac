@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: piped
+data:
+  nginx.conf: |-
+    user root;
+    worker_processes auto;
+
+    error_log /var/log/nginx/error.log notice;
+    pid /var/run/nginx.pid;
+
+
+    events {
+        worker_connections 1024;
+    }
+
+
+    http {
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+        '$status $body_bytes_sent "$http_referer" '
+        '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log /var/log/nginx/access.log main;
+
+        sendfile on;
+        tcp_nodelay on;
+
+        keepalive_timeout 65;
+
+        include /etc/nginx/conf.d/*.conf;
+    }
+  pipedapi.conf: |-
+    proxy_cache_path /tmp/pipedapi_cache levels=1:2 keys_zone=pipedapi:4m max_size=2g inactive=60m use_temp_path=off;
+
+    server {
+        listen 80;
+        server_name pipedapi.${DOMAIN};
+
+        location / {
+            proxy_cache pipedapi;
+            proxy_pass "http://piped:8080";
+            proxy_http_version 1.1;
+            proxy_set_header Connection "keep-alive";
+        }
+    }
+  pipedfrontend.conf: |-
+    server {
+        listen 80;
+        server_name piped.${DOMAIN};
+
+
+        location / {
+            proxy_pass "http://pipedfrontend:80";
+            proxy_http_version 1.1;
+            proxy_set_header Connection "keep-alive";
+        }
+    }
+  pipedproxy.conf: |-
+    server {
+        listen 80;
+        server_name pipedproxy.${DOMAIN};
+
+        location ~ (/videoplayback|/api/v4/|/api/manifest/) {
+            include snippets/ytproxy.conf;
+            add_header Cache-Control private always;
+        }
+
+        location / {
+            include snippets/ytproxy.conf;
+            add_header Cache-Control "public, max-age=604800";
+        }
+    }
+  ytproxy.conf: |-
+    proxy_buffering on;
+    proxy_buffers 1024 16k;
+    proxy_set_header X-Forwarded-For "";
+    proxy_set_header CF-Connecting-IP "";
+    proxy_hide_header "alt-svc";
+    sendfile on;
+    sendfile_max_chunk 512k;
+    tcp_nopush on;
+    aio threads=default;
+    aio_write on;
+    directio 16m;
+    proxy_hide_header Cache-Control;
+    proxy_hide_header etag;
+    proxy_http_version 1.1;
+    proxy_set_header Connection keep-alive;
+    proxy_max_temp_file_size 32m;
+    access_log off;
+    proxy_pass http://unix:/var/run/ytproxy/http-proxy.sock;
+

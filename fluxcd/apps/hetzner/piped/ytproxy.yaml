@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ytproxy
+  name: ytproxy
+  namespace: piped
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ytproxy
+  template:
+    metadata:
+      labels:
+        app: ytproxy
+    spec:
+      containers:
+      - image: 1337kavin/ytproxy:latest
+        name: ytproxy
+        volumeMounts:
+        - mountPath: /app/socket
+          name: ytproxy-pvc
+      volumes:
+      - name: ytproxy-pvc
+        persistentVolumeClaim:
+          claimName: ytproxy-pvc

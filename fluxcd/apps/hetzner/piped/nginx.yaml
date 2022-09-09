@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: piped
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx:mainline-alpine
+        name: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
+        - name: config
+          mountPath: /etc/nginx/conf.d/pipedapi.conf
+          subPath: pipedapi.conf
+          readOnly: true
+        - name: config
+          mountPath: /etc/nginx/conf.d/pipedproxy.conf
+          subPath: pipedproxy.conf
+          readOnly: true
+        - name: config
+          mountPath: /etc/nginx/conf.d/pipedfrontend.conf
+          subPath: pipedfrontend.conf
+          readOnly: true
+        - name: config
+          mountPath: /etc/nginx/snippets/ytproxy.conf
+          subPath: ytproxy.conf
+          readOnly: true
+        - name: ytproxy
+          mountPath: /var/run/ytproxy
+      volumes:
+      - name: config
+        configMap:
+          name: nginx-config
+      - name: ytproxy
+        persistentVolumeClaim:
+          claimName: ytproxy-pvc
+
