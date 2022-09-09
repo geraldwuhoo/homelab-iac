@@ -113,7 +113,7 @@ module "kube-hetzner" {
   ### The following values are entirely optional
 
   # To use local storage on the nodes, you can enable Longhorn, default is "false".
-  enable_longhorn = true
+  enable_longhorn = false
 
   # To disable Hetzner CSI storage, you can set the following to true, default is "false".
   disable_hetzner_csi = true
