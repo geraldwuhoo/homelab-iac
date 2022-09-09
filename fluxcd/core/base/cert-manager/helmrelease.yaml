@@ -21,7 +21,7 @@ spec:
     prometheus:
       enabled: true
       servicemonitor:
-        enabled: true
+        enabled: false
         namespace: prometheus
         labels:
           release: prometheus
