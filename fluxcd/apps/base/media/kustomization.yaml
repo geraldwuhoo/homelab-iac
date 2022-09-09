@@ -9,6 +9,7 @@ resources:
 - transmission.yaml
 - sonarr.yaml
 - radarr.yaml
+- radarr4.yaml
 - prowlarr.yaml
 - jellyseerr.yaml
 - komga.yaml
