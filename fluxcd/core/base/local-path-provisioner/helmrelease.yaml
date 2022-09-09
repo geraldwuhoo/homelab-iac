@@ -7,10 +7,10 @@ metadata:
 spec:
   chart:
     spec:
-      chart: local-path-provisioner
+      chart: ./deploy/chart/local-path-provisioner
       sourceRef:
         kind: GitRepository
-        name: ./deploy/chart/local-path-provisioner
+        name: local-path-provisioner
         namespace: flux-system
   interval: 10m0s
   values:
