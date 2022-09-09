@@ -132,10 +132,10 @@ module "kube-hetzner" {
   # traefik_acme_email = "mail@example.com"
 
   # If you want to disable the Traefik ingress controller, you can can set this to "false". Default is "true".
-  traefik_enabled = false
+  enable_traefik = false
 
   # If you want to disable the metric server, you can! Default is "true".
-  metrics_server_enabled = false
+  enable_metrics_server = true
 
   # If you want to allow non-control-plane workloads to run on the control-plane nodes, set "true" below. The default is "false".
   # True by default for single node clusters.
@@ -226,7 +226,7 @@ module "kube-hetzner" {
   # Use the klipper LB, instead of the default Hetzner one, that has an advantage of dropping the cost of the setup,
   # but you would need to point your DNS to every schedulable IPs in your cluster (usually agents). The default is "false".
   # Automatically "true" in the case of single node cluster.
-  use_klipper_lb = "true"
+  enable_klipper_metal_lb = "true"
 
   # If you want to configure a different CNI for k3s, use this flag
   # possible values: flannel (Default), calico
