@@ -5,7 +5,7 @@ metadata:
   namespace: piped
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   volumeMode: Filesystem
   resources:
     requests:
