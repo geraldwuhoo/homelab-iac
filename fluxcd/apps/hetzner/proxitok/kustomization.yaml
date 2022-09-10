@@ -1,0 +1,72 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: proxitok
+resources:
+- namespace.yaml
+- keydb
+- ../../base/app-template
+namePrefix: proxitok-
+patches:
+- target:
+    kind: HelmRelease
+    name: app-template
+  patch: |-
+    apiVersion: apps/v1
+    kind: HelmRelease
+    metadata:
+      name: app-template
+    spec:
+      valuesFrom:
+      - kind: Secret
+        name: proxitok-keydb-secret
+        valuesKey: password
+        targetPath: env.REDIS_PASSWORD
+      values:
+        image:
+          repository: ghcr.io/pablouser1/proxitok
+          tag: latest
+        initContainers:
+          redis-isready:
+            name: redis-isready
+            image: docker.io/bitnami/redis:6.2.7-debian-10-r23
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "until redis-cli -h proxitok-keydb-headless ping ; do sleep 2 ; done"
+        controller:
+          annotations:
+            keel.sh/policy: force
+            keel.sh/trigger: poll
+            keel.sh/match-tag: "true"
+            keel.sh/pollSchedule: "@every 60m"
+          replicas: 1
+          strategy: RollingUpdate
+        env:
+          APP_URL: https://proxitok.${DOMAIN}
+          API_CACHE: redis
+          REDIS_HOST: proxitok-keydb-headless
+          REDIS_PORT: 6379
+        service:
+          main:
+            ports:
+              http:
+                port: 8080
+        ingress:
+          main:
+            enabled: true
+            annotations:
+              homelab/public: "true"
+              cert-manager.io/cluster-issuer: letsencrypt
+              external-dns.alpha.kubernetes.io/hostname: proxitok.${DOMAIN}
+              external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+            hosts:
+            - host: proxitok.${DOMAIN}
+              paths:
+              - path: /
+                pathType: Prefix
+            tls:
+            - hosts:
+              - proxitok.${DOMAIN}
+              secretName: proxitok-cert
+
