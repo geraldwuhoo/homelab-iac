@@ -42,11 +42,24 @@ patches:
             keel.sh/pollSchedule: "@every 60m"
           replicas: 1
           strategy: RollingUpdate
+        persistence:
+          cache:
+            enbaled: true
+            type: emptyDir
+            mountPath: /cache
         env:
           APP_URL: https://proxitok.${DOMAIN}
           API_CACHE: redis
+          LATTE_CACHE: /cache
           REDIS_HOST: proxitok-keydb-headless
           REDIS_PORT: 6379
+          API_SIGNER: remote
+          API_SIGNER_URL: http://signer:8080/signature
+        additionalContainers:
+          signer:
+            name: signer
+            image: ghcr.io/pablouser1/signtok:latest
+            imagePullPolicy: Always
         service:
           main:
             ports:
