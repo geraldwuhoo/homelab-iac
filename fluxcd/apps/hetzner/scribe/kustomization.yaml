@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: scribe
+resources:
+- namespace.yaml
+- secret.yaml
+- ../../base/app-template
+namePrefix: scribe-
+patchesStrategicMerge:
+- patch.yaml
