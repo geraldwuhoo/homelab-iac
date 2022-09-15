@@ -15,7 +15,6 @@ spec:
     - gotify
     - media
     - nextcloud
-    - portainer
     - privatebin
     - send
     - shynet
