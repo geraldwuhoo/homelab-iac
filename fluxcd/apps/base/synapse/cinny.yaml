@@ -19,7 +19,7 @@ spec:
       replicas: 3
       strategy: RollingUpdate
     image:
-      repository: docker.io/ajbura/cinny
+      repository: ghcr.io/cinnyapp/cinny
       tag: v2.2.0
     resources:
       requests:
