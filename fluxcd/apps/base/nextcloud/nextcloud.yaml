@@ -137,7 +137,7 @@ spec:
       postStartCommand:
       - "sh"
       - "-c"
-      - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
+      - "find /usr/local/etc/php-fpm.d -name '*.ini' -exec ln -s {} /usr/local/etc/php/conf.d/ \\; && apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
     internalDatabase:
       enabled: false
     externalDatabase:
