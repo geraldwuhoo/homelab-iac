@@ -2,11 +2,6 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  annotations:
-    keel.sh/policy: force
-    keel.sh/trigger: poll
-    keel.sh/match-tag: "true"
-    keel.sh/pollSchedule: "@every 1m"
   name: jf-vue
   namespace: media
 spec:
@@ -21,11 +16,17 @@ spec:
   timeout: 10m0s
   values:
     controller:
+      annotations:
+        keel.sh/policy: force
+        keel.sh/trigger: poll
+        keel.sh/match-tag: "true"
+        keel.sh/pollSchedule: "@every 60m"
       replicas: 3
       strategy: RollingUpdate
     image:
       repository: ghcr.io/jellyfin/jellyfin-vue
       tag: unstable
+      pullPolicy: Always
     resources:
       requests:
         cpu: 25m
