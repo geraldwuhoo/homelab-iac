@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/radarr
-      tag: 4.1.0.6175
+      tag: 4.2.4.6635
     service:
       main:
         enabled: true
