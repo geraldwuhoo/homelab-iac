@@ -391,6 +391,20 @@ write_files:
         updateStrategy:
           type: RollingUpdate
     path: /var/lib/rancher/k3s/server/manifests/kured.yaml
+  - content: |
+      [Unit]
+      Description=Daily update of the system
+      Documentation=man:transactional-update(8)
+      After=network.target local-fs.target
+
+      [Timer]
+      OnCalendar=*-*-* 09:30:00
+      AccuracySec=1m
+      RandomizedDelaySec=2h
+
+      [Install]
+      WantedBy=timers.target
+    path: /etc/systemd/system/transactional-update.timer
 
 # Resize /var, not /, as that's the last partition in MicroOS image.
 growpart:
