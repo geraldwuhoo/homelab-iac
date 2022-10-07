@@ -8,6 +8,7 @@ resources:
 - jellyfin.yaml
 - transmission.yaml
 - sonarr.yaml
+- sonarr4.yaml
 - radarr.yaml
 - radarr4.yaml
 - prowlarr.yaml
