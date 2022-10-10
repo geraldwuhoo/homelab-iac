@@ -20,7 +20,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: docker.io/b4bz/homer
-      tag: v22.08.1
+      tag: v22.10.1
     ingress:
       main:
         enabled: true
@@ -37,7 +37,7 @@ spec:
     initContainers:
       dashboard-icons:
         name: dashboard-icons
-        image: docker.io/bitnami/git:2.37.3-debian-11-r2
+        image: docker.io/bitnami/git:2.38.0-debian-11-r2
         command:
         - "/bin/sh"
         - "-c"
