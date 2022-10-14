@@ -16,8 +16,10 @@ spec:
     spec:
       containers:
       - name: directory
-        image: docker.io/joseluisq/static-web-server:2.13.0
+        image: docker.io/p3terx/darkhttpd:1.14
         imagePullPolicy: IfNotPresent
+        args:
+        - /public
         resources:
           requests:
             memory: 128Mi
@@ -26,8 +28,3 @@ spec:
             memory: 128Mi
         ports:
         - containerPort: 80
-        env:
-        - name: SERVER_DIRECTORY_LISTING
-          value: "true"
-        - name: SERVER_ROOT
-          value: /public
