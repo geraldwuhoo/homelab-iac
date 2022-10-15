@@ -97,19 +97,3 @@ spec:
         accessMode: null
         retain: null
         subPath: torrent
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: komga
-  namespace: media
-spec:
-  values:
-    persistence:
-      data:
-        existingClaim: media-media-pvc
-        size: null
-        accessMode: null
-        retain: null
-        subPath: Manga
-        readOnly: true
