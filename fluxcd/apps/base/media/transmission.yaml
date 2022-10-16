@@ -105,7 +105,7 @@ spec:
       TRANSMISSION_QUEUE_STALLED_MINUTES: !!str 60
       TRANSMISSION_QUEUE_STALLED_ENABLED: false
       TRANSMISSION_PORT_FORWARDING_ENABLED: true
-      TRANSMISSION_PEER_PORT: !!str 55222
+      TRANSMISSION_PEER_PORT: !!str 59461
     addons:
       vpn:
         enabled: true
