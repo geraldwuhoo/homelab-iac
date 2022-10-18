@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  runner:
+    image: docker.io/gitlab/gitlab-runner
+    restart: unless-stopped
+    volumes:
+      - ./config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - main
+
+networks:
+  main:
+    name: main
