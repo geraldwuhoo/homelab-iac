@@ -6,6 +6,13 @@
   roles:
     - alpine
 
+- hosts: docker
+  gather_facts: false
+  tags:
+    - docker
+  roles:
+    - docker
+
 - hosts: internal
   gather_facts: false
   tags:

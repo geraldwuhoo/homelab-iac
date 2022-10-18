@@ -1,8 +1,4 @@
 ---
-packages:
-- docker
-- docker-compose
-
 repos:
 - name: hub
   url: https://registry-1.docker.io

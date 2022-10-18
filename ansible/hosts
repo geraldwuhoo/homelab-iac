@@ -10,10 +10,20 @@ caddy-public
 [archrepo]
 sodachi
 
+[arm]
+yotsugi
+
+[docker:children]
+internal
+public
+archrepo
+arm
+
 [alpine:children]
 internal
 public
 archrepo
+arm
 
 [digitalocean]
 netmaker
