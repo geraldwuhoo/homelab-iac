@@ -43,10 +43,17 @@ spec:
     podAnnotations:
       backup.velero.io/backup-volumes-excludes: media
     persistence:
+      config:
+        enabled: true
+        retain: true
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        type: pvc
+        mountPath: /home/suwayomi/.local/share/Tachidesk
       tachidesk:
         enabled: true
         retain: true
         accessMode: ReadWriteOnce
         size: 20Gi
         type: pvc
-        mountPath: /home/suwayomi/.local/share/Tachidesk
+        mountPath: /home/suwayomi/.local/share/Tachidesk/downloads
