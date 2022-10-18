@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    environment:
+      WATCHTOWER_NOTIFICATIONS: gotify
+      WATCHTOWER_NOTIFICATION_GOTIFY_URL: "{{ watchtower_gotify_url }}"
+      WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN: "{{ watchtower_gotify_token }}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 43200
