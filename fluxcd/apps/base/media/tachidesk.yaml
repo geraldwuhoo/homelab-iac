@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: tachidesk
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: app-template
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    image:
+      repository: ghcr.io/suwayomi/tachidesk
+      tag: v0.6.5
+      pullPolicy: Always
+    resources:
+      requests:
+        cpu: 25m
+    service:
+      main:
+        ports:
+          http:
+            port: 4567
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: tachidesk.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        hosts:
+        - host: tachidesk.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    podAnnotations:
+      backup.velero.io/backup-volumes-excludes: media
+    persistence:
+      tachidesk:
+        enabled: true
+        retain: true
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        type: pvc
+        mountPath: /home/suwayomi/.local/share/Tachidesk
