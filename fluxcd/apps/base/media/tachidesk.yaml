@@ -41,7 +41,7 @@ spec:
           - path: /
             pathType: Prefix
     podAnnotations:
-      backup.velero.io/backup-volumes-excludes: media
+      backup.velero.io/backup-volumes-excludes: tachidesk
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
