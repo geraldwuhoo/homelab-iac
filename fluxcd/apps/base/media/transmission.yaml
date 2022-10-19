@@ -27,10 +27,6 @@ spec:
       name: transmission-secret
       valuesKey: TRANSMISSION_RPC_PASSWORD
       targetPath: env.TRANSMISSION_RPC_PASSWORD
-    - kind: Secret
-      name: transmission-secret
-      valuesKey: TRANSMISSION_PEER_PORT
-      targetPath: env.TRANSMISSION_PEER_PORT
   values:
     initContainers:
       custom-webui:
