@@ -20,7 +20,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/vector-im/hydrogen-web
-      tag: v0.3.3
+      tag: v0.3.4
     resources:
       requests:
         cpu: 25m
