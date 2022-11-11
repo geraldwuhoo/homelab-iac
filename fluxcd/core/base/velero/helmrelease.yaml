@@ -16,11 +16,11 @@ spec:
   values:
     image:
       repository: velero/velero
-      tag: v1.9.2
+      tag: v1.9.3
       pullPolicy: IfNotPresent
     initContainers:
     - name: velero-plugin-for-aws
-      image: velero/velero-plugin-for-aws:v1.5.1
+      image: velero/velero-plugin-for-aws:v1.5.2
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /target
