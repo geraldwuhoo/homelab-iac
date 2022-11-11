@@ -16,8 +16,8 @@ spec:
   timeout: 10m0s
   values:
     image:
-      repository: louislam/uptime-kuma
-      tag: 1.18.5-alpine
+      repository: docker.io/louislam/uptime-kuma
+      tag: "1.18.5"
     ingress:
       main:
         enabled: true
