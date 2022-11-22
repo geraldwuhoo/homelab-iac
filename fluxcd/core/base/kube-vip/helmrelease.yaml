@@ -15,4 +15,7 @@ spec:
   interval: 10m0s
   values:
     config:
+      image:
+        repository: ghcr.io/kube-vip/kube-vip-cloud-provider
+        tag: v0.0.4
       kubeVipCloudConfig: kubevip
