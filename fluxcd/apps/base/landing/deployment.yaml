@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: landing
-        image: registry.wuhoo.xyz/jerry/wuhoo.xyz:latest
+        image: registry.gitlab.com/geraldwuhoo/wuhoo.xyz:latest
         imagePullPolicy: Always
         resources:
           requests:

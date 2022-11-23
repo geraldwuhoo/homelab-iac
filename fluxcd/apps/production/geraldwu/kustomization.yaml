@@ -6,8 +6,8 @@ nameSuffix: -geraldwu
 resources:
 - ../../base/landing
 images:
-- name: registry.wuhoo.xyz/jerry/wuhoo.xyz
-  newName: registry.wuhoo.xyz/jerry/geraldwu.com
+- name: registry.gitlab.com/geraldwuhoo/wuhoo.xyz
+  newName: registry.gitlab.com/geraldwuhoo/geraldwu.com
   newTag: latest
 patches:
 - target:
