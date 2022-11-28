@@ -105,6 +105,7 @@ module "k3s" {
 }
 
 resource "local_sensitive_file" "kubeconfig" {
-  content  = module.k3s.k3s_kubeconfig
-  filename = pathexpand("~/.kube/k3s.config")
+  content         = module.k3s.k3s_kubeconfig
+  filename        = pathexpand("~/.kube/k3s.config")
+  file_permission = "0600"
 }

@@ -283,6 +283,7 @@ resource "cloudflare_record" "hetzner" {
 }
 
 resource "local_sensitive_file" "kubeconfig" {
-  content  = replace(module.kube-hetzner.kubeconfig_file, "default", "hetzner")
-  filename = pathexpand("~/.kube/hetzner.config")
+  content         = replace(module.kube-hetzner.kubeconfig_file, "default", "hetzner")
+  filename        = pathexpand("~/.kube/hetzner.config")
+  file_permission = "0600"
 }
