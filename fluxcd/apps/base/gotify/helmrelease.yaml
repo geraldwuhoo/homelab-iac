@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/gotify/server
-      tag: 2.1.7
+      tag: 2.2.0
     ingress:
       main:
         enabled: true
