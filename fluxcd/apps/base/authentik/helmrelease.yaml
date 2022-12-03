@@ -46,7 +46,7 @@ spec:
   values:
     image:
       repository: ghcr.io/goauthentik/server
-      tag: 2022.11.2
+      tag: 2022.11.3
     authentik:
       email:
         host: smtp.sendgrid.net
