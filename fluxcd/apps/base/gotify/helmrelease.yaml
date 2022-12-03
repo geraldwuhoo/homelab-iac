@@ -21,7 +21,7 @@ spec:
       targetPath: env.GOTIFY_DEFAULTUSER_PASS
   values:
     image:
-      repository: docker.io/gotify/server
+      repository: ghcr.io/gotify/server
       tag: 2.2.0
     ingress:
       main:
