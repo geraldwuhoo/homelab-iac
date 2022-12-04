@@ -23,7 +23,7 @@ spec:
       hostNetwork: true
       containers:
       - name: coturn
-        image: quay.io/coturn/coturn:4.6.0-alpine
+        image: quay.io/coturn/coturn:4.6.1-alpine
         imagePullPolicy: Always
         volumeMounts:
         - name: coturn-config
