@@ -13,6 +13,9 @@ sodachi
 [arm]
 yotsugi
 
+[cephgeorep]
+kaiki
+
 [docker:children]
 internal
 public
