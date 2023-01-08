@@ -53,8 +53,8 @@ spec:
     targetPath: env.SMTP_PASSWORD
   values:
     image:
-      repository: ghcr.io/k8s-at-home/vaultwarden
-      tag: 1.25.2
+      repository: docker.io/vaultwarden/server
+      tag: 1.27.0-alpine
     ingress:
       main:
         enabled: true
