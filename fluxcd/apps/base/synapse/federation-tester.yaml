@@ -7,10 +7,10 @@ metadata:
 spec:
   chart:
     spec:
-      chart: kah-common-chart
+      chart: app-template
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
