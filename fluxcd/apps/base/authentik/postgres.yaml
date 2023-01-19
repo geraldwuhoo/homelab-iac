@@ -17,7 +17,7 @@ spec:
     authentik: authentik
   postgresql:
     version: "14"
-  patroni:
-    synchronous_mode: true
-    synchronous_mode_strict: true
-    synchronous_node_count: 1
+  # patroni:
+  #   synchronous_mode: true
+  #   synchronous_mode_strict: true
+  #   synchronous_node_count: 1
