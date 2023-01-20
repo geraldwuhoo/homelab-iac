@@ -31,5 +31,5 @@
     path: .profile
     line: "{{ item }}"
   loop:
-    - "alias daur='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.gitlab.com/geraldwuhoo/docker-aurutils:latest aur'"
-    - "alias daursh='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.gitlab.com/geraldwuhoo/docker-aurutils:latest /bin/bash'"
+    - "alias daur='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.wuhoo.xyz/jerry/docker-aurutils:latest aur'"
+    - "alias daursh='doas docker run --rm -it -v /mnt/archlinux/aur:/repo registry.wuhoo.xyz/jerry/docker-aurutils:latest /bin/bash'"

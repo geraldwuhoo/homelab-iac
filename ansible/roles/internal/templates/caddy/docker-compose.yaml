@@ -2,7 +2,7 @@ version: '2'
   
 services:
   caddy:
-    image: registry.gitlab.com/geraldwuhoo/caddy-extended
+    image: registry.wuhoo.xyz/jerry/caddy-extended
     container_name: caddy
     restart: unless-stopped
     volumes:

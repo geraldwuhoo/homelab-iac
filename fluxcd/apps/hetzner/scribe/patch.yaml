@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     image:
-      repository: registry.gitlab.com/geraldwuhoo/scribe-docker
+      repository: registry.wuhoo.xyz/jerry/scribe-docker
       tag: latest
     controller:
       annotations:

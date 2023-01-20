@@ -6,8 +6,8 @@ nameSuffix: -blog
 resources:
 - ../../base/landing
 images:
-- name: registry.gitlab.com/geraldwuhoo/wuhoo.xyz
-  newName: registry.gitlab.com/geraldwuhoo/blog
+- name: registry.wuhoo.xyz/jerry/wuhoo.xyz
+  newName: registry.wuhoo.xyz/jerry/blog
   newTag: latest
 patches:
 - target:
