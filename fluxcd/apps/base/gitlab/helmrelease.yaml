@@ -118,6 +118,8 @@ spec:
       webservice:
         enabled: true
         workerProcesses: 2
+        ingress:
+          proxyBodySize: 10G
         resources:
           requests:
             memory: 1Gi
