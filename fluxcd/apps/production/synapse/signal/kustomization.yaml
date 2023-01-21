@@ -58,7 +58,7 @@ patches:
         additionalContainers:
           signald:
             name: signald
-            image: docker.io/signald/signald:0.23.1
+            image: docker.io/signald/signald:0.23.2
             imagePullPolicy: IfNotPresent
             volumeMounts:
             - name: signald
