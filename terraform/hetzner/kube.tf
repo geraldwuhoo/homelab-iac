@@ -6,7 +6,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "3.32.0"
+      version = "3.33.1"
     }
     sops = {
       source  = "carlpett/sops"
@@ -46,7 +46,7 @@ module "kube-hetzner" {
   # For normal use, this is the path to the terraform registry
   source = "kube-hetzner/kube-hetzner/hcloud"
   # you can optionally specify a version number
-  version = "1.8.0"
+  version = "1.8.1"
 
   # Note that some values, notably "location" and "public_key" have no effect after initializing the cluster.
   # This is to keep Terraform from re-provisioning all nodes at once, which would lose data. If you want to update
