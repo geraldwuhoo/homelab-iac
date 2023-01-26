@@ -15,7 +15,7 @@ spec:
         keel.sh/policy: force
         keel.sh/trigger: poll
         keel.sh/match-tag: "true"
-        keel.sh/pollSchedule: "@every 60m"
+        keel.sh/pollSchedule: "@every 240m"
     env:
       SP_NOAUTH: "true"
       SP_STORAGE_PATH: /shortpaste

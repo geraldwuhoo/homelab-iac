@@ -25,7 +25,7 @@ patches:
             keel.sh/policy: force
             keel.sh/trigger: poll
             keel.sh/match-tag: "true"
-            keel.sh/pollSchedule: "@every 60m"
+            keel.sh/pollSchedule: "@every 240m"
           replicas: 3
           strategy: RollingUpdate
           rollingUpdate:

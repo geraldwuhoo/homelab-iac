@@ -35,7 +35,7 @@ data:
         include /etc/nginx/conf.d/*.conf;
     }
   pipedapi.conf: |-
-    proxy_cache_path /tmp/pipedapi_cache levels=1:2 keys_zone=pipedapi:4m max_size=2g inactive=60m use_temp_path=off;
+    proxy_cache_path /tmp/pipedapi_cache levels=1:2 keys_zone=pipedapi:4m max_size=2g inactive=240m use_temp_path=off;
 
     server {
         listen 80;
