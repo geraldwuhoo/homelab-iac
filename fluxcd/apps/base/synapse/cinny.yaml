@@ -20,7 +20,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/cinnyapp/cinny
-      tag: v2.2.3
+      tag: v2.2.4
     resources:
       requests:
         cpu: 25m
