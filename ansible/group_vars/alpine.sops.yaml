@@ -7,6 +7,8 @@ watchtower_gotify_url: ENC[AES256_GCM,data:Ustbmz1EvP4PC9MBCW7B/EfLkUKQxeuwV3mX,
 watchtower_gotify_token: ENC[AES256_GCM,data:CTzk5d4dmmf5Ee0I+7EW,iv:38BFxaixCu61ZoCFFFdm+IuFBwiQgH9WzvDJKB2kD80=,tag:hceT2nFMfox9SsMymHIN3g==,type:str]
 gitlab_runner_token: ENC[AES256_GCM,data:/krNMr4UrbKCvpUIXzw3eb+Rxhg=,iv:i8Aj+C/oky6ZybbABzqgI8e7imajGBlMyZIPpNHpldo=,tag:lDOW/3k+bGAnHdjv+plZFw==,type:str]
 gitlab_com_runner_token: ENC[AES256_GCM,data:ewRZpWrc85ng2QiFYyBytR6WWf0=,iv:j9xbIxmqPieaAGjTZROm+cTyyJ1kdOVyro9mpVnE3xM=,tag:Hc9ILnzCVb727XgnwCDVwg==,type:str]
+registry_proxy_username: ENC[AES256_GCM,data:+TEqL7cVQu0=,iv:TRb1Fl8YYMfW/qMa0eMsgi0gpegRnhs1cw+f9az21uQ=,tag:QGLLIkWcLY/yVZz7Rt/TSA==,type:str]
+registry_proxy_password: ENC[AES256_GCM,data:Hs3sZ7Ph/PVt4TlJ1LhwpY+kK+KWbkfTcxa+ThHSN8oFZ7v3,iv:gxhz35MHPtXF9zy7Rc9UiDZUDgJwSFnRoL+d+cTgXiA=,tag:TO/vINP/882xpphIrGGWwg==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -22,8 +24,8 @@ sops:
             STFXaUIxdU9yNlFWS2cyTTBGMVFpU1kKrflUig1KMZW6SqOajJ9dsUoGF3PYSh1f
             G3jl44LuhWTwlq3yhZDTo2B3iqWRpRg9EOu++cCGOw4aKbFqRaYU3A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-10-18T17:56:25Z"
-    mac: ENC[AES256_GCM,data:TG/5S0YemTRgsnWs2tRhdifj9Vt6/vRA6lpiQ72ckU0WdFDgAiKgKKnva3qEnc4V86Z438liQvSL4MTeTryYAUhS3glJRrCgCydARwIoWZKlbrP9s2FqtnqqqVq8kmQ3Unp/PT9+gMR4IiVUBgfiG877fv2vI/ItbqNLCus16lU=,iv:Rqb46Nhkao6p4O6d6wEEAfW/Pt7RnMRuL+Vks/xwOL4=,tag:Mev2DU713VXdBH3XPVcBrQ==,type:str]
+    lastmodified: "2023-02-03T19:56:14Z"
+    mac: ENC[AES256_GCM,data:sGLv9LlGlpZyp/qEBezW5/xVGde6195rYslBg79/EE9mJiho+bpe5x9hOdtann+TD7d65MFhj4Abto3cAhMce62qsqR4+erdnJ72SXJloKYJqQe9hSkVwRexaw/PVFsMaJEgMGeRPMqHVIKz6yBorvG/u6ymqZWh+e9JiISnanU=,iv:1DRtz1xGRqF7hQK5SfYpnV0h0B37sup1KQ4vtpsHyyg=,tag:/qfhO0BEd3YzCfAX9woIHg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3

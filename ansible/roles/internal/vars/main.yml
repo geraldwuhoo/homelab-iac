@@ -2,6 +2,8 @@
 repos:
 - name: hub
   url: https://registry-1.docker.io
+  username: "{{ registry_proxy_username }}"
+  password: "{{ registry_proxy_password }}"
 - name: k8sgcr
   url: https://k8s.gcr.io
 - name: quay

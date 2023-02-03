@@ -7,8 +7,16 @@ services:
     restart: unless-stopped
     environment:
       REGISTRY_PROXY_REMOTEURL: "{{ repo.url }}"
+      {% if repo.username is defined -%}
+      REGISTRY_PROXY_USERNAME: "{{ repo.username }}"
+      {% endif -%}
+      {% if repo.password is defined -%}
+      REGISTRY_PROXY_PASSWORD: "{{ repo.password }}"
+      {% endif %}
+
     networks:
       - main
+
   {% endfor %}
 
 networks:
