@@ -62,8 +62,3 @@ spec:
         type: emptyDir
         sizeLimit: 50Gi
         mountPath: /config/transcodes
-    resources:
-      requests:
-        memory: 1Gi
-      limits:
-        memory: 4Gi
