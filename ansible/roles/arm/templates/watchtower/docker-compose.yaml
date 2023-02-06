@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     environment:
       WATCHTOWER_NOTIFICATIONS: gotify
+      WATCHTOWER_NOTIFICATIONS_HOSTNAME: yotsugi
       WATCHTOWER_NOTIFICATION_GOTIFY_URL: "{{ watchtower_gotify_url }}"
       WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN: "{{ watchtower_gotify_token }}"
     volumes:
