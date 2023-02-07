@@ -20,7 +20,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: docker.io/b4bz/homer
-      tag: v22.11.2
+      tag: v23.02.1
     ingress:
       main:
         enabled: true
