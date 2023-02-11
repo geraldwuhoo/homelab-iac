@@ -131,8 +131,12 @@ module "kube-hetzner" {
   # traefik_acme_tls = true
   # traefik_acme_email = "mail@example.com"
 
-  # If you want to disable the Traefik ingress controller, you can can set this to "false". Default is "true".
-  enable_traefik = false
+  # If you want to enable the Nginx ingress controller (https://kubernetes.github.io/ingress-nginx/) instead of Traefik, you can set this to "nginx". Default is "traefik".
+  # By the default we load optimal Traefik and Nginx ingress controller config for Hetzner, however you may need to tweak it to your needs, so to do,
+  # we allow you to add a traefik_values and nginx_values, see towards the end of this file in the advanced section.
+  # After the cluster is deployed, you can always use HelmChartConfig definition to tweak the configuration.
+  # If you want to disable both controllers set this to "none"
+  ingress_controller = "none"
 
   # If you want to disable the metric server, you can! Default is "true".
   enable_metrics_server = true
