@@ -42,16 +42,12 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    persistence:
-      config:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: hydrogen-web-config
-        subPath:
-        - path: config.json
-          mountPath: /usr/share/nginx/html/config.json
+    env:
+    - name: "CONFIG_OVERRIDE"
+      valueFrom:
+        configMapKeyRef:
+          name: hydrogen-web-config
+          key: config.json
     configmap:
       config:
         enabled: true
