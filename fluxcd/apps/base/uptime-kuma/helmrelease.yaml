@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/louislam/uptime-kuma
-      tag: "1.19.6"
+      tag: "1.20.1"
     ingress:
       main:
         enabled: true
