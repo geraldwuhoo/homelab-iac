@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/binwiederhier/ntfy
-      tag: v2.1.1
+      tag: v2.1.2
     ingress:
       main:
         enabled: true
