@@ -167,6 +167,7 @@ module "kube-hetzner" {
       port            = "587"
       source_ips      = []
       destination_ips = ["0.0.0.0/0", "::/0"]
+      description     = "SMTP outbound"
     },
     {
       direction       = "in"
@@ -174,6 +175,7 @@ module "kube-hetzner" {
       port            = "3478"
       source_ips      = ["0.0.0.0/0", "::/0"]
       destination_ips = []
+      description     = "STUN inbound"
     },
     {
       direction       = "in"
@@ -181,6 +183,7 @@ module "kube-hetzner" {
       port            = "3478"
       source_ips      = ["0.0.0.0/0", "::/0"]
       destination_ips = []
+      description     = "STUN inbound"
     },
     {
       direction       = "in"
@@ -188,6 +191,7 @@ module "kube-hetzner" {
       port            = "5349"
       source_ips      = ["0.0.0.0/0", "::/0"]
       destination_ips = []
+      description     = "STUN inbound"
     },
     {
       direction       = "in"
@@ -195,6 +199,7 @@ module "kube-hetzner" {
       port            = "5349"
       source_ips      = ["0.0.0.0/0", "::/0"]
       destination_ips = []
+      description     = "STUN inbound"
     },
     {
       direction       = "in"
@@ -202,6 +207,7 @@ module "kube-hetzner" {
       port            = "49152-65535"
       source_ips      = ["0.0.0.0/0", "::/0"]
       destination_ips = []
+      description     = "STUN inbound"
     },
   ]
   # extra_firewall_rules = [
