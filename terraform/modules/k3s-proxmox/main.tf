@@ -78,6 +78,8 @@ resource "proxmox_vm_qemu" "k3s_node" {
   balloon = var.specs.balloon
   tablet  = false
   agent   = 1
+  qemu_os = "l26"
+  scsihw  = "virtio-scsi-pci"
 
   disk {
     type    = "scsi"
