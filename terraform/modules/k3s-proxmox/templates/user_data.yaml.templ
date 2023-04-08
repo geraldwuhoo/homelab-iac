@@ -278,15 +278,13 @@ write_files:
               - /usr/bin/kured
               - --reboot-command=/usr/bin/systemctl reboot
               - --period=15m0s
-              %{ if notify ~}
-              - --notify-url="${notify_url}"
-              %{ endif ~}
+              %{ if notify ~}- --notify-url="${notify_url}"%{ endif ~}
               env:
               - name: KURED_NODE_ID
                 valueFrom:
                   fieldRef:
                     fieldPath: spec.nodeName
-              image: docker.io/weaveworks/kured:1.10.2
+              image: ghcr.io/kubereboot/kured:1.12.2
               imagePullPolicy: IfNotPresent
               name: kured
               securityContext:
