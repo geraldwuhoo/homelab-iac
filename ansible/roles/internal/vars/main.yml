@@ -6,6 +6,8 @@ repos:
   password: "{{ registry_proxy_password }}"
 - name: k8sgcr
   url: https://k8s.gcr.io
+- name: registryk8s
+  url: https://registry.k8s.io
 - name: quay
   url: https://quay.io
 - name: gcr
