@@ -162,10 +162,6 @@ spec:
                     logo: "/assets/icons/svg/hatsh.svg"
                     subtitle: "Simple, fast, secure client-side file encryption"
                     url: "https://hatsh.${DOMAIN}"
-                  - name: "Wallabag"
-                    logo: "/assets/icons/png/wallabag.png"
-                    subtitle: "Pocket alternative"
-                    url: "https://wallabag.${DOMAIN}"
               - name: "Misc"
                 icon: "fas fa-align-center"
                 items:
