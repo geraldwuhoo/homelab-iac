@@ -16,4 +16,4 @@ spec:
   databases:
     gitlabhq_production: gitlab
   postgresql:
-    version: "14"
+    version: "15"
