@@ -13,3 +13,6 @@ spec:
         name: postgres-operator
         namespace: flux-system
   interval: 10m0s
+  values:
+    configMajorVersionUpgrade:
+      major_version_upgrade_mode: manual
