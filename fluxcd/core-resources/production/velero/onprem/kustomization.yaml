@@ -7,3 +7,17 @@ resources:
 - ../../../base/velero
 patches:
 - path: patch.yaml
+- patch: |-
+    $patch: delete
+    apiVersion: velero.io/v1
+    kind: BackupStorageLocation
+    metadata:
+      name: velero
+      namespace: velero
+- patch: |-
+    $patch: delete
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: velero
+      namespace: velero
