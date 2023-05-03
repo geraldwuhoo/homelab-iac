@@ -6,4 +6,5 @@ namespace: syncthing
 resources:
 - ../../../base/ceph-cephfs-pvc
 patches:
-- path: patch.yaml
+- path: patch-pv.yaml
+- path: patch-pvc.yaml
