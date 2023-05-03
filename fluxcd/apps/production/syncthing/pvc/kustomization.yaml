@@ -5,5 +5,5 @@ namePrefix: syncthing-
 namespace: syncthing
 resources:
 - ../../../base/ceph-cephfs-pvc
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- path: patch.yaml

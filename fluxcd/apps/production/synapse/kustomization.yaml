@@ -11,9 +11,8 @@ resources:
 - ../../base/synapse
 - signal
 - mautrix-discord
-patchesStrategicMerge:
-- synapse-patch.yaml
 patches:
+- path: synapse-patch.yaml
 - target:
     kind: postgresql
     name: synapse-postgres-cluster

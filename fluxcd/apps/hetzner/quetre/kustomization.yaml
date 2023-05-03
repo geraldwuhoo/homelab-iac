@@ -6,5 +6,5 @@ resources:
 - namespace.yaml
 - ../../base/app-template
 namePrefix: quetre-
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- path: patch.yaml

@@ -5,5 +5,5 @@ namespace: ingress-nginx-public
 nameSuffix: -public
 resources:
 - ../../base/ingress-nginx
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- path: patch.yaml

@@ -7,5 +7,5 @@ resources:
 - secret.yaml
 - ../../base/app-template
 namePrefix: librarian-
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- path: patch.yaml

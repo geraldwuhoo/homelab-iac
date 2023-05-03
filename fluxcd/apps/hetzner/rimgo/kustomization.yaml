@@ -6,5 +6,5 @@ resources:
 - namespace.yaml
 - ../../base/app-template
 namePrefix: rimgo-
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- path: patch.yaml

@@ -8,5 +8,5 @@ resources:
 - keydb
 - ../../base/app-template
 namePrefix: nitter-
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- path: patch.yaml

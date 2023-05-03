@@ -7,9 +7,8 @@ commonLabels:
   app: aur-directory
 resources:
 - ../../../base/directory-listing
-patchesStrategicMerge:
-- patch.yaml
-patchesJson6902:
+patches:
+- path: patch.yaml
 - target:
     version: v1
     kind: Ingress

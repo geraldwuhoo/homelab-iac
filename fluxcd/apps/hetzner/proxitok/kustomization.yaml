@@ -7,5 +7,5 @@ resources:
 - keydb
 - ../../base/app-template
 namePrefix: proxitok-
-patchesStrategicMerge:
-- patch.yaml
+patches:
+- path: patch.yaml
