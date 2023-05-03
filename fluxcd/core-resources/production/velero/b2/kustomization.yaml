@@ -6,4 +6,6 @@ nameSuffix: -b2
 resources:
 - ../../../base/velero
 patches:
-- path: patch.yaml
+- path: patch-backupstoragelocation.yaml
+- path: patch-schedule.yaml
+- path: patch-secret.yaml
