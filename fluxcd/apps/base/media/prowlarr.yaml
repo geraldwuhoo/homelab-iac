@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 1.4.0.3230
+      tag: 1.4.1.3258
     service:
       main:
         enabled: true
