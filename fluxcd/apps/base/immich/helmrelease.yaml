@@ -27,6 +27,8 @@ spec:
     image:
       tag: v1.54.1
     immich:
+      podAnnotations:
+        backup.velero.io/backup-volumes-excludes: library
       persistence:
         library:
           existingClaim: immich-pvc

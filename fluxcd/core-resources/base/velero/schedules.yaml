@@ -13,6 +13,7 @@ spec:
     - cert-manager
     - gitlab
     - gotify
+    - immich
     - media
     - nextcloud
     - privatebin
