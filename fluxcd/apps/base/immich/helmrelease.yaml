@@ -29,6 +29,11 @@ spec:
     immich:
       podAnnotations:
         backup.velero.io/backup-volumes-excludes: library
+      podSecurityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       persistence:
         library:
           existingClaim: immich-pvc
