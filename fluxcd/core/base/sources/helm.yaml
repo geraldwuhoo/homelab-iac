@@ -268,3 +268,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://portainer.github.io/k8s/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: immich
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://immich-app.github.io/immich-charts/

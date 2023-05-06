@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: immich-postgres-cluster
+spec:
+  teamId: "immich"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    immich:
+    - superuser
+    - createdb
+  databases:
+    immich: immich
+  postgresql:
+    version: "15"
