@@ -36,6 +36,23 @@ spec:
       enabled: false
     server:
       enabled: true
+    typesense:
+      enabled: true
+      env:
+        TYPESENSE_API_KEY:
+          valueFrom:
+            secretKeyRef:
+              name: immich-secret
+              key: TYPESENSE_API_KEY
+      persistence:
+        tsdata:
+          enabled: true
+          accessMode: ReadWriteOnce
+          size: 5Gi
+      image:
+        repository: docker.io/typesense/typesense
+        tag: 0.24.1
+        pullPolicy: IfNotPresent
     microservices:
       enabled: true
       persistence:
@@ -44,7 +61,6 @@ spec:
           size: 1Gi
           type: pvc
           accessMode: ReadWriteOnce
-          storageClass: ceph-rbd-sc
     machine-learning:
       enabled: true
       persistence:
@@ -53,7 +69,6 @@ spec:
           size: 10Gi
           type: pvc
           accessMode: ReadWriteOnce
-          storageClass: ceph-rbd-sc
     web:
       enabled: true
     proxy:
