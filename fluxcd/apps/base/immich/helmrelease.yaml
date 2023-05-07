@@ -24,16 +24,11 @@ spec:
     envFrom:
     - secretRef:
         name: immich-secret
+    podAnnotations:
+      backup.velero.io/backup-volumes-excludes: library
     image:
       tag: v1.54.1
     immich:
-      podAnnotations:
-        backup.velero.io/backup-volumes-excludes: library
-      podSecurityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
       persistence:
         library:
           existingClaim: immich-pvc
@@ -43,6 +38,11 @@ spec:
       enabled: false
     server:
       enabled: true
+      podSecurityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
     typesense:
       enabled: true
       env:
@@ -62,6 +62,11 @@ spec:
         pullPolicy: IfNotPresent
     microservices:
       enabled: true
+      podSecurityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       persistence:
         geodata-cache:
           enabled: true
@@ -78,6 +83,9 @@ spec:
           accessMode: ReadWriteOnce
     web:
       enabled: true
+      env:
+        PUID: 1000
+        PGID: 1000
     proxy:
       enabled: true
       ingress:
