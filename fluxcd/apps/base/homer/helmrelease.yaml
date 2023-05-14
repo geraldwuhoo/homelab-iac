@@ -19,8 +19,8 @@ spec:
       replicas: 3
       strategy: RollingUpdate
     image:
-      repository: docker.io/b4bz/homer
-      tag: v23.02.2
+      repository: ghcr.io/bastienwirtz/homer
+      tag: v23.05.1
     ingress:
       main:
         enabled: true
