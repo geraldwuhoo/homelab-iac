@@ -17,5 +17,5 @@ spec:
     config:
       image:
         repository: ghcr.io/kube-vip/kube-vip-cloud-provider
-        tag: v0.0.5
+        tag: v0.0.6
       kubeVipCloudConfig: kubevip
