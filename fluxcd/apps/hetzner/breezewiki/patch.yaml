@@ -1,0 +1,50 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: app-template
+spec:
+  values:
+    image:
+      repository: quay.io/pussthecatorg/breezewiki
+      tag: latest
+    controller:
+      annotations:
+        keel.sh/policy: force
+        keel.sh/trigger: poll
+        keel.sh/match-tag: "true"
+        keel.sh/pollSchedule: "@every 240m"
+      replicas: 1
+      strategy: RollingUpdate
+    service:
+      main:
+        ports:
+          http:
+            port: 10416
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          homelab/public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.alpha.kubernetes.io/hostname: breezewiki.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+        hosts:
+        - host: breezewiki.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - breezewiki.${DOMAIN}
+          secretName: breezewiki-cert
+    persistence:
+      config:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: breezewiki-config
+        subPath:
+        - path: config.ini
+          mountPath: /app/config.ini
