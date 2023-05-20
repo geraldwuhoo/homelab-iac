@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: core
@@ -11,7 +11,6 @@ spec:
     name: flux-system
   path: ./fluxcd/core/hetzner
   prune: true
-  validation: client
   decryption:
     provider: sops
     secretRef:
