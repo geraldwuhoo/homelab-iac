@@ -1,16 +1,8 @@
 variable "proxmox" {
   type = object({
-    api_url          = string,
-    api_token_id     = string,
-    api_token_secret = string,
-    privkey          = string,
+    privkey = string,
   })
-}
-
-variable "kubernetes" {
-  type = object({
-    config_path = string,
-  })
+  sensitive = true
 }
 
 variable "pubkey" {
@@ -18,7 +10,8 @@ variable "pubkey" {
 }
 
 variable "privkey" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 variable "vip_hostname" {
@@ -64,5 +57,6 @@ variable "notify" {
 }
 
 variable "notify_url" {
-  type = string
+  type      = string
+  sensitive = true
 }

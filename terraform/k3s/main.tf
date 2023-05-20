@@ -4,30 +4,51 @@ terraform {
       source  = "carlpett/sops"
       version = "0.7.2"
     }
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "2.9.14"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.0.4"
+    }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "15.11.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.20.0"
+    }
+    flux = {
+      source  = "fluxcd/flux"
+      version = "1.0.0-rc.3"
+    }
   }
   backend "pg" {
     schema_name = "k3s"
   }
 }
 
+# Decrypt sops encrypted vars
 provider "sops" {}
 
 data "sops_file" "secret" {
   source_file = "${path.module}/config.sops.yaml"
 }
 
+# Provision the k3s cluster
+provider "proxmox" {
+  pm_api_url          = data.sops_file.secret.data["proxmox.api_url"]
+  pm_api_token_id     = data.sops_file.secret.data["proxmox.api_token_id"]
+  pm_api_token_secret = data.sops_file.secret.data["proxmox.api_token_secret"]
+}
+
 module "k3s" {
   source = "../modules/k3s-proxmox"
 
   proxmox = {
-    api_url          = data.sops_file.secret.data["proxmox.api_url"]
-    api_token_id     = data.sops_file.secret.data["proxmox.api_token_id"]
-    api_token_secret = data.sops_file.secret.data["proxmox.api_token_secret"]
-    privkey          = "~/.ssh/id_rsa"
-  }
-
-  kubernetes = {
-    config_path = "~/.kube/k3s.config"
+    privkey = "~/.ssh/id_rsa"
   }
 
   pubkey       = "~/.ssh/id_rsa.pub"
@@ -106,6 +127,55 @@ module "k3s" {
 
 resource "local_sensitive_file" "kubeconfig" {
   content         = module.k3s.k3s_kubeconfig
-  filename        = pathexpand("~/.kube/k3s.config")
+  filename        = pathexpand(var.config_path)
   file_permission = "0600"
+}
+
+# Configure the GitLab repository for Flux
+resource "tls_private_key" "flux" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
+}
+
+provider "gitlab" {
+  token = data.sops_file.secret.data["gitlab_token"]
+}
+
+module "gitlab" {
+  depends_on = [module.k3s]
+  source     = "../modules/gitlab"
+
+  public_key_openssh = resource.tls_private_key.flux.public_key_openssh
+
+  gitlab = var.gitlab
+}
+
+# Bootstrap Flux
+provider "kubernetes" {
+  config_path = resource.local_sensitive_file.kubeconfig.filename
+}
+
+provider "flux" {
+  kubernetes = {
+    config_path = resource.local_sensitive_file.kubeconfig.filename
+  }
+  git = {
+    url = "ssh://git@gitlab.com/${module.gitlab.gitlab_project.path_with_namespace}.git"
+    ssh = {
+      username    = "git"
+      private_key = resource.tls_private_key.flux.private_key_pem
+    }
+    branch = var.gitlab.branch
+  }
+}
+
+module "fluxcd" {
+  depends_on = [
+    module.k3s,
+    resource.local_sensitive_file.kubeconfig,
+    module.gitlab,
+  ]
+  source = "../modules/fluxcd"
+
+  sops_key_path = var.sops_key_path
 }
