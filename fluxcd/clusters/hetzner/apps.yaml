@@ -14,7 +14,6 @@ spec:
     name: flux-system
   path: ./fluxcd/apps/hetzner
   prune: true
-  validation: client
   decryption:
     provider: sops
     secretRef:
