@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: breezewiki
 resources:
 - namespace.yaml
-- configmap.yaml
 - ../../base/app-template
 namePrefix: breezewiki-
 patches:

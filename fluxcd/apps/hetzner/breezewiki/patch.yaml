@@ -5,6 +5,10 @@ metadata:
   name: app-template
 spec:
   values:
+    env:
+      bw_canonical_origin: breezewiki.${DOMAIN}
+      bw_port: "10416"
+      bw_debug: "false"
     image:
       repository: quay.io/pussthecatorg/breezewiki
       tag: latest
@@ -38,13 +42,3 @@ spec:
         - hosts:
           - breezewiki.${DOMAIN}
           secretName: breezewiki-cert
-    persistence:
-      config:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: breezewiki-config
-        subPath:
-        - path: config.ini
-          mountPath: /app/config.ini
