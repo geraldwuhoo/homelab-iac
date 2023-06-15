@@ -37,5 +37,5 @@ resource "kubernetes_secret_v1" "sops_age" {
 resource "flux_bootstrap_git" "this" {
   depends_on = [kubernetes_secret_v1.sops_age]
 
-  path = "fluxcd/clusters/production"
+  path = var.fluxcd_path
 }

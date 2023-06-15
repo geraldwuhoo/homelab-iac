@@ -1,8 +1,3 @@
-variable "config_path" {
-  type    = string
-  default = "~/.kube/k3s.config"
-}
-
 variable "sops_key_path" {
   type    = string
   default = "~/.config/sops/age/keys.txt"
@@ -23,5 +18,5 @@ variable "gitlab" {
 
 variable "fluxcd_path" {
   type    = string
-  default = "fluxcd/clusters/production"
+  default = "fluxcd/clusters/hetzner"
 }

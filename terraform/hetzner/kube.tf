@@ -12,6 +12,22 @@ terraform {
       source  = "carlpett/sops"
       version = "0.7.2"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.0.4"
+    }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "15.11.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.21.1"
+    }
+    flux = {
+      source  = "fluxcd/flux"
+      version = "1.0.0-rc.5"
+    }
   }
   backend "pg" {
     schema_name = "hetzner"
@@ -174,6 +190,14 @@ module "kube-hetzner" {
       description     = "SMTP outbound"
     },
     {
+      direction       = "out"
+      protocol        = "tcp"
+      port            = "22"
+      source_ips      = []
+      destination_ips = ["0.0.0.0/0", "::/0"]
+      description     = "SSH outbound for Flux git cloning"
+    },
+    {
       direction       = "in"
       protocol        = "udp"
       port            = "3478"
@@ -301,3 +325,53 @@ resource "local_sensitive_file" "kubeconfig" {
   filename        = pathexpand("~/.kube/hetzner.config")
   file_permission = "0600"
 }
+
+# Configure the GitLab repository for Flux
+resource "tls_private_key" "flux" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
+}
+
+provider "gitlab" {
+  token = data.sops_file.secret.data["gitlab_token"]
+}
+
+module "gitlab" {
+  source     = "../modules/gitlab"
+
+  public_key_openssh = resource.tls_private_key.flux.public_key_openssh
+
+  gitlab = var.gitlab
+}
+
+# Bootstrap Flux
+provider "kubernetes" {
+  config_path = resource.local_sensitive_file.kubeconfig.filename
+}
+
+provider "flux" {
+  kubernetes = {
+    config_path = resource.local_sensitive_file.kubeconfig.filename
+  }
+  git = {
+    url = "ssh://git@gitlab.com/${module.gitlab.gitlab_project.path_with_namespace}.git"
+    ssh = {
+      username    = "git"
+      private_key = resource.tls_private_key.flux.private_key_pem
+    }
+    branch = var.gitlab.branch
+  }
+}
+
+module "fluxcd" {
+  depends_on = [
+    module.kube-hetzner,
+    resource.local_sensitive_file.kubeconfig,
+    module.gitlab,
+  ]
+  source = "../modules/fluxcd"
+
+  sops_key_path = var.sops_key_path
+  fluxcd_path   = var.fluxcd_path
+}
+

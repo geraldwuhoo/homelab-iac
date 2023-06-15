@@ -3,7 +3,7 @@ proxmox:
     api_token_id: ENC[AES256_GCM,data:Yv6ktIZ8PxI3hf9GGSVTTTKA8vykrmXnF3PiFNkKuFE=,iv:kWpd6gL3HNGjZjeHVS+dlOW1mVPTgjat2WnfJRq8P2g=,tag:E19IUrJm59Tw1uGUQIaWNw==,type:str]
     api_token_secret: ENC[AES256_GCM,data:tb5QryResrpm5JEwSjEZBtm65LQeR8jQreIYxmEbmOstA3GH,iv:NJDaH5kkWblKVf+1ZmzkmbEPATIYDEzKnJkLYmmXmZs=,tag:5KjUasNrnA0oIL59RHl5ug==,type:str]
 notify_url: ENC[AES256_GCM,data:6F+ld4eXaYnaFi/nmve792lT1+RCQUG6m93CVsiumuMaYBu2Kq6wz5j8oDbFYybpkrmJCTX90UzfbJWHUnHnvZ3fGVaPrk/CM0rq/TaDUQ==,iv:84L3IBU1Ru9l2qIMuVSlzsd6DIFUFlF3K2Ig7mhZoc8=,tag:6w8J4PbeQclQo1M/F4dE7g==,type:str]
-gitlab_token: ENC[AES256_GCM,data:1FB6QBNtgYnJGRTVOPuqCZE+srcpnh3DWLw=,iv:FeRQwTT2XBZDdOM1f6RfPUdAge+4p6TcP2ghe4PBkso=,tag:tei3f09ktyCOd/ZIAPSaiw==,type:str]
+gitlab_token: ENC[AES256_GCM,data:y8joYZImSkETXAyrHKFhPJH67LOWrcDDdNM=,iv:ElmSHxEKCNeh+qAaxYe4BJ7khMXzKJZHjpfG02kCvgQ=,tag:VGSJ9oeDsGmUN/t+TeqV1g==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -19,8 +19,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-05-20T01:07:58Z"
-    mac: ENC[AES256_GCM,data:d/8u9XV7yNihE6V1WBjpvzb0JQw59Mkch0Qf06dOkGl1g/RUWxsEoD5HuiPsTQsA5tfz4AdhVdzBMdhEUCWCzRvmBR8AM6uTDGanXj4H4HzkQ7PG40ktU5yuPxca+5+LQ8bqeCt9PQULVQvY/rXtiqtJfen0xx3y9gXFrL04c7A=,iv:LLVGWb6QOWmcTfxyvohalj+TdSlf5quDeVKLpkfYqOU=,tag:clYgn1Gy+8cRyNfZOLTBUQ==,type:str]
+    lastmodified: "2023-06-15T02:39:30Z"
+    mac: ENC[AES256_GCM,data:paRw9AAsd+zDtPfS3XeNRSNDuD8xTdXYxN6IsV8I9M7pYLkx5xelrkWfHQaqxqZehXstK+2qBrSlt8dSUPceCnodsF46UK10488Fi78Eqp63JDlenYyCyYEIblAJBzw+1v7UFK3gSfaNqWjB68keLPCUxjrYaw4HhLnzoBBJQBg=,iv:MGT4M4gT/9F17dsm4isWjEaAl2XlLX/KdwSICdf+tI0=,tag:MpOyUlewjdhwtUncHVa4pQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
