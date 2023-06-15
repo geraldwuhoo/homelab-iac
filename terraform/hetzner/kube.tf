@@ -2,7 +2,7 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.39.0"
+      version = "1.40.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -46,7 +46,7 @@ module "kube-hetzner" {
   # For normal use, this is the path to the terraform registry
   source = "kube-hetzner/kube-hetzner/hcloud"
   # you can optionally specify a version number
-  version = "1.10.9"
+  version = "2.2.1"
 
   # Note that some values, notably "location" and "public_key" have no effect after initializing the cluster.
   # This is to keep Terraform from re-provisioning all nodes at once, which would lose data. If you want to update
@@ -147,6 +147,10 @@ module "kube-hetzner" {
 
   # If you want to disable the automatic upgrade of k3s, you can set this to false. The default is "true".
   automatically_upgrade_k3s = false
+
+  # The default is "true" (in HA setup it works wonderfully well, with automatic roll-back to the previous snapshot in case of an issue).
+  # IMPORTANT! For non-HA clusters i.e. when the number of control-plane nodes is < 3, you have to turn it off.
+  automatically_upgrade_os = false
 
   # Allows you to specify either stable, latest, testing or supported minor versions (defaults to stable)
   # see https://rancher.com/docs/k3s/latest/en/upgrades/basic/ and https://update.k3s.io/v1-release/channels
