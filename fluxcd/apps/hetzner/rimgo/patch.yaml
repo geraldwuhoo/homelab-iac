@@ -8,6 +8,8 @@ spec:
     image:
       repository: codeberg.org/video-prize-ranch/rimgo
       tag: latest
+    env:
+      IMGUR_CLIENT_ID: 546c25a59c58ad7
     controller:
       annotations:
         keel.sh/policy: force
