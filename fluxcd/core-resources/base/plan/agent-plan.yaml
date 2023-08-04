@@ -8,7 +8,7 @@ metadata:
     k3s_upgrade: agent
 spec:
   concurrency: 1
-  channel: https://update.k3s.io/v1-release/channels/stable
+  version: v1.26.5+k3s1
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
