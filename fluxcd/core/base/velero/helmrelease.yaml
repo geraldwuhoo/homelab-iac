@@ -54,6 +54,7 @@ spec:
           s3ForcePathStyle: "true"
           s3Url: "${S3_URL}"
       defaultVolumesToRestic: true
+      restoreOnlyMode: true
     rbac:
       create: true
       clusterAdministrator: true
