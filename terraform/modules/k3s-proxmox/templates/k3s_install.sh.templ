@@ -1,6 +1,6 @@
 #!/bin/sh
 
-curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=stable K3S_TOKEN=${secret} sh -s - ${mode} \
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.26.7+k3s1" K3S_TOKEN=${secret} sh -s - ${mode} \
 ${init} \
 %{ if server ~}
 --tls-san ${vip} \
