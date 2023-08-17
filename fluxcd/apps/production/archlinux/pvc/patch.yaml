@@ -6,4 +6,4 @@ metadata:
 spec:
   csi:
     volumeAttributes:
-      "rootPath": /volumes/nas/archlinux/7f2f7432-e549-4184-95c1-461d6c037b36
+      "rootPath": /volumes/nas/archlinux/a5c8853a-cd44-4f3d-91f4-dffbbfa1d9b2

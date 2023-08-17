@@ -6,4 +6,4 @@ metadata:
 spec:
   csi:
     volumeAttributes:
-      "rootPath": /volumes/nas/media/efcb5014-11cd-48d3-9999-75b6dc4d8c80
+      "rootPath": /volumes/nas/media/d85ed73c-9141-479e-b58d-004f3f2152da

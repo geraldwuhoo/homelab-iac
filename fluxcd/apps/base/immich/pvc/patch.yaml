@@ -6,4 +6,4 @@ metadata:
 spec:
   csi:
     volumeAttributes:
-      "rootPath": /volumes/nas/significant/2cc7ff5b-026f-442d-9a73-4c64405c9e5b/immich
+      "rootPath": /volumes/nas/important/971c4832-45a7-493a-9b87-51cd07551c61/immich
