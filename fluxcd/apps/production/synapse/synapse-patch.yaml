@@ -41,25 +41,6 @@ spec:
         - https://cinny.${DOMAIN}/
         - https://hydrogen.${DOMAIN}/
         - https://app.element.io/
-      instance_map:
-        event_persister1:
-          host: synapse-event-persister1
-          port: 8083
-        typing_persister:
-          host: synapse-typing-persister
-          port: 8083
-        to_device_persister:
-          host: synapse-to-device-persister
-          port: 8083
-        account_data_persister:
-          host: synapse-account-data-persister
-          port: 8083
-        receipts_persister:
-          host: synapse-receipts-persister
-          port: 8083
-        presence_persister:
-          host: synapse-presence-persister
-          port: 8083
       stream_writers:
         events: event_persister1
         typing: typing_persister
