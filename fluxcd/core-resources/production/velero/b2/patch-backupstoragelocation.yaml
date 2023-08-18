@@ -12,4 +12,3 @@ spec:
     name: velero-b2
   backupSyncPeriod: 240m
   validationFrequency: 120m
-  accessMode: ReadOnly

@@ -15,4 +15,3 @@ spec:
   credential:
     name: velero-remote
     key: cloud
-  accessMode: ReadOnly
