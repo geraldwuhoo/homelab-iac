@@ -15,6 +15,11 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
+    env:
+      DOWNLOAD_AS_CBZ: "true"
+    envFrom:
+    - secretRef:
+        name: tachidesk-secret
     image:
       repository: ghcr.io/suwayomi/tachidesk
       tag: v0.7.0
