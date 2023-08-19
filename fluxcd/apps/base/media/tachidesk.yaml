@@ -17,6 +17,7 @@ spec:
   values:
     env:
       DOWNLOAD_AS_CBZ: "true"
+      BASIC_AUTH_ENABLED: "true"
     envFrom:
     - secretRef:
         name: tachidesk-secret
