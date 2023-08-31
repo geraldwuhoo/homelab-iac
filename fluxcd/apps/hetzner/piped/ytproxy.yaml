@@ -16,8 +16,11 @@ spec:
         app: ytproxy
     spec:
       containers:
-      - image: 1337kavin/ytproxy:latest
+      - image: 1337kavin/piped-proxy:latest
         name: ytproxy
+        env:
+        - name: UDS
+          value: "1"
         volumeMounts:
         - mountPath: /app/socket
           name: ytproxy-pvc
