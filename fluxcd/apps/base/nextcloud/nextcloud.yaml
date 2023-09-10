@@ -71,12 +71,12 @@ spec:
         passwordKey: ADMIN_PASSWORD
         smtpUsernameKey: SMTP_NAME
         smtpPasswordKey: SMTP_PASSWORD
+        smtpHostKey: SMTP_HOST
       mail:
         enabled: true
         fromAddress: nextcloud
         domain: no-reply.${DOMAIN}
         smtp:
-          host: smtp.sendgrid.net
           secure: tls
           port: 587
           authtype: plain
