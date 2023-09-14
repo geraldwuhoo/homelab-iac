@@ -34,7 +34,7 @@ spec:
   values:
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.15.1
+      tag: 1.17.4
     ingress:
       main:
         enabled: true
