@@ -39,7 +39,7 @@ patches:
         additionalContainers:
           celeryworker:
             name: celeryworker
-            image: docker.io/milesmcc/shynet:v0.12.0
+            image: docker.io/milesmcc/shynet:v0.13.1
             imagePullPolicy: IfNotPresent
             command: ["./celeryworker.sh"]
             envFrom:
