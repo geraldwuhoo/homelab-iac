@@ -54,7 +54,7 @@ spec:
   values:
     image:
       repository: docker.io/vaultwarden/server
-      tag: 1.28.1-alpine
+      tag: 1.29.2-alpine
     ingress:
       main:
         enabled: true

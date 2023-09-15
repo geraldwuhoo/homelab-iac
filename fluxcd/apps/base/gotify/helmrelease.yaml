@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: ghcr.io/gotify/server
-      tag: 2.2.4
+      tag: 2.3.0
     ingress:
       main:
         enabled: true
