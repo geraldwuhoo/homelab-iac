@@ -2,7 +2,7 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.40.0"
+      version = "1.42.1"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -22,11 +22,11 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.21.1"
+      version = "2.23.0"
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.0.0-rc.5"
+      version = "1.1.0"
     }
   }
   backend "pg" {
