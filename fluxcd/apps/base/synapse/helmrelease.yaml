@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/matrixdotorg/synapse
-      tag: v1.92.2
+      tag: v1.92.3
     wellknown:
       enabled: true
       replicaCount: 3
