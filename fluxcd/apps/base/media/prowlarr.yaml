@@ -7,10 +7,10 @@ metadata:
 spec:
   chart:
     spec:
-      chart: prowlarr
+      chart: app-template
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
@@ -18,10 +18,10 @@ spec:
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
       tag: 1.9.0.3966
+    env:
+      TZ: UTC
     service:
       main:
-        enabled: true
-        type: ClusterIP
         ports:
           http:
             port: 9696
