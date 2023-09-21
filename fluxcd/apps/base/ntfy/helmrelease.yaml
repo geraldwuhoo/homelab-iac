@@ -7,10 +7,10 @@ metadata:
 spec:
   chart:
     spec:
-      chart: ntfy
+      chart: app-template
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
@@ -18,6 +18,15 @@ spec:
     image:
       repository: docker.io/binwiederhier/ntfy
       tag: v2.7.0
+    env:
+      TZ: UTC
+    args:
+    - serve
+    service:
+      main:
+        ports:
+          http:
+            port: 80
     ingress:
       main:
         enabled: true
