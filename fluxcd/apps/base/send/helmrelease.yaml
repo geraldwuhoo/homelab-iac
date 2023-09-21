@@ -7,19 +7,17 @@ metadata:
 spec:
   chart:
     spec:
-      chart: send
+      chart: app-template
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
-  valuesFrom:
-  - kind: Secret
-    name: send-keydb-secret
-    valuesKey: password
-    targetPath: env.REDIS_PASSWORD
   values:
+    image:
+      repository: registry.gitlab.com/timvisee/send
+      tag: v3.4.23
     initContainers:
       redis-isready:
         name: redis-isready
@@ -28,9 +26,23 @@ spec:
         - "/bin/sh"
         - "-c"
         - "until redis-cli -h send-keydb-headless ping ; do sleep 2 ; done"
-    image:
-      repository: registry.gitlab.com/timvisee/send
-      tag: v3.4.23
+    env:
+      TZ: UTC
+      FILE_DIR: /uploads
+      BASE_URL: "https://send.${DOMAIN}"
+      MAX_FILE_SIZE: "10737418240"
+      MAX_EXPIRE_SECONDS: "2592000"
+      REDIS_HOST: send-keydb-headless
+      REDIS_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: send-keydb-secret
+            key: password
+    service:
+      main:
+        ports:
+          http:
+            port: 1443
     ingress:
       main:
         enabled: true
@@ -46,12 +58,6 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    env:
-      REDIS_HOST: send-keydb-headless
-      FILE_DIR: /uploads
-      BASE_URL: "https://send.${DOMAIN}"
-      MAX_FILE_SIZE: "10737418240"
-      MAX_EXPIRE_SECONDS: "2592000"
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
@@ -66,5 +72,3 @@ spec:
         type: pvc
         mountPath: /uploads
         storageClass: ceph-rbd-hdd-sc
-    redis:
-      enabled: false
