@@ -7,10 +7,10 @@ metadata:
 spec:
   chart:
     spec:
-      chart: sonarr
+      chart: app-template
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
@@ -18,13 +18,30 @@ spec:
     image:
       repository: ghcr.io/onedr0p/sonarr
       tag: 3.0.10.1567
+    env:
+      TZ: UTC
     service:
       main:
-        enabled: true
-        type: ClusterIP
         ports:
           http:
             port: 8989
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          exec:
+            command:
+            - /usr/bin/env
+            - bash
+            - -c
+            - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+              read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+          failureThreshold: 5
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
     podAnnotations:
       backup.velero.io/backup-volumes-excludes: media
     podSecurityContext:
