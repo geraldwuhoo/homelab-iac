@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/vaultwarden/server
-      tag: 1.29.2-alpine
+      tag: 1.29.1-alpine
     env:
       SIGNUPS_ALLOWED: "false"
       WEBSOCKET_ENABLED: "true"
