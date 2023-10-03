@@ -23,6 +23,7 @@ spec:
         brotli-level: "6"
         use-gzip: true
       kind: DaemonSet
+      allowSnippetAnnotations: true
       setAsDefaultIngress: true
       ingressClassResource:
         default: true
