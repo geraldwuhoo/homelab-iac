@@ -4,9 +4,6 @@
 [internal]
 caddy-internal
 
-[public]
-caddy-public
-
 [archrepo]
 sodachi
 
@@ -18,13 +15,11 @@ kaiki
 
 [docker:children]
 internal
-public
 archrepo
 arm
 
 [alpine:children]
 internal
-public
 archrepo
 arm
 

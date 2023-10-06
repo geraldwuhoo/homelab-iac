@@ -9,7 +9,7 @@
   ansible.builtin.replace:
     path: /etc/apk/repositories
     regexp: 'v\d\.\d\d'
-    replace: 'v3.17'
+    replace: 'v3.18'
   register: repo
 
 - name: Update repostories if repository version changes
