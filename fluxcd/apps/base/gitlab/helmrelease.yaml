@@ -100,9 +100,11 @@ spec:
     postgresql:
       install: false
     redis:
-      install: true
+      architecture: replication
       cluster:
         enabled: true
+    prometheus:
+      install: false
     minio:
       persistence:
         size: 50Gi
