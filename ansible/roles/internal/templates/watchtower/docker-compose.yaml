@@ -7,8 +7,7 @@ services:
     environment:
       WATCHTOWER_NOTIFICATIONS: gotify
       WATCHTOWER_NOTIFICATIONS_HOSTNAME: caddy-internal
-      WATCHTOWER_NOTIFICATION_GOTIFY_URL: "{{ watchtower_gotify_url }}"
-      WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN: "{{ watchtower_gotify_token }}"
+      WATCHTOWER_NOTIFICATION_URL: "ntfy://{{ watchtower_ntfy_username }}:{{ watchtower_ntfy_password }}@ntfy.wuhoo.xyz/watchtower?title=WatchtowerUpdates"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --cleanup --interval 43200

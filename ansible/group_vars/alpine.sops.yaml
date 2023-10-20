@@ -3,12 +3,12 @@ ansible_become_method: ENC[AES256_GCM,data:h5x8KQ==,iv:qeD8SK8OMQP+yMTsavjIiy2Qm
 ansible_become_user: ENC[AES256_GCM,data:1wfG/g==,iv:c6kIunUdN2ckYRdZXbhT7jY0qpiSBBiRhzhTPIyV7nI=,tag:b2BpRQgvrkqUluik64If6g==,type:str]
 domain: ENC[AES256_GCM,data:9Gf6HRgcVOba,iv:w6qS+Y9ryF/uIPKnK0YED4WjJ+42vyDHIR3JrdZ0n1w=,tag:djHcfSWXhzqQfJmyEajWBg==,type:str]
 cf_api_token: ENC[AES256_GCM,data:OGIoZHnSO8wB3yilhodQJ5ldv8Z1ZidikB1aCb88HwAZ99/C2l+oXQ==,iv:x27XoGyLewxrB4pco6O6L+OZrMppJ2lHuTdEoiw1q8E=,tag:aTi0UVKdOd77O+6kJEdPAw==,type:str]
-watchtower_gotify_url: ENC[AES256_GCM,data:a8+z2uVbKVJwGHfmNywti+jlDXS8YW/u,iv:mV7SP1I76k2+k2vhSQYXvUm1Fb/1Gn93LoLoQXETVIo=,tag:ij9gwvYm57xqm3iiJ2whIQ==,type:str]
-watchtower_gotify_token: ENC[AES256_GCM,data:+xxODPscbPrQ6NoPelWF,iv:txQWKhf8Nws/Qw0LEUhnnf2v3O4vAvLrgdHMSQT9KrU=,tag:kTyWTtxsmVXxLP0Ijim3Nw==,type:str]
 gitlab_runner_token: ENC[AES256_GCM,data:/krNMr4UrbKCvpUIXzw3eb+Rxhg=,iv:i8Aj+C/oky6ZybbABzqgI8e7imajGBlMyZIPpNHpldo=,tag:lDOW/3k+bGAnHdjv+plZFw==,type:str]
 gitlab_com_runner_token: ENC[AES256_GCM,data:ewRZpWrc85ng2QiFYyBytR6WWf0=,iv:j9xbIxmqPieaAGjTZROm+cTyyJ1kdOVyro9mpVnE3xM=,tag:Hc9ILnzCVb727XgnwCDVwg==,type:str]
 registry_proxy_username: ENC[AES256_GCM,data:+TEqL7cVQu0=,iv:TRb1Fl8YYMfW/qMa0eMsgi0gpegRnhs1cw+f9az21uQ=,tag:QGLLIkWcLY/yVZz7Rt/TSA==,type:str]
 registry_proxy_password: ENC[AES256_GCM,data:Hs3sZ7Ph/PVt4TlJ1LhwpY+kK+KWbkfTcxa+ThHSN8oFZ7v3,iv:gxhz35MHPtXF9zy7Rc9UiDZUDgJwSFnRoL+d+cTgXiA=,tag:TO/vINP/882xpphIrGGWwg==,type:str]
+watchtower_ntfy_username: ENC[AES256_GCM,data:oUp0TnI=,iv:euqMcyBdUAY8OhFe1N1ro6DpnPoaXyRzr2tnlK/S9x8=,tag:y6rVhC35uzpcbPygby/p0A==,type:str]
+watchtower_ntfy_password: ENC[AES256_GCM,data:Tg8jbYjHQSm7IvlhvHZSU/RmAXXNREAoCyW0XtoQpjc=,iv:UJvLa5YVDFJfs4+W+arsp7OR2TfrR+n5IxHwIlqbiDE=,tag:5wazopsBS5UN5y3dchyBwQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -24,8 +24,8 @@ sops:
             STFXaUIxdU9yNlFWS2cyTTBGMVFpU1kKrflUig1KMZW6SqOajJ9dsUoGF3PYSh1f
             G3jl44LuhWTwlq3yhZDTo2B3iqWRpRg9EOu++cCGOw4aKbFqRaYU3A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-02-06T04:35:29Z"
-    mac: ENC[AES256_GCM,data:JspifiRz+duPtaxLn20WIBNPPSLp/HPv4sSVzh+XRX1yhDRyt6r82zRMz22asLnQekSytk50U6MOS+l5HEKOlndLIFbkK2w6f21bCOObNI58bLBRxHYqIkkeg8Cs5lCtw95RjyZV6WTk9qLjwug4B/0Zgb69ug0Bx6IueAAVOyI=,iv:S0A1P8vZfDQBBBPnWprRa4APqHl8q2WtW4bTwyzd7Z4=,tag:iIIqsksFIbePoYpoxtE+yw==,type:str]
+    lastmodified: "2023-10-14T19:03:27Z"
+    mac: ENC[AES256_GCM,data:3BwCQHWSAY+jI8OtkPVd6G3BTA157R5Y3IwVSnCydM1FUBHuJqV5nYEep7MPhkLnM58FnvdlL24QWwr0Hc6jFbOIwwsrRavPuhi0tOZr1OXZR/zvSj8RVUgU922iDmMqll1YVzMD26Ouu9RXlpKCMdgP3dVyo1VYnuBKs7qtrrE=,iv:HZif1DpLOYG9NNllLiJ2jtyoA3O+XhdI3MY6V4uanLI=,tag:XIudTaeSLV3P8Eq9/8a6oQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
-    version: 3.7.3
+    version: 3.8.0

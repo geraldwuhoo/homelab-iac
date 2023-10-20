@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: velero
-      version: "2.32.6"
+      version: "5.1.0"
       sourceRef:
         kind: HelmRepository
         name: vmware-tanzu
@@ -17,11 +17,17 @@ spec:
   values:
     image:
       repository: velero/velero
-      tag: v1.9.7
+      tag: v1.12.0
       pullPolicy: IfNotPresent
     initContainers:
     - name: velero-plugin-for-aws
-      image: velero/velero-plugin-for-aws:v1.5.2
+      image: velero/velero-plugin-for-aws:v1.8.0
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+      - mountPath: /target
+        name: plugins
+    - name: velero-plugin-for-csi
+      image: velero/velero-plugin-for-csi:v0.6.0
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /target
@@ -40,20 +46,40 @@ spec:
         cpu: 125m
         memory: 128Mi
       limits:
-        cpu: null
+        cpu: 1000m
         memory: 512Mi
     configuration:
       provider: aws
       backupStorageLocation:
-        name: velero-onprem
-        bucket: velero
+      - name: velero-onprem
         provider: aws
+        bucket: velero
         default: true
+        accessMode: ReadWrite # change to ReadOnly during migrations/restores
+        credential:
+          name: velero-onprem
+          key: cloud
         config:
           region: default
           s3ForcePathStyle: "true"
           s3Url: "${S3_URL}"
-      defaultVolumesToRestic: true
+      - name: velero-b2
+        provider: aws
+        bucket: velero
+        default: false
+        validationFrequency: 120m
+        accessMode: ReadWrite
+        credential:
+          name: velero-b2
+          key: cloud
+        config:
+          region: us-west-004
+          s3ForcePathStyle: "true"
+          s3Url: "${S3_B2_URL}"
+      backupSyncPeriod: 240m
+      restoreOnlyMode: false
+      features: EnableCSI
+      defaultVolumesToFsBackup: false
     rbac:
       create: true
       clusterAdministrator: true
@@ -63,11 +89,48 @@ spec:
       existingSecret: velero-onprem
       secretContents: {}
     backupsEnabled: true
-    snapshotsEnabled: false
-    deployRestic: true
-    restic:
+    snapshotsEnabled: true
+    deployNodeAgent: true
+    nodeAgent:
       resources:
         requests:
           cpu: 125m
+          memory: 128Mi
         limits:
-          cpu: null
+          cpu: 1000m
+          memory: 1024Mi
+    schedules:
+      onprem: &schedule
+        disabled: false
+        schedule: 12 */3 * * *
+        useOwnershipReferencesInBackup: false
+        template:
+          ttl: 168h
+          includedNamespaces:
+          - authentik
+          - cert-manager
+          - gitlab
+          - gotify
+          - immich
+          - media
+          - nextcloud
+          - privatebin
+          - send
+          - shynet
+          - synapse
+          - vaultwarden
+          - wiki
+          excludedResources:
+          - orders.acme.cert-manager.io
+          - challenges.acme.cert-manager.io
+          - certificaterequests.cert-manager.io 
+          snapshotVolumes: true
+          storageLocation: velero-onprem
+          snapshotMoveData: true
+          datamover: velero
+      b2:
+        <<: *schedule
+        schedule: 52 13 * * *
+        template:
+          ttl: 720h
+          storageLocation: velero-b2
