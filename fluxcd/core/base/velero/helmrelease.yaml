@@ -49,7 +49,6 @@ spec:
         cpu: 1000m
         memory: 512Mi
     configuration:
-      provider: aws
       backupStorageLocation:
       - name: velero-onprem
         provider: aws
@@ -76,6 +75,9 @@ spec:
           region: us-west-004
           s3ForcePathStyle: "true"
           s3Url: "${S3_B2_URL}"
+      volumeSnapshotLocation:
+      - name: velero-onprem
+        provider: csi
       backupSyncPeriod: 240m
       restoreOnlyMode: false
       features: EnableCSI
@@ -101,7 +103,7 @@ spec:
           memory: 1024Mi
     schedules:
       onprem: &schedule
-        disabled: false
+        disabled: true
         schedule: 12 */3 * * *
         useOwnershipReferencesInBackup: false
         template:

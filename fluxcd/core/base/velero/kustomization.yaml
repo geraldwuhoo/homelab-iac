@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - repo-secret.yaml
+- b2-secret.yaml
 - secret.yaml
 - helmrelease.yaml

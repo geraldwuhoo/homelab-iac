@@ -3,6 +3,8 @@ apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-rbd-snapshot-class
+  labels:
+    velero.io/csi-volumesnapshot-class: "true"
 driver: rbd.csi.ceph.com
 deletionPolicy: Delete
 parameters:
