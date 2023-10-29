@@ -103,10 +103,13 @@ spec:
           memory: 1024Mi
     schedules:
       onprem: &schedule
-        disabled: true
+        disabled: false
         schedule: 12 */3 * * *
         useOwnershipReferencesInBackup: false
-        template:
+        template: &template
+          resourcePolicy:
+            kind: configmap
+            name: resource-policy
           ttl: 168h
           includedNamespaces:
           - authentik
@@ -134,5 +137,6 @@ spec:
         <<: *schedule
         schedule: 52 13 * * *
         template:
+          <<: *template
           ttl: 720h
           storageLocation: velero-b2

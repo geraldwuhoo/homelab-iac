@@ -6,4 +6,5 @@ resources:
 - repo-secret.yaml
 - b2-secret.yaml
 - secret.yaml
+- resourcepolicy.yaml
 - helmrelease.yaml
