@@ -10,7 +10,7 @@ metadata:
 spec:
   containers:
   - name: foo-app
-    image: hashicorp/http-echo:0.2.3
+    image: hashicorp/http-echo:1.0.0
     args:
     - "-text=foo"
 ---
@@ -40,7 +40,7 @@ metadata:
 spec:
   containers:
   - name: bar-app
-    image: hashicorp/http-echo:0.2.3
+    image: hashicorp/http-echo:1.0.0
     args:
     - "-text=bar"
 ---
