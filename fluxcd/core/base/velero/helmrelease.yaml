@@ -138,5 +138,5 @@ spec:
         schedule: 52 13 * * *
         template:
           <<: *template
-          ttl: 720h
+          ttl: 336h
           storageLocation: velero-b2
