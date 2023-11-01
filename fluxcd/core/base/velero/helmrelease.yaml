@@ -78,10 +78,10 @@ spec:
       volumeSnapshotLocation:
       - name: velero-onprem
         provider: csi
+      uploaderType: kopia
       backupSyncPeriod: 240m
       restoreOnlyMode: false
-      features: EnableCSI
-      defaultVolumesToFsBackup: false
+      defaultVolumesToFsBackup: true
     rbac:
       create: true
       clusterAdministrator: true
@@ -91,7 +91,7 @@ spec:
       existingSecret: velero-onprem
       secretContents: {}
     backupsEnabled: true
-    snapshotsEnabled: true
+    snapshotsEnabled: false
     deployNodeAgent: true
     nodeAgent:
       resources:
@@ -129,9 +129,9 @@ spec:
           - orders.acme.cert-manager.io
           - challenges.acme.cert-manager.io
           - certificaterequests.cert-manager.io 
-          snapshotVolumes: true
+          snapshotVolumes: false
           storageLocation: velero-onprem
-          snapshotMoveData: true
+          snapshotMoveData: false
           datamover: velero
       b2:
         <<: *schedule
