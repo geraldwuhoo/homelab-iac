@@ -370,7 +370,7 @@ write_files:
               - /usr/bin/kured
               - --reboot-command=/usr/bin/systemctl reboot
               - --period=15m0s
-              %{ if notify ~}- --notify-url="${notify_url}"%{ endif ~}
+              %{ if notify ~}- --notify-url="${notify_url}"%{~ endif }
               env:
               - name: KURED_NODE_ID
                 valueFrom:

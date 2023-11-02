@@ -52,6 +52,10 @@ variable "specs" {
   })
 }
 
+variable "k3s_version" {
+  type = string
+}
+
 variable "notify" {
   type = bool
 }

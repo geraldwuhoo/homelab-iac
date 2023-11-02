@@ -100,6 +100,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
     inline = [
       templatefile("${path.module}/templates/k3s_install.sh.templ", {
         secret   = nonsensitive(random_password.k3s_server_token.result)
+        k3s_version  = var.k3s_version
         init     = count.index == 0 ? "--cluster-init" : "--server https://${var.vip_hostname}.${var.domain}:6443"
         hostname = self.name
         vip      = "${var.vip_hostname}.${var.domain}"
