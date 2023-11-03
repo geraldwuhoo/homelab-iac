@@ -104,7 +104,7 @@ spec:
     schedules:
       onprem: &schedule
         disabled: false
-        schedule: 12 */3 * * *
+        schedule: 12 */6 * * *
         useOwnershipReferencesInBackup: false
         template: &template
           resourcePolicy:
