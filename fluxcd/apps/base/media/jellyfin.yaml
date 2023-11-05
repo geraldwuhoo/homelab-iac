@@ -17,8 +17,8 @@ spec:
   timeout: 10m0s
   values:
     image:
-      repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.10
+      repository: docker.io/jellyfin/jellyfin
+      tag: 10.8.12
     env:
       TZ: UTC
     service:
