@@ -24,7 +24,7 @@ spec:
         name: tachidesk-secret
     image:
       repository: ghcr.io/suwayomi/tachidesk
-      tag: v0.7.0-r1394
+      tag: v0.7.0-r1424
       pullPolicy: Always
     resources:
       requests:
