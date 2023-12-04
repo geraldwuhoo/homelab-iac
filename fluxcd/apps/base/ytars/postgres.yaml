@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: ytars-postgres-cluster
+spec:
+  teamId: "ytars"
+  volume:
+    size: 1Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    ytars:
+    - superuser
+    - createdb
+  databases:
+    ytars: ytars
+  postgresql:
+    version: "15"
