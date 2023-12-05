@@ -6,7 +6,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.18.0"
+      version = "4.20.0"
     }
     sops = {
       source  = "carlpett/sops"
@@ -14,11 +14,11 @@ terraform {
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "4.0.4"
+      version = "4.0.5"
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "16.5.0"
+      version = "16.6.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
