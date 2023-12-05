@@ -1,0 +1,11 @@
+---
+apiVersion: builtin
+kind: PrefixSuffixTransformer
+metadata:
+  name: customPrefixer
+prefix: next-
+fieldSpecs:
+- kind: HelmRelease
+  path: spec/values/env/POSTGRES_HOST
+- kind: HelmRelease
+  path: spec/values/persistence/videos/existingClaim
