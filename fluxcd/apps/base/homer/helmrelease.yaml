@@ -153,7 +153,7 @@ spec:
                   - name: "Immich"
                     logo: "/assets/icons/svg/immich.svg"
                     subtitle: "Self-hosted photo and video backup solution."
-                    url: "https://immich.${DOMAIN}"
+                    url: "https://photos.${DOMAIN}"
                   - name: "Send"
                     logo: "/assets/icons/svg/firefox-send.svg"
                     subtitle: "Client-side encrypted file sharing"
