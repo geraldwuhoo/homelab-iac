@@ -113,6 +113,19 @@ spec:
             environment = [ "container=kube" ]
             [runners.kubernetes]
             image = "ubuntu:18.04"
+              [runners.kubernetes.pod_labels]
+              "custom" = "gitlab-runner"
+              [runners.kubernetes.affinity]
+                [runners.kubernetes.affinity.pod_anti_affinity]
+                  [[runners.kubernetes.affinity.pod_anti_affinity.preferred_during_scheduling_ignored_during_execution]]
+                  weight = 100
+                  [runners.kubernetes.affinity.pod_anti_affinity.preferred_during_scheduling_ignored_during_execution.pod_affinity_term]
+                  topology_key = "kubernetes.io/hostname"
+                    [runners.kubernetes.affinity.pod_anti_affinity.preferred_during_scheduling_ignored_during_execution.pod_affinity_term.label_selector]
+                      [[runners.kubernetes.affinity.pod_anti_affinity.preferred_during_scheduling_ignored_during_execution.pod_affinity_term.label_selector.match_expressions]]
+                      key = "custom"
+                      operator = "In"
+                      values = ["gitlab-runner"]
             {{- if .Values.global.minio.enabled }}
             [runners.cache]
               Type = "s3"
