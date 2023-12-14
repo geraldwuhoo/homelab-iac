@@ -56,7 +56,7 @@ module "k3s" {
   domain       = "wuhoo.xyz"
   vip_hostname = "k3s"
 
-  k3s_version = "v1.27.6+k3s1"
+  k3s_version = "v1.27.8+k3s2"
 
   template = "microos-template"
   start_id = 3000

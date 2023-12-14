@@ -8,7 +8,7 @@ metadata:
     k3s_upgrade: agent
 spec:
   concurrency: 1
-  version: v1.27.6+k3s1
+  version: v1.27.8+k3s2
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
