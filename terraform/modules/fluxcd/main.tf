@@ -6,7 +6,7 @@ terraform {
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.1.2"
+      version = "1.2.0"
     }
   }
 }
