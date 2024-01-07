@@ -106,6 +106,7 @@ spec:
     certmanager:
       install: false
     gitlab-runner:
+      concurrent: 4
       runners:
         config: |
           [[runners]]
