@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: immich
-      version: 0.2.0
+      version: 0.3.1
       sourceRef:
         kind: HelmRepository
         name: immich
@@ -28,7 +28,7 @@ spec:
     podAnnotations:
       backup.velero.io/backup-volumes-excludes: library
     image:
-      tag: v1.90.2
+      tag: v1.91.4
     immich:
       persistence:
         library:
@@ -37,23 +37,6 @@ spec:
       enabled: false
     redis:
       enabled: false
-    typesense:
-      enabled: true
-      env:
-        TYPESENSE_API_KEY:
-          valueFrom:
-            secretKeyRef:
-              name: immich-secret
-              key: TYPESENSE_API_KEY
-      persistence:
-        tsdata:
-          enabled: true
-          accessMode: ReadWriteOnce
-          size: 5Gi
-      image:
-        repository: docker.io/typesense/typesense
-        tag: 0.25.1
-        pullPolicy: IfNotPresent
     server:
       enabled: true
       podSecurityContext:
