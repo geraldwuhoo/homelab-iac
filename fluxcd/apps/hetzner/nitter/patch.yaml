@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     image:
-      repository: docker.io/zedeus/nitter
+      repository: registry.wuhoo.xyz/jerry/nitter-guest-account-docker
       tag: latest
     initContainers:
       redis-isready:
@@ -59,3 +59,12 @@ spec:
         subPath:
         - path: nitter.conf
           mountPath: /src/nitter.conf
+      guest:
+        enabled: true
+        type: custom
+        volumeSpec:
+          secret:
+            secretName: nitter-config
+        subPath:
+        - path: guest_accounts.jsonl
+          mountPath: /src/guest_accounts.jsonl
