@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     image:
-      repository: docker.io/spikecodes/libreddit
+      repository: quay.io/redlib/redlib
       tag: latest
     controller:
       annotations:
