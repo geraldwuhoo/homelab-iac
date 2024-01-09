@@ -30,7 +30,7 @@ spec:
   values:
     image:
       repository: docker.io/wallabag/wallabag
-      tag: 2.6.7
+      tag: 2.6.8
     env:
       TZ: UTC
       POSTGRES_USER: wallabag
