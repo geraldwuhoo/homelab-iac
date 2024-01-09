@@ -18,15 +18,15 @@ terraform {
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "16.6.0"
+      version = "16.7.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.24.0"
+      version = "2.25.2"
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.2.1"
+      version = "1.2.2"
     }
   }
   backend "pg" {
@@ -62,7 +62,7 @@ module "kube-hetzner" {
   # For normal use, this is the path to the terraform registry
   source = "kube-hetzner/kube-hetzner/hcloud"
   # you can optionally specify a version number
-  version = "2.11.0"
+  version = "2.11.7"
 
   # Note that some values, notably "location" and "public_key" have no effect after initializing the cluster.
   # This is to keep Terraform from re-provisioning all nodes at once, which would lose data. If you want to update

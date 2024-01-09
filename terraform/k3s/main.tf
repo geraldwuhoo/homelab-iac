@@ -14,15 +14,15 @@ terraform {
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "16.6.0"
+      version = "16.7.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.24.0"
+      version = "2.25.2"
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.2.1"
+      version = "1.2.2"
     }
   }
   backend "pg" {
