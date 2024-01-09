@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: docker.io/syncthing/syncthing
-      tag: 1.27.1
+      tag: 1.27.2
     service:
       main:
         ports:
