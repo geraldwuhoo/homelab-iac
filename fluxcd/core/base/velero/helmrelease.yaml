@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: velero
-      version: "5.2.0"
+      version: "5.2.2"
       sourceRef:
         kind: HelmRepository
         name: vmware-tanzu
@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: velero/velero
-      tag: v1.12.2
+      tag: v1.12.3
       pullPolicy: IfNotPresent
     initContainers:
     - name: velero-plugin-for-aws
@@ -27,7 +27,7 @@ spec:
       - mountPath: /target
         name: plugins
     - name: velero-plugin-for-csi
-      image: velero/velero-plugin-for-csi:v0.6.2
+      image: velero/velero-plugin-for-csi:v0.6.3
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /target
