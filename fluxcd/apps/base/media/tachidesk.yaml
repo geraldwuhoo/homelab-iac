@@ -19,6 +19,12 @@ spec:
     env:
       DOWNLOAD_AS_CBZ: "true"
       BASIC_AUTH_ENABLED: "true"
+      WEB_UI_CHANNEL: preview
+      UPDATE_EXCLUDE_UNREAD: "false"
+      UPDATE_EXCLUDE_STARTED: "false"
+      UPDATE_EXCLUDE_COMPLETED: "false"
+      UPDATE_INTERVAL: 24
+      EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
     envFrom:
     - secretRef:
         name: tachidesk-secret
