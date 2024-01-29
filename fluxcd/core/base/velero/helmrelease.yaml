@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: velero/velero
-      tag: v1.12.3
+      tag: v1.13.0
       pullPolicy: IfNotPresent
     initContainers:
     - name: velero-plugin-for-aws
