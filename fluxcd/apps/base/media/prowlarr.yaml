@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 1.12.2.4211
+      tag: 1.13.0.4217
     env:
       TZ: UTC
     service:
