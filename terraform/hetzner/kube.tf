@@ -18,7 +18,7 @@ terraform {
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "16.8.0"
+      version = "16.8.1"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
