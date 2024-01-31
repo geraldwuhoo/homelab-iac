@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    name: landing
+  name: landing-ingress-onion-geraldwu
+  namespace: geraldwu
+spec:
+  ingressClassName: nginx-onion
+  rules:
+  - host: ${ONION_DOMAIN_GERALD}
+    http:
+      paths:
+      - backend:
+          service:
+            name: landing-service-geraldwu
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix

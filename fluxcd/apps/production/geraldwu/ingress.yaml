@@ -1,0 +1,36 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/hostname: www.geraldwu.com
+    external-dns.alpha.kubernetes.io/target: geraldwu.com
+    homelab/public: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |-
+      subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/script.js\"></script></body>";
+      proxy_set_header Accept-Encoding "";
+      add_header Onion-Location http://${ONION_DOMAIN_GERALD}$request_uri;
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+  labels:
+    name: landing
+  name: landing-ingress-geraldwu
+  namespace: geraldwu
+spec:
+  ingressClassName: nginx-public
+  rules:
+  - host: geraldwu.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: landing-service-geraldwu
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - geraldwu.com
+    - www.geraldwu.com
+    secretName: geraldwu-com-tls

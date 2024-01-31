@@ -277,3 +277,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://immich-app.github.io/immich-charts/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: bugfest
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://bugfest.github.io/tor-controller

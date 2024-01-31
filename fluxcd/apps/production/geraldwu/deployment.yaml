@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    keel.sh/match-tag: "true"
+    keel.sh/policy: force
+    keel.sh/pollSchedule: '@every 1m'
+    keel.sh/trigger: poll
+  name: landing-geraldwu
+  namespace: geraldwu
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: landing
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: landing
+    spec:
+      containers:
+      - image: registry.wuhoo.xyz/jerry/geraldwu.com:latest
+        imagePullPolicy: Always
+        name: landing
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 128Mi

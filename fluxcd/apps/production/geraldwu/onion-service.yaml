@@ -1,0 +1,20 @@
+---
+apiVersion: tor.k8s.torproject.org/v1alpha2
+kind: OnionService
+metadata:
+  name: landing-service-geraldwu-onion
+  namespace: ingress-nginx-onion
+spec:
+  version: 3
+  rules:
+    - port:
+        number: 80
+      backend:
+        service:
+          name: ingress-nginx-onion-controller
+          port:
+            number: 80
+  privateKeySecret:
+    name: onion-secret-geraldwu
+  extraConfig: |
+      HiddenServiceEnableIntroDoSDefense 1

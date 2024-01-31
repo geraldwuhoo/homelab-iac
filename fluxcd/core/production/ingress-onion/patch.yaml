@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  values:
+    controller:
+      setAsDefaultIngress: false
+      ingressClassResource:
+        name: nginx-onion
+        enabled: true
+        default: false
+        controllerValue: k8s.io/ingress-nginx-onion
+      ingressClass: nginx-onion
+      watchIngressWithoutClass: false
+      extraArgs: null
+      service:
+        loadBalancerIP: 10.40.0.92
+      config:
+        ssl-redirect: "false"
+      replicaCount: 3
+      autoscaling:
+        minReplicas: 3
+        maxReplicas: 10
