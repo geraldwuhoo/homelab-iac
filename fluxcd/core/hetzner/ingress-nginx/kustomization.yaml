@@ -21,6 +21,7 @@ patches:
             enable-ssl-passthrough: null
           service:
             loadBalancerIP: null
+          replicaCount: 2
           metrics:
             enabled: false
             serviceMonitor:
