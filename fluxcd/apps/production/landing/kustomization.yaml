@@ -2,22 +2,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ../../base/landing
-patches:
-- path: patch.yaml
-- target:
-    kind: Ingress
-    name: landing-ingress
-  patch: |-
-    apiVersion: networking.k8s.io/v1
-    kind: Ingress
-    metadata:
-      name: landing-ingress
-      annotations:
-        nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
-        external-dns.alpha.kubernetes.io/hostname: www.${DOMAIN}
-        external-dns.alpha.kubernetes.io/target: ${DOMAIN}
-        nginx.ingress.kubernetes.io/configuration-snippet: |-
-          subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/script.js\"></script></body>";
-          proxy_set_header Accept-Encoding "";
+- namespace.yaml
+- secret.yaml
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- onion-service.yaml
+- onion-ingress.yaml
 

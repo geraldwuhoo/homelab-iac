@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    name: landing
+  name: landing-ingress-onion
+  namespace: landing
+spec:
+  ingressClassName: nginx-onion
+  rules:
+  - host: ${ONION_DOMAIN_WUHOO}
+    http:
+      paths:
+      - backend:
+          service:
+            name: landing-service
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
