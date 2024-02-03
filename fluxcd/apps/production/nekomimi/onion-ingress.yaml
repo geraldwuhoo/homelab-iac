@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    name: landing
+  name: landing-ingress-onion-nekomimi
+  namespace: nekomimi
+spec:
+  ingressClassName: nginx-onion
+  rules:
+  - host: ${ONION_DOMAIN_NEKO}
+    http:
+      paths:
+      - backend:
+          service:
+            name: landing-service-nekomimi
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix

@@ -1,0 +1,36 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/hostname: www.nekomimi.org
+    external-dns.alpha.kubernetes.io/target: nekomimi.org
+    homelab/public: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |-
+      subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/script.js\"></script></body>";
+      proxy_set_header Accept-Encoding "";
+      add_header Onion-Location http://${ONION_DOMAIN_NEKO}$request_uri;
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+  labels:
+    name: landing
+  name: landing-ingress-nekomimi
+  namespace: nekomimi
+spec:
+  ingressClassName: nginx-public
+  rules:
+  - host: nekomimi.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: landing-service-nekomimi
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - nekomimi.org
+    - www.nekomimi.org
+    secretName: nekomimi-org-tls
