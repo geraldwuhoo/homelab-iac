@@ -18,5 +18,3 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: default
 reclaimPolicy: Retain
 allowVolumeExpansion: true
-mountOptions:
-  - discard
