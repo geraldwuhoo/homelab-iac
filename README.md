@@ -123,7 +123,7 @@ This FluxCD infrastructure deploys the following to on-prem production:
 #### Core services
 
 * `ceph-csi` storageclass
-* `cert-manager
+* `cert-manager`
 * `Descheduler`
 * `external-dns`
 * Nginx ingress controller
