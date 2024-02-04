@@ -54,7 +54,6 @@ spec:
       assets:
         enabled: true
         type: emptyDir
-        medium: Memory
         sizeLimit: 1Gi
         mountPath: /www/assets
     configmap:

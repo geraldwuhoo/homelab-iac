@@ -67,6 +67,5 @@ spec:
       public:
         enabled: true
         type: emptyDir
-        medium: Memory
         sizeLimit: 1Gi
         mountPath: /public
