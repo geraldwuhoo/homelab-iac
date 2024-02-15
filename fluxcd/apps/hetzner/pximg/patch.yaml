@@ -37,7 +37,7 @@ spec:
         tls:
         - hosts:
           - pximg.${DOMAIN}
-          secretName: pixiv-cert
+          secretName: pximg-cert
     persistence:
       config:
         enabled: true
