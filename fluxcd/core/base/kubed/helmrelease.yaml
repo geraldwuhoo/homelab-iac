@@ -7,13 +7,14 @@ metadata:
 spec:
   chart:
     spec:
-      chart: kubed
+      chart: config-syncer
       sourceRef:
         kind: HelmRepository
         name: appscode
         namespace: flux-system
   interval: 10m0s
   values:
+    mode: oss
     enableAnalytics: false
     config:
       clusterName: ${CLUSTER_ENV}
