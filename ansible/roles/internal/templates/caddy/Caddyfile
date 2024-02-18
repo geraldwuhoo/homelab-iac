@@ -37,6 +37,14 @@
 		}
 	}
 
+	@reg host devcache.{{ domain }}
+	handle @reg {
+		import local-net
+		reverse_proxy http://devcache:5000 {
+			header_up Docker-Distribution-Api-Version "registry/2.0"
+		}
+	}
+
 	{% for repo in repos -%}
 	@{{ repo.name }} host {{ repo.name }}.{{ domain }}
 	handle @{{ repo.name }} {
@@ -62,5 +70,4 @@ s3.{{ domain }}, *.s3.{{ domain }} {
 		lb_try_duration 15s
 		lb_try_interval 250ms
 	}
-
 }

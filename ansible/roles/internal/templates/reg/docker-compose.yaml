@@ -1,9 +1,15 @@
 version: '2'
 
 services:
+  devcache:
+    image: docker.io/library/registry:2
+    restart: unless-stopped
+    networks:
+      - main
+
   {% for repo in repos -%}
   {{ repo.name }}:
-    image: docker.io/registry:2
+    image: docker.io/library/registry:2
     restart: unless-stopped
     environment:
       REGISTRY_PROXY_REMOTEURL: "{{ repo.url }}"
