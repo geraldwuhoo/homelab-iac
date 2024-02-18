@@ -196,6 +196,10 @@ spec:
                     logo: "/assets/icons/svg/files.svg"
                     subtitle: "Repository for packages built from AUR"
                     url: "https://aur.${DOMAIN}"
+                  - name: "A Dark Room"
+                    logo: "/assets/icons/svg/firewalla.svg"
+                    subtitle: "A minimalist text adventure"
+                    url: "https://adarkroom.${DOMAIN}"
               - name: "Downloads"
                 icon: "fas fa-download"
                 items:

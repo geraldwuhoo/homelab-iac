@@ -106,6 +106,10 @@ data:
             logo: "/icons/svg/files.svg"
             subtitle: "Repository for packages built from AUR"
             url: "https://aur.${DOMAIN}"
+          - name: "A Dark Room"
+            logo: "/icons/svg/firewalla.svg"
+            subtitle: "A minimalist text adventure"
+            url: "https://adarkroom.${DOMAIN}"
       - name: "Downloads"
         items:
           - name: "Sonarr (Internal)"
