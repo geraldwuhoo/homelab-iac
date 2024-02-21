@@ -158,7 +158,7 @@ spec:
       install: false
     minio:
       persistence:
-        size: 50Gi
+        size: 75Gi
         enabled: true
         annotations: 
           helm.sh/resource-policy: keep
