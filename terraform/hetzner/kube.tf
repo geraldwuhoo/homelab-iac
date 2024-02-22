@@ -6,7 +6,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.23.0"
+      version = "4.25.0"
     }
     sops = {
       source  = "carlpett/sops"
@@ -18,15 +18,15 @@ terraform {
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "16.8.1"
+      version = "16.9.1"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.25.2"
+      version = "2.26.0"
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.2.2"
+      version = "1.2.3"
     }
   }
   backend "pg" {
