@@ -1,0 +1,108 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: schildichat-web
+  namespace: synapse
+spec:
+  chart:
+    spec:
+      chart: element-web
+      sourceRef:
+        kind: HelmRepository
+        name: ananace
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    image:
+      repository: ghcr.io/schildichat/schildichat-web
+      tag: latest
+    replicaCount: 3
+    defaultServer:
+      url: https://matrix.${DOMAIN}
+      name: ${DOMAIN}
+    config: {
+      "settingDefaults": {
+        "custom_themes": [
+          {
+            "name": "Discord dark theme",
+            "is_dark": true,
+            "colors": {
+              "accent-color": "#7289DA",
+              "primary-color": "#00b0f4",
+              "warning-color": "#f04747",
+
+              "sidebar-color": "#23272A",
+              "roomlist-background-color": "#2f3136",
+              "roomlist-text-color": "#FFFFFF",
+              "roomlist-text-secondary-color": "#99AAB5",
+              "roomlist-highlights-color": "#393c42",
+              "roomlist-separator-color": "#36393f",
+
+              "timeline-background-color": "#36393f",
+              "timeline-text-color": "#FFFFFF",
+              "timeline-text-secondary-color": "#99AAB5",
+              "timeline-highlights-color": "#32353b",
+              "reaction-row-button-selected-bg-color": "#b9bbbe"
+            }
+          },
+          {
+            "name": "Nord dark theme",
+            "is_dark": true,
+            "colors": {
+              "accent-color": "#a3be8c",
+              "primary-color": "#88c0d0",
+              "warning-color": "#bf616a",
+
+              "sidebar-color": "#2e3440",
+              "roomlist-background-color": "#3b4252",
+              "roomlist-text-color": "#ebcb8b",
+              "roomlist-text-secondary-color": "#e5e9f0",
+              "roomlist-highlights-color": "#2e3440",
+              "roomlist-separator-color": "#434c5e",
+
+              "timeline-background-color": "#434c5e",
+              "timeline-text-color": "#eceff4",
+              "timeline-text-secondary-color": "#81a1c1",
+              "timeline-highlights-color": "#3b4252",
+              "reaction-row-button-selected-bg-color": "#bf616a"
+            }
+          }
+
+        ]
+      },
+      "default_theme": "dark",
+      "showLabsSettings": true,
+      "features": {
+        "feature_new_spinner": "labs",
+        "feature_font_scaling": "labs",
+        "feature_pinning": "labs",
+        "feature_custom_status": "labs",
+        "feature_custom_tags": "labs",
+        "feature_state_counters": "labs",
+        "feature_many_integration_managers": "labs",
+        "feature_mjolnir": "labs",
+        "feature_dm_verification": "labs",
+        "feature_bridge_state": "labs",
+        "feature_presence_in_room_list": "labs",
+        "feature_custom_themes": "labs",
+        "feature_new_room_list": "labs",
+        "feature_irc_ui": "labs"
+      }
+    }
+    ingress:
+      enabled: true
+      className: nginx-public
+      annotations:
+        homelab/public: "true"
+        external-dns.alpha.kubernetes.io/hostname: schildichat.${DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+      hosts:
+      - schildichat.${DOMAIN}
+    resources:
+      requests:
+        cpu: 25m
+        memory: 128Mi
+      limits:
+        memory: 256Mi

@@ -8,6 +8,7 @@ resources:
 - postgres.yaml
 - helmrelease.yaml
 - element-web.yaml
+- schildichat-web.yaml
 - cinny-config.yaml
 - cinny.yaml
 - federation-tester.yaml
