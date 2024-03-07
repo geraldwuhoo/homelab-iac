@@ -1,0 +1,23 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: firefoxsync-postgres-cluster
+spec:
+  teamId: "firefoxsync"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    firefoxsync:
+    - superuser
+    - createdb
+  databases:
+    firefoxsync: firefoxsync
+  postgresql:
+    version: "15"
+  # patroni:
+  #   synchronous_mode: true
+  #   synchronous_mode_strict: true
+  #   synchronous_node_count: 1

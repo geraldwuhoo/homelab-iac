@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: firefoxsync
+  namespace: firefoxsync
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: "1.5.1"
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    image:
+      repository: docker.io/mozilla/syncserver
+      tag: latest
+    env:
+      SYNCSERVER_PUBLIC_URL: https://firefoxsync.${DOMAIN}
+      SYNCSERVER_BATCH_UPLOAD_ENABLED: "true"
+      SYNCSERVER_FORCE_WSGI_ENVIRON: "true"
+      PORT: "5000"
+    envFrom:
+    - secretRef:
+        name: firefoxsync-secret
+    service:
+      main:
+        ports:
+          http:
+            port: 5000
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: firefoxsync.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        hosts:
+        - host: firefoxsync.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+    persistence:
+      data:
+        accessMode: ReadWriteOnce
+        enabled: true
+        retain: true
+        size: 10Gi
+        type: pvc
