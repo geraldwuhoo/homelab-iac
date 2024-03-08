@@ -15,38 +15,34 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   valuesFrom:
-  - kind: Secret
-    name: authentik-secret
-    valuesKey: SECRET_KEY
-    targetPath: authentik.secret_key
-  - kind: Secret
-    name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
-    valuesKey: username
-    targetPath: authentik.postgresql.user
-  - kind: Secret
-    name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
-    valuesKey: password
-    targetPath: authentik.postgresql.password
-  - kind: Secret
-    name: authentik-secret
-    valuesKey: AK_ADMIN_PASS
-    targetPath: env.AUTHENTIK_BOOTSTRAP_PASSWORD
-  - kind: Secret
-    name: authentik-secret
-    valuesKey: SMTP_USER
-    targetPath: authentik.email.username
-  - kind: Secret
-    name: authentik-secret
-    valuesKey: SMTP_PASSWORD
-    targetPath: authentik.email.password
-  - kind: Secret
-    name: authentik-keydb-secret
-    valuesKey: password
-    targetPath: authentik.redis.password
   values:
-    image:
-      repository: ghcr.io/goauthentik/server
-      tag: 2024.2.2
+    global:
+      image:
+        repository: ghcr.io/goauthentik/server
+        tag: 2024.2.2
+      env:
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: AUTHENTIK_DEFAULT_USER_CHANGE_USERNAME
+          value: "false"
+        - name: AUTHENTIK_POSTGRESQL__USER
+          valueFrom:
+            secretKeyRef:
+              name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
+              key: username
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
+              key: password
+        - name: AUTHENTIK_REDIS__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-keydb-secret
+              key: password
+      envFrom:
+        - secretRef:
+            name: authentik-secret
     authentik:
       email:
         host: smtp.sendgrid.net
@@ -62,21 +58,19 @@ spec:
       error_reporting:
         enabled: false
       disable_startup_analytics: true
-    env:
-      PROXY_ADDRESS_FORWARDING: true
-      AUTHENTIK_DEFAULT_USER_CHANGE_USERNAME: false
-    ingress:
-      enabled: true
-      ingressClassName: nginx-public
-      annotations:
-        homelab/public: "true"
-        external-dns.alpha.kubernetes.io/hostname: auth.${DOMAIN}
-        external-dns.alpha.kubernetes.io/target: ${DOMAIN}
-      hosts:
-      - host: auth.${DOMAIN}
+    server:
+      ingress:
+        enabled: true
+        ingressClassName: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: auth.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        hosts:
+        - auth.${DOMAIN}
         paths:
-        - path: "/"
-          pathType: Prefix
+        - /
+        pathType: Prefix
     postgresql:
       enabled: false
     redis:

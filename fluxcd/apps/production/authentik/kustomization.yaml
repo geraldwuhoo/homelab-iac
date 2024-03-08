@@ -15,6 +15,7 @@ patches:
       namespace: authentik
     spec:
       values:
-        replicas: 3
+        server:
+          replicas: 3
         worker:
           replicas: 3
