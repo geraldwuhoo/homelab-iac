@@ -129,7 +129,7 @@ data "external" "kubeconfig" {
   ]
 
   program = [
-    "/usr/bin/ssh",
+    "ssh",
     "-o UserKnownHostsFile=/dev/null",
     "-o StrictHostKeyChecking=no",
     "root@${proxmox_vm_qemu.k3s_node[0].name}",
