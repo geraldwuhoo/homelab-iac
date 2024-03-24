@@ -3,6 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: system-upgrade
 resources:
-- https://github.com/rancher/system-upgrade-controller
+- https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
 patches:
 - path: https://raw.githubusercontent.com/kube-hetzner/terraform-hcloud-kube-hetzner/master/kustomize/system-upgrade-controller.yaml
