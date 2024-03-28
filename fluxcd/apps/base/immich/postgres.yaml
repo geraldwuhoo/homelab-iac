@@ -4,7 +4,7 @@ kind: postgresql
 metadata:
   name: immich-postgres-cluster
 spec:
-  dockerImage: registry.wuhoo.xyz/jerry/spilo-pgvecto.rs:spilo-3.1-p1-pgvectors-0.2.0
+  dockerImage: registry.wuhoo.xyz/jerry/spilo-pgvecto.rs:spilo-3.2-p1-pgvectors-0.2.0
   teamId: "immich"
   volume:
     size: 10Gi
