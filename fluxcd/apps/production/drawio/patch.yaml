@@ -7,7 +7,7 @@ spec:
   values:
     image:
       repository: docker.io/jgraph/drawio
-      tag: 24.2.1
+      tag: 24.2.2
     controller:
       replicas: 3
       strategy: RollingUpdate
