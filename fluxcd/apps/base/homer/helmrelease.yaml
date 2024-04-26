@@ -20,7 +20,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/bastienwirtz/homer
-      tag: v23.10.1
+      tag: v24.04.1
     ingress:
       main:
         enabled: true
