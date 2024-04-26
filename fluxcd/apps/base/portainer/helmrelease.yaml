@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/portainer/portainer-ce
-      tag: 2.20.0
+      tag: 2.20.1
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP
