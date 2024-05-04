@@ -157,15 +157,11 @@ spec:
         password: ${NEXTCLOUD_REDIS_PASS}
     persistence:
       enabled: true
-      annotations:
-        helm.sh/resource-policy: keep
       accessMode: ReadWriteMany
       storageClass: ceph-cephfs-ssd-sc
       size: 8Gi
       nextcloudData:
         enabled: true
-        annotations:
-          helm.sh/resource-policy: keep
         storageClass: ceph-cephfs-hdd-sc
         accessMode: ReadWriteMany
         size: 64Gi
