@@ -23,6 +23,9 @@ spec:
       apiKey: "${CLOUDFLARE_API_KEY}"
       email: "${CLOUDFLARE_EMAIL}"
       proxied: false
+    extraArgs:
+      ignore-ingress-rules-spec: {}
+      ignore-ingress-tls-spec: {}
     annotationFilter: "homelab/public in (true)"
     source:
     - ingress
