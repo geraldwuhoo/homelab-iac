@@ -19,7 +19,7 @@ patches:
       values:
         image:
           repository: dock.mau.dev/mautrix/signal
-          tag: v0.3.0
+          tag: v0.6.0
         service:
           main:
             ports:
@@ -33,15 +33,7 @@ patches:
             size: 10Gi
             type: pvc
             mountPath: /data
-          signald:
-            accessMode: ReadWriteMany
-            enabled: true
-            retain: true
-            size: 10Gi
-            type: pvc
-            storageClass: ceph-cephfs-ssd-sc
-            mountPath: /signald
-          discord-config:
+          signal-config:
             enabled: true
             type: custom
             volumeSpec:
@@ -55,11 +47,3 @@ patches:
             - path: registration.yaml
               mountPath: /data/registration.yaml
               readOnly: true
-        additionalContainers:
-          signald:
-            name: signald
-            image: docker.io/signald/signald:0.23.2
-            imagePullPolicy: IfNotPresent
-            volumeMounts:
-            - name: signald
-              mountPath: /signald
