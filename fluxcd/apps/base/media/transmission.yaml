@@ -31,7 +31,7 @@ spec:
     initContainers:
       custom-webui:
         name: custom-webui
-        image: docker.io/curlimages/curl:8.7.1
+        image: docker.io/curlimages/curl:8.8.0
         command:
         - "/bin/sh"
         - "-c"
