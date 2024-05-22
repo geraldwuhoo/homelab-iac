@@ -14,5 +14,6 @@ resources:
 - prowlarr.yaml
 - jellyseerr.yaml
 - jf-vue.yaml
+- feishin.yaml
 - tachidesk-secret.yaml
 - tachidesk.yaml
