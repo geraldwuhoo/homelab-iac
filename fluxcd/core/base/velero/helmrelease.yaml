@@ -43,11 +43,11 @@ spec:
     cleanUpCRDs: false
     resources:
       requests:
-        cpu: 125m
-        memory: 128Mi
+        cpu: 250m
+        memory: 256Mi
       limits:
-        cpu: 1000m
-        memory: 512Mi
+        cpu: 2
+        memory: 1Gi
     configuration:
       backupStorageLocation:
       - name: velero-onprem
@@ -96,11 +96,11 @@ spec:
     nodeAgent:
       resources:
         requests:
-          cpu: 125m
-          memory: 128Mi
+          cpu: 250m
+          memory: 512Mi
         limits:
-          cpu: 1000m
-          memory: 1024Mi
+          cpu: 2
+          memory: 2Gi
     schedules:
       onprem: &schedule
         disabled: false
