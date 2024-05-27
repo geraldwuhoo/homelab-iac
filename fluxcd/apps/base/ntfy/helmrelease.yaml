@@ -21,6 +21,7 @@ spec:
       tag: v2.11.0
     env:
       TZ: UTC
+      NTFY_BASE_URL: https://ntfy.${DOMAIN}
     args:
     - serve
     service:
