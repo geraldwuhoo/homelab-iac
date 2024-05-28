@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -16,35 +16,38 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    controller:
-      replicas: 3
-      strategy: RollingUpdate
-    image:
-      repository: registry.wuhoo.xyz/jerry/adbir
-      tag: v0.1.0
-    initContainers:
-      dashboard-icons:
-        name: dashboard-icons
-        image: docker.io/bitnami/git:2.45.1-debian-12-r0
-        command:
-        - "/bin/sh"
-        - "-c"
-        - "git clone https://github.com/walkxcode/Dashboard-Icons /public/icons"
-        volumeMounts:
-        - name: public
-          mountPath: /public
-    env:
-      OUT_DIR: /public
-      CONFIG_PATH: /config.yaml
+    controllers:
+      main:
+        type: deployment
+        replicas: 3
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: registry.wuhoo.xyz/jerry/adbir
+              tag: v0.1.0
+            env:
+              OUT_DIR: /public
+              CONFIG_PATH: /config/config.yaml
+        initContainers:
+          dashboard-icons:
+            image:
+              repository: docker.io/bitnami/git
+              tag: 2.45.1-debian-12-r0
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "git clone https://github.com/walkxcode/Dashboard-Icons /public/icons"
     service:
       main:
+        controller: main
         ports:
           http:
-            port: 8080
+            port: &port 8080
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx-public
+        className: nginx-public
         annotations:
           homelab/public: "true"
           external-dns.alpha.kubernetes.io/hostname: adbir.${DOMAIN}
@@ -54,18 +57,15 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: *port
     persistence:
       config:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: adbir-config
-        subPath:
-        - path: config.yaml
-          mountPath: /config.yaml
+        type: configMap
+        name: adbir-config
       public:
-        enabled: true
         type: emptyDir
         sizeLimit: 1Gi
-        mountPath: /public
+        globalMounts:
+        - path: /public
