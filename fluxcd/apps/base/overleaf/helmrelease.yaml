@@ -34,7 +34,7 @@ spec:
   values:
     image:
       repository: docker.io/sharelatex/sharelatex
-      tag: 5.0.3
+      tag: 5.0.4
     ingress:
       main:
         enabled: true
