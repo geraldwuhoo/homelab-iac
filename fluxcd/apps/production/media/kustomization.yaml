@@ -6,7 +6,7 @@ resources:
 - ../../base/media
 patches:
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: jellyfin
@@ -20,7 +20,7 @@ patches:
             accessMode: null
             retain: null
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: sonarr
@@ -34,7 +34,7 @@ patches:
             accessMode: null
             retain: null
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: sonarr4
@@ -48,7 +48,7 @@ patches:
             accessMode: null
             retain: null
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: radarr
@@ -62,7 +62,7 @@ patches:
             accessMode: null
             retain: null
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: radarr4
@@ -76,7 +76,7 @@ patches:
             accessMode: null
             retain: null
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: prowlarr
@@ -90,7 +90,7 @@ patches:
             accessMode: null
             retain: null
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: transmission
@@ -105,7 +105,7 @@ patches:
             retain: null
             subPath: torrent
 - patch: |-
-    apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: tachidesk
