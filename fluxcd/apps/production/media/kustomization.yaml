@@ -58,8 +58,8 @@ patches:
         persistence:
           media:
             existingClaim: media-media-pvc
-            size: null
             accessMode: null
+            size: null
             retain: null
 - patch: |-
     apiVersion: helm.toolkit.fluxcd.io/v2
@@ -72,8 +72,8 @@ patches:
         persistence:
           media:
             existingClaim: media-media-pvc
-            size: null
             accessMode: null
+            size: null
             retain: null
 - patch: |-
     apiVersion: helm.toolkit.fluxcd.io/v2
