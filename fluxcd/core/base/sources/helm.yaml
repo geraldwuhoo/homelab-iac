@@ -1,5 +1,5 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: appscode
@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   url: https://charts.appscode.com/stable
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: authentik
@@ -17,7 +17,7 @@ spec:
   interval: 10m0s
   url: https://charts.goauthentik.io
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: bitnami
@@ -26,7 +26,7 @@ spec:
   interval: 10m0s
   url: https://charts.bitnami.com/bitnami
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: ceph-csi
@@ -35,7 +35,7 @@ spec:
   interval: 10m0s
   url: https://ceph.github.io/csi-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: cert-manager
@@ -44,7 +44,7 @@ spec:
   interval: 10m0s
   url: https://charts.jetstack.io
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: gitlab
@@ -53,7 +53,7 @@ spec:
   interval: 10m0s
   url: https://charts.gitlab.io
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: ingress-nginx
@@ -62,7 +62,7 @@ spec:
   interval: 10m0s
   url: https://kubernetes.github.io/ingress-nginx
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: k8s-at-home
@@ -71,7 +71,7 @@ spec:
   interval: 10m0s
   url: https://k8s-at-home.com/charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: kubernetes-dashboard
@@ -80,7 +80,7 @@ spec:
   interval: 10m0s
   url: https://kubernetes.github.io/dashboard/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: kube-vip
@@ -89,7 +89,7 @@ spec:
   interval: 10m0s
   url: https://kube-vip.github.io/helm-charts/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: loftsh
@@ -98,7 +98,7 @@ spec:
   interval: 10m0s
   url: https://charts.loft.sh
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: nextcloud
@@ -107,7 +107,7 @@ spec:
   interval: 10m0s
   url: https://nextcloud.github.io/helm/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: openfaas
@@ -116,7 +116,7 @@ spec:
   interval: 10m0s
   url: https://openfaas.github.io/faas-netes/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: prometheus-community
@@ -125,7 +125,7 @@ spec:
   interval: 10m0s
   url: https://prometheus-community.github.io/helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: vmware-tanzu
@@ -134,7 +134,7 @@ spec:
   interval: 10m0s
   url: https://vmware-tanzu.github.io/helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: chrisingenhaag
@@ -143,7 +143,7 @@ spec:
   interval: 10m0s
   url: https://chrisingenhaag.github.io/helm
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: kasten
@@ -152,7 +152,7 @@ spec:
   interval: 10m0s
   url: https://charts.kasten.io/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: ww-gitops
@@ -161,7 +161,7 @@ spec:
   interval: 10m0s
   url: https://helm.gitops.weave.works
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: keel
@@ -170,7 +170,7 @@ spec:
   interval: 10m0s
   url:  https://charts.keel.sh
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: postgres-operator
@@ -179,7 +179,7 @@ spec:
   interval: 10m0s
   url: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: descheduler
@@ -188,7 +188,7 @@ spec:
   interval: 10m0s
   url: https://kubernetes-sigs.github.io/descheduler/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: ananace
@@ -197,7 +197,7 @@ spec:
   interval: 10m0s
   url: https://ananace.gitlab.io/charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: requarks
@@ -206,7 +206,7 @@ spec:
   interval: 10m0s
   url: https://charts.js.wiki
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: enapter
@@ -215,7 +215,7 @@ spec:
   interval: 10m0s
   url: https://enapter.github.io/charts/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: renovate
@@ -224,7 +224,7 @@ spec:
   interval: 10m0s
   url: https://docs.renovatebot.com/helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: privatebin
@@ -233,7 +233,7 @@ spec:
   interval: 10m0s
   url: https://privatebin.github.io/helm-chart
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: rancher-stable
@@ -242,7 +242,7 @@ spec:
   interval: 10m0s
   url: https://releases.rancher.com/server-charts/stable
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: bjw-s
@@ -251,7 +251,7 @@ spec:
   interval: 10m0s
   url: https://bjw-s.github.io/helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: linkerd
@@ -260,7 +260,7 @@ spec:
   interval: 10m0s
   url: https://helm.linkerd.io/stable
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: portainer
@@ -269,7 +269,7 @@ spec:
   interval: 10m0s
   url: https://portainer.github.io/k8s/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: immich
@@ -278,7 +278,7 @@ spec:
   interval: 10m0s
   url: https://immich-app.github.io/immich-charts/
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: bugfest
