@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -15,14 +15,16 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    image:
-      repository: registry.wuhoo.xyz/jerry/k3s-notifier
-      tag: v0.1.1
-    env:
-      NTFY_URL: https://ntfy.${DOMAIN}
-    envFrom:
-    - secretRef:
-        name: k3s-notifier-secret
-    service:
+    controllers:
       main:
-        enabled: false
+        type: deployment
+        containers:
+          main:
+            image:
+              repository: registry.wuhoo.xyz/jerry/k3s-notifier
+              tag: v0.1.1
+            env:
+              NTFY_URL: https://ntfy.${DOMAIN}
+            envFrom:
+            - secretRef:
+                name: k3s-notifier-secret
