@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: docker.io/jellyfin/jellyfin
-      tag: 10.9.2
+      tag: 10.9.3
     env:
       TZ: UTC
     service:
