@@ -4,10 +4,4 @@ kind: Kustomization
 namespace: hatsh
 resources:
 - namespace.yaml
-- ../app-template
-namePrefix: hatsh-
-patches:
-- target:
-    kind: HelmRelease
-    name: app-template
-  path: patch.yaml
+- helmrelease.yaml
