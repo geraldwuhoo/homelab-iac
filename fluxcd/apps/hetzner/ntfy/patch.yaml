@@ -11,7 +11,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt
           external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
-        ingressClassName: null
+        className: null
         tls:
         - hosts:
           - ntfy.${DOMAIN}
