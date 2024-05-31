@@ -4,8 +4,5 @@ kind: Kustomization
 namespace: proxitok
 resources:
 - namespace.yaml
+- helmrelease.yaml
 - keydb
-- ../../base/app-template
-namePrefix: proxitok-
-patches:
-- path: patch.yaml
