@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -16,56 +16,60 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    image:
-      repository: ghcr.io/onedr0p/sonarr
-      tag: 4.0.4.1491
-    env:
-      TZ: UTC
+    defaultPodOptions:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: media
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 4.0.4.1491
+            env:
+              TZ: UTC
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                    - /usr/bin/env
+                    - bash
+                    - -c
+                    - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+                      read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+                  failureThreshold: 5
+                  initialDelaySeconds: 60
+                  periodSeconds: 10
+                  successThreshold: 1
+                  timeoutSeconds: 10
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
     service:
       main:
+        controller: main
         ports:
           http:
             port: 8989
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-            - /usr/bin/env
-            - bash
-            - -c
-            - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
-              read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-          failureThreshold: 5
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
-    podAnnotations:
-      backup.velero.io/backup-volumes-excludes: media
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
-        enabled: true
-        retain: true
+        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
-        type: pvc
-      media:
-        enabled: true
         retain: true
+      media:
+        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 20Gi
-        type: pvc
-    resources:
-      requests:
-        cpu: 50m
-        memory: 256Mi
-      limits:
-        memory: 512Mi
+        retain: true
