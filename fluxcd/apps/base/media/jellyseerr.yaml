@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -16,42 +16,51 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    image:
-      repository: docker.io/fallenbagel/jellyseerr
-      tag: 1.8.1
-    env:
-      TZ: UTC
-      LOG_LEVEL: info
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/fallenbagel/jellyseerr
+              tag: 1.8.1
+            env:
+              TZ: UTC
+              LOG_LEVEL: info
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
     service:
       main:
+        controller: main
         ports:
           http:
-            port: 5055
+            port: &port 5055
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx-public
+        className: nginx-public
         hosts:
         - host: jellyseerr.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+            service:
+              identifier: main
+              port: *port
     persistence:
       config:
-        enabled: true
-        retain: true
+        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 20Gi
-        type: pvc
-        mountPath: /app/config
-    resources:
-      requests:
-        cpu: 50m
-        memory: 256Mi
-      limits:
-        memory: 512Mi
+        retain: true
+        globalMounts:
+        - path: /app/config
