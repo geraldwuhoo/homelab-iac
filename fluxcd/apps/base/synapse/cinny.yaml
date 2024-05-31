@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -16,24 +16,28 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    controller:
-      replicas: 3
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/cinnyapp/cinny
-      tag: v3.2.0
-    resources:
-      requests:
-        cpu: 25m
+    controllers:
+      main:
+        replicas: 3
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/cinnyapp/cinny
+              tag: v3.2.0
+            resources:
+              requests:
+                cpu: 25m
     service:
       main:
+        controller: main
         ports:
           http:
-            port: 80
+            port: &port 80
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx-public
+        className: nginx-public
         annotations:
           homelab/public: "true"
           external-dns.alpha.kubernetes.io/hostname: cinny.${DOMAIN}
@@ -43,13 +47,13 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: *port
     persistence:
       config:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: cinny-config
-        subPath:
-        - path: config.json
-          mountPath: /app/config.json
+        type: configMap
+        name: cinny-config
+        globalMounts:
+        - path: /app/config.json
+          subPath: config.json
