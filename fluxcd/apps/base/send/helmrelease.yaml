@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -16,38 +16,50 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    image:
-      repository: registry.gitlab.com/timvisee/send
-      tag: v3.4.23
-    initContainers:
-      redis-isready:
-        name: redis-isready
-        image: docker.io/bitnami/redis:7.2.5-debian-12-r0
-        command:
-        - "/bin/sh"
-        - "-c"
-        - "until redis-cli -h send-keydb-headless ping ; do sleep 2 ; done"
-    env:
-      TZ: UTC
-      FILE_DIR: /uploads
-      BASE_URL: "https://send.${DOMAIN}"
-      MAX_FILE_SIZE: "10737418240"
-      MAX_EXPIRE_SECONDS: "2592000"
-      REDIS_HOST: send-keydb-headless
-      REDIS_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: send-keydb-secret
-            key: password
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: registry.gitlab.com/timvisee/send
+              tag: v3.4.23
+            env:
+              BASE_URL: "https://send.${DOMAIN}"
+              FILE_DIR: /uploads
+              MAX_EXPIRE_SECONDS: "2592000"
+              MAX_FILE_SIZE: "10737418240"
+              REDIS_HOST: send-keydb-headless
+              REDIS_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: send-keydb-secret
+                    key: password
+              TZ: UTC
+        initContainers:
+          redis-isready:
+            image:
+              repository: docker.io/bitnami/redis
+              tag: 7.2.5-debian-12-r0
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "until redis-cli -h send-keydb-headless ping ; do sleep 2 ; done"
     service:
       main:
+        controller: main
         ports:
           http:
-            port: 1443
+            port: &port 1443
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx-public
+        className: nginx-public
         annotations:
           homelab/public: "true"
           external-dns.alpha.kubernetes.io/hostname: send.${DOMAIN}
@@ -59,17 +71,13 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: OnRootMismatch
+            service:
+              identifier: main
+              port: *port
     persistence:
       uploads:
-        accessMode: ReadWriteOnce
-        enabled: true
-        retain: true
-        size: 250Gi
-        type: pvc
-        mountPath: /uploads
+        type: persistentVolumeClaim
         storageClass: ceph-rbd-hdd-sc
+        accessMode: ReadWriteOnce
+        size: 250Gi
+        retain: true
