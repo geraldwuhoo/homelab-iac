@@ -117,7 +117,9 @@ patches:
         persistence:
           tachidesk:
             existingClaim: media-media-pvc
-            size: null
             accessMode: null
+            size: null
             retain: null
-            subPath: tachidesk
+            globalMounts:
+            - path: /home/suwayomi/.local/share/Tachidesk/downloads
+              subPath: tachidesk

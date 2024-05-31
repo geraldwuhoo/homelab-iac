@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -16,37 +16,50 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    env:
-      DOWNLOAD_AS_CBZ: "true"
-      BASIC_AUTH_ENABLED: "true"
-      WEB_UI_CHANNEL: preview
-      UPDATE_EXCLUDE_UNREAD: "false"
-      UPDATE_EXCLUDE_STARTED: "false"
-      UPDATE_EXCLUDE_COMPLETED: "false"
-      UPDATE_INTERVAL: 24
-      EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
-    envFrom:
-    - secretRef:
-        name: tachidesk-secret
-    image:
-      repository: ghcr.io/suwayomi/tachidesk
-      tag: v0.7.0-r1479
-      pullPolicy: Always
-    resources:
-      requests:
-        cpu: 25m
-        memory: 500Mi
-      limits:
-        memory: 1500Mi
+    defaultPodOptions:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: tachidesk
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/suwayomi/tachidesk
+              tag: v0.7.0-r1479
+              pullPolicy: Always
+            env:
+              DOWNLOAD_AS_CBZ: "true"
+              BASIC_AUTH_ENABLED: "true"
+              WEB_UI_CHANNEL: preview
+              UPDATE_EXCLUDE_UNREAD: "false"
+              UPDATE_EXCLUDE_STARTED: "false"
+              UPDATE_EXCLUDE_COMPLETED: "false"
+              UPDATE_INTERVAL: 24
+              EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
+            envFrom:
+            - secretRef:
+                name: tachidesk-secret
+            resources:
+              requests:
+                cpu: 25m
+                memory: 500Mi
+              limits:
+                memory: 1500Mi
     service:
       main:
+        controller: main
         ports:
           http:
-            port: 4567
+            port: &port 4567
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx-public
+        className: nginx-public
         annotations:
           homelab/public: "true"
           external-dns.alpha.kubernetes.io/hostname: tachidesk.${DOMAIN}
@@ -56,25 +69,21 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    podAnnotations:
-      backup.velero.io/backup-volumes-excludes: tachidesk
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+            service:
+              identifier: main
+              port: *port
     persistence:
       config:
-        enabled: true
-        retain: true
+        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
-        type: pvc
-        mountPath: /home/suwayomi/.local/share/Tachidesk
-      tachidesk:
-        enabled: true
         retain: true
+        globalMounts:
+        - path: /home/suwayomi/.local/share/Tachidesk
+      tachidesk:
+        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 20Gi
-        type: pvc
-        mountPath: /home/suwayomi/.local/share/Tachidesk/downloads
+        retain: true
+        globalMounts:
+        - path: /home/suwayomi/.local/share/Tachidesk/downloads
