@@ -100,10 +100,12 @@ patches:
         persistence:
           downloads:
             existingClaim: media-media-pvc
-            size: null
             accessMode: null
+            size: null
             retain: null
-            subPath: torrent
+            globalMounts:
+            - path: /downloads
+              subPath: torrent
 - patch: |-
     apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
