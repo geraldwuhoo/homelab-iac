@@ -9,7 +9,9 @@ spec:
     persistence:
       data:
         existingClaim: syncthing-pvc
-        size: null
         accessMode: null
+        size: null
         retain: null
-        subPath: syncthing
+        globalMounts:
+        - path: /var/syncthing
+          subPath: syncthing
