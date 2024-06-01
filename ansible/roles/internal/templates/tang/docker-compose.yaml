@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  tang:
+    image: docker.io/padhihomelab/tang:latest
+    restart: unless-stopped
+    environment:
+      DOCKER_UID: 1000
+    ports:
+      - 1234:8080
+    volumes:
+      - ./db:/db
