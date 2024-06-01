@@ -33,7 +33,7 @@ spec:
           dashboard-icons:
             image:
               repository: docker.io/bitnami/git
-              tag: 2.45.1-debian-12-r0
+              tag: 2.45.2-debian-12-r0
             command:
             - "/bin/sh"
             - "-c"

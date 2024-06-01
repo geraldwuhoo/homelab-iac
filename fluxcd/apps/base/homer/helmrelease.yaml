@@ -37,7 +37,7 @@ spec:
     initContainers:
       dashboard-icons:
         name: dashboard-icons
-        image: docker.io/bitnami/git:2.45.1-debian-12-r0
+        image: docker.io/bitnami/git:2.45.2-debian-12-r0
         command:
         - "/bin/sh"
         - "-c"
