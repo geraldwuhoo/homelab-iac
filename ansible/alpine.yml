@@ -26,10 +26,3 @@
     - archrepo
   roles:
     - archrepo
-
-- hosts: arm
-  gather_facts: false
-  tags:
-    - arm
-  roles:
-    - arm

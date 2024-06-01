@@ -7,21 +7,16 @@ caddy-internal
 [archrepo]
 sodachi
 
-[arm]
-yotsugi
-
 [cephgeorep]
 kaiki
 
 [docker:children]
 internal
 archrepo
-arm
 
 [alpine:children]
 internal
 archrepo
-arm
 
 [digitalocean]
 netmaker
