@@ -18,7 +18,7 @@
   when: item.state == 'file'
 
 - name: Activate docker-compose
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ item.path }}"
   with_community.general.filetree:
     - ../templates
