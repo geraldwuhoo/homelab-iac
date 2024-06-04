@@ -7,17 +7,34 @@ metadata:
 spec:
   chart:
     spec:
-      chart: uptime-kuma
+      chart: app-template
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
   values:
-    image:
-      repository: docker.io/louislam/uptime-kuma
-      tag: "1.23.13"
+    defaultPodOptions:
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - "1.1.1.1"
+          - "9.9.9.9"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/louislam/uptime-kuma
+              tag: 1.23.13
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: &port 3001
     ingress:
       main:
         enabled: true
@@ -35,16 +52,14 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: *port
     persistence:
       data:
+        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
-        enabled: true
-        retain: true
         size: 1Gi
-        type: pvc
-        mountPath: /app/data
-    dnsPolicy: "None"
-    dnsConfig:
-      nameservers:
-        - "1.1.1.1"
-        - "9.9.9.9"
+        retain: true
+        globalMounts:
+        - path: /app/data
