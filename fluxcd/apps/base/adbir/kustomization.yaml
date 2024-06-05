@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: adbir
 resources:
 - namespace.yaml
-- configmap.yaml
 - helmrelease.yaml
