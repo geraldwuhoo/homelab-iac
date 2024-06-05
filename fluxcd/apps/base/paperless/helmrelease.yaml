@@ -31,6 +31,9 @@ spec:
               PAPERLESS_DBHOST: "paperless-postgres-cluster"
               PAPERLESS_DBNAME: paperless
               PAPERLESS_OCR_LANGUAGE: eng
+              PAPERLESS_TIKA_ENABLED: true
+              PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
               PAPERLESS_URL: https://paperless.${DOMAIN}
               USERMAP_GID: 1000
               USERMAP_UID: 1000
@@ -47,12 +50,38 @@ spec:
             envFrom:
             - secretRef:
                 name: paperless-secret
+      gotenberg:
+        containers:
+          main:
+            image:
+              repository: docker.io/gotenberg/gotenberg
+              tag: 8.6.0
+            args:
+            - gotenberg
+            - "--chromium-disable-javascript=true"
+            - "--chromium-allow-list=file:///tmp/.*"
+      tika:
+        containers:
+          main:
+            image:
+              repository: docker.io/apache/tika
+              tag: 2.9.2.1
     service:
       main:
         controller: main
         ports:
           http:
             port: &port 8000
+      gotenberg:
+        controller: gotenberg
+        ports:
+          http:
+            port: 3000
+      tika:
+        controller: tika
+        ports:
+          http:
+            port: 9998
     ingress:
       main:
         enabled: true
