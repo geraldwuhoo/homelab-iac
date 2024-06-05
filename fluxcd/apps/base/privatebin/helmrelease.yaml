@@ -22,7 +22,7 @@ spec:
     replicaCount: 3
     image:
       repository: docker.io/privatebin/pdo
-      tag: 1.4.0-alpine3.16.1
+      tag: 1.7.3
     ingress:
       enabled: true
       className: nginx-public
