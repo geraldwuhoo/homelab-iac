@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv
+spec:
+  csi:
+    volumeAttributes:
+      "rootPath": /volumes/nas/important/971c4832-45a7-493a-9b87-51cd07551c61/paperless
