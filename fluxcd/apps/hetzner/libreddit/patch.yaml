@@ -16,6 +16,9 @@ spec:
         keel.sh/pollSchedule: "@every 240m"
       replicas: 1
       strategy: RollingUpdate
+    env:
+      REDLIB_DEFAULT_SHOW_NSFW: "on"
+      REDLIB_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION: "on"
     service:
       main:
         ports:

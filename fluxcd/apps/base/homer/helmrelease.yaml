@@ -7,24 +7,43 @@ metadata:
 spec:
   chart:
     spec:
-      chart: homer
+      chart: app-template
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
   values:
-    controller:
-      replicas: 3
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/bastienwirtz/homer
-      tag: v24.05.1
+    controllers:
+      main:
+        replicas: 3
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/bastienwirtz/homer
+              tag: v24.05.1
+        initContainers:
+          dashboard-icons:
+            image:
+              repository: docker.io/bitnami/git
+              tag: 2.45.2-debian-12-r0
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "cp /config/* /www/assets/* && git clone https://github.com/walkxcode/Dashboard-Icons /www/assets/icons"
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: &port 8080
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx-public
+        className: nginx-public
         annotations:
           homelab/public: "true"
           external-dns.alpha.kubernetes.io/hostname: homer.${DOMAIN}
@@ -34,31 +53,22 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    initContainers:
-      dashboard-icons:
-        name: dashboard-icons
-        image: docker.io/bitnami/git:2.45.2-debian-12-r0
-        command:
-        - "/bin/sh"
-        - "-c"
-        - "cp /config/* /www/assets/* && git clone https://github.com/walkxcode/Dashboard-Icons /www/assets/icons"
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        - name: assets
-          mountPath: /www/assets
+            service:
+              identifier: main
+              port: *port
     persistence:
       config:
-        enabled: false
-        mountPath: /config
+        type: configMap
+        name: homer-config
+        globalMounts:
+        - path: /config
       assets:
-        enabled: true
         type: emptyDir
         sizeLimit: 1Gi
-        mountPath: /www/assets
-    configmap:
+        globalMounts:
+        - path: /www/assets
+    configMaps:
       config:
-        enabled: true
         data:
           config.yml: |
             title: "${DOMAIN} dashboard"
