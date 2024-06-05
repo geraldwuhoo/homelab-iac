@@ -24,19 +24,15 @@ spec:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.9.0
             env:
+              # admin
               PAPERLESS_ADMIN_MAIL: fake@example.com
               PAPERLESS_ADMIN_USER: admin
-              PAPERLESS_CONSUMER_POLLING: 60
+              # OIDC
+              PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+              # Database
               PAPERLESS_DBENGINE: postgresql
               PAPERLESS_DBHOST: "paperless-postgres-cluster"
               PAPERLESS_DBNAME: paperless
-              PAPERLESS_OCR_LANGUAGE: eng
-              PAPERLESS_TIKA_ENABLED: true
-              PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
-              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
-              PAPERLESS_URL: https://paperless.${DOMAIN}
-              USERMAP_GID: 1000
-              USERMAP_UID: 1000
               PAPERLESS_DBUSER:
                 valueFrom:
                   secretKeyRef:
@@ -47,6 +43,16 @@ spec:
                   secretKeyRef:
                     name: *pgsecret
                     key: password
+              # Paperless tika/gotenberg
+              PAPERLESS_TIKA_ENABLED: true
+              PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+              PAPERLESS_URL: https://paperless.${DOMAIN}
+              # Misc
+              PAPERLESS_OCR_LANGUAGE: eng
+              PAPERLESS_CONSUMER_POLLING: 60
+              USERMAP_GID: 1000
+              USERMAP_UID: 1000
             envFrom:
             - secretRef:
                 name: paperless-secret
