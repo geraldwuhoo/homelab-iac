@@ -2,10 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: paperless
+namePrefix: paperless-
 resources:
-- namespace.yaml
-- zalando-secret.yaml
 - secret.yaml
-- keydb
-- postgres.yaml
-- helmrelease.yaml
+- ../../keydb

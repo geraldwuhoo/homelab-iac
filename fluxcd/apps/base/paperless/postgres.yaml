@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: paperless-postgres-cluster
+spec:
+  teamId: paperless
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    paperless:
+    - superuser
+    - createdb
+  databases:
+    paperless: paperless
+  postgresql:
+    version: "16"
