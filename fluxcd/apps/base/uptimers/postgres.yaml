@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: uptimers-postgres-cluster
+spec:
+  teamId: uptimers
+  volume:
+    size: 1Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    uptimers:
+    - superuser
+    - createdb
+  databases:
+    uptimers: uptimers
+  postgresql:
+    version: "15"

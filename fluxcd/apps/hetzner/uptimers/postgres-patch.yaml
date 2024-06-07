@@ -1,0 +1,7 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: uptimers-postgres-cluster
+spec:
+  numberOfInstances: 1
