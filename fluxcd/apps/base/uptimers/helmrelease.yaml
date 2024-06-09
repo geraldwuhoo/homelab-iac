@@ -38,6 +38,9 @@ spec:
               POSTGRES_HOST: uptimers-postgres-cluster
               POSTGRES_DB: uptimers
               RUST_LOG: info
+            envFrom:
+            - secretRef:
+                name: uptimers-secret
     service:
       main:
         controller: main
