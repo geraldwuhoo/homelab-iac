@@ -8,7 +8,7 @@ gitlab_com_runner_token: ENC[AES256_GCM,data:ewRZpWrc85ng2QiFYyBytR6WWf0=,iv:j9x
 registry_proxy_username: ENC[AES256_GCM,data:+TEqL7cVQu0=,iv:TRb1Fl8YYMfW/qMa0eMsgi0gpegRnhs1cw+f9az21uQ=,tag:QGLLIkWcLY/yVZz7Rt/TSA==,type:str]
 registry_proxy_password: ENC[AES256_GCM,data:Hs3sZ7Ph/PVt4TlJ1LhwpY+kK+KWbkfTcxa+ThHSN8oFZ7v3,iv:gxhz35MHPtXF9zy7Rc9UiDZUDgJwSFnRoL+d+cTgXiA=,tag:TO/vINP/882xpphIrGGWwg==,type:str]
 watchtower_ntfy_username: ENC[AES256_GCM,data:oUp0TnI=,iv:euqMcyBdUAY8OhFe1N1ro6DpnPoaXyRzr2tnlK/S9x8=,tag:y6rVhC35uzpcbPygby/p0A==,type:str]
-watchtower_ntfy_password: ENC[AES256_GCM,data:Tg8jbYjHQSm7IvlhvHZSU/RmAXXNREAoCyW0XtoQpjc=,iv:UJvLa5YVDFJfs4+W+arsp7OR2TfrR+n5IxHwIlqbiDE=,tag:5wazopsBS5UN5y3dchyBwQ==,type:str]
+watchtower_ntfy_password: ENC[AES256_GCM,data:xvG2voSeA8Uz6eJRlpF4yhadat6n/ZmS9GYpJC19Dq4iOdL2,iv:OFcNR+p/UmerFH6870IT+phzO3K9nsr5MF+OIr4ZtZU=,tag:zgmDR3sBDZf5VtRkalFxog==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -24,8 +24,8 @@ sops:
             STFXaUIxdU9yNlFWS2cyTTBGMVFpU1kKrflUig1KMZW6SqOajJ9dsUoGF3PYSh1f
             G3jl44LuhWTwlq3yhZDTo2B3iqWRpRg9EOu++cCGOw4aKbFqRaYU3A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-10-14T19:03:27Z"
-    mac: ENC[AES256_GCM,data:3BwCQHWSAY+jI8OtkPVd6G3BTA157R5Y3IwVSnCydM1FUBHuJqV5nYEep7MPhkLnM58FnvdlL24QWwr0Hc6jFbOIwwsrRavPuhi0tOZr1OXZR/zvSj8RVUgU922iDmMqll1YVzMD26Ouu9RXlpKCMdgP3dVyo1VYnuBKs7qtrrE=,iv:HZif1DpLOYG9NNllLiJ2jtyoA3O+XhdI3MY6V4uanLI=,tag:XIudTaeSLV3P8Eq9/8a6oQ==,type:str]
+    lastmodified: "2024-06-12T05:06:15Z"
+    mac: ENC[AES256_GCM,data:LgBZHDJ9WiLHWZVQgsjGbwcKOQSNICRkkdRl8m2r+nbVoMH+tpQD+VGZjsozLrsakz6UI/bpqPtPAqJ6izTJWljl7meWWSD3c6Q/W4Gep17VqE653pGgb4G1nbuF/bNHufATi+pcHHRz0gsbiBc/7G4iGcpPxtu37IZ910+03NI=,iv:iaBe01Ktaq6y6plfAfXk+tAyoCEgY6nPeNJN2LLovkw=,tag:DXojAapJ5ha3cdllTRAOhQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
-    version: 3.8.0
+    version: 3.8.1
