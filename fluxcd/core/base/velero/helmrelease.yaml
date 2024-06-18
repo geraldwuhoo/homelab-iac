@@ -54,6 +54,7 @@ spec:
           region: default
           s3ForcePathStyle: "true"
           s3Url: "${S3_URL}"
+          checksumAlgorithm: ""
       - name: velero-b2
         provider: aws
         bucket: velero
@@ -67,6 +68,7 @@ spec:
           region: us-west-004
           s3ForcePathStyle: "true"
           s3Url: "${S3_B2_URL}"
+          checksumAlgorithm: ""
       volumeSnapshotLocation:
       - name: velero-onprem
         provider: csi
