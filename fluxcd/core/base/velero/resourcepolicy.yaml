@@ -15,4 +15,12 @@ data:
         - ceph-cephfs-sc
       action:
         type: skip
+    - conditions:
+        volumeTypes:
+          - emptyDir
+          - downwardAPI
+          - configMap
+          - secret
+      action:
+        type: skip
 
