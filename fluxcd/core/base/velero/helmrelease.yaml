@@ -104,12 +104,17 @@ spec:
           includedNamespaces:
           - authentik
           - cert-manager
+          - findmydevice
+          - firefoxsync
           - gitlab
           - immich
           - media
+          - mollysocket
           - nextcloud
+          - paperless
           - privatebin
           - send
+          - shortpaste
           - shynet
           - synapse
           - vaultwarden
