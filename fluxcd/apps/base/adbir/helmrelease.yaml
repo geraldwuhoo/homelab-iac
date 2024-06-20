@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: registry.wuhoo.xyz/jerry/adbir
-              tag: v0.1.1
+              tag: v0.1.2
             env:
               OUT_DIR: /public
               CONFIG_PATH: /config/config.yaml
@@ -44,7 +44,7 @@ spec:
             command:
             - "/bin/sh"
             - "-c"
-            - "curl -L https://files.catbox.moe/ujwnph.webp -o /logo.webp"
+            - "curl -L https://files.catbox.moe/ujwnph.webp -o /public/logo.webp"
     service:
       main:
         controller: main
