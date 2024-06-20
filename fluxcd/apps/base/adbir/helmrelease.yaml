@@ -37,6 +37,14 @@ spec:
             - "/bin/sh"
             - "-c"
             - "git clone https://github.com/walkxcode/Dashboard-Icons /public/icons"
+          logo:
+            image:
+              repository: docker.io/curlimages/curl
+              tag: 8.8.0
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "curl -L https://files.catbox.moe/ujwnph.webp -o /logo.webp"
     service:
       main:
         controller: main
@@ -73,7 +81,8 @@ spec:
         data:
           config.yaml: |-
             title: "${DOMAIN} dashboard"
-            subtitle: "A full list of ${DOMAIN} services. Some services may be internal-only."
+            subtitle: "A full list of ${DOMAIN} services."
+            image: "logo.webp"
 
             services:
               - name: "Federated"
