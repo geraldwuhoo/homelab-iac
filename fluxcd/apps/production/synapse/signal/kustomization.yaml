@@ -19,7 +19,7 @@ patches:
       values:
         image:
           repository: dock.mau.dev/mautrix/signal
-          tag: v0.6.1
+          tag: v0.6.2
         service:
           main:
             ports:
