@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: registry.wuhoo.xyz/jerry/adbir
-              tag: v0.1.0
+              tag: v0.1.1
             env:
               OUT_DIR: /public
               CONFIG_PATH: /config/config.yaml
