@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: adbir
-  namespace: adbir
 spec:
   chart:
     spec:
@@ -80,8 +79,7 @@ spec:
       config:
         data:
           config.yaml: |-
-            title: "${DOMAIN} dashboard"
-            subtitle: "A full list of ${DOMAIN} services."
+            title: "wuhoo!"
             image: "logo.webp"
 
             services:

@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: adbir
+spec:
+  values:
+    ingress:
+      main:
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: www.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+          homelab/public: "true"
+          nginx.ingress.kubernetes.io/configuration-snippet: |-
+            subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/script.js\"></script></body>";
+            proxy_set_header Accept-Encoding "";
+            add_header Onion-Location http://${ONION_DOMAIN_WUHOO}$request_uri;
+          nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+        hosts:
+        - host: ${DOMAIN}
+          paths: &paths
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: 8080
+      onion:
+        enabled: true
+        className: nginx-onion
+        annotations:
+          nginx.ingress.kubernetes.io/ssl-redirect: "false"
+        hosts:
+        - host: ${ONION_DOMAIN_WUHOO}
+          paths: *paths
