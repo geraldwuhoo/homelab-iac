@@ -29,17 +29,15 @@ spec:
               CONFIG_PATH: /config/config.yaml
         initContainers:
           dashboard-icons:
-            image:
-              repository: docker.io/bitnami/git
-              tag: 2.45.2-debian-12-r0
+            image: &curlimage
+              repository: docker.io/curlimages/curl
+              tag: 8.8.0
             command:
             - "/bin/sh"
             - "-c"
-            - "git clone https://github.com/walkxcode/Dashboard-Icons /public/icons"
+            - curl -o- -L "https://github.com/walkxcode/dashboard-icons/archive/refs/heads/main.tar.gz" | tar xzf - -C /public && mkdir -v /public/icons && mv -v /public/dashboard-icons-main/svg /public/dashboard-icons-main/png /public/icons
           logo:
-            image:
-              repository: docker.io/curlimages/curl
-              tag: 8.8.0
+            image: *curlimage
             command:
             - "/bin/sh"
             - "-c"
