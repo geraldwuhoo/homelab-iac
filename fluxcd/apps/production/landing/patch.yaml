@@ -24,6 +24,17 @@ spec:
             service:
               identifier: main
               port: 8080
+      adbir:
+        enabled: true
+        className: nginx-public
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: adbir.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+          nginx.ingress.kubernetes.io/permanent-redirect: "https://${DOMAIN}$request_uri"
+          homelab/public: "true"
+        hosts:
+        - host: adbir.${DOMAIN}
+          paths: *paths
       onion:
         enabled: true
         className: nginx-onion
