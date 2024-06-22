@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: jellystat-postgres-cluster
+spec:
+  teamId: "jellystat"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    jellystat:
+    - superuser
+    - createdb
+  databases:
+    jellystat: jellystat
+  postgresql:
+    version: "15"

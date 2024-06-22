@@ -2,8 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: tachidesk
-  namespace: media
+  name: jellystat
 spec:
   chart:
     spec:
@@ -17,8 +16,6 @@ spec:
   timeout: 10m0s
   values:
     defaultPodOptions:
-      annotations:
-        backup.velero.io/backup-volumes-excludes: tachidesk
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -29,20 +26,25 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/suwayomi/tachidesk
-              tag: v1.1.1
+              repository: docker.io/cyfershepard/jellystat
+              tag: 1.1.0
             env:
-              DOWNLOAD_AS_CBZ: "true"
-              BASIC_AUTH_ENABLED: "true"
-              WEB_UI_CHANNEL: preview
-              UPDATE_EXCLUDE_UNREAD: "false"
-              UPDATE_EXCLUDE_STARTED: "false"
-              UPDATE_EXCLUDE_COMPLETED: "false"
-              UPDATE_INTERVAL: 24
-              EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
+              POSTGRES_IP: jellystat-postgres-cluster
+              POSTGRES_PORT: 5432
+              POSTGRES_DB: jellystat
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: jellystat.jellystat-postgres-cluster.credentials.postgresql.acid.zalan.do
+                    key: username
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: jellystat.jellystat-postgres-cluster.credentials.postgresql.acid.zalan.do
+                    key: password
             envFrom:
             - secretRef:
-                name: tachidesk-secret
+                name: jellystat-secret
             resources:
               requests:
                 cpu: 25m
@@ -54,17 +56,17 @@ spec:
         controller: main
         ports:
           http:
-            port: &port 4567
+            port: &port 3000
     ingress:
       main:
         enabled: true
         className: nginx-public
         annotations:
           homelab/public: "true"
-          external-dns.alpha.kubernetes.io/hostname: tachidesk.${DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: jellystat.${DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${DOMAIN}
         hosts:
-        - host: tachidesk.${DOMAIN}
+        - host: jellystat.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
@@ -72,17 +74,10 @@ spec:
               identifier: main
               port: *port
     persistence:
-      config:
+      backup-data:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
         retain: true
         globalMounts:
-        - path: /home/suwayomi/.local/share/Tachidesk
-      tachidesk:
-        type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        size: 20Gi
-        retain: true
-        globalMounts:
-        - path: /home/suwayomi/.local/share/Tachidesk/downloads
+        - path: /app/backend/backup-data

@@ -17,3 +17,4 @@ resources:
 - feishin.yaml
 - tachidesk-secret.yaml
 - tachidesk.yaml
+- ./jellystat
