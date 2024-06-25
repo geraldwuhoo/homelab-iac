@@ -5,6 +5,8 @@ metadata:
   name: pvc
   labels:
     no-backup: "true"
+  annotations:
+    k8up.io/backup: "false"
 spec:
   accessModes:
   - ReadWriteMany
