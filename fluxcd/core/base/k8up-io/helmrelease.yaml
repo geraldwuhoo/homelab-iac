@@ -18,3 +18,7 @@ spec:
     repository: k8up-io/k8up
     tag: v2.10.0
     timezone: America/Los_Angeles
+    k8up:
+      envVars:
+      - name: K8UP_DEBUG
+        value: "true"
