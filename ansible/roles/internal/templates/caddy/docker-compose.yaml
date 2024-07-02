@@ -1,5 +1,3 @@
-version: '2'
-  
 services:
   caddy:
     image: registry.wuhoo.xyz/jerry/caddy-pq

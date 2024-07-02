@@ -1,5 +1,3 @@
-version: '2'
-
 services:
   devcache:
     image: docker.io/library/registry:2
