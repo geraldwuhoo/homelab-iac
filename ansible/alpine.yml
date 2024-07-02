@@ -20,6 +20,13 @@
   roles:
     - internal
 
+- hosts: public
+  gather_facts: false
+  tags:
+    - public
+  roles:
+    - public
+
 - hosts: archrepo
   gather_facts: false
   tags:
