@@ -34,7 +34,6 @@ spec:
               tag: 4.0.5
             env:
               TRANSMISSION_WEB_HOME: /config/flood-for-transmission
-              TRANSMISSION__CACHE_SIZE_MB: !!str 64
               TRANSMISSION__DOWNLOAD_QUEUE_ENABLED: true
               TRANSMISSION__DOWNLOAD_QUEUE_SIZE: !!str 20
               TRANSMISSION__IDLE_SEEDING_LIMIT: !!str 60
