@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-      version: 4.10.1
+      version: 4.11.0
   interval: 10m0s
   values:
     controller:
