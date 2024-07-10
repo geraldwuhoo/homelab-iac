@@ -23,25 +23,26 @@ spec:
           main:
             image:
               repository: registry.wuhoo.xyz/jerry/adbir
-              tag: v0.1.2
+              tag: v0.2.0-dashboard-icons
             env:
               OUT_DIR: /public
               CONFIG_PATH: /config/config.yaml
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                  - "/bin/sh"
+                  - "-c"
+                  - "cp -v /temp/logo.webp /public"
         initContainers:
-          dashboard-icons:
-            image: &curlimage
+          logo:
+            image:
               repository: docker.io/curlimages/curl
               tag: 8.8.0
             command:
             - "/bin/sh"
             - "-c"
-            - curl -o- -L "https://github.com/walkxcode/dashboard-icons/archive/refs/heads/main.tar.gz" | tar xzf - -C /public && mkdir -v /public/icons && mv -v /public/dashboard-icons-main/svg /public/dashboard-icons-main/png /public/icons
-          logo:
-            image: *curlimage
-            command:
-            - "/bin/sh"
-            - "-c"
-            - "curl -L https://files.catbox.moe/ujwnph.webp -o /public/logo.webp"
+            - "curl -L https://files.catbox.moe/ujwnph.webp -o /temp/logo.webp"
     service:
       main:
         controller: main
@@ -68,11 +69,11 @@ spec:
       config:
         type: configMap
         name: adbir-config
-      public:
+      temp:
         type: emptyDir
         sizeLimit: 1Gi
         globalMounts:
-        - path: /public
+        - path: /temp
     configMaps:
       config:
         data:
