@@ -33,16 +33,7 @@ spec:
                   command:
                   - "/bin/sh"
                   - "-c"
-                  - "cp -v /temp/logo.webp /public"
-        initContainers:
-          logo:
-            image:
-              repository: docker.io/curlimages/curl
-              tag: 8.8.0
-            command:
-            - "/bin/sh"
-            - "-c"
-            - "curl -L https://files.catbox.moe/ujwnph.webp -o /temp/logo.webp"
+                  - "wget https://files.catbox.moe/ujwnph.webp -O /public/logo.webp"
     service:
       main:
         controller: main
@@ -69,11 +60,6 @@ spec:
       config:
         type: configMap
         name: adbir-config
-      temp:
-        type: emptyDir
-        sizeLimit: 1Gi
-        globalMounts:
-        - path: /temp
     configMaps:
       config:
         data:
