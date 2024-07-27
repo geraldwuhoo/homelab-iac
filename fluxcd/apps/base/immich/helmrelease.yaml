@@ -39,6 +39,8 @@ spec:
       enabled: false
     server:
       enabled: true
+      controller:
+        replicas: 2
       podSecurityContext:
         runAsUser: 1000
         runAsGroup: 1000
