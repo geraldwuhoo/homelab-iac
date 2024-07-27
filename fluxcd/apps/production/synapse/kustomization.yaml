@@ -7,6 +7,7 @@ resources:
 - discord-config.yaml
 - signal-config.yaml
 - mautrix-discord-config.yaml
+- double-puppet-config.yaml
 - keydb
 - ../../base/synapse
 - signal

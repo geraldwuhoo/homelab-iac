@@ -33,6 +33,7 @@ spec:
       - /synapse/appservice/discord-registration.yaml
       - /synapse/appservice/signal-registration.yaml
       - /synapse/appservice/mautrix-discord-registration.yaml
+      - /synapse/appservice/double-puppet-registration.yaml
       password_config:
         enabled: false
       sso:
@@ -76,6 +77,10 @@ spec:
         secret:
           secretName: mautrix-discord-config
           optional: false
+      - name: double-puppet-config
+        secret:
+          secretName: double-puppet-config
+          optional: false
       extraVolumeMounts: &volumeMounts
       - name: extra-config
         mountPath: /synapse/config/conf.d/oidc.yaml
@@ -90,6 +95,9 @@ spec:
         subPath: registration.yaml
       - name: mautrix-discord-config
         mountPath: /synapse/appservice/mautrix-discord-registration.yaml
+        subPath: registration.yaml
+      - name: double-puppet-config
+        mountPath: /synapse/appservice/double-puppet-registration.yaml
         subPath: registration.yaml
     workers:
       default:

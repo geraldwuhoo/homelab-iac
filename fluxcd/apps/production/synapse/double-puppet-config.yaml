@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: double-puppet-config
+    namespace: synapse
+stringData:
+    registration.yaml: ENC[AES256_GCM,data:b9GIOVNOULumfGvN0uiWMB6MXP6fv3ZYbNvBbtO9hTHz3yUNte71vfx5xnULlYxotrsuzG0Lqm7pUfDRVj6Nx6G4dfowArmKS27J5iKrYoaJwlH8779P22JIFjiqZ5sCmfFwSucwEULmZVqu+nIGQPPwdGkPt82p2XX6iFzWTOfoYe4YdsmReCjO8sTpLozAzbwhG7qlHdLrzxLSPQw2AwP3A4UlofaPJOXuZF2TrTTE6P1OHch9TVhrIFSZhhL3zhqZEKxnMxXG41yOSGhpPMGHmIPe8hrnjj3lr36pUb8ywepX8CsAFVtLUQNchScdZatuKxYgLVx4TxkU/QWs0kbz0hNUYRJPmxh7e3hI1diuqzYsT0YJjfNxBmQqIvdsM0nXblIKnTn5bqDgWK+IHP/vOM0YNogJ0k41PDoRW+j4knW1TwQRLEg9Vf+8REFYks1URFYh2mlUMMsVqw+Jw1BxyZsZySlP7Wk7sNx6yg==,iv:5xWVo4QgcBQSabnyfG5iaWwUlRD3yLfGKb+MSEBjv/w=,tag:ItQJAEOFVYanvqDVXLcOAg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3bUZNN09yaWREMUR1eWpv
+            b3dJcEh3WEFlT3BVYWhyMzgxZ3FxMVlsaEFvCnJWb0Q0Sk1mamJjMnJ2a3pzVDZn
+            OUJ3ZmsrQXMvbWNDUUhPNWMyTk5HTnMKLS0tIFpOZUV3YWlYUi9kVHp2bFFLcUJv
+            dS9zT2dXakdxUXJxZHBCNXpVdE9FMFUKuAsrsm9rtF/GymfpIdSHfIFMOQ6vipi2
+            Pb+iY1+tWdiq5lIZARCvav7mR/jaVGQDFmRLK2rvxUvHBf0tlgrDCg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-07-27T23:38:26Z"
+    mac: ENC[AES256_GCM,data:YnfwsGOoVeUdFqohe3gmbpBT2u0//swiub2ut8xXqQChJsN0HgGcD3bwliLVqTV4XvrkFGy0rRw53M3qedUHxQc8PHuIF+DsOTPIPVIt+nBV/dLOnSFyMtfgjCgJSLmpxYhehNqfv8plgZMXgm/QQvfhFS9I+E38kQ2qUwaAXoQ=,iv:nwgL85rkNdUPnicyxZRVDOM1rsOUHt6p1Ex3kdVuASo=,tag:0x1vplFsLvRk/IgOeJNOYg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1
