@@ -117,7 +117,6 @@ spec:
         - "/_matrix/client/(api/v1|r0|v3|unstable)/publicised_groups"
         - "/_matrix/client/(api/v1|r0|v3|unstable)/login"
         - "/_matrix/client/(r0|v3|unstable)/register"
-        - "/_matrix/client/(r0|v3|unstable)/auth/.*/fallback/web"
         - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/send"
         - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/(join|invite|leave|ban|unban|kick)"
         - "/_matrix/client/(api/v1|r0|v3|unstable)/join/"
