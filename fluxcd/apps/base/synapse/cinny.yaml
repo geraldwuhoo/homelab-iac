@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: ghcr.io/cinnyapp/cinny
-              tag: v3.2.0
+              tag: v4.1.0
             resources:
               requests:
                 cpu: 25m
