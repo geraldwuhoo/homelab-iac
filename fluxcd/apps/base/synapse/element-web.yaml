@@ -23,7 +23,7 @@ spec:
       url: https://matrix.${DOMAIN}
       name: ${DOMAIN}
     config: {
-      "settingDefaults": {
+      "setting_defaults": {
         "custom_themes": [
           {
             "name": "Discord dark theme",
@@ -73,23 +73,7 @@ spec:
         ]
       },
       "default_theme": "dark",
-      "showLabsSettings": true,
-      "features": {
-        "feature_new_spinner": "labs",
-        "feature_font_scaling": "labs",
-        "feature_pinning": "labs",
-        "feature_custom_status": "labs",
-        "feature_custom_tags": "labs",
-        "feature_state_counters": "labs",
-        "feature_many_integration_managers": "labs",
-        "feature_mjolnir": "labs",
-        "feature_dm_verification": "labs",
-        "feature_bridge_state": "labs",
-        "feature_presence_in_room_list": "labs",
-        "feature_custom_themes": "labs",
-        "feature_new_room_list": "labs",
-        "feature_irc_ui": "labs"
-      }
+      "show_labs_settings": true,
     }
     ingress:
       enabled: true
