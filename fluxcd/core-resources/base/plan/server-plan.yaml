@@ -8,7 +8,7 @@ metadata:
     k3s_upgrade: server
 spec:
   concurrency: 1
-  version: v1.29.6+k3s2
+  version: v1.30.3+k3s1
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
