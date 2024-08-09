@@ -63,7 +63,7 @@ spec:
             dependsOn: main
             image:
               repository: ghcr.io/qdm12/gluetun
-              tag: v3.38.0
+              tag: v3.39.0
             securityContext:
               runAsUser: 0
               runAsGroup: 0
