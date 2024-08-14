@@ -16,7 +16,7 @@ spec:
     initContainers:
       redis-isready:
         name: redis-isready
-        image: docker.io/bitnami/redis:7.2.5-debian-12-r4
+        image: docker.io/bitnami/redis:7.4.0-debian-12-r1
         command:
         - "/bin/sh"
         - "-c"
