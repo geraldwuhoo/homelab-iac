@@ -33,7 +33,6 @@ spec:
               repository: ghcr.io/onedr0p/transmission
               tag: 4.0.5
             env:
-              TRANSMISSION_WEB_HOME: /config/flood-for-transmission
               TRANSMISSION__DOWNLOAD_QUEUE_ENABLED: true
               TRANSMISSION__DOWNLOAD_QUEUE_SIZE: !!str 20
               TRANSMISSION__IDLE_SEEDING_LIMIT: !!str 60
@@ -41,6 +40,7 @@ spec:
               TRANSMISSION__INCOMPLETE_DIR: /downloads/incomplete
               TRANSMISSION__INCOMPLETE_DIR_ENABLED: true
               TRANSMISSION__LPD_ENABLED: true
+              TRANSMISSION__PORT_FORWARDING_ENABLED: true
               TRANSMISSION__QUEUE_STALLED_ENABLED: false
               TRANSMISSION__QUEUE_STALLED_MINUTES: !!str 60
               TRANSMISSION__RATIO_LIMIT: !!str 1
@@ -50,6 +50,7 @@ spec:
               TRANSMISSION__SPEED_LIMIT_DOWN_ENABLED: true
               TRANSMISSION__SPEED_LIMIT_UP: !!str 1000
               TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
+              TRANSMISSION_WEB_HOME: /shared/flood-for-transmission
             envFrom:
             - secretRef:
                 name: transmission-secret
@@ -70,11 +71,6 @@ spec:
               capabilities:
                 add:
                 - NET_ADMIN
-            env:
-              VPN_SERVICE_PROVIDER: mullvad
-              VPN_TYPE: wireguard
-              SERVER_COUNTRIES: Sweden
-              OWNED_ONLY: yes
             envFrom:
             - secretRef:
                 name: transmission-secret
@@ -86,7 +82,7 @@ spec:
             command:
             - "/bin/sh"
             - "-c"
-            - "curl -o- -sL https://github.com/johman10/flood-for-transmission/releases/download/latest/flood-for-transmission.tar.gz | tar xzf - -C /config"
+            - "curl -o- -sL https://github.com/johman10/flood-for-transmission/releases/download/2024-04-29T17-33-06/flood-for-transmission.tar.gz | tar xzf - -C /shared"
     service:
       main:
         controller: main
