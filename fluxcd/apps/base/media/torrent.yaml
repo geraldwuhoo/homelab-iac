@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: transmission
+  name: torrent
   namespace: media
 spec:
   chart:
@@ -30,30 +30,11 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/transmission
-              tag: 4.0.5
-            env:
-              TRANSMISSION__DOWNLOAD_QUEUE_ENABLED: true
-              TRANSMISSION__DOWNLOAD_QUEUE_SIZE: !!str 20
-              TRANSMISSION__IDLE_SEEDING_LIMIT: !!str 60
-              TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: false
-              TRANSMISSION__INCOMPLETE_DIR: /downloads/incomplete
-              TRANSMISSION__INCOMPLETE_DIR_ENABLED: true
-              TRANSMISSION__LPD_ENABLED: true
-              TRANSMISSION__PORT_FORWARDING_ENABLED: true
-              TRANSMISSION__QUEUE_STALLED_ENABLED: false
-              TRANSMISSION__QUEUE_STALLED_MINUTES: !!str 60
-              TRANSMISSION__RATIO_LIMIT: !!str 1
-              TRANSMISSION__RATIO_LIMIT_ENABLED: true
-              TRANSMISSION__RPC_AUTHENTICATION_REQUIRED: false
-              TRANSMISSION__SPEED_LIMIT_DOWN: !!str 62500
-              TRANSMISSION__SPEED_LIMIT_DOWN_ENABLED: true
-              TRANSMISSION__SPEED_LIMIT_UP: !!str 1000
-              TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
-              TRANSMISSION_WEB_HOME: /shared/flood-for-transmission
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: 4.6.5
             envFrom:
             - secretRef:
-                name: transmission-secret
+                name: torrent-secret
             resources:
               requests:
                 cpu: 100m
@@ -73,7 +54,7 @@ spec:
                 - NET_ADMIN
             envFrom:
             - secretRef:
-                name: transmission-secret
+                name: torrent-secret
         initContainers:
           custom-webui:
             image:
@@ -82,13 +63,13 @@ spec:
             command:
             - "/bin/sh"
             - "-c"
-            - "curl -o- -sL https://github.com/johman10/flood-for-transmission/releases/download/2024-04-29T17-33-06/flood-for-transmission.tar.gz | tar xzf - -C /shared"
+            - "cd /shared && curl -o- -sL https://github.com/VueTorrent/VueTorrent/releases/download/v2.12.0/vuetorrent.zip | unzip -"
     service:
       main:
         controller: main
         ports:
           http:
-            port: 9091
+            port: 8080
     persistence:
       config:
         type: persistentVolumeClaim

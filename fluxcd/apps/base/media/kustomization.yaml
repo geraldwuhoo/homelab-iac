@@ -6,7 +6,7 @@ resources:
 - namespace.yaml
 - secret.yaml
 - jellyfin.yaml
-- transmission.yaml
+- torrent.yaml
 - sonarr.yaml
 - sonarr4.yaml
 - radarr.yaml
