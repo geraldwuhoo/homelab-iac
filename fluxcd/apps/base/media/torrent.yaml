@@ -29,9 +29,28 @@ spec:
       main:
         containers:
           main:
+            dependsOn: gluetun
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: 4.6.5
+            env:
+              QBT_BitTorrent__Session__DefaultSavePath: /downloads/complete
+              QBT_BitTorrent__Session__DiskIOReadMode: DisableOSCache
+              QBT_BitTorrent__Session__DiskIOType: Posix
+              QBT_BitTorrent__Session__DiskIOWriteMode: DisableOSCache
+              QBT_BitTorrent__Session__GlobalDlSpeedLimit: "62500"
+              QBT_BitTorrent__Session__GlobalMaxRatio: "10"
+              QBT_BitTorrent__Session__GlobalUPSpeedLimit: "1000"
+              QBT_BitTorrent__Session__MaxActiveDownloads: "10"
+              QBT_BitTorrent__Session__MaxActiveTorrents: "20"
+              QBT_BitTorrent__Session__MaxActiveUploads: "10"
+              QBT_BitTorrent__Session__TempPath: /downloads/incomplete
+              QBT_BitTorrent__Session__TempPathEnabled: "true"
+              QBT_BitTorrent__Session__TorrentExportDirectory: /downloads/torrent
+              QBT_Network__PortForwardingEnabled: "false"
+              QBT_Preferences__WebUI__AlternativeUIEnabled: "true"
+              QBT_Preferences__WebUI__RootFolder: /shared/vuetorrent
+              QBT_Preferences__WebUI__UseUPnP: "false"
             envFrom:
             - secretRef:
                 name: torrent-secret
@@ -42,7 +61,6 @@ spec:
               limits:
                 memory: 1Gi
           gluetun:
-            dependsOn: main
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.0
