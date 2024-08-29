@@ -6,6 +6,7 @@ terraform {
     }
   }
 }
+
 data "gitlab_project" "this" {
   path_with_namespace = "${var.gitlab.group}/${var.gitlab.project_name}"
 }
