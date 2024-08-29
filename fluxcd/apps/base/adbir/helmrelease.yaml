@@ -198,10 +198,10 @@ spec:
                     logo: "/icons/svg/prowlarr.svg"
                     subtitle: "Indexers"
                     url: "https://prowlarr.${DOMAIN}"
-                  - name: "Transmission (Internal)"
-                    logo: "/icons/svg/transmission.svg"
+                  - name: "qBittorrent (Internal)"
+                    logo: "/icons/svg/qbittorrent.svg"
                     subtitle: "P2P torrent client"
-                    url: "https://transmission.${DOMAIN}"
+                    url: "https://torrent.${DOMAIN}"
               - name: "Management"
                 items:
                   - name: "Proxmox VE (Internal)"
