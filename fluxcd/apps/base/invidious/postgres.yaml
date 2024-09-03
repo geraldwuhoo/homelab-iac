@@ -1,0 +1,19 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: invidious-postgres-cluster
+spec:
+  teamId: invidious
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    invidious:
+    - superuser
+    - createdb
+  databases:
+    invidious: invidious
+  postgresql:
+    version: "16"
