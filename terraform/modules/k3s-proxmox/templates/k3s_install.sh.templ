@@ -2,6 +2,7 @@
 
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="${k3s_version}" K3S_TOKEN=${secret} sh -s - ${mode} \
 ${init} \
+--selinux true \
 %{ if server ~}
 --tls-san ${vip} \
 --disable traefik \
