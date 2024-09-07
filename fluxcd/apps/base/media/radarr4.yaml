@@ -57,6 +57,9 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 512Mi
+            securityContext:
+              seLinuxOptions:
+                level: s0:c123,c456
     service:
       main:
         controller: main

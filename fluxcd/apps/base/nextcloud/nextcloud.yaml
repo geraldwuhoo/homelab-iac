@@ -133,6 +133,9 @@ spec:
         rollingUpdate:
           maxSurge: 1
           maxUnavailable: 1
+      podSecurityContext:
+        seLinuxOptions:
+          level: "s0:c111,c222"
     lifecycle:
       postStartCommand:
       - "sh"
