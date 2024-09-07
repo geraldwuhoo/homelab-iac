@@ -2,7 +2,7 @@
 
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="${k3s_version}" K3S_TOKEN=${secret} sh -s - ${mode} \
 ${init} \
---selinux true \
+--selinux \
 %{ if server ~}
 --tls-san ${vip} \
 --disable traefik \
@@ -15,6 +15,6 @@ ${init} \
 --kube-controller-manager-arg bind-address=0.0.0.0 \
 --kube-proxy-arg metrics-bind-address=0.0.0.0 \
 --kube-scheduler-arg bind-address=0.0.0.0 \
---etcd-expose-metrics true \
+--etcd-expose-metrics \
 --kubelet-arg containerd=/run/k3s/containerd/containerd.sock \
 %{ endif ~}
