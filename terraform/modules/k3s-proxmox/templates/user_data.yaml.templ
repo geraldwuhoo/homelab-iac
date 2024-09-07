@@ -39,6 +39,11 @@ write_files:
       ip_vs
       ip_vs_rr
     path: /etc/modules-load.d/ipvs.conf
+  # Enable wireguard for gluetun
+  - content: |
+      tun
+      wireguard
+    path: /etc/modules-load.d/wireguard.conf
   # Configure mirrors for images
   - content: |
       mirrors:
@@ -463,3 +468,5 @@ runcmd:
   - [hostnamectl, "set-hostname", "${hostname}"]
   # Disables unneeded services
   - [systemctl, disable, "--now", "rebootmgr.service"]
+  # Allow containers to use devices (gluetun)
+  - [setsebool, "-P", "container_use_devices=true"]
