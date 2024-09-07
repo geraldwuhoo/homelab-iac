@@ -72,6 +72,11 @@ spec:
             - path: "/"
     machine-learning:
       enabled: true
+      podSecurityContext:
+        seLinuxOptions:
+          role: system_r
+          type: container_t
+          user: system_u
       persistence:
         cache:
           enabled: true
