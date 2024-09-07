@@ -34,6 +34,11 @@ write_files:
   - content: |
       rbd
     path: /etc/modules-load.d/rbd.conf
+  # Enable IPVS
+  - content: |
+      ip_vs
+      ip_vs_rr
+    path: /etc/modules-load.d/ipvs.conf
   # Configure mirrors for images
   - content: |
       mirrors:
