@@ -17,7 +17,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/external-dns
-      tag: 0.14.2-debian-12-r9
+      tag: 0.15.0-debian-12-r1
     provider: cloudflare
     cloudflare:
       apiKey: "${CLOUDFLARE_API_KEY}"
