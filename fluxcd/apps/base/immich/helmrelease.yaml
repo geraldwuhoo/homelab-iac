@@ -74,9 +74,9 @@ spec:
       enabled: true
       podSecurityContext:
         seLinuxOptions:
+          user: system_u
           role: system_r
           type: container_t
-          user: system_u
       persistence:
         cache:
           enabled: true

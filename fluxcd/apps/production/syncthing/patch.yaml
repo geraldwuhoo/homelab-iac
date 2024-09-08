@@ -15,3 +15,13 @@ spec:
         globalMounts:
         - path: /var/syncthing
           subPath: syncthing
+    controllers:
+      main:
+        containers:
+          main:
+            securityContext:
+              seLinuxOptions:
+                user: system_u
+                role: system_r
+                type: container_t
+                level: s0:c101,c901
