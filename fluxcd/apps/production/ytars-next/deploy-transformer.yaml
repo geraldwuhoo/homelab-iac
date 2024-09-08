@@ -6,6 +6,6 @@ metadata:
 prefix: next-
 fieldSpecs:
 - kind: HelmRelease
-  path: spec/values/env/POSTGRES_HOST
+  path: spec/values/controllers/main/containers/main/env/POSTGRES_HOST
 - kind: HelmRelease
   path: spec/values/persistence/videos/existingClaim

@@ -7,3 +7,4 @@ spec:
   csi:
     volumeAttributes:
       "rootPath": /volumes/nas/media/d85ed73c-9141-479e-b58d-004f3f2152da/youtube
+      kernelMountOptions: "context=\"system_u:object_r:container_file_t:s0:c102,c902\""

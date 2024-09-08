@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "1.5.1"
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -15,30 +15,40 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
-    image:
-      repository: registry.wuhoo.xyz/jerry/ytars
-      tag: v0.6.3
-    env:
-      POSTGRES_USERNAME:
-        valueFrom:
-          secretKeyRef:
-            name: ytars.ytars-postgres-cluster.credentials.postgresql.acid.zalan.do
-            key: username
-      POSTGRES_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: ytars.ytars-postgres-cluster.credentials.postgresql.acid.zalan.do
-            key: password
-      POSTGRES_HOST: ytars-postgres-cluster
-      POSTGRES_DB: ytars
-      VIDEO_PATH: /videos
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: registry.wuhoo.xyz/jerry/ytars
+              tag: v0.6.3
+            env:
+              POSTGRES_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: ytars.ytars-postgres-cluster.credentials.postgresql.acid.zalan.do
+                    key: username
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: ytars.ytars-postgres-cluster.credentials.postgresql.acid.zalan.do
+                    key: password
+              POSTGRES_HOST: ytars-postgres-cluster
+              POSTGRES_DB: ytars
+              VIDEO_PATH: /videos
+            securityContext:
+              seLinuxOptions:
+                user: system_u
+                role: system_r
+                type: container_t
+                level: s0:c102,c902
     service:
       main:
+        controller: main
         ports:
           http:
             port: 8080
     persistence:
       videos:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: ytars-youtube-pvc
-        type: pvc

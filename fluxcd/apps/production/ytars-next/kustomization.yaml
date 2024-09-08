@@ -25,10 +25,10 @@ patches:
     name: ytars-app-template
   patch: |-
     - op: replace
-      path: /spec/values/env/POSTGRES_USERNAME/valueFrom/secretKeyRef/name
+      path: /spec/values/controllers/main/containers/main/env/POSTGRES_USERNAME/valueFrom/secretKeyRef/name
       value: next-ytars.next-ytars-postgres-cluster.credentials.postgresql.acid.zalan.do
     - op: replace
-      path: /spec/values/env/POSTGRES_PASSWORD/valueFrom/secretKeyRef/name
+      path: /spec/values/controllers/main/containers/main/env/POSTGRES_PASSWORD/valueFrom/secretKeyRef/name
       value: next-ytars.next-ytars-postgres-cluster.credentials.postgresql.acid.zalan.do
 - target:
     kind: postgresql
