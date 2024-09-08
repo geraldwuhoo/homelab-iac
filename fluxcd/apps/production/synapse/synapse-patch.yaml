@@ -103,6 +103,12 @@ spec:
       default:
         volumes: *volumes
         volumeMounts: *volumeMounts
+        podSecurityContext:
+          seLinuxOptions:
+            user: system_u
+            role: system_r
+            type: container_t
+            level: "s0:c103,c903"
       generic_worker:
         enabled: true
         replicaCount: 3

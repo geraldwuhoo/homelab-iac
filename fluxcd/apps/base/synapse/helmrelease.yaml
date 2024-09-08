@@ -56,6 +56,12 @@ spec:
         value: /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
       - name: SYNAPSE_CACHE_FACTOR
         value: "1.0"
+      podSecurityContext:
+        seLinuxOptions:
+          user: system_u
+          role: system_r
+          type: container_t
+          level: "s0:c103,c903"
     workers:
       default:
         extraEnv: *extraEnv
