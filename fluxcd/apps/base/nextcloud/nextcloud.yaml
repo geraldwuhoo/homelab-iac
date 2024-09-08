@@ -135,6 +135,9 @@ spec:
           maxUnavailable: 1
       podSecurityContext:
         seLinuxOptions:
+          user: system_u
+          role: system_r
+          type: container_t
           level: "s0:c111,c222"
     lifecycle:
       postStartCommand:

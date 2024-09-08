@@ -62,6 +62,9 @@ spec:
                 memory: 1Gi
             securityContext:
               seLinuxOptions:
+                user: system_u
+                role: system_r
+                type: container_t
                 level: s0:c123,c456
           gluetun:
             image:
