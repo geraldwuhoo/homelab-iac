@@ -28,8 +28,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: 1.24.0.4721
+              repository: ghcr.io/onedr0p/prowlarr
+              tag: 1.23.1.4708
             env:
               TZ: UTC
             resources:
