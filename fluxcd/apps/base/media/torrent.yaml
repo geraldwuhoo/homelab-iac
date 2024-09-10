@@ -70,15 +70,20 @@ spec:
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.0
+            envFrom:
+            - secretRef:
+                name: torrent-secret
             securityContext:
               runAsUser: 0
               runAsGroup: 0
               capabilities:
                 add:
                 - NET_ADMIN
-            envFrom:
-            - secretRef:
-                name: torrent-secret
+              seLinuxOptions:
+                user: system_u
+                role: system_r
+                type: container_t
+                level: s0:c123,c456
         initContainers:
           custom-webui:
             image:
