@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/collabora/code
-      tag: 24.04.7.1.2
+      tag: 24.04.7.2.1
     collabora:
       aliasgroups:
       - domain: https://cloud.${DOMAIN}:443
