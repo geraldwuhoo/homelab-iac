@@ -74,8 +74,14 @@ spec:
             sites:
               - site: https://auth.wuhoo.xyz/
                 name: Authentik
+              - site: https://matrix.wuhoo.xyz/_matrix/static/
+                name: Matrix
               - site: https://element.wuhoo.xyz/
                 name: Element
+              - site: https://schildichat.wuhoo.xyz/
+                name: Schildichat
+              - site: https://cinny.wuhoo.xyz/
+                name: Cinny
               - site: https://fmd.wuhoo.xyz/
                 name: FindMyDevice
               - site: https://gitlab.wuhoo.xyz/-/liveness
@@ -86,8 +92,6 @@ spec:
                 name: Jellyfin
               - site: https://wuhoo.xyz/
                 name: Landing Page
-              - site: https://matrix.wuhoo.xyz/_matrix/static/
-                name: Matrix
               - site: https://mollysocket.wuhoo.xyz/
                 name: Mollysocket
               - site: https://cloud.wuhoo.xyz/status.php
