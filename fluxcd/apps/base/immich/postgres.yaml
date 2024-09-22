@@ -7,7 +7,7 @@ spec:
   dockerImage: registry.wuhoo.xyz/jerry/spilo-pgvecto.rs:spilo-3.3-p2-pgvectors-0.3.0
   teamId: "immich"
   volume:
-    size: 10Gi
+    size: 20Gi
   numberOfInstances: 3
   users:
     # database owner
