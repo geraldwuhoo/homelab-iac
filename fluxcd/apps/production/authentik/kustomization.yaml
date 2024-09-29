@@ -16,6 +16,6 @@ patches:
     spec:
       values:
         server:
-          replicas: 3
+          replicas: 2
         worker:
-          replicas: 3
+          replicas: 2
