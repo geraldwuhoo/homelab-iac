@@ -21,7 +21,7 @@ spec:
     targetPath: extraSecrets.redis.password
   values:
     image:
-      repository: docker.io/matrixdotorg/synapse
+      repository: ghcr.io/element-hq/synapse
       tag: v1.115.0
     wellknown:
       enabled: true
