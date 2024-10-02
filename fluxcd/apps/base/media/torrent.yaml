@@ -69,7 +69,7 @@ spec:
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
-              tag: v3.39.0
+              tag: v3.39.1
             envFrom:
             - secretRef:
                 name: torrent-secret

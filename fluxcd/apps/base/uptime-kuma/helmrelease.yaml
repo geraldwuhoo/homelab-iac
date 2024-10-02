@@ -28,7 +28,7 @@ spec:
           main:
             image:
               repository: docker.io/louislam/uptime-kuma
-              tag: 1.23.13
+              tag: 1.23.15
     service:
       main:
         controller: main
