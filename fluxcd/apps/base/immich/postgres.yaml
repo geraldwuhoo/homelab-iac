@@ -8,7 +8,7 @@ spec:
   teamId: "immich"
   volume:
     size: 30Gi
-  numberOfInstances: 2
+  numberOfInstances: 1
   users:
     # database owner
     immich:
