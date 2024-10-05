@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: immich
-      version: 0.7.2
+      version: 0.8.1
       sourceRef:
         kind: HelmRepository
         name: immich
@@ -28,7 +28,7 @@ spec:
     podAnnotations:
       backup.velero.io/backup-volumes-excludes: library
     image:
-      tag: v1.116.2
+      tag: v1.117.0
     immich:
       persistence:
         library:
