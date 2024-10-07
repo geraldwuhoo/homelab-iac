@@ -17,3 +17,9 @@ spec:
       - name: files
         persistentVolumeClaim:
           claimName: archlinux-pvc
+      securityContext:
+        seLinuxOptions:
+          user: system_u
+          role: system_r
+          type: container_t
+          level: s0:c104,c904

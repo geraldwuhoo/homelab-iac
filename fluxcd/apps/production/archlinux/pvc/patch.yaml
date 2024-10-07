@@ -7,3 +7,4 @@ spec:
   csi:
     volumeAttributes:
       "rootPath": /volumes/nas/archlinux/a5c8853a-cd44-4f3d-91f4-dffbbfa1d9b2
+      kernelMountOptions: "context=\"system_u:object_r:container_file_t:s0:c104,c904\""
