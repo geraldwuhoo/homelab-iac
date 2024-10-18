@@ -28,7 +28,7 @@ spec:
     podAnnotations:
       backup.velero.io/backup-volumes-excludes: library
     image:
-      tag: v1.117.0
+      tag: v1.118.2
     immich:
       persistence:
         library:
