@@ -4,7 +4,7 @@
     "Effect": "Allow",
     "Principal": {
       "AWS": [
-        "arn:aws:iam:::user/zalando"
+        "arn:aws:iam:::user/backup"
       ]
     },
     "Action": [
@@ -16,8 +16,8 @@
       "s3:ListBucket"
     ],
     "Resource": [
-      "arn:aws:s3:::zalando",
-      "arn:aws:s3:::zalando/*"
+      "arn:aws:s3:::backup",
+      "arn:aws:s3:::backup/*"
     ]
   }]
 }
