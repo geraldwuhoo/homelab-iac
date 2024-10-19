@@ -22,3 +22,5 @@ spec:
       major_version_upgrade_mode: manual
     configKubernetes:
       pod_environment_secret: pod-config
+      inherited_annotations:
+      - "k8up.io/backup"
