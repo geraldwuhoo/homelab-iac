@@ -3,6 +3,8 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   name: shynet-postgres-cluster
+  annotations:
+    k8up.io/backup: "false"
 spec:
   teamId: "shynet"
   volume:

@@ -4,6 +4,8 @@ kind: postgresql
 metadata:
   name: wiki-postgres-cluster
   namespace: wiki
+  annotations:
+    k8up.io/backup: "false"
 spec:
   teamId: wiki
   volume:

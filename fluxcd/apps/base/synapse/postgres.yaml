@@ -4,6 +4,8 @@ kind: postgresql
 metadata:
   name: synapse-postgres-cluster
   namespace: synapse
+  annotations:
+    k8up.io/backup: "false"
 spec:
   teamId: "synapse"
   volume:
@@ -18,9 +20,5 @@ spec:
     synapse: synapse
   postgresql:
     version: "15"
-  # patroni:
-  #   synchronous_mode: true
-  #   synchronous_mode_strict: true
-  #   synchronous_node_count: 1
   enableConnectionPooler: true
   enableReplicaConnectionPooler: true

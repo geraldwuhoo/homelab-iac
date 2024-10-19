@@ -3,6 +3,8 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   name: immich-postgres-cluster
+  annotations:
+    k8up.io/backup: "false"
 spec:
   dockerImage: registry.wuhoo.xyz/jerry/spilo-pgvecto.rs:spilo-3.3-p2-pgvectors-0.3.0
   teamId: "immich"

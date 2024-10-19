@@ -3,6 +3,8 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   name: gitlab-postgres-cluster
+  annotations:
+    k8up.io/backup: "false"
 spec:
   teamId: "gitlab"
   volume:

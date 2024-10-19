@@ -3,6 +3,8 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   name: authentik-postgres-cluster
+  annotations:
+    k8up.io/backup: "false"
 spec:
   teamId: "authentik"
   volume:
@@ -17,7 +19,3 @@ spec:
     authentik: authentik
   postgresql:
     version: "15"
-  # patroni:
-  #   synchronous_mode: true
-  #   synchronous_mode_strict: true
-  #   synchronous_node_count: 1
