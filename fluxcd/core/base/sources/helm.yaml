@@ -313,3 +313,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://charts-helm.invidious.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: backube
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://backube.github.io/helm-charts/
