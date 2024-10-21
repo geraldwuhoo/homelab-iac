@@ -24,3 +24,5 @@ spec:
       pod_environment_secret: pod-config
       inherited_annotations:
       - "k8up.io/backup"
+    configAwsOrGcp:
+      wal_s3_bucket: backup
