@@ -19,7 +19,7 @@ patches:
       values:
         image:
           repository: dock.mau.dev/mautrix/signal
-          tag: v0.7.2
+          tag: latest@sha256:7e67b802fcf9e6284f24357196cf566035875e58ac8afc120fe177664be5d61a
         service:
           main:
             ports:
