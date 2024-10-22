@@ -71,7 +71,7 @@ spec:
           main:
             image:
               repository: docker.io/apache/tika
-              tag: 2.9.2.1
+              tag: 3.0.0.0
     service:
       main:
         controller: main
