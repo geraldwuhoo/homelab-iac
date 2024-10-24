@@ -1,0 +1,50 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rclone
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          suspend: false
+          concurrencyPolicy: Forbid
+          schedule: "30 9 * * *"
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+          backoffLimit: 3
+        containers:
+          main:
+            image:
+              repository: docker.io/rclone/rclone
+              tag: 1.68.1
+            env:
+              RCLONE_SRC: ceph:backup
+              RCLONE_DST: "secret:"
+            args:
+            - sync
+            - --log-level=INFO
+            - --fast-list
+            - --update
+            - --use-server-modtime
+            - $(RCLONE_SRC)
+            - $(RCLONE_DST)
+    persistence:
+      config:
+        enabled: true
+        type: secret
+        name: rclone-secret
+        globalMounts:
+        - path: /config/rclone
