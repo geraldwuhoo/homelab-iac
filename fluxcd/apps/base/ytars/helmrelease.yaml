@@ -21,7 +21,7 @@ spec:
           main:
             image:
               repository: registry.wuhoo.xyz/jerry/ytars
-              tag: v0.6.4
+              tag: v0.6.5
             env:
               POSTGRES_USERNAME:
                 valueFrom:
