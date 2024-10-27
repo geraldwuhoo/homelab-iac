@@ -2,25 +2,23 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: actualbudget-backup
+  name: backup
 spec:
   # The PVC to be backed up
-  sourcePVC: actualbudget-data
+  sourcePVC: data
   trigger:
     # Take a backup every 30 minutes
     schedule: "*/30 * * * *"
   restic:
-    # Prune the repository (repack to free space) every 2 weeks
-    pruneIntervalDays: 14
+    # Prune the repository (repack to free space) every week
+    pruneIntervalDays: 7
     # Name of the Secret with the connection information
-    repository: restic-config
+    repository: volsync-restic-config
     # Retention policy for backups
     retain:
       hourly: 6
       daily: 5
-      weekly: 4
-      monthly: 2
-      yearly: 1
+      weekly: 2
     # Clone the source volume prior to taking a backup to ensure a
     # point-in-time image.
     copyMethod: Clone
