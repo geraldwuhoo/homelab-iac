@@ -21,3 +21,13 @@ patches:
         moverSecurityContext:
           fsGroup: 1000
           runAsUser: 1000
+- target:
+    kind: Secret
+    name: volsync-restic-config
+  patch: |-
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: volsync-restic-config
+    stringData:
+      RESTIC_REPOSITORY: ${RESTIC_REPOSITORY_BASE}/gitlab-gitaly

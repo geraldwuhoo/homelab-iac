@@ -20,3 +20,13 @@ patches:
       restic:
         copyMethod: Direct
         cacheAccessModes: ["ReadWriteOnce"]
+- target:
+    kind: Secret
+    name: volsync-restic-config
+  patch: |-
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: volsync-restic-config
+    stringData:
+      RESTIC_REPOSITORY: ${RESTIC_REPOSITORY_BASE}/immich

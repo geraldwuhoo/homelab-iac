@@ -17,3 +17,13 @@ patches:
       sourcePVC: jellyfin-cache
       trigger:
         schedule: "16 */2 * * *"
+- target:
+    kind: Secret
+    name: volsync-restic-config
+  patch: |-
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: volsync-restic-config
+    stringData:
+      RESTIC_REPOSITORY: ${RESTIC_REPOSITORY_BASE}/jellyfin-cache
