@@ -14,6 +14,10 @@ patches:
     metadata:
       name: backup
     spec:
-      sourcePVC: gitlab-minio-data
+      sourcePVC: gitlab-minio
       trigger:
         schedule: "15 */2 * * *"
+      restic:
+        moverSecurityContext:
+          fsGroup: 1000
+          runAsUser: 1000
