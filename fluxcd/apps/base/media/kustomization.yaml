@@ -20,3 +20,4 @@ resources:
 - volsync-jellyfin-cache
 - volsync-jellyfin-config
 - volsync-jellyseerr-config
+- volsync-prowlarr-config
