@@ -10,8 +10,8 @@ spec:
     # Take a backup every 30 minutes
     schedule: "*/30 * * * *"
   restic:
-    # Prune the repository (repack to free space) every week
-    pruneIntervalDays: 7
+    # Prune the repository (repack to free space) every day
+    pruneIntervalDays: 1
     # Name of the Secret with the connection information
     repository: volsync-restic-config
     # Retention policy for backups
