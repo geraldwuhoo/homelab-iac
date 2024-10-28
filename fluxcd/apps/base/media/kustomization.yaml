@@ -22,3 +22,4 @@ resources:
 - volsync-jellyseerr-config
 - volsync-prowlarr-config
 - volsync-radarr-config
+- volsync-radarr4-config
