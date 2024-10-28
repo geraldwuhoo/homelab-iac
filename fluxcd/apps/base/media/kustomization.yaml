@@ -21,3 +21,4 @@ resources:
 - volsync-jellyfin-config
 - volsync-jellyseerr-config
 - volsync-prowlarr-config
+- volsync-radarr-config
