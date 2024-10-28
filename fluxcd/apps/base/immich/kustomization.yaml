@@ -10,3 +10,4 @@ resources:
 - pvc
 - postgres.yaml
 - helmrelease.yaml
+- volsync
