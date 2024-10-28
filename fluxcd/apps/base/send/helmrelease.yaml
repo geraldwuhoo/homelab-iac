@@ -32,7 +32,7 @@ spec:
             env:
               BASE_URL: "https://send.${DOMAIN}"
               FILE_DIR: /uploads
-              MAX_EXPIRE_SECONDS: "2592000"
+              MAX_EXPIRE_SECONDS: "604800"
               MAX_FILE_SIZE: "10737418240"
               REDIS_HOST: send-keydb-headless
               REDIS_PASSWORD:
