@@ -15,3 +15,5 @@ patches:
       name: backup
     spec:
       sourcePVC: firefoxsync-data
+      trigger:
+        schedule: "25 */2 * * *"
