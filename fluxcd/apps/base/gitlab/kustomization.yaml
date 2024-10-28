@@ -10,3 +10,5 @@ resources:
 - helmrelease.yaml
 - renovate-secret.yaml
 - renovate.yaml
+- volsync-gitaly
+- volsync-minio
