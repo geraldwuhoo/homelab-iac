@@ -11,4 +11,3 @@ resources:
 - renovate-secret.yaml
 - renovate.yaml
 - volsync-gitaly
-- volsync-minio
