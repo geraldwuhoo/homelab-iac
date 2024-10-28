@@ -1,0 +1,4 @@
+---
+namePrefix:
+- kind: ReplicationSource
+  path: spec/restic/repository

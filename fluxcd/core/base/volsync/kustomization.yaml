@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: volsync
 resources:
 - namespace.yaml
-- secret.yaml
 - helmrelease.yaml
