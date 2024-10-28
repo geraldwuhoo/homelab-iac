@@ -17,6 +17,13 @@ patches:
       sourcePVC: jellyfin-config
       trigger:
         schedule: "18 */2 * * *"
+      restic:
+        moverSecurityContext:
+          seLinuxOptions:
+            user: system_u
+            role: system_r
+            type: container_t
+            level: s0:c123,c456
 - target:
     kind: Secret
     name: volsync-restic-config

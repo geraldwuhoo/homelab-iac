@@ -22,6 +22,11 @@ patches:
           runAsUser: 1000
           runAsGroup: 1000
           fsGroup: 1000
+          seLinuxOptions:
+            user: system_u
+            role: system_r
+            type: container_t
+            level: s0:c123,c456
 - target:
     kind: Secret
     name: volsync-restic-config
