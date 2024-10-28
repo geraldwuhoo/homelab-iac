@@ -19,3 +19,4 @@ patches:
         schedule: "20 */2 * * *"
       restic:
         copyMethod: Direct
+        cacheAccessModes: ["ReadWriteOnce"]
