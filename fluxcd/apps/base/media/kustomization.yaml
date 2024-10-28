@@ -19,3 +19,4 @@ resources:
 - tachidesk.yaml
 - volsync-jellyfin-cache
 - volsync-jellyfin-config
+- volsync-jellyseerr-config
