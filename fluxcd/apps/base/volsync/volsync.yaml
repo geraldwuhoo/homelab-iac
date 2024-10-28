@@ -18,7 +18,6 @@ spec:
     retain:
       hourly: 6
       daily: 5
-      weekly: 2
     # Clone the source volume prior to taking a backup to ensure a
     # point-in-time image.
     copyMethod: Clone
