@@ -24,3 +24,4 @@ resources:
 - volsync-radarr-config
 - volsync-radarr4-config
 - volsync-sonarr-config
+- volsync-sonarr4-config
