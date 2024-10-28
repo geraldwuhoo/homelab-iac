@@ -25,3 +25,5 @@ resources:
 - volsync-radarr4-config
 - volsync-sonarr-config
 - volsync-sonarr4-config
+- volsync-tachidesk-config
+- volsync-torrent-config
