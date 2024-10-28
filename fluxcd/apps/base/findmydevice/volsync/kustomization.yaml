@@ -15,3 +15,5 @@ patches:
       name: backup
     spec:
       sourcePVC: findmydevice-data
+      trigger:
+        schedule: "5 */2 * * *"

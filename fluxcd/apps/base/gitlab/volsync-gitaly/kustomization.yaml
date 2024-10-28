@@ -15,3 +15,5 @@ patches:
       name: backup
     spec:
       sourcePVC: repo-data-gitlab-gitaly-0
+      trigger:
+        schedule: "10 */2 * * *"

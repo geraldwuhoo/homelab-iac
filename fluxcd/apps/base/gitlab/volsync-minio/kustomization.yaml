@@ -15,3 +15,5 @@ patches:
       name: backup
     spec:
       sourcePVC: gitlab-minio-data
+      trigger:
+        schedule: "15 */2 * * *"
