@@ -5,3 +5,4 @@ namespace: findmydevice
 resources:
 - namespace.yaml
 - helmrelease.yaml
+- volsync
