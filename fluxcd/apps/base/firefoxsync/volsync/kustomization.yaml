@@ -16,4 +16,4 @@ patches:
     spec:
       sourcePVC: firefoxsync-data
       trigger:
-        schedule: "25 */2 * * *"
+        schedule: "4 */2 * * *"

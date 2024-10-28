@@ -16,7 +16,7 @@ patches:
     spec:
       sourcePVC: gitlab-minio
       trigger:
-        schedule: "15 */2 * * *"
+        schedule: "8 */2 * * *"
       restic:
         moverSecurityContext:
           fsGroup: 1000

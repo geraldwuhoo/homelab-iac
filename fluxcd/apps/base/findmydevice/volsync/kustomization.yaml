@@ -16,4 +16,4 @@ patches:
     spec:
       sourcePVC: findmydevice-data
       trigger:
-        schedule: "5 */2 * * *"
+        schedule: "2 */2 * * *"

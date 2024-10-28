@@ -16,7 +16,7 @@ patches:
     spec:
       sourcePVC: repo-data-gitlab-gitaly-0
       trigger:
-        schedule: "10 */2 * * *"
+        schedule: "6 */2 * * *"
       restic:
         moverSecurityContext:
           fsGroup: 1000

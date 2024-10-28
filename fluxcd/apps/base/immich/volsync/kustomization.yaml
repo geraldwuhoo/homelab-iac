@@ -16,7 +16,7 @@ patches:
     spec:
       sourcePVC: immich-pvc
       trigger:
-        schedule: "20 */2 * * *"
+        schedule: "10 */2 * * *"
       restic:
         copyMethod: Direct
         cacheAccessModes: ["ReadWriteOnce"]
