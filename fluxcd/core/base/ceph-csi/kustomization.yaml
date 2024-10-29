@@ -19,4 +19,6 @@ resources:
 - rbd-snapshot-class.yaml
 - rbd-sc.yaml
 - rbd-hdd-sc.yaml
+- rbd-delete-sc.yaml
+- rbd-hdd-delete-sc.yaml
 - rbd-secret.yaml
