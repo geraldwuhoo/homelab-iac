@@ -41,6 +41,27 @@ spec:
             - --use-server-modtime
             - $(RCLONE_SRC)
             - $(RCLONE_DST)
+      cleanup:
+        type: cronjob
+        cronjob:
+          suspend: false
+          concurrencyPolicy: Forbid
+          schedule: "0 9 * * *"
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+          backoffLimit: 3
+        containers:
+          main:
+            image:
+              repository: docker.io/rclone/rclone
+              tag: 1.68.1
+            env:
+              RCLONE_DST: b2:wuhoobackup
+            args:
+            - backend
+            - cleanup-hidden
+            - --log-level=INFO
+            - $(RCLONE_DST)
     persistence:
       config:
         enabled: true
