@@ -1,0 +1,25 @@
+{
+  "Rules": [
+    {
+      "ID": "SpiloRule",
+      "Filter": {
+        "Prefix": "spilo/"
+      },
+      "Status": "Enabled",
+      "Expiration": {
+        "Days": 7
+      }
+    },
+    {
+      "ID": "GlacierRule",
+      "Filter": {},
+      "Status": "Enabled",
+      "Transitions": [
+        {
+          "Days": 2,
+          "StorageClass": "GLACIER"
+        }
+      ]
+    }
+  ]
+}
