@@ -25,3 +25,5 @@ spec:
     storageClassName: ceph-rbd-delete-sc
     # The VSC to use if the copy method is Snapshot (default if omitted)
     #volumeSnapshotClassName: my-vsc-name
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheStorageClassName: ceph-rbd-delete-sc

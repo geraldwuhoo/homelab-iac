@@ -18,8 +18,8 @@ patches:
       trigger:
         schedule: "10 */2 * * *"
       restic:
+        storageClassName: ""
         copyMethod: Direct
-        cacheAccessModes: ["ReadWriteOnce"]
 - target:
     kind: Secret
     name: volsync-restic-config

@@ -18,8 +18,8 @@ patches:
       trigger:
         schedule: "38 */2 * * *"
       restic:
+        storageClassName: ""
         copyMethod: Direct
-        cacheAccessModes: ["ReadWriteOnce"]
         moverSecurityContext:
           runAsUser: 1000
           runAsGroup: 1000

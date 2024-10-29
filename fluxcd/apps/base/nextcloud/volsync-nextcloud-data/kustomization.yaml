@@ -18,9 +18,8 @@ patches:
       trigger:
         schedule: "36 */2 * * *"
       restic:
-        storageClassName: ceph-rbd-hdd-delete-sc
+        storageClassName: ""
         copyMethod: Direct
-        cacheAccessModes: ["ReadWriteOnce"]
         moverSecurityContext:
           runAsUser: 1000
           runAsGroup: 1000
