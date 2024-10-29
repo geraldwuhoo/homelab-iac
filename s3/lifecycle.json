@@ -16,7 +16,7 @@
       "Status": "Enabled",
       "Transitions": [
         {
-          "Days": 2,
+          "Days": 7,
           "StorageClass": "GLACIER"
         }
       ]
