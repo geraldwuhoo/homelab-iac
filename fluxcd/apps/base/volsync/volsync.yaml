@@ -22,6 +22,6 @@ spec:
     # point-in-time image.
     copyMethod: Clone
     # The StorageClass to use when creating the PiT copy (same as source PVC if omitted)
-    #storageClassName: my-sc-name
+    storageClassName: ceph-rbd-delete-sc
     # The VSC to use if the copy method is Snapshot (default if omitted)
     #volumeSnapshotClassName: my-vsc-name
