@@ -31,6 +31,7 @@ spec:
               tag: v3.4.23
             env:
               BASE_URL: "https://send.${DOMAIN}"
+              CUSTOM_FOOTER_TEXT: Nothing here is backed up. Treat all uploads as temporary.
               FILE_DIR: /uploads
               MAX_EXPIRE_SECONDS: "604800"
               MAX_FILE_SIZE: "10737418240"
