@@ -1,9 +1,0 @@
----
-apiVersion: builtin
-kind: PrefixSuffixTransformer
-metadata:
-  name: customPrefixer
-prefix: shynet-
-fieldSpecs:
-- kind: HelmRelease
-  path: metadata/name
