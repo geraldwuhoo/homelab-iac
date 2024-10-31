@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: signal
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: dock.mau.dev/mautrix/signal
+              tag: latest@sha256:7e67b802fcf9e6284f24357196cf566035875e58ac8afc120fe177664be5d61a
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 29328
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        retain: true
+      signal-config:
+        type: secret
+        name: signal-config
+        globalMounts:
+        - path: /data/config.yaml
+          subPath: config.yaml
+          readOnly: true
+        - path: /data/registration.yaml
+          subPath: registration.yaml
+          readOnly: true
