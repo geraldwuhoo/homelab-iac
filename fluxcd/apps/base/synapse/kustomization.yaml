@@ -11,3 +11,4 @@ resources:
 - schildichat-web.yaml
 - cinny.yaml
 - federation-tester.yaml
+- volsync
