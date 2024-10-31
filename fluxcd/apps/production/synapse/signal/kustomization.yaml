@@ -5,3 +5,4 @@ namespace: synapse
 resources:
 - zalando-secret.yaml
 - helmrelease.yaml
+- volsync
