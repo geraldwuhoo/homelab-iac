@@ -17,6 +17,9 @@ spec:
   values:
     controllers:
       main:
+        type: deployment
+        replicas: 2
+        strategy: RollingUpdate
         containers:
           main:
             image:
@@ -26,6 +29,9 @@ spec:
             - secretRef:
                 name: shynet-config
       celeryworker:
+        type: deployment
+        replicas: 2
+        strategy: RollingUpdate
         containers:
           main:
             image:
