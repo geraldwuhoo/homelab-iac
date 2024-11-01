@@ -17,4 +17,4 @@ spec:
   databases:
     piped: piped
   postgresql:
-    version: "14"
+    version: "15"
