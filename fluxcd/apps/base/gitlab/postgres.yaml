@@ -22,7 +22,9 @@ spec:
     gitlab:
     - superuser
     - createdb
+    registry: []
   databases:
     gitlabhq_production: gitlab
+    registry: registry
   postgresql:
     version: "16"

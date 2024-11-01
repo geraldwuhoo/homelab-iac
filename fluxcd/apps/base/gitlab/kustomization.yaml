@@ -5,6 +5,7 @@ namespace: gitlab
 resources:
 - namespace.yaml
 - zalando-secret.yaml
+- zalando-registry-secret.yaml
 - secret.yaml
 - postgres.yaml
 - helmrelease.yaml
