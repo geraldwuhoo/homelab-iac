@@ -19,4 +19,4 @@ spec:
   databases:
     wiki: wiki
   postgresql:
-    version: "15"
+    version: "16"
