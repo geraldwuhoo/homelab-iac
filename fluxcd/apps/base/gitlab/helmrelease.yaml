@@ -185,3 +185,14 @@ spec:
             memory: 1Gi
           limits:
             memory: 3Gi
+    registry:
+      enabled: true
+      database:
+        enabled: true
+        name: registry
+        user: registry
+        host: gitlab-postgres-cluster
+        sslmode: prefer
+        password:
+          key: password
+          secret: registry.gitlab-postgres-cluster.credentials.postgresql.acid.zalan.do
