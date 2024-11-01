@@ -4,10 +4,5 @@ kind: Kustomization
 namespace: snapdrop
 resources:
 - namespace.yaml
-- ../app-template
-namePrefix: snapdrop-
-patches:
-- target:
-    kind: HelmRelease
-    name: app-template
-  path: patch.yaml
+- helmrelease.yaml
+- volsync
