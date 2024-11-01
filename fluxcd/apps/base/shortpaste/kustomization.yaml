@@ -4,10 +4,4 @@ kind: Kustomization
 namespace: shortpaste
 resources:
 - namespace.yaml
-- ../app-template
-namePrefix: shortpaste-
-patches:
-- target:
-    kind: HelmRelease
-    name: app-template
-  path: patch.yaml
+- helmrelease.yaml
