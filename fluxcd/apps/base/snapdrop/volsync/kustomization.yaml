@@ -17,6 +17,11 @@ patches:
       sourcePVC: snapdrop-config
       trigger:
         schedule: "48 */2 * * *"
+      restic:
+        moverSecurityContext:
+          runAsUser: 911
+          runAsGroup: 911
+          fsGroup: 911
 - target:
     kind: Secret
     name: volsync-restic-config
