@@ -4,5 +4,13 @@ kind: Kustomization
 resources:
 - ../../base/uptimers
 patches:
-- path: postgres-patch.yaml
 - path: patch.yaml
+- target:
+    kind: postgresql
+  patch: |-
+    apiVersion: "acid.zalan.do/v1"
+    kind: postgresql
+    metadata:
+      name: uptimers-postgres-cluster
+    spec:
+      numberOfInstances: 2
