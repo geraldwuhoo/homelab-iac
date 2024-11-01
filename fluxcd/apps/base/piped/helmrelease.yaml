@@ -1,0 +1,247 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: piped
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      piped:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        annotations: &keel
+          keel.sh/policy: force
+          keel.sh/trigger: poll
+          keel.sh/match-tag: "true"
+          keel.sh/pollSchedule: "@every 240m"
+        containers:
+          main:
+            image:
+              repository: 1337kavin/piped
+              tag: latest
+      pipedfrontend:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        annotations: *keel
+        containers:
+          main:
+            image:
+              repository: 1337kavin/piped-frontend
+              tag: latest
+            command:
+            - ash
+            - "-c"
+            - 'sed -i s/pipedapi.kavin.rocks/pipedapi.${DOMAIN}/g /usr/share/nginx/html/assets/* && /docker-entrypoint.sh && nginx -g "daemon off;"'
+      ytproxy:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        annotations: *keel
+        containers:
+          main:
+            image:
+              repository: 1337kavin/piped-proxy
+              tag: latest
+            env:
+              UDS: "1"
+      nginx:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        annotations: *keel
+        containers:
+          main:
+            image:
+              repository: nginx
+              tag: mainline-alpine
+    persistence:
+      ytproxy-pvc:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 8Gi
+        advancedMounts:
+          ytproxy:
+            main:
+            - path: /app/socket
+          nginx:
+            main:
+            - path: /var/run/ytproxy
+      piped-config:
+        type: secret
+        name: piped-config-properties
+        advancedMounts:
+          piped:
+            main:
+            - path: /app/config.properties
+              subPath: config.properties
+              readOnly: true
+      nginx-config:
+        type: configMap
+        name: piped-nginx-config
+        advancedMounts:
+          nginx:
+            main:
+            - path: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - path: /etc/nginx/conf.d/pipedapi.conf
+              subPath: pipedapi.conf
+              readOnly: true
+            - path: /etc/nginx/conf.d/pipedproxy.conf
+              subPath: pipedproxy.conf
+              readOnly: true
+            - path: /etc/nginx/conf.d/pipedfrontend.conf
+              subPath: pipedfrontend.conf
+              readOnly: true
+            - path: /etc/nginx/snippets/ytproxy.conf
+              subPath: ytproxy.conf
+              readOnly: true
+    service:
+      piped:
+        controller: piped
+        ports:
+          http:
+            port: 8080
+      pipedfrontend:
+        controller: pipedfrontend
+        ports:
+          http:
+            port: 80
+      nginx:
+        controller: nginx
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          homelab/public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.alpha.kubernetes.io/hostname: piped.${DOMAIN}, pipedapi.${DOMAIN}, pipedproxy.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+        hosts:
+        - host: piped.${DOMAIN}
+          paths: &paths
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: nginx
+              port: 80
+        - host: pipedapi.${DOMAIN}
+          paths: *paths
+        - host: pipedproxy.${DOMAIN}
+          paths: *paths
+        tls:
+        - hosts:
+          - piped.${DOMAIN}
+          - pipedapi.${DOMAIN}
+          - pipedproxy.${DOMAIN}
+          secretName: piped-cert
+    configMaps:
+      nginx-config:
+        data:
+          nginx.conf: |-
+            user root;
+            worker_processes auto;
+
+            error_log /var/log/nginx/error.log notice;
+            pid /var/run/nginx.pid;
+
+
+            events {
+                worker_connections 1024;
+            }
+
+
+            http {
+                include /etc/nginx/mime.types;
+                default_type application/octet-stream;
+
+                server_names_hash_bucket_size 128;
+
+                log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                '$status $body_bytes_sent "$http_referer" '
+                '"$http_user_agent" "$http_x_forwarded_for"';
+
+                access_log /var/log/nginx/access.log main;
+
+                sendfile on;
+                tcp_nodelay on;
+
+                keepalive_timeout 65;
+
+                include /etc/nginx/conf.d/*.conf;
+            }
+          pipedapi.conf: |-
+            proxy_cache_path /tmp/pipedapi_cache levels=1:2 keys_zone=pipedapi:4m max_size=2g inactive=240m use_temp_path=off;
+
+            server {
+                listen 80;
+                server_name pipedapi.${DOMAIN};
+
+                location / {
+                    proxy_cache pipedapi;
+                    proxy_pass "http://piped:8080";
+                    proxy_http_version 1.1;
+                    proxy_set_header connection "keep-alive";
+                }
+            }
+          pipedfrontend.conf: |-
+            server {
+                listen 80;
+                server_name piped.${DOMAIN};
+
+
+                location / {
+                    proxy_pass "http://piped-pipedfrontend:80";
+                    proxy_http_version 1.1;
+                    proxy_set_header connection "keep-alive";
+                }
+            }
+          pipedproxy.conf: |-
+            server {
+                listen 80;
+                server_name pipedproxy.${DOMAIN};
+
+                location ~ (/videoplayback|/api/v4/|/api/manifest/) {
+                    include snippets/ytproxy.conf;
+                    add_header cache-control private always;
+                }
+
+                location / {
+                    include snippets/ytproxy.conf;
+                    add_header cache-control "public, max-age=604800";
+                }
+            }
+          ytproxy.conf: |-
+            proxy_buffering on;
+            proxy_buffers 1024 16k;
+            proxy_set_header x-forwarded-for "";
+            proxy_set_header cf-connecting-ip "";
+            proxy_hide_header "alt-svc";
+            sendfile on;
+            sendfile_max_chunk 512k;
+            tcp_nopush on;
+            aio threads=default;
+            aio_write on;
+            directio 16m;
+            proxy_hide_header cache-control;
+            proxy_hide_header etag;
+            proxy_http_version 1.1;
+            proxy_set_header connection keep-alive;
+            proxy_max_temp_file_size 32m;
+            access_log off;
+            proxy_pass http://unix:/var/run/ytproxy/actix.sock;
