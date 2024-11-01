@@ -4,3 +4,15 @@ kind: Kustomization
 namespace: postgres-operator
 resources:
 - ../../base/postgres-operator
+patches:
+- target:
+    kind: HelmRelease
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: postgres-operator
+    spec:
+      values:
+        configKubernetes:
+          pod_environment_secret:

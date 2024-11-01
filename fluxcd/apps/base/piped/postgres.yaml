@@ -8,7 +8,7 @@ spec:
   teamId: "piped"
   volume:
     size: 10Gi
-  numberOfInstances: 1
+  numberOfInstances: 3
   users:
     # database owner
     piped:

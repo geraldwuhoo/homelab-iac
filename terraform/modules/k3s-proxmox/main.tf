@@ -2,7 +2,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "2.9.14"
+      version = "3.0.1-rc4"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -53,6 +53,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
   target_node = var.hosts[count.index].node
   hastate     = var.hosts[count.index].hastate
   onboot      = true
+  skip_ipv6   = true
 
   clone = var.template
 
@@ -65,12 +66,24 @@ resource "proxmox_vm_qemu" "k3s_node" {
   qemu_os = "l26"
   scsihw  = "virtio-scsi-pci"
 
-  disk {
-    type    = "scsi"
-    storage = var.specs.storage
-    size    = var.specs.size
-    ssd     = 1
-    discard = "on"
+  disks {
+    scsi {
+      scsi0 {
+        disk {
+          storage    = var.specs.storage
+          size       = var.specs.size
+          emulatessd = true
+          discard    = true
+        }
+      }
+    }
+    ide {
+      ide2 {
+        cloudinit {
+          storage = var.specs.storage
+        }
+      }
+    }
   }
 
   network {
@@ -84,10 +97,9 @@ resource "proxmox_vm_qemu" "k3s_node" {
     delete = "5m"
   }
 
-  os_type = "cloud-init"
+  os_type   = "cloud-init"
 
-  cicustom                = "user=cephfs:snippets/user_data_${count.index}.yaml"
-  cloudinit_cdrom_storage = var.specs.storage
+  cicustom = "user=cephfs:snippets/user_data_${count.index}.yaml"
 
   connection {
     type        = "ssh"
