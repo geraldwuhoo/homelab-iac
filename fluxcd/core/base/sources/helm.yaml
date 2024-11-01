@@ -155,15 +155,6 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: ww-gitops
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://helm.gitops.weave.works
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: keel
   namespace: flux-system
 spec:
