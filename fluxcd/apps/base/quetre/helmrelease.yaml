@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: quetre
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          keel.sh/policy: force
+          keel.sh/trigger: poll
+          keel.sh/match-tag: "true"
+          keel.sh/pollSchedule: "@every 240m"
+        containers:
+          main:
+            image:
+              repository: quay.io/pussthecatorg/quetre
+              tag: latest
+            env:
+              NODE_ENV: production
+              PORT: &port 3000
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          homelab/public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.alpha.kubernetes.io/hostname: quetre.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+        hosts:
+        - host: quetre.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: *port
+        tls:
+        - hosts:
+          - quetre.${DOMAIN}
+          secretName: quetre-cert
