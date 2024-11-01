@@ -16,3 +16,5 @@ patches:
       values:
         configKubernetes:
           pod_environment_secret:
+        configAwsOrGcp:
+          wal_s3_bucket:
