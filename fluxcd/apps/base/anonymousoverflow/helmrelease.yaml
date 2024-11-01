@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: anonymousoverflow
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          keel.sh/policy: force
+          keel.sh/trigger: poll
+          keel.sh/match-tag: "true"
+          keel.sh/pollSchedule: "@every 240m"
+        containers:
+          main:
+            image:
+              repository: codeberg.org/aryak/anonymousoverflow-docker-builds
+              tag: latest
+            env:
+              APP_URL: https://overflow.${DOMAIN}
+            envFrom:
+            - secretRef:
+                name: anonymousoverflow-secret
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: &port 8080
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          homelab/public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.alpha.kubernetes.io/hostname: overflow.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+        hosts:
+        - host: overflow.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: *port
+        tls:
+        - hosts:
+          - overflow.${DOMAIN}
+          secretName: overflow-cert
