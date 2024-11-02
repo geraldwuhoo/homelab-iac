@@ -21,28 +21,28 @@ spec:
         repository: ghcr.io/goauthentik/server
         tag: 2024.10.0
       env:
-        - name: PROXY_ADDRESS_FORWARDING
-          value: "true"
-        - name: AUTHENTIK_DEFAULT_USER_CHANGE_USERNAME
-          value: "false"
-        - name: AUTHENTIK_POSTGRESQL__USER
-          valueFrom:
-            secretKeyRef:
-              name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
-              key: username
-        - name: AUTHENTIK_POSTGRESQL__PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
-              key: password
-        - name: AUTHENTIK_REDIS__PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: authentik-keydb-secret
-              key: password
+      - name: PROXY_ADDRESS_FORWARDING
+        value: "true"
+      - name: AUTHENTIK_DEFAULT_USER_CHANGE_USERNAME
+        value: "false"
+      - name: AUTHENTIK_POSTGRESQL__USER
+        valueFrom:
+          secretKeyRef:
+            name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
+            key: username
+      - name: AUTHENTIK_POSTGRESQL__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
+            key: password
+      - name: AUTHENTIK_REDIS__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: authentik-keydb-secret
+            key: password
       envFrom:
-        - secretRef:
-            name: authentik-secret
+      - secretRef:
+          name: authentik-secret
     authentik:
       email:
         host: smtp.sendgrid.net
