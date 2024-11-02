@@ -86,13 +86,6 @@ spec:
           useSecret: true
           secret: gitlab.gitlab-postgres-cluster.credentials.postgresql.acid.zalan.do
           key: password
-      redis:
-        auth:
-          enabled: true
-          secret: gitlab-keydb-secret
-          key: password
-        host: gitlab-keydb-headless
-        port: 6379
       smtp:
         enabled: true
         address: smtp.sendgrid.net
@@ -158,7 +151,9 @@ spec:
     postgresql:
       install: false
     redis:
-      install: false
+      architecture: replication
+      cluster:
+        enabled: true
     prometheus:
       install: false
     minio:

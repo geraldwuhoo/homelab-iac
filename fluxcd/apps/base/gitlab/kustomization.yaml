@@ -8,7 +8,6 @@ resources:
 - zalando-registry-secret.yaml
 - secret.yaml
 - postgres.yaml
-- keydb
 - helmrelease.yaml
 - renovate-secret.yaml
 - renovate.yaml
