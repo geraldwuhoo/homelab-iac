@@ -19,6 +19,6 @@ spec:
   databases:
     synapse: synapse
   postgresql:
-    version: "16"
+    version: "15"
   enableConnectionPooler: true
   enableReplicaConnectionPooler: true
