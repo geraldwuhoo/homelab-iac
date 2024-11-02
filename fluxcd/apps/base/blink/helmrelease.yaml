@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: blink
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/janejeon/blink
+              tag: v1.4.0
+            env:
+              AUTO_MIGRATE: "1"
+              HOMEPAGE: https://${DOMAIN}
+              BASE_URL: https://blink.${DOMAIN}
+              SESSION_DURATION: 8 hours
+              TRUST_PROXY: loopback,uniquelocal
+              RATE_LIMIT_SHORT_WINDOW: 1 min
+              RATE_LIMIT_SHORT_MAX: "100"
+              RATE_LIMIT_LONG_WINDOW: 15 min
+              RATE_LIMIT_LONG_MAX: "200"
+              LINK_TIMEOUT: 15 seconds
+              CACHE_MAX_AGE: 4 hours
+              REACT_APP_BASE_URL: https://blink.${DOMAIN}
+            envFrom:
+            - secretRef:
+                name: blink-secret
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: &port 3000
+    ingress:
+      main:
+        enabled: true
+        className: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: blink.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        hosts:
+        - host: blink.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: *port

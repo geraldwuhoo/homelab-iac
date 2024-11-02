@@ -1,0 +1,21 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: blink-postgres-cluster
+  annotations:
+    k8up.io/backup: "false"
+spec:
+  teamId: "blink"
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    blink:
+    - superuser
+    - createdb
+  databases:
+    blink: blink
+  postgresql:
+    version: "16"
