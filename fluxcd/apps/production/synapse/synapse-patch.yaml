@@ -30,7 +30,6 @@ spec:
       - 'fc00::/7'
       max_spider_size: 10M
       app_service_config_files:
-      - /synapse/appservice/discord-registration.yaml
       - /synapse/appservice/signal-registration.yaml
       - /synapse/appservice/mautrix-discord-registration.yaml
       - /synapse/appservice/double-puppet-registration.yaml
@@ -65,10 +64,6 @@ spec:
           optional: false
       - name: appservice-config
         emptyDir: {}
-      - name: discord-config
-        secret:
-          secretName: discord-config
-          optional: false
       - name: signal-config
         secret:
           secretName: signal-config
@@ -87,9 +82,6 @@ spec:
         subPath: oidc.yaml
       - name: appservice-config
         mountPath: /synapse/appservice
-      - name: discord-config
-        mountPath: /synapse/appservice/discord-registration.yaml
-        subPath: discord-registration.yaml
       - name: signal-config
         mountPath: /synapse/appservice/signal-registration.yaml
         subPath: registration.yaml
