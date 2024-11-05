@@ -6,7 +6,7 @@ terraform {
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.3.0"
+      version = "1.4.0"
     }
   }
 }
@@ -38,4 +38,13 @@ resource "flux_bootstrap_git" "this" {
   depends_on = [kubernetes_secret_v1.sops_age]
 
   path = var.fluxcd_path
+  kustomization_override = <<EOF
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- gotk-components.yaml
+- gotk-sync.yaml
+patches:
+- path: gotk-patches.yaml
+  EOF
 }
