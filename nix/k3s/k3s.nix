@@ -18,23 +18,29 @@
     environment.systemPackages =
       with pkgs;
       [
-        # ceph kernel modules for ceph-csi
-        ceph-client
+        ceph-client # ceph kernel modules for ceph-csi
       ]
       ++ (
         if config.k3s.master then
           [
-            # for etcdctl
-            etcd
+            etcd # for etcdctl
           ]
         else
           [ ]
       );
 
-    programs.bash.shellAliases = {
-      ketcdctl = "etcdctl --cacert=/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt --cert=/var/lib/rancher/k3s/server/tls/etcd/client.crt --key=/var/lib/rancher/k3s/server/tls/etcd/client.key";
-      dropcaches = "sync; echo 3 > /proc/sys/vm/drop_caches";
-    };
+    programs.bash.shellAliases =
+      {
+        dropcaches = "sync; echo 3 > /proc/sys/vm/drop_caches";
+      }
+      // (
+        if config.k3s.master then
+          {
+            ketcdctl = "etcdctl --cacert=/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt --cert=/var/lib/rancher/k3s/server/tls/etcd/client.crt --key=/var/lib/rancher/k3s/server/tls/etcd/client.key";
+          }
+        else
+          { }
+      );
 
     boot.kernelModules = [
       # ceph for ceph-csi
@@ -95,6 +101,7 @@
     };
 
     environment.etc = {
+      # Enable both embedded Spigel registry and external registry mirrors
       "rancher/k3s/registries.yaml".text = ''
         mirrors:
           "docker.io":
