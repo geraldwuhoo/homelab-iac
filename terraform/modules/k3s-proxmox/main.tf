@@ -86,6 +86,13 @@ resource "proxmox_vm_qemu" "k3s_node" {
 
       # Install nixos configuration
       nix run github:nix-community/nixos-anywhere -- --extra-files "$tempdir"/sops --flake "../../nix#${self.name}" nixos@${self.name}
+
+      # Wait until node is reachable
+      until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=2 root@${self.name} true 2> /dev/null 
+      do
+        echo "Waiting for NixOS to become available..."
+        sleep 3
+      done
     EOT
   }
 }
