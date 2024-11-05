@@ -15,10 +15,26 @@
     };
   };
   config = {
-    environment.systemPackages = with pkgs; [
-      # ceph kernel modules for ceph-csi
-      ceph-client
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        # ceph kernel modules for ceph-csi
+        ceph-client
+      ]
+      ++ (
+        if config.k3s.master then
+          [
+            # for etcdctl
+            etcd
+          ]
+        else
+          [ ]
+      );
+
+    programs.bash.shellAliases = {
+      ketcdctl = "etcdctl --cacert=/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt --cert=/var/lib/rancher/k3s/server/tls/etcd/client.crt --key=/var/lib/rancher/k3s/server/tls/etcd/client.key";
+      dropcaches = "sync; echo 3 > /proc/sys/vm/drop_caches";
+    };
 
     boot.kernelModules = [
       # ceph for ceph-csi
@@ -39,6 +55,7 @@
       2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
       2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
       5001 # k3s: embedded Spigel registry mirror
+      10250 # k3s: metrics server
     ];
     networking.firewall.allowedUDPPorts = [
       8472 # k3s, flannel: required if using multi-node for inter-node networking

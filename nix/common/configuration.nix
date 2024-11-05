@@ -54,6 +54,7 @@
     environment.systemPackages = with pkgs; [
       # Standard utils, but some better
       htop-vim
+      tmux
     ];
 
     sops = {

@@ -4,46 +4,10 @@ terraform {
       source  = "telmate/proxmox"
       version = "3.0.1-rc4"
     }
-    tls = {
-      source  = "hashicorp/tls"
-      version = "4.0.6"
-    }
-  }
-}
-
-resource "random_password" "k3s_server_token" {
-  length           = 32
-  special          = false
-  override_special = "_%@"
-}
-
-resource "null_resource" "cloud_init_config_file" {
-  count = length(var.hosts)
-
-  connection {
-    type        = "ssh"
-    user        = "root"
-    private_key = file(pathexpand(var.proxmox.privkey))
-    host        = "bake"
-  }
-
-  provisioner "file" {
-    content = templatefile("${path.module}/templates/user_data.yaml.templ", {
-      pubkey     = file(pathexpand(var.pubkey))
-      hostname   = var.hosts[count.index].hostname
-      domain     = var.domain
-      vip        = "${var.vip_hostname}.${var.domain}"
-      notify     = var.notify
-      notify_url = var.notify_url
-    })
-    destination = "/mnt/pve/cephfs/snippets/user_data_${count.index}.yaml"
   }
 }
 
 resource "proxmox_vm_qemu" "k3s_node" {
-  depends_on = [
-    null_resource.cloud_init_config_file,
-  ]
   count = length(var.hosts)
 
   vmid = 3000 + count.index
@@ -55,8 +19,6 @@ resource "proxmox_vm_qemu" "k3s_node" {
   onboot      = true
   skip_ipv6   = true
 
-  clone = var.template
-
   cores   = var.specs.cores
   sockets = var.specs.sockets
   memory  = var.specs.memory
@@ -65,6 +27,11 @@ resource "proxmox_vm_qemu" "k3s_node" {
   agent   = 1
   qemu_os = "l26"
   scsihw  = "virtio-scsi-pci"
+
+  serial {
+    id   = 0
+    type = "socket"
+  }
 
   disks {
     scsi {
@@ -79,8 +46,8 @@ resource "proxmox_vm_qemu" "k3s_node" {
     }
     ide {
       ide2 {
-        cloudinit {
-          storage = var.specs.storage
+        cdrom {
+          iso = "cephfs:iso/nixos-24.05.20241030.080166c-x86_64-linux.iso"
         }
       }
     }
@@ -92,45 +59,33 @@ resource "proxmox_vm_qemu" "k3s_node" {
     bridge  = var.specs.bridge
   }
 
+  agent_timeout = "900"
   timeouts {
     create = "15m"
     delete = "5m"
   }
 
-  os_type   = "cloud-init"
-
-  cicustom = "user=cephfs:snippets/user_data_${count.index}.yaml"
-
-  connection {
-    type        = "ssh"
-    user        = "root"
-    private_key = file(pathexpand(var.privkey))
-    host        = self.name
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      templatefile("${path.module}/templates/k3s_install.sh.templ", {
-        secret      = nonsensitive(random_password.k3s_server_token.result)
-        k3s_version = var.k3s_version
-        init        = count.index == 0 ? "--cluster-init" : "--server https://${var.vip_hostname}.${var.domain}:6443"
-        hostname    = self.name
-        vip         = "${var.vip_hostname}.${var.domain}"
-        server      = var.hosts[count.index].server
-        mode        = var.hosts[count.index].server ? "server" : "agent"
-      })
-    ]
-  }
-
+  # Run nixos-anywhere to provision the node
   provisioner "local-exec" {
+    interpreter = [ "bash", "-c" ] # sorry not posix
     command = <<-EOT
-      ssh -o StrictHostKeyChecking=no root@${self.name} '(sleep 2; reboot)&'
-      sleep 3
-      until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=2 root@${self.name} true 2> /dev/null 
+      set -ex
+
+      # Wait until node is reachable
+      until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=2 nixos@${self.name} true 2> /dev/null 
       do
-        echo "Waiting for MicroOS to reboot or become available..."
+        echo "Waiting for NixOS installer to become available..."
         sleep 3
       done
+
+      # Copy age key to remote
+      tempdir="$(mktemp -d)"
+      trap 'rm -rfv -- "$tempdir"' EXIT
+      mkdir -pv "$tempdir"/sops/persist/var/lib/sops/age
+      cp -av ~/.config/sops/age/server-side-key.txt "$tempdir"/sops/persist/var/lib/sops/age
+
+      # Install nixos configuration
+      nix run github:nix-community/nixos-anywhere -- --extra-files "$tempdir"/sops --flake "../../nix#${self.name}" nixos@${self.name}
     EOT
   }
 }

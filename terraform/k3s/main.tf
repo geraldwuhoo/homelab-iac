@@ -61,6 +61,8 @@ module "k3s" {
   template = "microos-template"
   start_id = 3000
 
+  # MAC addresses are stably generated via
+  # echo "$FQDN" | md5sum | sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/02:\1:\2:\3:\4:\5/'
   hosts = [
     {
       hostname    = "k3s-master-0"
@@ -116,7 +118,7 @@ module "k3s" {
   specs = {
     bridge  = "vmbr2"
     cores   = 4
-    memory  = 12288
+    memory  = 8192
     balloon = 8192
     size    = "64G"
     sockets = 1
