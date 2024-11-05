@@ -47,7 +47,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
     ide {
       ide2 {
         cdrom {
-          iso = var.specs.iso
+          iso = var.iso
         }
       }
     }
