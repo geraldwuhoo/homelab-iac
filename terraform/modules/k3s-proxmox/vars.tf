@@ -5,15 +5,6 @@ variable "proxmox" {
   sensitive = true
 }
 
-variable "pubkey" {
-  type = string
-}
-
-variable "privkey" {
-  type      = string
-  sensitive = true
-}
-
 variable "vip_hostname" {
   type = string
 }
@@ -22,12 +13,12 @@ variable "domain" {
   type = string
 }
 
-variable "template" {
+variable "iso" {
   type = string
 }
 
-variable "start_id" {
-  type = number
+variable "sops-server-key-path" {
+  type = string
 }
 
 variable "hosts" {
@@ -50,17 +41,4 @@ variable "specs" {
     size    = string,
     bridge  = string,
   })
-}
-
-variable "k3s_version" {
-  type = string
-}
-
-variable "notify" {
-  type = bool
-}
-
-variable "notify_url" {
-  type      = string
-  sensitive = true
 }

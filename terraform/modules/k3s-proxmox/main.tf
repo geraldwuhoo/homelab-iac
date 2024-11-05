@@ -47,7 +47,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
     ide {
       ide2 {
         cdrom {
-          iso = "cephfs:iso/nixos-24.05.20241030.080166c-x86_64-linux.iso"
+          iso = var.specs.iso
         }
       }
     }
@@ -67,8 +67,8 @@ resource "proxmox_vm_qemu" "k3s_node" {
 
   # Run nixos-anywhere to provision the node
   provisioner "local-exec" {
-    interpreter = [ "bash", "-c" ] # sorry not posix
-    command = <<-EOT
+    interpreter = ["bash", "-c"] # sorry not posix
+    command     = <<-EOT
       set -ex
 
       # Wait until node is reachable
@@ -82,7 +82,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
       tempdir="$(mktemp -d)"
       trap 'rm -rfv -- "$tempdir"' EXIT
       mkdir -pv "$tempdir"/sops/persist/var/lib/sops/age
-      cp -av ~/.config/sops/age/server-side-key.txt "$tempdir"/sops/persist/var/lib/sops/age
+      cp -av ${var.sops-server-key-path} "$tempdir"/sops/persist/var/lib/sops/age
 
       # Install nixos configuration
       nix run github:nix-community/nixos-anywhere -- --extra-files "$tempdir"/sops --flake "../../nix#${self.name}" nixos@${self.name}

@@ -337,7 +337,7 @@ provider "gitlab" {
 }
 
 module "gitlab" {
-  source     = "../modules/gitlab"
+  source = "../modules/gitlab"
 
   public_key_openssh = resource.tls_private_key.flux.public_key_openssh
 

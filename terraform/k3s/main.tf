@@ -51,15 +51,11 @@ module "k3s" {
     privkey = "~/.ssh/id_rsa"
   }
 
-  pubkey       = "~/.ssh/id_rsa.pub"
-  privkey      = "~/.ssh/id_rsa"
   domain       = "wuhoo.xyz"
   vip_hostname = "k3s"
 
-  k3s_version = "v1.30.3+k3s1"
-
-  template = "microos-template"
-  start_id = 3000
+  iso                  = "cephfs:iso/nixos-24.05.20241030.080166c-x86_64-linux.iso"
+  sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
 
   # MAC addresses are stably generated via
   # echo "$FQDN" | md5sum | sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/02:\1:\2:\3:\4:\5/'
@@ -124,9 +120,6 @@ module "k3s" {
     sockets = 1
     storage = "rbd"
   }
-
-  notify     = true
-  notify_url = data.sops_file.secret.data["notify_url"]
 }
 
 resource "local_sensitive_file" "kubeconfig" {
