@@ -1,5 +1,6 @@
 { lib, ... }:
 {
+  # Lots of config taken from https://git.elia.garden/leela/dotfiles
   disko.devices = {
     disk = {
       main = {
@@ -106,7 +107,6 @@
 
   # Roll back to empty snapshot on every boot
   # Inspired by https://grahamc.com/blog/erase-your-darlings/
-  # Lots of config taken from https://git.elia.garden/leela/dotfiles
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     echo "rolling back root to empty snapshot"
     zfs rollback -r zroot/ROOT/default@blank
