@@ -44,19 +44,7 @@ provider "proxmox" {
   pm_api_token_secret = data.sops_file.secret.data["proxmox.api_token_secret"]
 }
 
-module "k3s" {
-  source = "../modules/k3s-proxmox"
-
-  proxmox = {
-    privkey = "~/.ssh/id_rsa"
-  }
-
-  domain       = "wuhoo.xyz"
-  vip_hostname = "k3s"
-
-  iso                  = "cephfs:iso/nixos-24.05.20241030.080166c-x86_64-linux.iso"
-  sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
-
+locals {
   # MAC addresses are stably generated via
   # echo "$FQDN" | md5sum | sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/02:\1:\2:\3:\4:\5/'
   hosts = [
@@ -110,6 +98,22 @@ module "k3s" {
       node        = "kabuki"
     },
   ]
+}
+
+module "k3s" {
+  source = "../modules/k3s-proxmox"
+
+  proxmox = {
+    privkey = "~/.ssh/id_rsa"
+  }
+
+  domain       = "wuhoo.xyz"
+  vip_hostname = "k3s"
+
+  iso                  = "cephfs:iso/nixos-24.05.20241030.080166c-x86_64-linux.iso"
+  sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
+
+  hosts = local.hosts
 
   specs = {
     bridge  = "vmbr2"
@@ -126,6 +130,16 @@ resource "local_sensitive_file" "kubeconfig" {
   content         = module.k3s.k3s_kubeconfig
   filename        = pathexpand(var.config_path)
   file_permission = "0600"
+}
+
+module "nixos" {
+  for_each = { for host in local.hosts : host.hostname => host }
+
+  depends_on = [ module.k3s ]
+  source = "github.com/Gabriella439/terraform-nixos-ng//nixos"
+
+  host = "root@${each.key}"
+  flake = "../../nix#${each.key}"
 }
 
 # Configure the GitLab repository for Flux
