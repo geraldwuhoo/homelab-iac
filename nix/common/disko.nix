@@ -53,6 +53,7 @@
           zfs list -t snapshot -H -o name | grep -E '^zroot/ROOT/default@blank$' || zfs snapshot zroot/ROOT/default@blank
         '';
         datasets = {
+          # Root mount
           "ROOT" = {
             type = "zfs_fs";
             options.mountpoint = "none";
@@ -62,6 +63,8 @@
             mountpoint = "/";
             options.mountpoint = "legacy";
           };
+
+          # Misc persistence
           "persist" = {
             type = "zfs_fs";
             mountpoint = "/persist";
@@ -70,10 +73,8 @@
             type = "zfs_fs";
             mountpoint = "/nix";
           };
-          "persist/home" = {
-            type = "zfs_fs";
-            mountpoint = "/home";
-          };
+
+          # /var/lib/rancher for k3s
           "persist/var" = {
             type = "zfs_fs";
             mountpoint = "/var";
@@ -87,6 +88,8 @@
           "persist/var/lib/rancher" = {
             type = "zfs_fs";
           };
+
+          # /etc/rancher for k3s
           "persist/etc" = {
             type = "zfs_fs";
             mountpoint = "/etc";
@@ -111,7 +114,6 @@
     "zfs.zfs_arc_max=1073741824"
     "kernel.unprivileged_userns_clone=1"
   ];
-
 
   services.zfs.trim.enable = true;
 }

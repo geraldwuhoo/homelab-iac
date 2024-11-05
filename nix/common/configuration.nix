@@ -26,7 +26,7 @@
     };
     boot.loader.timeout = 1;
     boot.initrd.postDeviceCommands = lib.mkAfter ''
-      echo "rolling back snapshot"
+      echo "rolling back root to empty snapshot"
       zfs rollback -r zroot/ROOT/default@blank
     '';
 
