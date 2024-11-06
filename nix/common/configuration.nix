@@ -13,16 +13,22 @@
         type = types.listOf types.str;
         description = "Whether or not this is a master node";
       };
+      efi = mkOption {
+        type = types.bool;
+        description = "Enable EFI support";
+        default = false;
+      };
     };
   };
 
   config = {
     services.qemuGuest.enable = true;
 
+    boot.loader.efi.canTouchEfiVariables = config.common.efi;
     boot.loader.grub = {
       enable = true;
       zfsSupport = true;
-      timeoutStyle = "countdown";
+      efiSupport = config.common.efi;
     };
     boot.loader.timeout = 1;
 

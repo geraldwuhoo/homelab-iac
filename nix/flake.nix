@@ -61,6 +61,21 @@
             ];
           };
 
+          arm64 = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            modules = [
+              {
+                networking.hostName = "nixos";
+                networking.hostId = "41f85022";
+                common.keys = keys;
+                common.efi = true;
+              }
+              sops-nix.nixosModules.sops
+              disko.nixosModules.disko
+              ./common
+            ];
+          };
+
           k3s-master-0 = nixpkgs.lib.nixosSystem {
             inherit system;
             modules = [
