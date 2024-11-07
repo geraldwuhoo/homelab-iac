@@ -24,6 +24,138 @@ resource "hcloud_primary_ip" "primary_ip" {
   auto_delete   = false
 }
 
+resource "hcloud_firewall" "firewall" {
+  name = "${var.name}_firewall"
+
+  // Inbound connections
+  rule {
+    direction   = "in"
+    protocol    = "icmp"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "Allow incoming ICMP ping requests"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "22"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "Allow incoming SSH traffic"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "80"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "Allow incoming HTTP connections"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "443"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "Allow incoming HTTPS connections"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "6443"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "Allow incoming requests to the Kube API server"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "udp"
+    port        = "3478"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "STUN inbound"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "3478"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "STUN inbound"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "udp"
+    port        = "5349"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "STUN inbound"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "5349"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "STUN inbound"
+  }
+  rule {
+    direction   = "in"
+    protocol    = "udp"
+    port        = "49152-65535"
+    source_ips  = ["0.0.0.0/0", "::/0"]
+    description = "STUN inbound"
+  }
+
+  // Outbound connections
+  rule {
+    direction       = "out"
+    protocol        = "icmp"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow outbound ICMP ping requests"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "tcp"
+    port            = "80"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow outbound HTTP requests"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "tcp"
+    port            = "443"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow outbound HTTPS requests"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "53"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow outbound UDP DNS requests"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "tcp"
+    port            = "53"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow outbound TCP DNS requests"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "123"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow outbound UDP NTP requests"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "tcp"
+    port            = "587"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow outbound SMTP requests"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "tcp"
+    port            = "22"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "SSH outbound for Flux git cloning"
+  }
+}
+
 resource "cloudflare_record" "name_record" {
   zone_id = var.zone_id
   name    = var.name
@@ -34,11 +166,12 @@ resource "cloudflare_record" "name_record" {
 }
 
 resource "hcloud_server" "node" {
-  name        = var.name
-  image       = "ubuntu-24.04" # we just need _something_ to be running for nixos-anywhere
-  server_type = var.server_type
-  datacenter  = var.datacenter
-  ssh_keys    = [hcloud_ssh_key.primary_ssh_key.id]
+  name         = var.name
+  image        = "ubuntu-24.04" # we just need _something_ to be running for nixos-anywhere
+  server_type  = var.server_type
+  datacenter   = var.datacenter
+  ssh_keys     = [hcloud_ssh_key.primary_ssh_key.id]
+  firewall_ids = [hcloud_firewall.firewall.id]
 
   public_net {
     ipv4_enabled = true
@@ -81,4 +214,16 @@ resource "hcloud_server" "node" {
   lifecycle {
     ignore_changes = [ssh_keys]
   }
+}
+
+data "external" "kubeconfig" {
+  program = [
+    "ssh",
+    "-o UserKnownHostsFile=/dev/null",
+    "-o StrictHostKeyChecking=no",
+    "root@${var.name}",
+    "echo '{\"kubeconfig\":\"'$(cat /etc/rancher/k3s/k3s.yaml | base64)'\"}'"
+  ]
+
+  depends_on = [hcloud_server.node]
 }

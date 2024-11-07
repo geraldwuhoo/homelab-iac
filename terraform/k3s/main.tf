@@ -4,14 +4,6 @@ terraform {
       source  = "carlpett/sops"
       version = "1.1.1"
     }
-    hcloud = {
-      source  = "hetznercloud/hcloud"
-      version = "1.48.1"
-    }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "4.45.0"
-    }
     proxmox = {
       source  = "telmate/proxmox"
       version = "3.0.1-rc4"
@@ -140,40 +132,12 @@ resource "local_sensitive_file" "kubeconfig" {
   file_permission = "0600"
 }
 
-provider "hcloud" {
-  token = data.sops_file.secret.data["hcloud_token"]
-}
-
-provider "cloudflare" {
-  api_token = data.sops_file.secret.data["cloudflare_api_token"]
-}
-
-locals {
-  hetzner_hosts = [
-    {
-      hostname = "k3s-hetzner"
-    },
-  ]
-}
-
-module "k3s-hetzner" {
-  for_each = {for index, host in local.hetzner_hosts: host.hostname => host}
-
-  source               = "../modules/k3s-hcloud"
-  ssh_key_path         = "~/.ssh/id_rsa.pub"
-  name                 = each.value.hostname
-  zone_id              = data.sops_file.secret.data["cloudflare_zone_id"]
-  domain               = "wuhoo.xyz"
-  sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
-}
-
 module "nixos" {
   for_each = setunion(
     [for host in local.hosts : host.hostname],
-    [for host in local.hetzner_hosts : host.hostname],
   )
 
-  depends_on = [module.k3s, module.k3s-hetzner]
+  depends_on = [module.k3s]
   source     = "github.com/Gabriella439/terraform-nixos-ng//nixos"
 
   host  = "root@${each.key}"
