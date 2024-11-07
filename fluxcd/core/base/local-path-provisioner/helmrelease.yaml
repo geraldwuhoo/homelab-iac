@@ -22,3 +22,7 @@ spec:
       defaultClass: true
       name: local-path
       reclaimPolicy: Retain
+    nodePathMap:
+    - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+      paths:
+      - /persist/local-path-provisioner
