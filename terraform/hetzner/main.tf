@@ -63,6 +63,7 @@ module "k3s-hetzner" {
   source               = "../modules/k3s-hcloud"
   ssh_key_path         = "~/.ssh/id_rsa.pub"
   name                 = each.value.hostname
+  datacenter = "nbg1-dc3"
   zone_id              = data.sops_file.secret.data["cloudflare_zone_id"]
   domain               = "wuhoo.xyz"
   sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
