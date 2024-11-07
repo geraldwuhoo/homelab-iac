@@ -29,7 +29,8 @@ spec:
   values:
     image:
       repository: quay.io/invidious/invidious
-      tag:  2024.08.26-4782a67 
+      tag: latest
+      pullPolicy: Always
     replicaCount: 1
     autoscaling:
       enabled: false
