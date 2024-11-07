@@ -5,6 +5,8 @@ metadata:
   name: invidious
 spec:
   values:
+    image:
+      tag: latest-arm64
     ingress:
       enabled: true
       className: nginx
