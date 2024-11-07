@@ -192,4 +192,5 @@ module "fluxcd" {
 
   sops_key_path = var.sops_key_path
   fluxcd_path   = var.fluxcd_path
+  patch         = false
 }

@@ -34,10 +34,7 @@ resource "kubernetes_secret_v1" "sops_age" {
   }
 }
 
-resource "flux_bootstrap_git" "this" {
-  depends_on = [kubernetes_secret_v1.sops_age]
-
-  path = var.fluxcd_path
+locals {
   kustomization_override = <<EOF
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -47,4 +44,11 @@ resources:
 patches:
 - path: gotk-patches.yaml
   EOF
+}
+
+resource "flux_bootstrap_git" "this" {
+  depends_on = [kubernetes_secret_v1.sops_age]
+
+  path = var.fluxcd_path
+  kustomization_override = var.patch ? local.kustomization_override : ""
 }
