@@ -50,5 +50,5 @@ resource "flux_bootstrap_git" "this" {
   depends_on = [kubernetes_secret_v1.sops_age]
 
   path = var.fluxcd_path
-  kustomization_override = var.patch ? local.kustomization_override : ""
+  kustomization_override = var.patch ? local.kustomization_override : null
 }
