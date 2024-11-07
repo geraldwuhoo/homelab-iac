@@ -14,4 +14,4 @@ patches:
     metadata:
       name: invidious-postgres-cluster
     spec:
-      numberOfInstances: 2
+      numberOfInstances: 1

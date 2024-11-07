@@ -13,4 +13,4 @@ patches:
     metadata:
       name: uptimers-postgres-cluster
     spec:
-      numberOfInstances: 2
+      numberOfInstances: 1
