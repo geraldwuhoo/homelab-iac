@@ -18,5 +18,5 @@ variable "gitlab" {
 
 variable "fluxcd_path" {
   type    = string
-  default = "fluxcd/clusters/production"
+  default = "fluxcd/clusters/hetzner"
 }

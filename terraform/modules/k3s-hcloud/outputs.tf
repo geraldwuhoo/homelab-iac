@@ -8,7 +8,7 @@ output "k3s_kubeconfig" {
       "server: https://${var.name}:6443",
     ),
     "default",
-    "k3s",
+    var.name,
   )
   sensitive = true
 }
