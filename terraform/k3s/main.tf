@@ -25,8 +25,16 @@ terraform {
       version = "1.4.0"
     }
   }
-  backend "pg" {
-    schema_name = "k3s"
+
+  backend "s3" {
+    bucket = "terraform"
+    key = "tfstate/k3s"
+    region = "us-east-1"
+    endpoints = {
+      s3 = "s3.wuhoo.xyz"
+    }
+
+    skip_credentials_validation = true
   }
 }
 

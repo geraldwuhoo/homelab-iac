@@ -29,8 +29,16 @@ terraform {
       version = "1.4.0"
     }
   }
-  backend "pg" {
-    schema_name = "hetzner"
+
+  backend "s3" {
+    bucket = "terraform"
+    key = "tfstate/hetzner"
+    region = "us-east-1"
+    endpoints = {
+      s3 = "s3.wuhoo.xyz"
+    }
+
+    skip_credentials_validation = true
   }
 }
 
