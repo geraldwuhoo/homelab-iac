@@ -32,7 +32,7 @@ terraform {
 
   backend "s3" {
     bucket = "terraform"
-    key = "tfstate/hetzner"
+    key    = "tfstate/hetzner"
     region = "us-east-1"
     endpoints = {
       s3 = "s3.wuhoo.xyz"
@@ -66,19 +66,19 @@ locals {
 }
 
 module "k3s-hetzner" {
-  for_each = {for index, host in local.hetzner_hosts: host.hostname => host}
+  for_each = { for index, host in local.hetzner_hosts : host.hostname => host }
 
   source               = "../modules/k3s-hcloud"
   ssh_key_path         = "~/.ssh/id_rsa.pub"
   name                 = each.value.hostname
-  datacenter = "nbg1-dc3"
+  datacenter           = "nbg1-dc3"
   zone_id              = data.sops_file.secret.data["cloudflare_zone_id"]
   domain               = "wuhoo.xyz"
   sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
 }
 
 resource "local_sensitive_file" "kubeconfig" {
-  for_each = {for index, host in local.hetzner_hosts: host.hostname => host}
+  for_each = { for index, host in local.hetzner_hosts : host.hostname => host }
 
   content         = module.k3s-hetzner[each.value.hostname].k3s_kubeconfig
   filename        = pathexpand("~/.kube/${each.value.hostname}-hetzner.config")
@@ -86,7 +86,7 @@ resource "local_sensitive_file" "kubeconfig" {
 }
 
 module "nixos" {
-  for_each = {for index, host in local.hetzner_hosts : host.hostname => host}
+  for_each = { for index, host in local.hetzner_hosts : host.hostname => host }
 
   depends_on = [module.k3s-hetzner]
   source     = "github.com/Gabriella439/terraform-nixos-ng//nixos"

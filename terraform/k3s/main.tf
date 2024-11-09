@@ -28,7 +28,7 @@ terraform {
 
   backend "s3" {
     bucket = "terraform"
-    key = "tfstate/k3s"
+    key    = "tfstate/k3s"
     region = "us-east-1"
     endpoints = {
       s3 = "s3.wuhoo.xyz"
@@ -141,19 +141,19 @@ resource "local_sensitive_file" "kubeconfig" {
 }
 
 resource "proxmox_lxc" "nixos" {
-  target_node = "bake"
-  hostname = "testing"
-  ostemplate = "cephfs:vztmpl/nixos-system-x86_64-linux.tar.xz"
+  target_node  = "bake"
+  hostname     = "testing"
+  ostemplate   = "cephfs:vztmpl/nixos-system-x86_64-linux.tar.xz"
   unprivileged = true
-  password = "password"
+  password     = "password"
 
   ssh_public_keys = file(pathexpand("~/.ssh/id_rsa.pub"))
 
-  cores = 2
+  cores  = 2
   memory = 4096
-  swap = 0
+  swap   = 0
 
-  start = true
+  start  = true
   onboot = true
   #hastate = "started"
 
@@ -163,15 +163,15 @@ resource "proxmox_lxc" "nixos" {
 
   rootfs {
     storage = "rbd"
-    size = "32G"
+    size    = "32G"
   }
 
   network {
-    name = "eth0"
-    bridge = "vmbr2"
-    hwaddr = "02:9a:87:4e:cc:ff"
-    ip = "dhcp"
-    ip6 = "manual"
+    name     = "eth0"
+    bridge   = "vmbr2"
+    hwaddr   = "02:9a:87:4e:cc:ff"
+    ip       = "dhcp"
+    ip6      = "manual"
     firewall = false
   }
 }
@@ -184,8 +184,8 @@ module "nixos" {
   depends_on = [module.k3s]
   source     = "github.com/Gabriella439/terraform-nixos-ng//nixos"
 
-  host  = "nixos@${each.key}"
-  flake = "../../nix#${each.key}"
+  host      = "nixos@${each.key}"
+  flake     = "../../nix#${each.key}"
   arguments = ["--use-remote-sudo"]
 }
 

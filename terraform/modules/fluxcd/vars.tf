@@ -3,10 +3,10 @@ variable "sops_key_path" {
 }
 
 variable "fluxcd_path" {
-  type    = string
+  type = string
 }
 
 variable "patch" {
-  type = bool
+  type    = bool
   default = true
 }
