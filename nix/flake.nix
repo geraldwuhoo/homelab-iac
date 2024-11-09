@@ -64,52 +64,6 @@
             ];
           };
 
-          generic = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "nixos";
-                networking.hostId = "8b19c1fc";
-                common.keys = keys;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-            ];
-          };
-
-          container = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "nixos";
-                networking.hostId = "8b19c1fc";
-                common.keys = keys;
-              }
-              sops-nix.nixosModules.sops
-              ./common
-              ./lxc
-              ./services/tang
-            ];
-          };
-
-          arm64 = nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
-            modules = [
-              {
-                networking.hostName = "nixos";
-                networking.hostId = "41f85022";
-                common.keys = keys;
-                vm.efi = true;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-            ];
-          };
-
           hetzner = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
             modules = [
