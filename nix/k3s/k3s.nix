@@ -39,7 +39,7 @@
         k = "kubectl";
         dropcaches = "sync; echo 3 > /proc/sys/vm/drop_caches";
       }
-      // (lib.mkIf (config.k3s.master) {
+      // (lib.optionalAttrs (config.k3s.master) {
         ketcdctl = "etcdctl --cacert=/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt --cert=/var/lib/rancher/k3s/server/tls/etcd/client.crt --key=/var/lib/rancher/k3s/server/tls/etcd/client.key";
       });
 
