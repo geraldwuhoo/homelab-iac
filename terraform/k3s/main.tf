@@ -140,12 +140,23 @@ resource "local_sensitive_file" "kubeconfig" {
   file_permission = "0600"
 }
 
+locals {
+  lxc_hosts = [
+    {
+      hostname    = "shinobu"
+      mac_address = "02:c9:f2:01:b1:45"
+      node        = "kabuki"
+    }
+  ]
+}
+
 resource "proxmox_lxc" "nixos" {
-  target_node  = "bake"
-  hostname     = "testing"
+  for_each = { for host in local.lxc_hosts : host.hostname => host }
+
+  target_node  = each.value.node
+  hostname     = each.value.hostname
   ostemplate   = "cephfs:vztmpl/nixos-system-x86_64-linux.tar.xz"
   unprivileged = true
-  password     = "password"
 
   ssh_public_keys = file(pathexpand("~/.ssh/id_rsa.pub"))
 
@@ -153,9 +164,9 @@ resource "proxmox_lxc" "nixos" {
   memory = 4096
   swap   = 0
 
-  start  = true
-  onboot = true
-  #hastate = "started"
+  start   = true
+  onboot  = true
+  hastate = "started"
 
   features {
     nesting = true
@@ -169,7 +180,7 @@ resource "proxmox_lxc" "nixos" {
   network {
     name     = "eth0"
     bridge   = "vmbr2"
-    hwaddr   = "02:9a:87:4e:cc:ff"
+    hwaddr   = each.value.mac_address
     ip       = "dhcp"
     ip6      = "manual"
     firewall = false
@@ -179,6 +190,7 @@ resource "proxmox_lxc" "nixos" {
 module "nixos" {
   for_each = setunion(
     [for host in local.hosts : host.hostname],
+    [for host in local.lxc_hosts : host.hostname],
   )
 
   depends_on = [module.k3s]

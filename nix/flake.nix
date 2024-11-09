@@ -90,6 +90,7 @@
               sops-nix.nixosModules.sops
               ./common
               ./lxc
+              ./services/tang
             ];
           };
 
@@ -125,6 +126,21 @@
               ./common
               ./vm
               ./k3s
+            ];
+          };
+
+          shinobu = nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              {
+                networking.hostName = "shinobu";
+                networking.hostId = "335388f6";
+                common.keys = keys;
+              }
+              sops-nix.nixosModules.sops
+              ./common
+              ./lxc
+              ./services/tang
             ];
           };
 
