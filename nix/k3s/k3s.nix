@@ -131,30 +131,10 @@
 
     environment.etc = {
       # Enable both embedded Spigel registry and external registry mirrors
-      "rancher/k3s/registries.yaml".text = ''
-        mirrors:
-          "docker.io":
-            endpoint:
-            - "https://hub.wuhoo.xyz"
-          "quay.io":
-            endpoint:
-            - "https://quay.wuhoo.xyz"
-          "ghcr.io":
-            endpoint:
-            - "https://ghcr.wuhoo.xyz"
-          "gcr.io":
-            endpoint:
-            - "https://gcr.wuhoo.xyz"
-          "k8s.gcr.io":
-            endpoint:
-            - "https://k8sgcr.wuhoo.xyz"
-          "registry.k8s.io":
-            endpoint:
-            - "https://registryk8s.wuhoo.xyz"
-          "registry.gitlab.com":
-            endpoint:
-            - "https://rgitlab.wuhoo.xyz"
-      '';
+      "rancher/k3s/registries.yaml" = {
+        source = ./manifests/registries.yaml;
+        mode = "0644";
+      };
     };
   };
 }
