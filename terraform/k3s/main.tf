@@ -140,6 +140,42 @@ resource "local_sensitive_file" "kubeconfig" {
   file_permission = "0600"
 }
 
+resource "proxmox_lxc" "nixos" {
+  target_node = "bake"
+  hostname = "testing"
+  ostemplate = "cephfs:vztmpl/nixos-system-x86_64-linux.tar.xz"
+  unprivileged = true
+  password = "password"
+
+  ssh_public_keys = file(pathexpand("~/.ssh/id_rsa.pub"))
+
+  cores = 2
+  memory = 4096
+  swap = 0
+
+  start = true
+  onboot = true
+  #hastate = "started"
+
+  features {
+    nesting = true
+  }
+
+  rootfs {
+    storage = "rbd"
+    size = "32G"
+  }
+
+  network {
+    name = "eth0"
+    bridge = "vmbr2"
+    hwaddr = "02:9a:87:4e:cc:ff"
+    ip = "dhcp"
+    ip6 = "manual"
+    firewall = false
+  }
+}
+
 module "nixos" {
   for_each = setunion(
     [for host in local.hosts : host.hostname],
@@ -148,8 +184,9 @@ module "nixos" {
   depends_on = [module.k3s]
   source     = "github.com/Gabriella439/terraform-nixos-ng//nixos"
 
-  host  = "root@${each.key}"
+  host  = "nixos@${each.key}"
   flake = "../../nix#${each.key}"
+  arguments = ["--use-remote-sudo"]
 }
 
 # Configure the GitLab repository for Flux

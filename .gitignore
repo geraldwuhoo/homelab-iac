@@ -1,3 +1,5 @@
 .terraform/
 .decrypted~*
 .vscode
+*.swp
+nix/result

@@ -186,7 +186,7 @@ resource "hcloud_server" "node" {
       set -ex
 
       # Wait until node is reachable
-      until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=2 root@${self.name} true 2> /dev/null 
+      until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=2 root@${self.name} true 2> /dev/null
       do
         echo "Waiting for NixOS installer to become available..."
         sleep 3
@@ -202,7 +202,7 @@ resource "hcloud_server" "node" {
       nix run github:nix-community/nixos-anywhere -- --extra-files "$tempdir"/sops --flake "../../nix#${self.name}" root@${self.name}
 
       # Wait until node is reachable
-      until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=2 root@${self.name} true 2> /dev/null 
+      until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=2 nixos@${self.name} true 2> /dev/null
       do
         echo "Waiting for NixOS to become available..."
         sleep 3
@@ -221,8 +221,8 @@ data "external" "kubeconfig" {
     "ssh",
     "-o UserKnownHostsFile=/dev/null",
     "-o StrictHostKeyChecking=no",
-    "root@${var.name}",
-    "echo '{\"kubeconfig\":\"'$(cat /etc/rancher/k3s/k3s.yaml | base64)'\"}'"
+    "nixos@${var.name}",
+    "echo '{\"kubeconfig\":\"'$(sudo cat /etc/rancher/k3s/k3s.yaml | base64)'\"}'"
   ]
 
   depends_on = [hcloud_server.node]

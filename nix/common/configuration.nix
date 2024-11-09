@@ -6,37 +6,25 @@
 }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
   options = {
     common = with lib; {
       keys = mkOption {
         type = types.listOf types.str;
-        description = "Whether or not this is a master node";
-      };
-      efi = mkOption {
-        type = types.bool;
-        description = "Enable EFI support";
-        default = false;
+        description = "SSH keys";
       };
     };
   };
 
   config = {
-    services.qemuGuest.enable = true;
-
-    boot.loader.efi.canTouchEfiVariables = config.common.efi;
-    boot.loader.grub = {
-      enable = true;
-      zfsSupport = true;
-      efiSupport = config.common.efi;
-    };
-    boot.loader.timeout = 1;
-
     nix.settings.auto-optimise-store = true;
 
     services.openssh = {
       enable = true;
-      settings.PasswordAuthentication = false;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+      };
       hostKeys = [
         {
           bits = 4096;
@@ -49,15 +37,25 @@
         }
       ];
     };
-    users.users.root = {
+
+    nix.settings.trusted-users = [ "nixos" ];
+    users.users.nixos = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = config.common.keys;
     };
+    security.sudo.wheelNeedsPassword = false;
 
     environment.systemPackages = with pkgs; [
       # Standard utils, but some better
+      fd
       htop-vim
       inetutils
+      ncdu
+      ripgrep
       tmux
+      tree
+      vim
     ];
 
     sops = {

@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     disko = {
       url = "github:nix-community/disko/v1.9.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,6 +25,7 @@
     {
       self,
       nixpkgs,
+      nixos-generators,
       disko,
       sops-nix,
       ...
@@ -33,6 +39,17 @@
           system = "x86_64-linux";
         in
         {
+          lxc = nixos-generators.nixosGenerate {
+            inherit system;
+            modules = [
+              { common.keys = keys; }
+              sops-nix.nixosModules.sops
+              ./common
+              ./lxc
+            ];
+            format = "proxmox-lxc";
+          };
+
           iso = nixpkgs.lib.nixosSystem {
             inherit system;
             modules = [
@@ -58,6 +75,21 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
+            ];
+          };
+
+          container = nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              {
+                networking.hostName = "nixos";
+                networking.hostId = "8b19c1fc";
+                common.keys = keys;
+              }
+              sops-nix.nixosModules.sops
+              ./common
+              ./lxc
             ];
           };
 
@@ -68,11 +100,12 @@
                 networking.hostName = "nixos";
                 networking.hostId = "41f85022";
                 common.keys = keys;
-                common.efi = true;
+                vm.efi = true;
               }
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
             ];
           };
 
@@ -83,13 +116,14 @@
                 networking.hostName = "hetzner";
                 networking.hostId = "41f85022";
                 common.keys = keys;
-                common.efi = true;
+                vm.efi = true;
                 k3s.master = true;
                 k3s.singleNode = true;
               }
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
@@ -106,6 +140,7 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
@@ -122,6 +157,7 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
@@ -138,6 +174,7 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
@@ -154,6 +191,7 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
@@ -170,6 +208,7 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
@@ -186,6 +225,7 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
@@ -202,6 +242,7 @@
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
               ./common
+              ./vm
               ./k3s
             ];
           };
