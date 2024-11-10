@@ -185,6 +185,27 @@ resource "proxmox_lxc" "nixos" {
     ip6      = "manual"
     firewall = false
   }
+
+  provisioner "local-exec" {
+    interpreter = ["bash", "-c"] # sorry not posix
+    command     = <<-EOT
+      set -ex
+
+      SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=2"
+
+      # Wait until node is reachable
+      until ssh $SSH_OPTS nixos@${self.hostname} true 2> /dev/null
+      do
+        echo "Waiting for NixOS installer to become available..."
+        sleep 3
+      done
+
+      # Copy age key to remote
+      ssh $SSH_OPTS nixos@${self.hostname} sudo mkdir -pv /persist/var/lib/sops/age
+      scp $SSH_OPTS -v ~/.config/sops/age/server-side-key.txt nixos@${self.hostname}:
+      ssh $SSH_OPTS nixos@${self.hostname} sudo mv -v ./server-side-key.txt /persist/var/lib/sops/age/
+    EOT
+  }
 }
 
 module "nixos" {
