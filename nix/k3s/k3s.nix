@@ -116,6 +116,23 @@
             [ ]
         )
       );
+
+      configPath = lib.mkIf (
+        config.k3s.master && !config.k3s.singleNode
+      ) config.sops.templates.k3s-config.path;
+    };
+
+    sops.secrets.aws-access-key-id = lib.mkIf (config.k3s.master && !config.k3s.singleNode) { };
+    sops.secrets.aws-secret-access-key = lib.mkIf (config.k3s.master && !config.k3s.singleNode) { };
+    sops.templates.k3s-config = lib.mkIf (config.k3s.master && !config.k3s.singleNode) {
+      content = ''
+        etcd-s3: true
+        etcd-s3-endpoint: s3.wuhoo.xyz
+        etcd-s3-bucket: backup
+        etcd-s3-folder: etcd
+        etcd-s3-access-key: ${config.sops.placeholder.aws-access-key-id}
+        etcd-s3-secret-key: ${config.sops.placeholder.aws-secret-access-key}
+      '';
     };
 
     environment.etc = {
