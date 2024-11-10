@@ -11,6 +11,16 @@
       }
     },
     {
+      "ID": "EtcdRule",
+      "Filter": {
+        "Prefix": "etcd/"
+      },
+      "Status": "Enabled",
+      "Expiration": {
+        "Days": 5
+      }
+    },
+    {
       "ID": "GlacierRule",
       "Filter": {},
       "Status": "Enabled",
