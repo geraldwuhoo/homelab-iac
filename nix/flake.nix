@@ -90,11 +90,13 @@
                 networking.hostName = "shinobu";
                 networking.hostId = "335388f6";
                 common.keys = keys;
+                oci.enable = true;
               }
               sops-nix.nixosModules.sops
               ./common
               ./lxc
               ./services/tang
+              ./services/watchtower
             ];
           };
 
