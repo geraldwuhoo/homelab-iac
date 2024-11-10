@@ -53,6 +53,8 @@ provider "proxmox" {
 }
 
 locals {
+  sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
+
   # MAC addresses are stably generated via
   # echo "$FQDN" | md5sum | sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/02:\1:\2:\3:\4:\5/'
   hosts = [
@@ -119,7 +121,7 @@ module "k3s" {
   vip_hostname = "k3s"
 
   iso                  = "cephfs:iso/nixos-24.05.20241030.080166c-x86_64-linux.iso"
-  sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
+  sops-server-key-path = local.sops-server-key-path
 
   hosts = local.hosts
 
@@ -202,7 +204,7 @@ resource "proxmox_lxc" "nixos" {
 
       # Copy age key to remote
       ssh $SSH_OPTS nixos@${self.hostname} sudo mkdir -pv /persist/var/lib/sops/age
-      scp $SSH_OPTS -v ~/.config/sops/age/server-side-key.txt nixos@${self.hostname}:
+      scp $SSH_OPTS -v ${local.sops-server-key-path} nixos@${self.hostname}:server-side-key.txt
       ssh $SSH_OPTS nixos@${self.hostname} sudo mv -v ./server-side-key.txt /persist/var/lib/sops/age/
     EOT
   }
@@ -214,7 +216,7 @@ module "nixos" {
     [for host in local.lxc_hosts : host.hostname],
   )
 
-  depends_on = [module.k3s]
+  depends_on = [module.k3s, proxmox_lxc.nixos]
   source     = "github.com/Gabriella439/terraform-nixos-ng//nixos"
 
   host      = "nixos@${each.key}"
