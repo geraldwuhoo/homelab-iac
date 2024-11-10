@@ -22,7 +22,7 @@ spec:
           main:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.13.2
+              tag: 2.13.4
             env:
               # admin
               PAPERLESS_ADMIN_MAIL: fake@example.com
