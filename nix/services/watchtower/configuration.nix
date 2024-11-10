@@ -1,5 +1,10 @@
 # Auto-generated using compose2nix v0.3.2-pre.
-{ lib, pkgs, config, ...}:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   sops.secrets.ntfy-url = { };
 
@@ -16,7 +21,11 @@
       "${config.sops.secrets.ntfy-url.path}:/url:ro"
       "/var/run/podman/podman.sock:/var/run/docker.sock:rw"
     ];
-    cmd = [ "--cleanup" "--interval" "43200" ];
+    cmd = [
+      "--cleanup"
+      "--interval"
+      "43200"
+    ];
     log-driver = "journald";
     extraOptions = [
       "--network-alias=watchtower"
@@ -27,18 +36,10 @@
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
-    after = [
-      "podman-network-watchtower_default.service"
-    ];
-    requires = [
-      "podman-network-watchtower_default.service"
-    ];
-    partOf = [
-      "podman-compose-watchtower-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-watchtower-root.target"
-    ];
+    after = [ "podman-network-watchtower_default.service" ];
+    requires = [ "podman-network-watchtower_default.service" ];
+    partOf = [ "podman-compose-watchtower-root.target" ];
+    wantedBy = [ "podman-compose-watchtower-root.target" ];
   };
 
   # Networks

@@ -46,6 +46,10 @@
     };
     security.sudo.wheelNeedsPassword = false;
 
+    programs.bash.shellAliases = {
+      ngc = "sudo nix-collect-garbage -d --verbose";
+    };
+
     environment.systemPackages = with pkgs; [
       # Standard utils, but some better
       fd
