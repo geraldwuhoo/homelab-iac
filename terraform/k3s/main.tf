@@ -128,8 +128,8 @@ module "k3s" {
   specs = {
     bridge  = "vmbr2"
     cores   = 4
-    memory  = 8192
-    balloon = 8192
+    memory  = 10240
+    balloon = 10240
     size    = "64G"
     sockets = 1
     storage = "rbd"
