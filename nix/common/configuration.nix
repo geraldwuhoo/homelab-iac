@@ -52,6 +52,7 @@
 
     environment.systemPackages = with pkgs; [
       # Standard utils, but some better
+      bind
       fd
       htop-vim
       inetutils

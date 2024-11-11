@@ -97,6 +97,8 @@
               ./lxc
               ./services/tang
               ./services/watchtower
+              ./services/registry
+              ./services/caddy
             ];
           };
 
