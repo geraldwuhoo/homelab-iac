@@ -38,7 +38,88 @@
           ];
           system = "x86_64-linux";
         in
-        {
+        # NixOS LXCs
+        builtins.mapAttrs
+          (
+            name: host:
+            nixpkgs.lib.nixosSystem {
+              inherit system;
+              modules = [
+                {
+                  networking.hostName = name;
+                  networking.hostId = host.hostId;
+                  common.keys = keys;
+                  oci.enable = true;
+                  watchtower.hostname = name;
+                }
+                sops-nix.nixosModules.sops
+                ./common
+                ./lxc
+                ./hosts/${name}
+              ];
+            }
+          )
+          {
+            shinobu = {
+              hostId = "335388f6";
+            };
+            araragi = {
+              hostId = "e1346eed";
+            };
+          }
+        # NixOS k3s VMs
+        //
+          builtins.mapAttrs
+            (
+              name: host:
+              nixpkgs.lib.nixosSystem {
+                inherit system;
+                modules = [
+                  {
+                    networking.hostName = name;
+                    networking.hostId = host.hostId;
+                    common.keys = keys;
+                    k3s.master = host.master;
+                  }
+                  sops-nix.nixosModules.sops
+                  disko.nixosModules.disko
+                  ./common
+                  ./vm
+                  ./k3s
+                ];
+              }
+            )
+            {
+              k3s-master-0 = {
+                hostId = "c4442a6f";
+                master = true;
+              };
+              k3s-master-1 = {
+                hostId = "eb7164eb";
+                master = true;
+              };
+              k3s-master-2 = {
+                hostId = "584c5421";
+                master = true;
+              };
+              k3s-worker-0 = {
+                hostId = "34b8009a";
+                master = false;
+              };
+              k3s-worker-1 = {
+                hostId = "df8fe0da";
+                master = false;
+              };
+              k3s-worker-2 = {
+                hostId = "b16785a4";
+                master = false;
+              };
+              k3s-worker-3 = {
+                hostId = "12060450";
+                master = false;
+              };
+            }
+        // {
           lxc = nixos-generators.nixosGenerate {
             inherit system;
             modules = [
@@ -74,157 +155,6 @@
                 vm.efi = true;
                 k3s.master = true;
                 k3s.singleNode = true;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
-            ];
-          };
-
-          shinobu = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "shinobu";
-                networking.hostId = "335388f6";
-                common.keys = keys;
-                oci.enable = true;
-              }
-              sops-nix.nixosModules.sops
-              ./common
-              ./lxc
-              ./hosts/shinobu
-            ];
-          };
-
-          araragi = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "araragi";
-                networking.hostId = "e1346eed";
-                common.keys = keys;
-                oci.enable = true;
-              }
-              sops-nix.nixosModules.sops
-              ./common
-              ./lxc
-              ./hosts/araragi
-            ];
-          };
-
-          k3s-master-0 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "k3s-master-0";
-                networking.hostId = "c4442a6f";
-                common.keys = keys;
-                k3s.master = true;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
-            ];
-          };
-
-          k3s-master-1 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "k3s-master-1";
-                networking.hostId = "eb7164eb";
-                common.keys = keys;
-                k3s.master = true;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
-            ];
-          };
-
-          k3s-master-2 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "k3s-master-2";
-                networking.hostId = "584c5421";
-                common.keys = keys;
-                k3s.master = true;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
-            ];
-          };
-
-          k3s-worker-0 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "k3s-worker-0";
-                networking.hostId = "34b8009a";
-                common.keys = keys;
-                k3s.master = false;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
-            ];
-          };
-
-          k3s-worker-1 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "k3s-worker-1";
-                networking.hostId = "df8fe0da";
-                common.keys = keys;
-                k3s.master = false;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
-            ];
-          };
-
-          k3s-worker-2 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "k3s-worker-2";
-                networking.hostId = "b16785a4";
-                common.keys = keys;
-                k3s.master = false;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
-            ];
-          };
-
-          k3s-worker-3 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              {
-                networking.hostName = "k3s-worker-3";
-                networking.hostId = "12060450";
-                common.keys = keys;
-                k3s.master = false;
               }
               sops-nix.nixosModules.sops
               disko.nixosModules.disko
