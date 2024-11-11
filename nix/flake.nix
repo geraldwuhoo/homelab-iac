@@ -73,50 +73,31 @@
             (
               name: host:
               nixpkgs.lib.nixosSystem {
-                inherit system;
+                system = host.arch or "x86_64-linux";
                 modules = [
                   {
                     networking.hostName = name;
-                    networking.hostId = host.hostId;
                     common.keys = keys;
-                    k3s.master = host.master;
                   }
                   sops-nix.nixosModules.sops
                   disko.nixosModules.disko
                   ./common
                   ./vm
                   ./k3s
+                  ./hosts/${name}
                 ];
               }
             )
             {
-              k3s-master-0 = {
-                hostId = "c4442a6f";
-                master = true;
-              };
-              k3s-master-1 = {
-                hostId = "eb7164eb";
-                master = true;
-              };
-              k3s-master-2 = {
-                hostId = "584c5421";
-                master = true;
-              };
-              k3s-worker-0 = {
-                hostId = "34b8009a";
-                master = false;
-              };
-              k3s-worker-1 = {
-                hostId = "df8fe0da";
-                master = false;
-              };
-              k3s-worker-2 = {
-                hostId = "b16785a4";
-                master = false;
-              };
-              k3s-worker-3 = {
-                hostId = "12060450";
-                master = false;
+              k3s-master-0 = { };
+              k3s-master-1 = { };
+              k3s-master-2 = { };
+              k3s-worker-0 = { };
+              k3s-worker-1 = { };
+              k3s-worker-2 = { };
+              k3s-worker-3 = { };
+              hetzner = {
+                arch = "aarch64-linux";
               };
             }
         // {
@@ -142,25 +123,6 @@
                 };
                 services.qemuGuest.enable = true;
               })
-            ];
-          };
-
-          hetzner = nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
-            modules = [
-              {
-                networking.hostName = "hetzner";
-                networking.hostId = "41f85022";
-                common.keys = keys;
-                vm.efi = true;
-                k3s.master = true;
-                k3s.singleNode = true;
-              }
-              sops-nix.nixosModules.sops
-              disko.nixosModules.disko
-              ./common
-              ./vm
-              ./k3s
             ];
           };
         };
