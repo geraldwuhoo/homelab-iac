@@ -99,6 +99,22 @@
             ];
           };
 
+          araragi = nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              {
+                networking.hostName = "araragi";
+                networking.hostId = "e1346eed";
+                common.keys = keys;
+                oci.enable = true;
+              }
+              sops-nix.nixosModules.sops
+              ./common
+              ./lxc
+              ./hosts/araragi
+            ];
+          };
+
           k3s-master-0 = nixpkgs.lib.nixosSystem {
             inherit system;
             modules = [

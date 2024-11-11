@@ -148,6 +148,12 @@ locals {
       hostname    = "shinobu"
       mac_address = "02:c9:f2:01:b1:45"
       node        = "kabuki"
+    },
+    {
+      hostname    = "araragi"
+      mac_address = "02:95:a7:a0:ee:b5"
+      node        = "bake"
+      vlan        = 70
     }
   ]
 }
@@ -186,6 +192,7 @@ resource "proxmox_lxc" "nixos" {
     ip       = "dhcp"
     ip6      = "manual"
     firewall = false
+    tag      = try(each.value.vlan, null)
   }
 
   provisioner "local-exec" {
