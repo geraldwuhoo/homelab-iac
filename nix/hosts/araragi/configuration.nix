@@ -46,4 +46,6 @@
       }
     '';
   };
+
+  caddy.caddyfilePath = config.sops.templates.Caddyfile.path;
 }

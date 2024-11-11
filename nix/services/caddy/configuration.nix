@@ -7,6 +7,10 @@
         description = "use staging cert issuer";
         default = false;
       };
+      caddyfilePath = mkOption {
+        type = types.path;
+        description = "path to Caddyfile";
+      };
     };
   };
   config = {
@@ -20,7 +24,7 @@
     virtualisation.oci-containers.containers."caddy" = {
       image = "registry.gitlab.com/geraldwuhoo/caddy-pq";
       volumes = [
-        "${config.sops.templates.Caddyfile.path}:/etc/caddy/Caddyfile:ro"
+        "${config.caddy.caddyfilePath}:/etc/caddy/Caddyfile:ro"
         "/persist/caddy/config:/config:rw"
         "/persist/caddy/data:/data:rw"
       ];
