@@ -64,7 +64,7 @@
     ];
 
     sops = {
-      defaultSopsFile = ../secrets/secrets.sops.yaml;
+      defaultSopsFile = ../../secrets/secrets.sops.yaml;
       defaultSopsFormat = "yaml";
       age.keyFile = "/persist/var/lib/sops/age/server-side-key.txt";
       age.sshKeyPaths = [ ];

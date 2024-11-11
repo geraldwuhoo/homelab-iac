@@ -1,7 +1,7 @@
 {
   imports = [
     ./configuration.nix
-    ../../services/watchtower
-    ../../services/caddy
+    ../../modules/services/watchtower
+    ../../modules/services/caddy
   ];
 }

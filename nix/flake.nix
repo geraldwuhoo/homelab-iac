@@ -52,8 +52,8 @@
                   watchtower.hostname = name;
                 }
                 sops-nix.nixosModules.sops
-                ./common
-                ./lxc
+                ./modules/common
+                ./modules/lxc
                 ./hosts/${name}
               ];
             }
@@ -76,9 +76,9 @@
                   }
                   sops-nix.nixosModules.sops
                   disko.nixosModules.disko
-                  ./common
-                  ./vm
-                  ./k3s
+                  ./modules/common
+                  ./modules/vm
+                  ./modules/k3s
                   ./hosts/${name}
                 ];
               }
@@ -102,8 +102,8 @@
             modules = [
               { common.keys = keys; }
               sops-nix.nixosModules.sops
-              ./common
-              ./lxc
+              ./modules/common
+              ./modules/lxc
             ];
             format = "proxmox-lxc";
           };

@@ -1,9 +1,9 @@
 {
   imports = [
     ./configuration.nix
-    ../../services/watchtower
-    ../../services/caddy
-    ../../services/registry
-    ../../services/tang
+    ../../modules/services/watchtower
+    ../../modules/services/caddy
+    ../../modules/services/registry
+    ../../modules/services/tang
   ];
 }
