@@ -95,10 +95,7 @@
               sops-nix.nixosModules.sops
               ./common
               ./lxc
-              ./services/tang
-              ./services/watchtower
-              ./services/registry
-              ./services/caddy
+              ./hosts/shinobu
             ];
           };
 
