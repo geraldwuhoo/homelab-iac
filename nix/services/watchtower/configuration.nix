@@ -13,7 +13,7 @@
     image = "containrrr/watchtower";
     environment = {
       "WATCHTOWER_NOTIFICATIONS" = "shoutrrr";
-      "WATCHTOWER_NOTIFICATIONS_HOSTNAME" = "shinobu";
+      "WATCHTOWER_NOTIFICATIONS_HOSTNAME" = config.networking.hostName;
       "WATCHTOWER_NOTIFICATIONS_SKIP_TITLE" = "true";
       "WATCHTOWER_NOTIFICATION_URL" = "/url";
     };
