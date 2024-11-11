@@ -47,7 +47,6 @@
               modules = [
                 {
                   networking.hostName = name;
-                  networking.hostId = host.hostId;
                   common.keys = keys;
                   oci.enable = true;
                   watchtower.hostname = name;
@@ -60,12 +59,8 @@
             }
           )
           {
-            shinobu = {
-              hostId = "335388f6";
-            };
-            araragi = {
-              hostId = "e1346eed";
-            };
+            shinobu = { };
+            araragi = { };
           }
         # NixOS k3s VMs
         //
@@ -73,7 +68,7 @@
             (
               name: host:
               nixpkgs.lib.nixosSystem {
-                system = host.arch or "x86_64-linux";
+                system = host.arch or system;
                 modules = [
                   {
                     networking.hostName = name;
@@ -100,6 +95,7 @@
                 arch = "aarch64-linux";
               };
             }
+        # NixOS install media
         // {
           lxc = nixos-generators.nixosGenerate {
             inherit system;

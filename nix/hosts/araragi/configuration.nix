@@ -1,5 +1,7 @@
 { lib, config, ... }:
 {
+  networking.hostId = "e1346eed";
+
   sops.secrets.cf-api-token = { };
   sops.templates.Caddyfile = {
     content = ''
