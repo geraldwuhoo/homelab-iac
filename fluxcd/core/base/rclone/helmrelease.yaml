@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: docker.io/rclone/rclone
-              tag: 1.68.1
+              tag: 1.68.2
             env:
               RCLONE_SRC: ceph:backup
               RCLONE_DST: "secret:"
@@ -54,7 +54,7 @@ spec:
           main:
             image:
               repository: docker.io/rclone/rclone
-              tag: 1.68.1
+              tag: 1.68.2
             env:
               RCLONE_DST: b2:wuhoobackup
             args:
