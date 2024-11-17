@@ -48,7 +48,6 @@
                   networking.hostName = name;
                   common.keys = keys;
                   oci.enable = true;
-                  watchtower.hostname = name;
                 }
                 sops-nix.nixosModules.sops
                 ./modules/common

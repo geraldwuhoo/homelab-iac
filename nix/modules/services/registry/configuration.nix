@@ -48,6 +48,9 @@
     };
     volumes = [ "${config.sops.templates.dockerhub-config.path}:/etc/distribution/config.yml:ro" ];
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=hub"
       "--network=main"
@@ -66,6 +69,9 @@
       "OTEL_TRACES_EXPORTER" = "none";
     };
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=devcache"
       "--network=main"
@@ -85,6 +91,9 @@
       "REGISTRY_PROXY_REMOTEURL" = "https://gcr.io";
     };
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=gcr"
       "--network=main"
@@ -104,6 +113,9 @@
       "REGISTRY_PROXY_REMOTEURL" = "https://ghcr.io";
     };
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=ghcr"
       "--network=main"
@@ -123,6 +135,9 @@
       "REGISTRY_PROXY_REMOTEURL" = "https://k8s.gcr.io";
     };
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=k8sgcr"
       "--network=main"
@@ -142,6 +157,9 @@
       "REGISTRY_PROXY_REMOTEURL" = "https://quay.io";
     };
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=quay"
       "--network=main"
@@ -161,6 +179,9 @@
       "REGISTRY_PROXY_REMOTEURL" = "https://registry.k8s.io";
     };
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=registryk8s"
       "--network=main"
@@ -180,6 +201,9 @@
       "REGISTRY_PROXY_REMOTEURL" = "https://registry.gitlab.com";
     };
     log-driver = "journald";
+    labels = {
+      "io.containers.autoupdate" = "image";
+    };
     extraOptions = [
       "--network-alias=rgitlab"
       "--network=main"

@@ -33,6 +33,9 @@
         "443:443/tcp"
       ];
       log-driver = "journald";
+      labels = {
+        "io.containers.autoupdate" = "image";
+      };
       extraOptions = [
         "--network-alias=caddy"
         "--network=main"

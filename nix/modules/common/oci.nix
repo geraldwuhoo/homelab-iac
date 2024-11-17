@@ -26,12 +26,13 @@
         dns_enabled = true;
       };
     };
+    virtualisation.oci-containers.backend = "podman";
 
     # Enable container name DNS for non-default Podman networks.
     # https://github.com/NixOS/nixpkgs/issues/226365
     networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
 
-    virtualisation.oci-containers.backend = "podman";
+    systemd.timers.podman-auto-update.wantedBy = [ "multi-user.target" ];
 
     # `main` podman network
     systemd.services."podman-network-main" = lib.mkIf config.oci.main-network {
