@@ -18,7 +18,7 @@ spec:
     image:
       repository: ghcr.io/schildichat/schildichat-web
       tag: latest
-    replicaCount: 3
+    replicaCount: 2
     defaultServer:
       url: https://matrix.${DOMAIN}
       name: ${DOMAIN}

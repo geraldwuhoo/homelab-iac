@@ -10,7 +10,7 @@ metadata:
   name: landing-nekomimi
   namespace: nekomimi
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: landing

@@ -18,7 +18,7 @@ spec:
     image:
       repository: docker.io/vectorim/element-web
       tag: v1.11.85
-    replicaCount: 3
+    replicaCount: 2
     defaultServer:
       url: https://matrix.${DOMAIN}
       name: ${DOMAIN}

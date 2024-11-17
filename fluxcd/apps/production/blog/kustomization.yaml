@@ -23,7 +23,7 @@ patches:
         keel.sh/match-tag: "true"
         keel.sh/pollSchedule: "@every 1m"
     spec:
-      replicas: 3
+      replicas: 2
       strategy:
         type: RollingUpdate
         rollingUpdate:

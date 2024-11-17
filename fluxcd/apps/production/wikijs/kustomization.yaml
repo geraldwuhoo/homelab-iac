@@ -14,5 +14,5 @@ patches:
       name: wiki
     spec:
       values:
-        replicaCount: 3
+        replicaCount: 2
         revisionHistoryLimit: 50

@@ -41,7 +41,7 @@ spec:
         limit: 250Mi
         request: 50Mi
     tap:
-      replicas: 3
+      replicas: 2
       resources:
         cpu:
           limit: ""
