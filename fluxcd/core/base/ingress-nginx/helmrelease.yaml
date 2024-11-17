@@ -23,6 +23,11 @@ spec:
         brotli-level: "6"
         use-gzip: true
       kind: DaemonSet
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 0
+          maxSurge: 100%
+        type: RollingUpdate
       allowSnippetAnnotations: true
       setAsDefaultIngress: true
       ingressClassResource:
