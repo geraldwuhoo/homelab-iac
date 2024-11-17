@@ -21,7 +21,8 @@ spec:
           main:
             image:
               repository: dock.mau.dev/mautrix/discord
-              tag: latest
+              tag: v0.7.1
+              pullPolicy: IfNotPresent
     service:
       main:
         controller: main

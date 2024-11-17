@@ -22,6 +22,7 @@ spec:
             image:
               repository: dock.mau.dev/mautrix/signal
               tag: v0.7.3
+              pullPolicy: IfNotPresent
     service:
       main:
         controller: main
