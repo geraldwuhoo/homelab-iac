@@ -26,10 +26,16 @@ spec:
           failedJobsHistory: 1
           backoffLimit: 3
         containers:
-          main:
-            image:
+          main: # Dummy container
+            image: &image
               repository: docker.io/rclone/rclone
               tag: 1.68.2
+            args:
+            - version
+        initContainers:
+          # Order container execution with initContainer hack
+          1-sync:
+            image: *image
             env:
               RCLONE_SRC: ceph:backup
               RCLONE_DST: "secret:"
@@ -41,20 +47,8 @@ spec:
             - --use-server-modtime
             - $(RCLONE_SRC)
             - $(RCLONE_DST)
-      cleanup:
-        type: cronjob
-        cronjob:
-          suspend: false
-          concurrencyPolicy: Forbid
-          schedule: "0 11 * * *"
-          successfulJobsHistory: 1
-          failedJobsHistory: 1
-          backoffLimit: 3
-        containers:
-          main:
-            image:
-              repository: docker.io/rclone/rclone
-              tag: 1.68.2
+          2-cleanup:
+            image: *image
             env:
               RCLONE_DST: b2:wuhoobackup
             args:
