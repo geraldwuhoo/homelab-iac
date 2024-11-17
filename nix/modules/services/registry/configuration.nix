@@ -1,6 +1,43 @@
-# Auto-generated using compose2nix v0.3.2-pre.
 { lib, config, ... }:
 
+let
+  registries = {
+    registry-hub = {
+      volumes = [ "${config.sops.templates.dockerhub-config.path}:/etc/distribution/config.yml:ro" ];
+    };
+    registry-devcache = { };
+    registry-gcr = {
+      environment = {
+        "REGISTRY_PROXY_REMOTEURL" = "https://gcr.io";
+      };
+    };
+    registry-ghcr = {
+      environment = {
+        "REGISTRY_PROXY_REMOTEURL" = "https://ghcr.io";
+      };
+    };
+    registry-k8sgcr = {
+      environment = {
+        "REGISTRY_PROXY_REMOTEURL" = "https://k8s.gcr.io";
+      };
+    };
+    registry-quay = {
+      environment = {
+        "REGISTRY_PROXY_REMOTEURL" = "https://quay.io";
+      };
+    };
+    registry-registryk8s = {
+      environment = {
+        "REGISTRY_PROXY_REMOTEURL" = "https://registry.k8s.io";
+      };
+    };
+    registry-rgitlab = {
+      environment = {
+        "REGISTRY_PROXY_REMOTEURL" = "https://registry.gitlab.com";
+      };
+    };
+  };
+in
 {
   # Create config file for DockerHub with login credentials
   sops.secrets.registry-proxy-username = { };
@@ -40,182 +77,41 @@
     '';
   };
 
-  # Containers
-  virtualisation.oci-containers.containers."registry-hub" = {
+  # Generate all registry containers
+  virtualisation.oci-containers.containers = builtins.mapAttrs (name: container: {
     image = "docker.io/library/registry:3.0.0-rc.1";
     environment = {
       "OTEL_TRACES_EXPORTER" = "none";
-    };
-    volumes = [ "${config.sops.templates.dockerhub-config.path}:/etc/distribution/config.yml:ro" ];
+    } // (container.environment or { });
+    volumes = container.volumes or [ ];
     log-driver = "journald";
     labels = {
       "io.containers.autoupdate" = "image";
     };
     extraOptions = [
-      "--network-alias=hub"
+      "--network-alias=${lib.strings.removePrefix "registry-" name}"
       "--network=main"
     ];
-  };
-  systemd.services."podman-registry-hub" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
-  virtualisation.oci-containers.containers."registry-devcache" = {
-    image = "docker.io/library/registry:3.0.0-rc.1";
-    environment = {
-      "OTEL_TRACES_EXPORTER" = "none";
-    };
-    log-driver = "journald";
-    labels = {
-      "io.containers.autoupdate" = "image";
-    };
-    extraOptions = [
-      "--network-alias=devcache"
-      "--network=main"
-    ];
-  };
-  systemd.services."podman-registry-devcache" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
-  virtualisation.oci-containers.containers."registry-gcr" = {
-    image = "docker.io/library/registry:3.0.0-rc.1";
-    environment = {
-      "OTEL_TRACES_EXPORTER" = "none";
-      "REGISTRY_PROXY_REMOTEURL" = "https://gcr.io";
-    };
-    log-driver = "journald";
-    labels = {
-      "io.containers.autoupdate" = "image";
-    };
-    extraOptions = [
-      "--network-alias=gcr"
-      "--network=main"
-    ];
-  };
-  systemd.services."podman-registry-gcr" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
-  virtualisation.oci-containers.containers."registry-ghcr" = {
-    image = "docker.io/library/registry:3.0.0-rc.1";
-    environment = {
-      "OTEL_TRACES_EXPORTER" = "none";
-      "REGISTRY_PROXY_REMOTEURL" = "https://ghcr.io";
-    };
-    log-driver = "journald";
-    labels = {
-      "io.containers.autoupdate" = "image";
-    };
-    extraOptions = [
-      "--network-alias=ghcr"
-      "--network=main"
-    ];
-  };
-  systemd.services."podman-registry-ghcr" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
-  virtualisation.oci-containers.containers."registry-k8sgcr" = {
-    image = "docker.io/library/registry:3.0.0-rc.1";
-    environment = {
-      "OTEL_TRACES_EXPORTER" = "none";
-      "REGISTRY_PROXY_REMOTEURL" = "https://k8s.gcr.io";
-    };
-    log-driver = "journald";
-    labels = {
-      "io.containers.autoupdate" = "image";
-    };
-    extraOptions = [
-      "--network-alias=k8sgcr"
-      "--network=main"
-    ];
-  };
-  systemd.services."podman-registry-k8sgcr" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
-  virtualisation.oci-containers.containers."registry-quay" = {
-    image = "docker.io/library/registry:3.0.0-rc.1";
-    environment = {
-      "OTEL_TRACES_EXPORTER" = "none";
-      "REGISTRY_PROXY_REMOTEURL" = "https://quay.io";
-    };
-    log-driver = "journald";
-    labels = {
-      "io.containers.autoupdate" = "image";
-    };
-    extraOptions = [
-      "--network-alias=quay"
-      "--network=main"
-    ];
-  };
-  systemd.services."podman-registry-quay" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
-  virtualisation.oci-containers.containers."registry-registryk8s" = {
-    image = "docker.io/library/registry:3.0.0-rc.1";
-    environment = {
-      "OTEL_TRACES_EXPORTER" = "none";
-      "REGISTRY_PROXY_REMOTEURL" = "https://registry.k8s.io";
-    };
-    log-driver = "journald";
-    labels = {
-      "io.containers.autoupdate" = "image";
-    };
-    extraOptions = [
-      "--network-alias=registryk8s"
-      "--network=main"
-    ];
-  };
-  systemd.services."podman-registry-registryk8s" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
-  virtualisation.oci-containers.containers."registry-rgitlab" = {
-    image = "docker.io/library/registry:3.0.0-rc.1";
-    environment = {
-      "OTEL_TRACES_EXPORTER" = "none";
-      "REGISTRY_PROXY_REMOTEURL" = "https://registry.gitlab.com";
-    };
-    log-driver = "journald";
-    labels = {
-      "io.containers.autoupdate" = "image";
-    };
-    extraOptions = [
-      "--network-alias=rgitlab"
-      "--network=main"
-    ];
-  };
-  systemd.services."podman-registry-rgitlab" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [ "podman-compose-registry-root.target" ];
-    wantedBy = [ "podman-compose-registry-root.target" ];
-  };
+  }) registries;
+
+  # Generate all systemd services for registry containers
+  systemd.services =
+    builtins.mapAttrs
+      (name: container: {
+        serviceConfig = {
+          Restart = lib.mkOverride 90 "always";
+        };
+        partOf = [ "podman-compose-registry-root.target" ];
+        wantedBy = [ "podman-compose-registry-root.target" ];
+      })
+      (
+        builtins.listToAttrs (
+          builtins.map (x: {
+            name = "podman-" + x;
+            value = { };
+          }) (builtins.attrNames registries)
+        )
+      );
 
   # Root service
   # When started, this will automatically create all resources and start
