@@ -17,34 +17,17 @@ spec:
   values:
     controllers:
       main:
-        type: cronjob
-        cronjob:
-          suspend: false
-          concurrencyPolicy: Forbid
-          schedule: "36 * * * *"
-          successfulJobsHistory: 1
-          failedJobsHistory: 1
-          backoffLimit: 3
-        containers:
-          main: # Dummy container
-            image: &image
-              repository: docker.io/kopia/kopia
-              tag: 0.18.1
-            envFrom: &envFrom
-            - secretRef:
-                name: kopia-secret
-            args:
-            - snapshot
-            - create
-            - --all
-      web:
         type: deployment
         replicas: 1
         strategy: Recreate
         containers:
           main:
-            image: *image
-            envFrom: *envFrom
+            image:
+              repository: docker.io/kopia/kopia
+              tag: 0.18.1
+            envFrom:
+            - secretRef:
+                name: kopia-secret
             args:
             - server
             - start
