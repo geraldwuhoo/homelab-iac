@@ -27,16 +27,31 @@ spec:
           backoffLimit: 3
         containers:
           main: # Dummy container
-            image:
+            image: &image
               repository: docker.io/kopia/kopia
               tag: 0.18.1
-            envFrom:
+            envFrom: &envFrom
             - secretRef:
                 name: kopia-secret
             args:
             - snapshot
             - create
             - --all
+      web:
+        type: deployment
+        replicas: 1
+        strategy: Recreate
+        containers:
+          main:
+            image: *image
+            envFrom: *envFrom
+            args:
+            - server
+            - start
+            - --insecure
+            - --address=0.0.0.0:51515
+            - --override-username=jerry@k3s
+            - --server-username=jerry@k3s
     persistence:
       backup:
         type: persistentVolumeClaim
