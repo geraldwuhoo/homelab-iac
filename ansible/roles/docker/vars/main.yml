@@ -1,7 +1,0 @@
----
-packages:
-- py3-pip
-- py3-requests
-- py3-docker-py
-- docker
-- docker-compose

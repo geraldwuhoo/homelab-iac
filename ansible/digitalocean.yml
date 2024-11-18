@@ -1,7 +1,0 @@
----
-- hosts: digitalocean
-  gather_facts: false
-  tags:
-    - digitalocean
-  roles:
-    - digitalocean

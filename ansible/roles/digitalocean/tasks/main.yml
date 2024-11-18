@@ -1,5 +1,0 @@
-# vim: ts=2 sw=2 smartindent
-
-- name: Configure k8s stuff
-  ansible.builtin.import_tasks: k8s.yml
-  become: true

@@ -1,7 +1,0 @@
----
-- hosts: template
-  gather_facts: false
-  tags:
-    - prepare
-  roles:
-    - k8s
