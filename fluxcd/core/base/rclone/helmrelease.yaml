@@ -18,23 +18,23 @@ spec:
     controllers:
       main:
         type: cronjob
-        cronjob:
+        cronjob: &cronjob
           suspend: false
           concurrencyPolicy: Forbid
-          schedule: "0 9 * * *"
+          schedule: "0 9 * * 1-6"
           successfulJobsHistory: 1
           failedJobsHistory: 1
           backoffLimit: 3
-        containers:
+        containers: &containers
           main: # Dummy container
             image: &image
               repository: docker.io/rclone/rclone
               tag: 1.68.2
             args:
             - version
-        initContainers:
+        initContainers: &initContainers
           # Order container execution with initContainer hack
-          1-sync:
+          1-sync: &sync
             image: *image
             env:
               RCLONE_SRC: ceph:backup
@@ -55,6 +55,22 @@ spec:
             - backend
             - cleanup-hidden
             - --log-level=INFO
+            - $(RCLONE_DST)
+      full:
+        type: cronjob
+        cronjob:
+          <<: *cronjob
+          schedule: "0 9 * * 0"
+        containers: *containers
+        initContainers:
+          <<: *initContainers
+          1-sync:
+            <<: *sync
+            args:
+            - sync
+            - --log-level=INFO
+            - --fast-list
+            - $(RCLONE_SRC)
             - $(RCLONE_DST)
     persistence:
       config:
