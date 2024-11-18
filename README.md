@@ -75,6 +75,17 @@ $ nix build ".#nixosConfigurations.iso.config.system.build.isoImage"
 
 This will build the ISO and link it in `nix/result`. Upload this ISO to PVE and update any references in Terraform to its filename.
 
+### Creating the LXC template
+
+The LXC template is a standard NixOS template with preconfigured SSH keys. To build the template:
+
+```
+$ cd nix
+$ nix build ".#nixosConfigurations.lxc"
+```
+
+This will build the LXC template and link it in `nix/result`. Upload this template to PVE and update any references in Terraform to its filename.
+
 ### Optional: Delay startup delay for all VMs to allow hyperconverged ceph to initialize
 
 If you're running a Ceph cluster hyperconverged on Proxmox cluster, then it's convenient to wait for Ceph intialization before attempting VM autostart.
