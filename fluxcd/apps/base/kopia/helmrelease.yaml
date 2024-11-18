@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kopia
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          suspend: false
+          concurrencyPolicy: Forbid
+          schedule: "36 * * * *"
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+          backoffLimit: 3
+        containers:
+          main: # Dummy container
+            image:
+              repository: docker.io/kopia/kopia
+              tag: 0.18.1
+            envFrom:
+            - secretRef:
+                name: kopia-secret
+            args:
+            - snapshot
+            - create
+            - --all
+    persistence:
+      backup:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        retain: true
+        globalMounts:
+        - path: /app/backup
+          readOnly: true
+      config:
+        enabled: true
+        type: secret
+        name: kopia-repository-config
+        globalMounts:
+        - path: /app/config/repository.config
+          subPath: repository.config
+          readOnly: true

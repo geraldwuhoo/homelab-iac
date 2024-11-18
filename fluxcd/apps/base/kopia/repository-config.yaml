@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: kopia-repository-config
+stringData:
+    repository.config: ENC[AES256_GCM,data:FZ1s+vp4nteE9hKqRLjDwLDNM/1sQN26ulnFRVB2vbMYTcea0oRLnfdjKKkXRKNKUBDWIg3JIFKC2NwozDa0lwlsyWKp7RVTW3emAw1cp9ulEbeztoOpe3rnH6DW/84gQ+J98QGBQy7b4I9qsOvSRii8t/UJ+AjjC62RP5dufaYPOPH8D4Nd0C18zJURGAhRd/vomqDcwQGmeQp9+YhbwTP92CPSBZ8NuaruFhdPUHwoGXszkMhNc4SprTtgaaU1ZpwTPm8xLwRpwEdtZa6ngZfZgPunwDIwvrDPU/DGL1NwfkWZK2AkT/9Ut+YL+ZjY9Ti/R8E3Q4QflJy1Qo2+KOS3zQ6d4fxp68tsOI8g7UQaJQEVB5CEP7FBf3hAoRTyQGSX463nVugFpaDVfe/WpkzxyhOJfq/BZAVE9gLiLE4YvcfqGUgGslUPEBHQ3GX2fJYLsVy98xXxRJpJKTYEQ9/aVrQkNMVP66hsxoPEnBguTyY4YTK8zdwUj7m3dXG25J/WFJTUZtRxMB6pNM8kONWrhYx9rrg3SWQDZk1rPV01QPuUxtMYMf0O1RpW/Aq61OrEBUEb/e8U3qKP4gwI6z7hF5SeTsKXWLO2OA6UcINnDowAL9/wmcBeaGPvc6GL3XIUZbpXp3ido9OuJRTteA==,iv:wi/x19vw2gudQxQeYAkaBP9FXK2smicaoffOf8OIyh0=,tag:tNmDTa93ytD4GuWMKbqvOA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3bUZNN09yaWREMUR1eWpv
+            b3dJcEh3WEFlT3BVYWhyMzgxZ3FxMVlsaEFvCnJWb0Q0Sk1mamJjMnJ2a3pzVDZn
+            OUJ3ZmsrQXMvbWNDUUhPNWMyTk5HTnMKLS0tIFpOZUV3YWlYUi9kVHp2bFFLcUJv
+            dS9zT2dXakdxUXJxZHBCNXpVdE9FMFUKuAsrsm9rtF/GymfpIdSHfIFMOQ6vipi2
+            Pb+iY1+tWdiq5lIZARCvav7mR/jaVGQDFmRLK2rvxUvHBf0tlgrDCg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-11-18T06:08:06Z"
+    mac: ENC[AES256_GCM,data:padVS3cfxJfPZ+XXVjYNmu7bxnjGJ+CXa00R3fWaD9oDOuJodHJN9P3ySgEjJEHLAyqa0mxNSlRbymLsvlpQnwq1d7D2UqYenQLP5ajGc7MXRMvy1KFKKh5EEJtZe9w7ieKtGBjgWpCn47ryoeoIcBf8/YQciOrKeTvKv5W5uKo=,iv:DvIAGPZ4aIILhlVXSu2Csm16jGGLBvEV4NlakyfMPuI=,tag:VceqzRfKot7XlwnikvKfJg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

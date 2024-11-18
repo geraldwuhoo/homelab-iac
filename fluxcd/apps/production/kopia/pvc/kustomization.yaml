@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namePrefix: kopia-
+namespace: kopia
+resources:
+- ../../../base/ceph-cephfs-pvc
+patches:
+- path: patch.yaml

@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ./pvc
+- ../../base/kopia
+patches:
+- patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: kopia
+    spec:
+      values:
+        persistence:
+          backup:
+            existingClaim: kopia-pvc
+            accessMode: null
+            size: null
+            retain: null
