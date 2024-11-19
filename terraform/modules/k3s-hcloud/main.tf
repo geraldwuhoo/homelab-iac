@@ -24,6 +24,12 @@ resource "hcloud_primary_ip" "primary_ip" {
   auto_delete   = false
 }
 
+resource "hcloud_rdns" "primary_ip" {
+  primary_ip_id = hcloud_primary_ip.primary_ip.id
+  ip_address    = hcloud_primary_ip.primary_ip.ip_address
+  dns_ptr       = "${var.name}.${var.domain}"
+}
+
 resource "hcloud_firewall" "firewall" {
   name = "${var.name}_firewall"
 
