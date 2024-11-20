@@ -45,16 +45,31 @@ spec:
         annotations:
           homelab/public: "true"
           cert-manager.io/cluster-issuer: letsencrypt
-          external-dns.alpha.kubernetes.io/hostname: libreddit.${DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: redlib.${DOMAIN}
           external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
         hosts:
-        - host: libreddit.${DOMAIN}
-          paths:
+        - host: redlib.${DOMAIN}
+          paths: &paths
           - path: /
             pathType: Prefix
             service:
               identifier: main
               port: *port
+        tls:
+        - hosts:
+          - redlib.${DOMAIN}
+          secretName: redlib-cert
+      libreddit:
+        enabled: true
+        annotations:
+          homelab/public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.alpha.kubernetes.io/hostname: libreddit.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+          nginx.ingress.kubernetes.io/permanent-redirect: "https://redlib.${DOMAIN}$request_uri"
+        hosts:
+        - host: libreddit.${DOMAIN}
+          paths: *paths
         tls:
         - hosts:
           - libreddit.${DOMAIN}
