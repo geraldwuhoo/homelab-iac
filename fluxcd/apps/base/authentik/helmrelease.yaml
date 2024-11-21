@@ -19,7 +19,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2024.10.3
+        tag: 2024.10.4
       env:
       - name: PROXY_ADDRESS_FORWARDING
         value: "true"
