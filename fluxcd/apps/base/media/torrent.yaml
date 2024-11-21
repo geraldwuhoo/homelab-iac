@@ -70,6 +70,8 @@ spec:
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.1
+            env:
+              HEALTH_VPN_DURATION_INITIAL: 120s
             envFrom:
             - secretRef:
                 name: torrent-secret
