@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: warp
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    defaultPodOptions:
+      securityContext:
+        sysctls:
+        - name: net.ipv6.conf.all.disable_ipv6
+          value: "0"
+        - name: net.ipv4.conf.all.src_valid_mark
+          value: "1"
+    controllers:
+      main:
+        annotations:
+          keel.sh/policy: force
+          keel.sh/trigger: poll
+          keel.sh/match-tag: "true"
+          keel.sh/pollSchedule: "@every 240m"
+        containers:
+          main:
+            image:
+              repository: docker.io/caomingjun/warp
+              tag: latest
+            env:
+              WARP_SLEEP: 2
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+              capabilities:
+                add:
+                - MKNOD
+                - AUDIT_WRITE
+                - NET_ADMIN
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 1080
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        retain: true
+        globalMounts:
+        - path: /var/lib/cloudflare-warp
