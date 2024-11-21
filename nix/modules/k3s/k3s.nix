@@ -86,32 +86,29 @@
         [ ]
         ++ (
           if config.k3s.master then
-            if config.k3s.singleNode then
-              [
-                "--tls-san ${config.networking.hostName}.wuhoo.xyz"
-                "--disable traefik"
-                "--disable local-storage"
-                "--disable-cloud-controller"
-                "--kubelet-arg node-status-update-frequency=5s"
-                "--kube-controller-manager-arg node-monitor-period=5s"
-                "--kube-controller-manager-arg node-monitor-grace-period=20s"
-              ]
-            else
-              [
-                "--tls-san k3s.wuhoo.xyz"
-                "--disable traefik"
-                "--disable servicelb"
-                "--disable local-storage"
-                "--disable-cloud-controller"
-                "--kubelet-arg node-status-update-frequency=5s"
-                "--kube-controller-manager-arg node-monitor-period=5s"
-                "--kube-controller-manager-arg node-monitor-grace-period=20s"
-                "--kube-controller-manager-arg bind-address=0.0.0.0"
-                "--kube-proxy-arg metrics-bind-address=0.0.0.0"
-                "--kube-scheduler-arg bind-address=0.0.0.0"
-                "--etcd-expose-metrics"
-                "--embedded-registry"
-              ]
+            [
+              "--disable traefik"
+              "--disable local-storage"
+              "--disable-cloud-controller"
+              "--kubelet-arg node-status-update-frequency=5s"
+              "--kube-controller-manager-arg node-monitor-period=5s"
+              "--kube-controller-manager-arg node-monitor-grace-period=20s"
+              "--kubelet-arg=allowed-unsafe-sysctls=net.ipv6.conf.all.disable_ipv6,net.ipv4.ip_forward,net.ipv4.conf.all.src_valid_mark"
+            ]
+            ++ (
+              if config.k3s.singleNode then
+                [ "--tls-san ${config.networking.hostName}.wuhoo.xyz" ]
+              else
+                [
+                  "--tls-san k3s.wuhoo.xyz"
+                  "--disable servicelb"
+                  "--kube-controller-manager-arg bind-address=0.0.0.0"
+                  "--kube-proxy-arg metrics-bind-address=0.0.0.0"
+                  "--kube-scheduler-arg bind-address=0.0.0.0"
+                  "--etcd-expose-metrics"
+                  "--embedded-registry"
+                ]
+            )
           else
             [ ]
         )

@@ -160,6 +160,41 @@ resource "hcloud_firewall" "firewall" {
     destination_ips = ["0.0.0.0/0", "::/0"]
     description     = "SSH outbound for Flux git cloning"
   }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "443"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Cloudflare Warp outbound"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "2408"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Cloudflare Warp outbound"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "500"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Cloudflare Warp outbound"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "1701"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Cloudflare Warp outbound"
+  }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "4500"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Cloudflare Warp outbound"
+  }
 }
 
 resource "cloudflare_record" "name_record" {
