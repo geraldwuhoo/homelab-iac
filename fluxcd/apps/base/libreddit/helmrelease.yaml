@@ -15,6 +15,13 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
+    defaultPodOptions:
+      securityContext:
+        sysctls:
+        - name: net.ipv6.conf.all.disable_ipv6
+          value: "0"
+        - name: net.ipv4.conf.all.src_valid_mark
+          value: "1"
     controllers:
       main:
         type: deployment
@@ -33,6 +40,30 @@ spec:
             env:
               REDLIB_DEFAULT_SHOW_NSFW: "on"
               REDLIB_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION: "on"
+          warp:
+            image:
+              repository: docker.io/caomingjun/warp
+              tag: latest
+            env:
+              WARP_SLEEP: 2
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+              capabilities:
+                add:
+                - MKNOD
+                - AUDIT_WRITE
+                - NET_ADMIN
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        retain: true
+        advancedMounts:
+          main:
+            warp:
+            - path: /var/lib/cloudflare-warp
     service:
       main:
         controller: main
