@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: libreddit
 resources:
 - namespace.yaml
-- secret.yaml
 - helmrelease.yaml
