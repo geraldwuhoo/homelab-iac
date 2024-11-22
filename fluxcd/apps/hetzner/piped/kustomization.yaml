@@ -13,3 +13,23 @@ patches:
       name: piped-postgres-cluster
     spec:
       numberOfInstances: 1
+- target:
+    kind: HelmRelease
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: piped
+    spec:
+      values:
+        controllers:
+          piped:
+            containers:
+              main:
+                env:
+                  REQWEST_PROXY: socks5://warp.warp:1080
+          ytproxy:
+            containers:
+              main:
+                env:
+                  PROXY: socks5://warp.warp:1080
