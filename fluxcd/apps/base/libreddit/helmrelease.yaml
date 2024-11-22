@@ -33,6 +33,21 @@ spec:
             env:
               REDLIB_DEFAULT_SHOW_NSFW: "on"
               REDLIB_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION: "on"
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.39.1
+            env:
+              HEALTH_VPN_DURATION_INITIAL: 120s
+            envFrom:
+            - secretRef:
+                name: gluetun-secret
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+              capabilities:
+                add:
+                - NET_ADMIN
     service:
       main:
         controller: main
