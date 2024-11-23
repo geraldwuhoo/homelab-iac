@@ -25,9 +25,24 @@
     };
   };
   config = {
-    boot.kernel.sysctl = {
-      "fs.inotify.max_user_instances" = 8192;
-      "fs.inotify.max_user_watches" = 524288;
+    boot = {
+      kernel.sysctl = {
+        "fs.inotify.max_user_instances" = 8192;
+        "fs.inotify.max_user_watches" = 524288;
+      };
+      kernelModules = [
+        # ceph for ceph-csi
+        "ceph"
+        "rbd"
+
+        # IPVS for kube-vip
+        "ip_vs"
+        "ip_vs_rr"
+
+        # Wireguard for VPN
+        "tun"
+        "wireguard"
+      ];
     };
 
     environment.systemPackages =
@@ -48,33 +63,21 @@
         ketcdctl = "etcdctl --cacert=/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt --cert=/var/lib/rancher/k3s/server/tls/etcd/client.crt --key=/var/lib/rancher/k3s/server/tls/etcd/client.key";
       });
 
-    boot.kernelModules = [
-      # ceph for ceph-csi
-      "ceph"
-      "rbd"
-
-      # IPVS for kube-vip
-      "ip_vs"
-      "ip_vs_rr"
-
-      # Wireguard for VPN
-      "tun"
-      "wireguard"
-    ];
-
-    networking.firewall.allowedTCPPorts =
-      [
-        6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
-      ]
-      ++ (lib.optionals (!config.k3s.singleNode) [
-        2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
-        2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
-        5001 # k3s: embedded Spigel registry mirror
-        10250 # k3s: metrics server
-      ]);
-    networking.firewall.allowedUDPPorts = lib.mkIf (!config.k3s.singleNode) [
-      8472 # k3s, flannel: required if using multi-node for inter-node networking
-    ];
+    networking.firewall = {
+      allowedTCPPorts =
+        [
+          6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
+        ]
+        ++ (lib.optionals (!config.k3s.singleNode) [
+          2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
+          2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
+          5001 # k3s: embedded Spigel registry mirror
+          10250 # k3s: metrics server
+        ]);
+      allowedUDPPorts = lib.mkIf (!config.k3s.singleNode) [
+        8472 # k3s, flannel: required if using multi-node for inter-node networking
+      ];
+    };
 
     sops.secrets.k3s-token = { };
 

@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
   options = {
@@ -19,12 +14,14 @@
   config = {
     services.qemuGuest.enable = true;
 
-    boot.loader.efi.canTouchEfiVariables = config.vm.efi;
-    boot.loader.grub = {
-      enable = true;
-      zfsSupport = true;
-      efiSupport = config.vm.efi;
+    boot.loader = {
+      efi.canTouchEfiVariables = config.vm.efi;
+      grub = {
+        enable = true;
+        zfsSupport = true;
+        efiSupport = config.vm.efi;
+      };
+      timeout = 1;
     };
-    boot.loader.timeout = 1;
   };
 }
