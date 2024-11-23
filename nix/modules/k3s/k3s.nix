@@ -69,6 +69,7 @@
       ]);
     networking.firewall.allowedUDPPorts = lib.mkIf (!config.k3s.singleNode) [
       8472 # k3s, flannel: required if using multi-node for inter-node networking
+      8473 # k3s, cilium vxlan migration
     ];
 
     sops.secrets.k3s-token = { };
@@ -90,6 +91,7 @@
               "--disable traefik"
               "--disable local-storage"
               "--disable-cloud-controller"
+              "--disable-helm-controller"
               "--kubelet-arg node-status-update-frequency=5s"
               "--kube-controller-manager-arg node-monitor-period=5s"
               "--kube-controller-manager-arg node-monitor-grace-period=20s"
