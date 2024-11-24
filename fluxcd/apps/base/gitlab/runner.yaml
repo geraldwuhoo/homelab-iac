@@ -70,4 +70,4 @@ spec:
             IdleTime = 1800
             MachineDriver = "hetzner"
             MachineName = "runner-%s"
-            MachineOptions = ["hetzner-api-token=${HETZNER_API_TOKEN}", "hetzner-image=ubuntu-24.04", "hetzner-server-type=cax21"]
+            MachineOptions = ["hetzner-api-token=${HETZNER_API_TOKEN}", "hetzner-image=ubuntu-24.04", "hetzner-server-type=cax11"]
