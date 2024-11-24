@@ -17,3 +17,4 @@ spec:
     name: onion-secret
   extraConfig: |
       HiddenServiceEnableIntroDoSDefense 1
+      FascistFirewall 1
