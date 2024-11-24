@@ -1,5 +1,23 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: anonymousoverflow
 resources:
+- secret.yaml
+- onion-service.yaml
 - ../../base/anonymousoverflow
+patches:
+- target:
+    kind: HelmRelease
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: anonymousoverflow
+    spec:
+      values:
+        ingress:
+          main:
+            annotations:
+              nginx.ingress.kubernetes.io/configuration-snippet: |-
+                add_header Onion-Location http://ovrflwgkerh2u652mxvk4wn53simx6xdhqxcmpavpak6jopk5oj4pbad.onion$request_uri;

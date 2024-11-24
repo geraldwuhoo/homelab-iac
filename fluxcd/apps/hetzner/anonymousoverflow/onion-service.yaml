@@ -1,0 +1,20 @@
+---
+apiVersion: tor.k8s.torproject.org/v1alpha2
+kind: OnionService
+metadata:
+  name: anonymousoverflow-onion
+spec:
+  version: 3
+  rules:
+    - port:
+        number: 80
+      backend:
+        service:
+          name: anonymousoverflow
+          port:
+            number: 8080
+  privateKeySecret:
+    name: onion-secret
+  extraConfig: |
+      HiddenServiceEnableIntroDoSDefense 1
+      FascistFirewall 1
