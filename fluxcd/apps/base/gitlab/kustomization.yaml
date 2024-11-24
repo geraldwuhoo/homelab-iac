@@ -9,6 +9,7 @@ resources:
 - secret.yaml
 - postgres.yaml
 - helmrelease.yaml
+- runner.yaml
 - renovate-secret.yaml
 - renovate.yaml
 - volsync-gitaly

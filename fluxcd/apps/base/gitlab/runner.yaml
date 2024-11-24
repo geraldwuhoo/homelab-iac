@@ -1,0 +1,73 @@
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab-runner
+  namespace: gitlab
+spec:
+  chart:
+    spec:
+      chart: gitlab-runner
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: flux-system
+  interval: 30m0s
+  timeout: 30m0s
+  values:
+    gitlabUrl: https://gitlab.wuhoo.xyz
+    runnerToken: ${GITLAB_HETZNER_REGISTRATION_TOKEN}
+    rbac:
+      create: true
+    serviceAccount:
+      create: true
+    # Unfortunately we need to run as root to add docker-machine hetzner plugin to PATH :(
+    securityContext:
+      runAsNonRoot: false
+    podSecurityContext:
+      runAsUser: 0
+    unregisterRunners: true
+    preEntrypointScript: |-
+      echo "Downloading docker-machine-driver-hetzner"
+
+      # Download the binary (this example downloads the binary for linux amd64)
+      wget https://github.com/JonasProgrammer/docker-machine-driver-hetzner/releases/download/5.0.2/docker-machine-driver-hetzner_5.0.2_linux_amd64.tar.gz
+      tar -xvf docker-machine-driver-hetzner_5.0.2_linux_amd64.tar.gz
+
+      # Make it executable and copy the binary in a directory accessible with your $PATH
+      chmod +x docker-machine-driver-hetzner
+      cp docker-machine-driver-hetzner /usr/local/bin/
+    runners:
+      executor: docker+machine
+      image: ubuntu:24.04
+      config: |-
+        [[runners]]
+          name = "hetzner-arm64"
+          executor = "docker+machine"
+          limit = 2
+          [runners.custom_build_dir]
+          # Soon(TM)
+          # [runners.cache]
+          #   Type = "s3"
+          #   Shared = true
+          #   [runners.cache.s3]
+          #     ServerAddress = "OPTIONAL S3 PROVIDER"
+          #     AccessKey = "OPTIONAL S3 CONFIG"
+          #     SecretKey = "OPTIONAL S3 CONFIG"
+          #     BucketName = "OPTIONAL S3 CONFIG"
+          [runners.docker]
+            tls_verify = false
+            image = "ubuntu:20.04"
+            privileged = true
+            disable_entrypoint_overwrite = false
+            oom_kill_disable = false
+            disable_cache = false
+            volumes = ["/cache", "/var/run/docker.sock:/var/run/docker.sock"]
+            shm_size = 0
+          [runners.machine]
+            IdleCount = 0
+            IdleTime = 1800
+            MachineDriver = "hetzner"
+            MachineName = "runner-%s"
+            MachineOptions = ["hetzner-api-token=${HETZNER_API_TOKEN}", "hetzner-image=ubuntu-24.04", "hetzner-server-type=cax21"]
