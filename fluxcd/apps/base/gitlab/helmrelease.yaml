@@ -107,8 +107,9 @@ spec:
       install: false
     gitlab-runner:
       concurrent: 2
+      unregisterRunners: true
       runners:
-        config: |
+        config: |-
           [[runners]]
             executors = "kubernetes"
             environment = [ "container=kube" ]

@@ -40,6 +40,7 @@ stringData:
     RESTIC_PASSWORD: ENC[AES256_GCM,data:XALCCfoTLKVyJrM9GRQhB4b9jg/KDVQ2foG+LgwYpdcu85cn,iv:K3Vb30xD2uZSZrpt5JQa4RpEaEUtV3d5rEpvXVN8jrg=,tag:/UAOBn/ceB83s0hJBzwDwg==,type:str]
     AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:0e2pEeLRe7hA+lZRGf687LIGtEo=,iv:jvqWEwA5av2G93ScngYuRrfbo9JWJ3pBVFyzXsrZucw=,tag:utRohW//lNjMHBffvJ1mmQ==,type:str]
     AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:yqxy7BxaJ+CSHP8II/DKfXuAfQty9V6c4es1Qkyq8n2ECKx1EfxEpA==,iv:tmNly40D+gnq2VcHKpRqajsEi8/VPBo9j44+tBrs/Wo=,tag:UroSo1RsnA0rz+mfCKO66A==,type:str]
+    HETZNER_API_TOKEN: ENC[AES256_GCM,data:NadQkQK0PRbHwrbLIwJdBHA7FEj/0RHSpxgHtPptOr1ZIvMzc1N7wzbmOFGCf9/0GQ58pfCQxgELo0bUhuznaQ==,iv:uxWKVXNbetpdbkpEJVJWDyU9qJ9XbDqcHAC3oKUZ9Lw=,tag:ShpBGGodhH57nYvsql44Fw==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -55,8 +56,8 @@ sops:
             STBlRUxoTFRvbWJWK21rZEo2aEpiQTQKkITQU3R6MPsdDGZ5ng4/ZRbkBHfFDM5E
             6M/nTT1ToNDab3KSf8d/YrQCb8E8+dXypRZq1o5QHz7fmxFF5oFhiQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-10-28T22:09:32Z"
-    mac: ENC[AES256_GCM,data:ZifXBn9p68AyyTH27x2m/Ai/haGxJBe0PkzsOzcRBdLxJv5Ui49rP3Yq7aJZauzhAynTeRYR5BD+JWmMI3vWhtagfAtVXmX5APSkb5WK0Lqw945fbTxqd99O8fyqh7m7zC3/Ev8kfHrQfapDFgQ9BLn/xE3VH5fxWlMRng13B74=,iv:jWui8NTEECKm4Bj16PHcTnsqa+zNbciEP1uYX83B4mg=,tag:Vi4xgPu3JCdMY6Dq53YCuQ==,type:str]
+    lastmodified: "2024-11-24T05:49:08Z"
+    mac: ENC[AES256_GCM,data:4/bRBB5s6OnQTbDLf8HPXCcNTyO5TzJtldoY9iVeKqoGACCrPpXrYDd2VXo2CILhQTAJTnia/t+fybjxKBZ4waKqJK3fDzh9HqzwJt6SaoJfyBT7DhcjukWtuqy9t737J3gNTomEjDMN5ttLHJ85+/El7kKRcakfwh9rUxWc0Sk=,iv:c0JkqscZq0qfr9LcEI1nQGRml+5/7Rlq5l7J5AvOD6Q=,tag:+OzzRGeZnR0wH2tFh+9mxg==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.8.1
