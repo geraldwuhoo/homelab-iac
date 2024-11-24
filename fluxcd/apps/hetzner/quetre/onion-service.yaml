@@ -1,0 +1,19 @@
+---
+apiVersion: tor.k8s.torproject.org/v1alpha2
+kind: OnionService
+metadata:
+  name: quetre-onion
+spec:
+  version: 3
+  rules:
+    - port:
+        number: 80
+      backend:
+        service:
+          name: quetre
+          port:
+            number: 3000
+  privateKeySecret:
+    name: onion-secret
+  extraConfig: |
+      HiddenServiceEnableIntroDoSDefense 1

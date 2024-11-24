@@ -1,5 +1,23 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: quetre
 resources:
+- secret.yaml
+- onion-service.yaml
 - ../../base/quetre
+patches:
+- target:
+    kind: HelmRelease
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: libreddit
+    spec:
+      values:
+        ingress:
+          main:
+            annotations:
+              nginx.ingress.kubernetes.io/configuration-snippet: |-
+                add_header Onion-Location http://quetrevlrqya4swd6jjmvncxcwoovekvc2qmr5mat7rczhfhd57plsad.onion$request_uri;
