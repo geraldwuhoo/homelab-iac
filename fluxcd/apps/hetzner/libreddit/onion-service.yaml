@@ -2,8 +2,7 @@
 apiVersion: tor.k8s.torproject.org/v1alpha2
 kind: OnionService
 metadata:
-  name: landing-service-landing-onion
-  namespace: ingress-nginx-onion
+  name: libreddit-onion
 spec:
   version: 3
   rules:
@@ -11,11 +10,10 @@ spec:
         number: 80
       backend:
         service:
-          name: ingress-nginx-onion-controller
+          name: libreddit
           port:
-            number: 80
+            number: 8080
   privateKeySecret:
-    name: onion-secret-landing
+    name: onion-secret
   extraConfig: |
       HiddenServiceEnableIntroDoSDefense 1
-      FascistFirewall 1
