@@ -27,6 +27,7 @@ spec:
               tag: v2.10
             env:
               PIXIVFE_HOST: 0.0.0.0
+              PIXIVFE_IMAGEPROXY: https://pximg.${DOMAIN}
             envFrom:
             - secretRef:
                 name: pixivfe-secret
