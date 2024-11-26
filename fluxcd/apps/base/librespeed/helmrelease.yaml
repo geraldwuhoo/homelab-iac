@@ -3,25 +3,38 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: librespeed
-  namespace: librespeed
 spec:
   chart:
     spec:
-      chart: librespeed
+      chart: app-template
+      version: 3.5.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
   values:
-    image:
-      repository: ghcr.io/linuxserver/librespeed
-      tag: 5.4.20240804
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/librespeed/speedtest
+              tag: 5.4.1
+            env:
+              MODE: standalone
+              TELEMETRY: "false"
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: &port 80
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx-public
+        className: nginx-public
         annotations:
           homelab/public: "true"
           external-dns.alpha.kubernetes.io/hostname: speedtest.${DOMAIN}
@@ -31,6 +44,6 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    persistence:
-      config:
-        enabled: false
+            service:
+              identifier: main
+              port: *port
