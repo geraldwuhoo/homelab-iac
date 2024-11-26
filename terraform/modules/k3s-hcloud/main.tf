@@ -195,6 +195,13 @@ resource "hcloud_firewall" "firewall" {
     destination_ips = ["0.0.0.0/0", "::/0"]
     description     = "Cloudflare Warp outbound"
   }
+  rule {
+    direction       = "out"
+    protocol        = "udp"
+    port            = "1637"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "AirVPN outbound"
+  }
 }
 
 resource "cloudflare_record" "name_record" {

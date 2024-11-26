@@ -19,3 +19,4 @@ patches:
         routed_namespaces:
         - libreddit
         - piped
+        - pixivfe
