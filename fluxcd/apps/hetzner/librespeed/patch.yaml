@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: librespeed
+spec:
+  values:
+    ingress:
+      main:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.alpha.kubernetes.io/hostname: speedtest-hetzner.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+        className: null
+        hosts:
+        - host: speedtest-hetzner.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: 80
+        tls:
+        - hosts:
+          - speedtest-hetzner.${DOMAIN}
+          secretName: librespeed-cert
