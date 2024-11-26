@@ -91,7 +91,9 @@
       clusterInit = config.k3s.clusterInit;
 
       extraFlags = toString (
-        [ ]
+        [
+          "--kubelet-arg=allowed-unsafe-sysctls=net.ipv6.conf.all.disable_ipv6,net.ipv6.conf.default.disable_ipv6,net.ipv4.ip_forward,net.ipv4.conf.all.src_valid_mark"
+        ]
         ++ (
           if config.k3s.master then
             [
@@ -102,7 +104,6 @@
               "--kubelet-arg node-status-update-frequency=5s"
               "--kube-controller-manager-arg node-monitor-period=5s"
               "--kube-controller-manager-arg node-monitor-grace-period=20s"
-              "--kubelet-arg=allowed-unsafe-sysctls=net.ipv6.conf.all.disable_ipv6,net.ipv6.conf.default.disable_ipv6,net.ipv4.ip_forward,net.ipv4.conf.all.src_valid_mark"
             ]
             ++ (
               if config.k3s.singleNode then
