@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rimgo
+resources:
+- secret.yaml
+- onion-service.yaml
+- ../../base/rimgo
+patches:
+- target:
+    kind: HelmRelease
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: rimgo
+    spec:
+      values:
+        ingress:
+          main:
+            annotations:
+              nginx.ingress.kubernetes.io/configuration-snippet: |-
+                add_header Onion-Location http://rimgo2yhclbk4bc2xe76eeremrqg5cpm3sgdyrrsqnbz6ytwaycdyqad.onion$request_uri;

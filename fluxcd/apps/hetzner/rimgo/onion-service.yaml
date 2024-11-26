@@ -1,0 +1,20 @@
+---
+apiVersion: tor.k8s.torproject.org/v1alpha2
+kind: OnionService
+metadata:
+  name: rimgo-onion
+spec:
+  version: 3
+  rules:
+    - port:
+        number: 80
+      backend:
+        service:
+          name: rimgo
+          port:
+            number: 3000
+  privateKeySecret:
+    name: onion-secret
+  extraConfig: |
+      HiddenServiceEnableIntroDoSDefense 1
+      FascistFirewall 1

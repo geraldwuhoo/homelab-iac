@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rimgo
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: deployment
+        replicas: 1
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: codeberg.org/rimgo/rimgo
+              tag: 1.2.6
+            env:
+              NODE_ENV: production
+              PORT: &port 3000
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          homelab/public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.alpha.kubernetes.io/hostname: rimgo.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+        hosts:
+        - host: rimgo.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: *port
+        tls:
+        - hosts:
+          - rimgo.${DOMAIN}
+          secretName: rimgo-cert
