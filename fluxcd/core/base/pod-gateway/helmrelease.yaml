@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pod-gateway
+spec:
+  chart:
+    spec:
+      chart: pod-gateway
+      version: 6.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: angelnu
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    routed_namespaces:
+    - vpn
+    addons:
+      vpn:
+        enabled: true
+        type: gluetun
+        image:
+          repository: ghcr.io/qdm12/gluetun
+          tag: v3.39.1
+        env:
+          VPN_TYPE: wireguard
+          VPN_SERVICE_PROVIDER: airvpn
+          FIREWALL: "off"
+          DOT: "off"
+          WIREGUARD_MTU: "1320"
+        envFrom:
+        - secretRef:
+            name: vpn-secret
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+        networkPolicy:
+          enabled: true
+          egress:
+          - to:
+            - ipBlock:
+                cidr: 0.0.0.0/0
+            ports:
+            - port: 1637
+              protocol: UDP
+          - to:
+            - namespaceSelector: {}
+    settings:
+      VPN_LOCAL_CIDRS: 10.0.0.0/8 192.168.0.0/16
+      NOT_ROUTED_TO_GATEWAY_CIDRS: 10.0.0.0/8 192.168.0.0/16
+      IPV4_ENABLED: true
+      IPV6_ENABLED: false
