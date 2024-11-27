@@ -145,15 +145,23 @@ resource "local_sensitive_file" "kubeconfig" {
 locals {
   lxc_hosts = [
     {
-      hostname    = "shinobu"
-      mac_address = "02:c9:f2:01:b1:45"
-      node        = "kabuki"
+      hostname = "shinobu"
+      node     = "kabuki"
+      networks = {
+        "eth0" = {
+          mac_address = "02:c9:f2:01:b1:45"
+        }
+      }
     },
     {
-      hostname    = "araragi"
-      mac_address = "02:95:a7:a0:ee:b5"
-      node        = "bake"
-      vlan        = 70
+      hostname = "araragi"
+      node     = "bake"
+      networks = {
+        "eth0" = {
+          mac_address = "02:95:a7:a0:ee:b5"
+          vlan        = 70
+        }
+      }
     }
   ]
 }
@@ -185,14 +193,18 @@ resource "proxmox_lxc" "nixos" {
     size    = "32G"
   }
 
-  network {
-    name     = "eth0"
-    bridge   = "vmbr2"
-    hwaddr   = each.value.mac_address
-    ip       = "dhcp"
-    ip6      = "manual"
-    firewall = false
-    tag      = try(each.value.vlan, null)
+  dynamic "network" {
+    for_each = each.value.networks
+
+    content {
+      name     = network.key
+      bridge   = "vmbr2"
+      hwaddr   = network.value.mac_address
+      ip       = try(network.value.ip, "dhcp")
+      ip6      = ""
+      firewall = false
+      tag      = try(network.value.vlan, null)
+    }
   }
 
   provisioner "local-exec" {

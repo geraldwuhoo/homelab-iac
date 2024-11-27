@@ -1,5 +1,5 @@
 proxmox:
-    api_url: ENC[AES256_GCM,data:B8yuSUmrC9t1CzIhYeIwgs5carowL69xzyNLZ15kPw==,iv:JiWsMpro/OzNWKce2clA+g4GoTYgpNUlXdN5/8/X+IY=,tag:zuW0of/yQ4AaAt9FxqC1Bw==,type:str]
+    api_url: ENC[AES256_GCM,data:cuV7xy00rkuojIYDPO/s4km63lX7azYz+uwFp8XiQGNsKfuVBw==,iv:5ORCMBW7xa1LTQ5hMOYByYwWMLkUXn3FeC4mKW3G9xQ=,tag:JlmhJYyKE+Ibh+84mkL+iw==,type:str]
     api_token_id: ENC[AES256_GCM,data:Yv6ktIZ8PxI3hf9GGSVTTTKA8vykrmXnF3PiFNkKuFE=,iv:kWpd6gL3HNGjZjeHVS+dlOW1mVPTgjat2WnfJRq8P2g=,tag:E19IUrJm59Tw1uGUQIaWNw==,type:str]
     api_token_secret: ENC[AES256_GCM,data:tb5QryResrpm5JEwSjEZBtm65LQeR8jQreIYxmEbmOstA3GH,iv:NJDaH5kkWblKVf+1ZmzkmbEPATIYDEzKnJkLYmmXmZs=,tag:5KjUasNrnA0oIL59RHl5ug==,type:str]
 notify_url: ENC[AES256_GCM,data:6F+ld4eXaYnaFi/nmve792lT1+RCQUG6m93CVsiumuMaYBu2Kq6wz5j8oDbFYybpkrmJCTX90UzfbJWHUnHnvZ3fGVaPrk/CM0rq/TaDUQ==,iv:84L3IBU1Ru9l2qIMuVSlzsd6DIFUFlF3K2Ig7mhZoc8=,tag:6w8J4PbeQclQo1M/F4dE7g==,type:str]
@@ -22,8 +22,8 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-11-06T07:19:21Z"
-    mac: ENC[AES256_GCM,data:mjfMJi2B33lQ/kbJ+tZCOnCJnvcNhjEvpCBNdA3Be8n/eRg2ln80G3z78cD+qlVadbz3U6vFK1KspQ4fpVge4qqnXSAebdmXlX8BeTYTdBD3qGMj0sG23s7abCzN3MJ+clWS+Exo5zxpr/AvC7XHhAP3B+ilK8FCFEDLDeERGk4=,iv:g9YjgJRScHsBriBmG+jJpZ7Q0FiQv+NNK9CD4on8X78=,tag:MZoVsEURacJ7zKj43Un14g==,type:str]
+    lastmodified: "2024-11-26T17:59:39Z"
+    mac: ENC[AES256_GCM,data:HGOrzhys5EeYzhL9gpyrqYnH/+7uYkfxzBq7DrP/6rM1Jvkqj/h3oa3QILivqBI6tgZWIDeyeS+hI7N+sUbUDNMoD6TO75HmoLmcGQpNB4OP3QylgIJkrNMOmNaple+sDFeJaWpVtPB9GTfmpsENkEZYTrQhfySWy7sz0m1k6Ho=,iv:C1h+e1oZ/ENiy3piXUWRyfWr2E+GV9N0V+wsDnFPpls=,tag:5rMmpjwHBLDyhPu6JpQGaQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.8.1
