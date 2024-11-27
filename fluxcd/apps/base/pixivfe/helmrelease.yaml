@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: docker.io/vnpower/pixivfe
-              tag: v2.10@sha256:9e60f995fcd7ec581b4580be5e3864abde0c11fcc7113717e662771ae8ce5a96
+              tag: v2.10@sha256:ab896f255a9d8ea8513a96421a333f603951ca668d1e34a500f0e9c544e635c3
             env:
               PIXIVFE_HOST: 0.0.0.0
               PIXIVFE_IMAGEPROXY: https://pximg.${DOMAIN}
