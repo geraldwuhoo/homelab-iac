@@ -3,37 +3,35 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: external-dns
-  namespace: external-dns
 spec:
   chart:
     spec:
       chart: external-dns
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: external-dns
         namespace: flux-system
   interval: 10m0s
   values:
     image:
-      registry: docker.io
-      repository: bitnami/external-dns
-      tag: 0.15.0-debian-12-r5
-    provider: cloudflare
-    cloudflare:
-      apiKey: "${CLOUDFLARE_API_KEY}"
-      email: "${CLOUDFLARE_EMAIL}"
-      proxied: false
+      repository: registry.k8s.io/external-dns/external-dns
+      tag: v0.15.0
+    provider:
+      name: cloudflare
+    env:
+    - name: CF_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-api-key-secret
+          key: apiKey
+    - name: CF_API_EMAIL
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-api-key-secret
+          key: email
     extraArgs:
-      ignore-ingress-rules-spec: {}
-      ignore-ingress-tls-spec: {}
-    annotationFilter: "homelab/public in (true)"
-    source:
+    - --annotation-filter=homelab/public in (true)
+    - --ignore-ingress-rules-spec
+    - --ignore-ingress-tls-spec
+    sources:
     - ingress
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: false
-        namespace: prometheus
-        interval: 30s
-        labels:
-          release: prometheus
