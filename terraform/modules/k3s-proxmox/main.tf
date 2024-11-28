@@ -14,10 +14,11 @@ resource "proxmox_vm_qemu" "k3s_node" {
   name = var.hosts[count.index].hostname
   desc = "k3s node ${count.index}"
 
-  target_node = var.hosts[count.index].node
-  hastate     = var.hosts[count.index].hastate
-  onboot      = true
-  skip_ipv6   = true
+  target_node      = var.hosts[count.index].node
+  hastate          = var.hosts[count.index].hastate
+  onboot           = true
+  skip_ipv6        = true
+  automatic_reboot = false
 
   cores   = var.specs.cores
   sockets = var.specs.sockets
@@ -54,6 +55,7 @@ resource "proxmox_vm_qemu" "k3s_node" {
   }
 
   network {
+    id      = 0
     model   = "virtio"
     macaddr = var.hosts[count.index].mac_address
     bridge  = var.specs.bridge
