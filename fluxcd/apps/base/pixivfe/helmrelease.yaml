@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: ghcr.io/nginxinc/nginx-unprivileged
-              tag: 1.27.2-alpine3.20
+              tag: 1.27.3-alpine3.20
     persistence:
       nginx-cache:
         type: emptyDir
