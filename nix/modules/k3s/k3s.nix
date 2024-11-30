@@ -24,7 +24,24 @@
       };
     };
   };
-  config = {
+  config =
+  let
+    containerd-shim-wasmedge = pkgs.callPackage ./containerd-shim-wasmedge.nix {inherit pkgs lib;};
+    containerdConfigTemplate = pkgs.writeTextFile {
+      name = "config.toml.tmpl";
+      text = ''
+      # Base K3s config
+      {{ template "base" . }}
+
+      # Add a custom runtime
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes."wasmedge"]
+        runtime_type = "io.containerd.wasmedge.v1"
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes."wasmedge".options]
+        BinaryName = "${containerd-shim-wasmedge}/containerd-shim-wasmedge-v1"
+      '';
+    };
+  in
+  {
     boot = {
       kernel.sysctl = {
         "fs.inotify.max_user_instances" = 8192;
@@ -48,6 +65,7 @@
     environment.systemPackages =
       with pkgs;
       [
+        containerd-shim-wasmedge
         ceph-client # ceph kernel modules for ceph-csi
       ]
       ++ (lib.optionals (config.k3s.master) [
@@ -80,6 +98,32 @@
     };
 
     sops.secrets.k3s-token = { };
+
+    systemd.services.createContainerdShimWasmedge = {
+      description = "Create symlink for containerd-shim-wasmedge";
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      script = ''
+      ${pkgs.coreutils-full}/bin/ln -sfn ${containerd-shim-wasmedge}/containerd-shim-wasmedge-v1 $(${pkgs.coreutils-full}/bin/readlink /var/lib/rancher/k3s/data/current)/bin
+      '';
+      wantedBy = [ "multi-user.target" ];
+    };
+    # Temporary until NixOS 24.11 introduces the k3s option
+    systemd.services.createK3sConfigTemplate = {
+      description = "Create symlink for k3s containerd template";
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      script = ''
+      mkdir -p /var/lib/rancher/k3s/agent/etc/containerd
+      ${pkgs.coreutils-full}/bin/ln -sfn ${containerdConfigTemplate} /var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
+      ${pkgs.coreutils-full}/bin/ln -sfn ${containerd-shim-wasmedge}/containerd-shim-wasmedge-v1 $(${pkgs.coreutils-full}/bin/readlink /var/lib/rancher/k3s/data/current)/bin
+      '';
+      wantedBy = [ "multi-user.target" ];
+    };
 
     services.k3s = {
       enable = true;
