@@ -33,9 +33,12 @@ spec:
             env:
               MOLLY_DB: /data/db.sqlite
               MOLLY_ALLOWED_ENDPOINTS: '["https://ntfy.${DOMAIN}"]'
-              MOLLY_ALLOWED_UUIDS: '["6cb74e4d-41e2-44b9-a897-9a6fbdd8b4d4"]'
+              MOLLY_ALLOWED_UUIDS: '["*"]'
               MOLLY_HOST: 0.0.0.0
               RUST_LOG: info
+            envFrom:
+            - secretRef:
+                name: mollysocket-secret
             args:
             - server
     service:

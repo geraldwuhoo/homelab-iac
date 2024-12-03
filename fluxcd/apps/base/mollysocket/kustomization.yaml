@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: mollysocket
 resources:
 - namespace.yaml
+- secret.yaml
 - helmrelease.yaml
 - volsync
