@@ -158,11 +158,13 @@
           config.k3s.master && !config.k3s.singleNode
         ) config.sops.templates.k3s-config.path;
 
-        manifests = lib.mkIf (!config.k3s.singleNode) (builtins.mapAttrs (name: file: { source = ./manifests/${name}.yaml; }) {
-          kube-vip-rbac = { };
-          kube-vip-ds = { };
-          kube-vip-worker-ds = { };
-        });
+        manifests = lib.mkIf (!config.k3s.singleNode) (
+          builtins.mapAttrs (name: file: { source = ./manifests/${name}.yaml; }) {
+            kube-vip-rbac = { };
+            kube-vip-ds = { };
+            kube-vip-worker-ds = { };
+          }
+        );
       };
 
       sops.secrets.aws-access-key-id = lib.mkIf (config.k3s.master && !config.k3s.singleNode) { };

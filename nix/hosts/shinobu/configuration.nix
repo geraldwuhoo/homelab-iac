@@ -54,27 +54,26 @@
           }
         }
 
-        ${
-          lib.concatMapStringsSep "\n"
-            (item: ''
-              @${item} host ${item}.wuhoo.xyz
-              handle @${item} {
-                import local-net
-                reverse_proxy http://${item}:5000 {
-                  header_up Docker-Distribution-Api-Version "registry/2.0"
-                }
+        ${lib.concatMapStringsSep "\n"
+          (item: ''
+            @${item} host ${item}.wuhoo.xyz
+            handle @${item} {
+              import local-net
+              reverse_proxy http://${item}:5000 {
+                header_up Docker-Distribution-Api-Version "registry/2.0"
               }
-            '')
-            [
-              "devcache"
-              "hub"
-              "k8sgcr"
-              "registryk8s"
-              "quay"
-              "gcr"
-              "ghcr"
-              "rgitlab"
-            ]
+            }
+          '')
+          [
+            "devcache"
+            "hub"
+            "k8sgcr"
+            "registryk8s"
+            "quay"
+            "gcr"
+            "ghcr"
+            "rgitlab"
+          ]
         }
 
         respond 200 {
