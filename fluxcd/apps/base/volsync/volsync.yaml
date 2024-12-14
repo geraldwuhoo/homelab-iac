@@ -27,3 +27,4 @@ spec:
     #volumeSnapshotClassName: my-vsc-name
     cacheAccessModes: ["ReadWriteOnce"]
     cacheStorageClassName: ceph-rbd-delete-sc
+    cacheCapacity: 10Gi
