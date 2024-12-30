@@ -28,7 +28,7 @@ spec:
           main:
             image:
               repository: docker.io/fallenbagel/jellyseerr
-              tag: 2.2.0
+              tag: 2.2.2
             env:
               TZ: UTC
               LOG_LEVEL: info
