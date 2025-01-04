@@ -186,7 +186,7 @@ spec:
       https: true
       image:
         repository: docker.io/xperimental/nextcloud-exporter
-        tag: 0.7.0
+        tag: 0.8.0
       serviceMonitor:
         enabled: false
         namespace: prometheus
