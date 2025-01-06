@@ -21,7 +21,7 @@ variable "sops-server-key-path" {
 
 variable "server_type" {
   type    = string
-  default = "cax11"
+  default = "cax21"
 }
 
 variable "datacenter" {
