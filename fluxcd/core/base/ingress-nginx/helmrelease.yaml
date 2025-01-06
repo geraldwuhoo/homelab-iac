@@ -16,6 +16,7 @@ spec:
   interval: 10m0s
   values:
     controller:
+      enableAnnotationValidations: false
       podAnnotations:
         linkerd.io/inject: enabled
       config:

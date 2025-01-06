@@ -108,18 +108,6 @@
         ) "https://k3s.wuhoo.xyz:6443";
         clusterInit = config.k3s.clusterInit;
 
-        # Add wasmedge runtime to k3s
-        containerdConfigTemplate = ''
-          # Base K3s config
-          {{ template "base" . }}
-
-          # Add a custom runtime
-          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes."wasmedge"]
-            runtime_type = "io.containerd.wasmedge.v1"
-          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes."wasmedge".options]
-            BinaryName = "${containerd-shim-wasmedge}/containerd-shim-wasmedge-v1"
-        '';
-
         extraFlags = toString (
           [
             "--kubelet-arg=allowed-unsafe-sysctls=net.ipv6.conf.all.disable_ipv6,net.ipv6.conf.default.disable_ipv6,net.ipv4.ip_forward,net.ipv4.conf.all.src_valid_mark"
