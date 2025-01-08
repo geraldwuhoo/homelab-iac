@@ -30,6 +30,7 @@ spec:
           FIREWALL: "off"
           DOT: "off"
           WIREGUARD_MTU: "1320"
+          HTTPPROXY: "on"
         envFrom:
         - secretRef:
             name: vpn-secret
@@ -48,6 +49,14 @@ spec:
               protocol: UDP
           - to:
             - namespaceSelector: {}
+    service:
+      gluetun:
+        enabled: true
+        type: ClusterIP
+        ports:
+          httpproxy:
+            port: 8888
+            type: TCP
     settings:
       VPN_LOCAL_CIDRS: 10.0.0.0/8 192.168.0.0/16
       NOT_ROUTED_TO_GATEWAY_CIDRS: 10.0.0.0/8 192.168.0.0/16
