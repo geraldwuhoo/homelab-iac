@@ -18,6 +18,5 @@ patches:
       values:
         routed_namespaces:
         - libreddit
-        - piped
         - pixivfe
         - rimgo
