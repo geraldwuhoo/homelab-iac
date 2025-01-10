@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.28.2.4885
+              tag: 1.29.2.4915
             env:
               TZ: UTC
             resources:
