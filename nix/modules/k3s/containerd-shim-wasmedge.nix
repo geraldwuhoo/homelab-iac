@@ -27,7 +27,7 @@ pkgs.stdenv.mkDerivation rec {
   version = "0.4.0";
 
   src = builtins.fetchurl {
-    url = "https://github.com/containerd/runwasi/releases/download/containerd-shim-wasmedge%2F${version}/containerd-shim-wasmedge-${plat}.tar.gz";
+    url = "https://github.com/containerd/runwasi/releases/download/containerd-shim-wasmedge%2Fv${version}/containerd-shim-wasmedge-${plat}.tar.gz";
     inherit sha256;
   };
 
