@@ -29,7 +29,7 @@ spec:
           main: # Dummy container
             image: &image
               repository: docker.io/rclone/rclone
-              tag: 1.68.2
+              tag: 1.69.0
             args:
             - version
         initContainers: &initContainers
