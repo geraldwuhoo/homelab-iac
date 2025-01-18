@@ -10,7 +10,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.47.0"
+      version = "4.50.0"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -22,7 +22,7 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.34.0"
+      version = "2.35.1"
     }
     flux = {
       source  = "fluxcd/flux"
