@@ -17,17 +17,17 @@ let
 
   sha256 =
     {
-      x86_64-linux = "0vxkqqm6pfw5php0pj5j06rgsa748q27f8l97rs3kbc5ykmi5k73";
-      aarch64-linux = "1l0jhpqdnxxnwqr6qixc8ai4zymcpxc4a3ca2lwyc7akbpw2hj99";
+      x86_64-linux = "1qvx6h44b68arbxc0x3kyn5pmccwddvzy5gg68g3xsbvr0j8sf44";
+      aarch64-linux = "0i7r5n4dprj2w2lr4f3mcwjr87ij4bnfkiav5ixysw8maf0vfsfr";
     }
     .${system} or throwSystem;
 in
 pkgs.stdenv.mkDerivation rec {
   pname = "containerd-shim-wasmedge";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = builtins.fetchurl {
-    url = "https://github.com/containerd/runwasi/releases/download/containerd-shim-wasmedge%2Fv${version}/containerd-shim-wasmedge-${plat}.tar.gz";
+    url = "https://github.com/containerd/runwasi/releases/download/containerd-shim-wasmedge%2Fv${version}/containerd-shim-wasmedge-${plat}-linux-musl.tar.gz";
     inherit sha256;
   };
 

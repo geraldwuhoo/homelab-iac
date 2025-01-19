@@ -93,7 +93,7 @@
           RemainAfterExit = true;
         };
         script = ''
-          ${pkgs.coreutils-full}/bin/ln -sfn ${containerd-shim-wasmedge}/containerd-shim-wasmedge-v1 $(${pkgs.coreutils-full}/bin/readlink /var/lib/rancher/k3s/data/current)/bin
+          ${pkgs.coreutils-full}/bin/ln -sfnv ${containerd-shim-wasmedge}/containerd-shim-wasmedge-v1 $(${pkgs.coreutils-full}/bin/readlink /var/lib/rancher/k3s/data/current)/bin
         '';
         wantedBy = [ "multi-user.target" ];
       };
