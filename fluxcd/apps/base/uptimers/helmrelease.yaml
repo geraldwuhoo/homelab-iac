@@ -78,8 +78,6 @@ spec:
                 name: Matrix
               - site: https://element.wuhoo.xyz/
                 name: Element
-              - site: https://schildichat.wuhoo.xyz/
-                name: Schildichat
               - site: https://cinny.wuhoo.xyz/
                 name: Cinny
               - site: https://fmd.wuhoo.xyz/

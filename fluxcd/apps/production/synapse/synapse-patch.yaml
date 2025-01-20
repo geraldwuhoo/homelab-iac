@@ -38,7 +38,6 @@ spec:
       sso:
         client_whitelist:
         - https://element.${DOMAIN}/
-        - https://schildichat.${DOMAIN}/
         - https://cinny.${DOMAIN}/
         - https://hydrogen.${DOMAIN}/
         - https://app.element.io/
