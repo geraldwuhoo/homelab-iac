@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hcloud-cronjob
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          suspend: false
+          concurrencyPolicy: Forbid
+          schedule: "0 * * * *"
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+          backoffLimit: 3
+        containers:
+          main: # Dummy container
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.21.2
+            command:
+            - /bin/sh
+            - /config/script.sh
+            envFrom:
+            - secretRef:
+                name: hcloud-secret
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: hcloud-cronjob-config
+    configMaps:
+      config:
+        enabled: true
+        data:
+          script.sh: |-
+            #!/bin/sh
+
+            set -exo pipefail
+
+            apk update
+            apk add coreutils jq hcloud
+
+            hcloud server list -o json | jq -r '.[] | "\(.id) \(.created)"' | while read -r server;
+            do
+              id="$(echo "$server" | cut -d' ' -f1)"
+              date="$(echo "$server" | cut -d' ' -f2)"
+              unix="$(date -d "$date" "+%s")"
+              now="$(date "+%s")"
+              [ "$(($now - $unix))" -ge 14400 ] && hcloud server delete "$id"
+            done

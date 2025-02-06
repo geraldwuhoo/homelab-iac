@@ -10,6 +10,8 @@ resources:
 - postgres.yaml
 - helmrelease.yaml
 - runner.yaml
+- hcloud-secret.yaml
+- hcloud-cronjob.yaml
 - renovate-secret.yaml
 - renovate.yaml
 - volsync-gitaly
