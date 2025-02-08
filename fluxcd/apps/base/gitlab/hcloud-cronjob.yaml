@@ -59,5 +59,9 @@ spec:
               date="$(echo "$server" | cut -d' ' -f2)"
               unix="$(date -d "$date" "+%s")"
               now="$(date "+%s")"
-              [ "$(($now - $unix))" -ge 14400 ] && hcloud server delete "$id"
+              if [ "$(($now - $unix))" -ge 14400 ]; then
+                hcloud server delete "$id"
+              else
+                echo "Skipping $id"
+              fi
             done
