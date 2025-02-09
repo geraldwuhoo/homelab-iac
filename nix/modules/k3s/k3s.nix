@@ -100,7 +100,7 @@
 
       services.k3s = {
         enable = true;
-        package = pkgs.k3s_1_30;
+        package = pkgs.k3s;
         role = if config.k3s.master then "server" else "agent";
         tokenFile = lib.mkIf (!config.k3s.singleNode) config.sops.secrets.k3s-token.path;
         serverAddr = lib.mkIf (
