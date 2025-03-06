@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/library/nextcloud
-      tag: 29.0.12-fpm
+      tag: 30.0.6-fpm
     ingress:
       enabled: true
       className: nginx-public
