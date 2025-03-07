@@ -20,4 +20,3 @@ mirrors:
   "registry.gitlab.com":
     endpoint:
     - "https://rgitlab.wuhoo.xyz"
-  "*":
