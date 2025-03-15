@@ -79,7 +79,7 @@ in
 
   # Generate all registry containers
   virtualisation.oci-containers.containers = builtins.mapAttrs (name: container: {
-    image = "docker.io/library/registry:3.0.0-rc.1";
+    image = "docker.io/library/registry:3.0.0-rc.3";
     environment = {
       "OTEL_TRACES_EXPORTER" = "none";
     } // (container.environment or { });
