@@ -159,9 +159,9 @@ spec:
       install: false
     minio:
       persistence:
-        size: 75Gi
+        size: 100Gi
         enabled: true
-        annotations: 
+        annotations:
           helm.sh/resource-policy: keep
     gitlab:
       gitlab-pages:
