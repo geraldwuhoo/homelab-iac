@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../volsync
+namePrefix: dumbbudget-
+patches:
+- target:
+    kind: ReplicationSource
+    name: backup
+  patch: |-
+    apiVersion: volsync.backube/v1alpha1
+    kind: ReplicationSource
+    metadata:
+      name: backup
+    spec:
+      sourcePVC: dumbbudget-data
+      trigger:
+        schedule: "0 */2 * * *"
+- target:
+    kind: Secret
+    name: volsync-restic-config
+  patch: |-
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: volsync-restic-config
+    stringData:
+      RESTIC_REPOSITORY: ${RESTIC_REPOSITORY_BASE}/dumbbudget

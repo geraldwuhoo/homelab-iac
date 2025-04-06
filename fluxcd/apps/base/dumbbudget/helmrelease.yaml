@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dumbbudget
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: deployment
+        replicas: 1
+        strategy: Recreate
+        annotations:
+          keel.sh/policy: force
+          keel.sh/trigger: poll
+          keel.sh/match-tag: "true"
+          keel.sh/pollSchedule: "@every 240m"
+        containers:
+          main:
+            image:
+              repository: docker.io/dumbwareio/dumbbudget
+              tag: latest
+            env:
+              CURRENCY: USD
+              BASE_URL: https://dumbbudget.${DOMAIN}
+              SITE_TITLE: Dumb Budget
+            envFrom:
+            - secretRef:
+                name: dumbbudget-secret
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: &port 3000
+    ingress:
+      main:
+        enabled: true
+        className: nginx
+        hosts:
+        - host: dumbbudget.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: *port
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        retain: true
+        globalMounts:
+        - path: /app/data
