@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: codeberg.org/rimgo/rimgo
-              tag: 1.2.6
+              tag: 1.3.0
             env:
               NODE_ENV: production
               PORT: &port 3000
