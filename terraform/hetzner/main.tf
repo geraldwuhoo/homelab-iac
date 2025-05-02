@@ -6,7 +6,7 @@ terraform {
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.50.0"
+      version = "1.50.1"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
