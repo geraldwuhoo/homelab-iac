@@ -2,11 +2,11 @@ terraform {
   required_providers {
     sops = {
       source  = "carlpett/sops"
-      version = "1.1.1"
+      version = "1.2.0"
     }
     proxmox = {
       source  = "telmate/proxmox"
-      version = "3.0.1-rc6"
+      version = "3.0.1-rc8"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -14,7 +14,7 @@ terraform {
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "17.9.0"
+      version = "17.11.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
