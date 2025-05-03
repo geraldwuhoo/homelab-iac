@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: ceph-csi-rbd
-      version: 3.14.0
+      version: 3.12.3
       sourceRef:
         kind: HelmRepository
         name: ceph-csi
@@ -25,4 +25,4 @@ spec:
       snapshotter:
         image:
           repository: registry.k8s.io/sig-storage/csi-snapshotter
-          tag: v8.2.1
+          tag: v8.1.0
