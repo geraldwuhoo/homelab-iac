@@ -61,7 +61,7 @@ spec:
           main:
             image:
               repository: docker.io/gotenberg/gotenberg
-              tag: 8.20.1
+              tag: 8.21.0
             args:
             - gotenberg
             - "--chromium-disable-javascript=true"
@@ -71,7 +71,7 @@ spec:
           main:
             image:
               repository: docker.io/apache/tika
-              tag: 3.1.0.0
+              tag: 3.2.0.0
     service:
       main:
         controller: main
