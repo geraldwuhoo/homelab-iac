@@ -28,7 +28,7 @@ spec:
           main:
             image:
               repository: registry.gitlab.com/timvisee/send
-              tag: v3.4.25
+              tag: v3.4.27
             env:
               BASE_URL: "https://send.${DOMAIN}"
               CUSTOM_FOOTER_TEXT: Nothing here is backed up. Treat all uploads as temporary.
