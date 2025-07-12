@@ -28,7 +28,7 @@ spec:
           main:
             image:
               repository: registry.gitlab.com/timvisee/send
-              tag: v3.4.25
+              tag: v3.4.27
             env:
               BASE_URL: "https://send.${DOMAIN}"
               CUSTOM_FOOTER_TEXT: Nothing here is backed up. Treat all uploads as temporary.
@@ -46,7 +46,7 @@ spec:
           redis-isready:
             image:
               repository: docker.io/bitnami/redis
-              tag: 8.0.2-debian-12-r4
+              tag: 8.0.3-debian-12-r1
             command:
             - "/bin/sh"
             - "-c"

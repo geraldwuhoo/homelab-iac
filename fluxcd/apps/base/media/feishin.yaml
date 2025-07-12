@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: ghcr.io/jeffvli/feishin
-              tag: 0.16.0
+              tag: 0.18.0
             env:
               SERVER_NAME: Jerryfin
               SERVER_TYPE: jellyfin
