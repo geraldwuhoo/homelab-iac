@@ -2,7 +2,7 @@ terraform {
   required_providers {
     sops = {
       source  = "carlpett/sops"
-      version = "1.2.0"
+      version = "1.2.1"
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
@@ -26,7 +26,7 @@ terraform {
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.6.3"
+      version = "1.6.4"
     }
   }
 
