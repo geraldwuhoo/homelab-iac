@@ -33,6 +33,7 @@ spec:
             env:
               REDLIB_DEFAULT_SHOW_NSFW: "on"
               REDLIB_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION: "on"
+              REDLIB_ROBOTS_DISABLE_INDEXING: "on"
     persistence:
       data:
         type: persistentVolumeClaim
