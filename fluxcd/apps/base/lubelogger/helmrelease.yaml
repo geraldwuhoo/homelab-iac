@@ -1,0 +1,16 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: lubelogger
+spec:
+  chart:
+    spec:
+      chart: lubelogger
+      version: 1.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: anza-labs
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
