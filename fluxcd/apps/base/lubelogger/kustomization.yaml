@@ -5,6 +5,7 @@ namespace: lubelogger
 resources:
 - namespace.yaml
 - secret.yaml
+- oidc-secret.yaml
 - zalando-secret.yaml
 - postgres.yaml
 - helmrelease.yaml
