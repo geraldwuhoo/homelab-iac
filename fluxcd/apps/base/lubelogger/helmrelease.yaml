@@ -14,3 +14,27 @@ spec:
         namespace: flux-system
   interval: 10m0s
   timeout: 10m0s
+  valuesFrom:
+  - kind: Secret
+    name: lubelogger.lubelogger-postgres-cluster.credentials.postgresql.acid.zalan.do
+    valuesKey: username
+    targetPath: postgres.user
+  - kind: Secret
+    name: lubelogger.lubelogger-postgres-cluster.credentials.postgresql.acid.zalan.do
+    valuesKey: password
+    targetPath: postgres.password
+  values:
+    secret:
+      create: true
+      name: mailserver
+      emailServer: a
+      emailFrom: a
+      port: 587
+      username: a
+      password: a
+    postgres:
+      create: true
+      connect: true
+      host: lubelogger-postgres-cluster
+      port: 5432
+      database: lubelogger

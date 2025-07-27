@@ -1,0 +1,21 @@
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: lubelogger-postgres-cluster
+  annotations:
+    k8up.io/backup: "false"
+spec:
+  teamId: lubelogger
+  volume:
+    size: 10Gi
+  numberOfInstances: 3
+  users:
+    # database owner
+    lubelogger:
+    - superuser
+    - createdb
+  databases:
+    lubelogger: lubelogger
+  postgresql:
+    version: "17"
