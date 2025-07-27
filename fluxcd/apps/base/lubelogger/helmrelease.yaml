@@ -23,6 +23,14 @@ spec:
     name: lubelogger.lubelogger-postgres-cluster.credentials.postgresql.acid.zalan.do
     valuesKey: password
     targetPath: postgres.password
+  - kind: Secret
+    name: lubelogger-secret
+    valuesKey: UserNameHash
+    targetPath: config.userConfig.UserNameHash
+  - kind: Secret
+    name: lubelogger-secret
+    valuesKey: UserPasswordHash
+    targetPath: config.userConfig.UserPasswordHash
   values:
     secret:
       create: true
@@ -38,3 +46,35 @@ spec:
       host: lubelogger-postgres-cluster
       port: 5432
       database: lubelogger
+    persistence:
+      data:
+        enabled: true
+        storageClass: ceph-rbd-sc
+        accessMode: ReadWriteOnce
+        size: 10Gi
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+    securityContext:
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+    ingress:
+      enabled: true
+      className: nginx-public
+      annotations:
+        homelab/public: "true"
+        external-dns.alpha.kubernetes.io/hostname: lubelogger.${DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        nginx.ingress.kubernetes.io/proxy-body-size: 100M
+      hosts:
+      - host: lubelogger.${DOMAIN}
+        paths:
+        - path: /
+          pathType: ImplementationSpecific
