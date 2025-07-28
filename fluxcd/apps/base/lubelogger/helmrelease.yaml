@@ -33,13 +33,8 @@ spec:
     targetPath: config.userConfig.UserPasswordHash
   values:
     secret:
-      create: true
-      name: mailserver
-      emailServer: a
-      emailFrom: a
-      port: 587
-      username: a
-      password: a
+      create: false
+      name: lubelogger-smtp
     postgres:
       create: true
       connect: true
