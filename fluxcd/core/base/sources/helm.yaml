@@ -339,4 +339,15 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  url:  https://anza-labs.github.io/charts
+  url: https://anza-labs.github.io/charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ingress-anubis
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: oci://ghcr.io/jaredallard/helm-charts/ingress-anubis
+  ref:
+    tag: 1.7.3
