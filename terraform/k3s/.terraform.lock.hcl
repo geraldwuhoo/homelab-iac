@@ -111,27 +111,19 @@ provider "registry.opentofu.org/hashicorp/external" {
 }
 
 provider "registry.opentofu.org/hashicorp/kubernetes" {
-  version     = "2.37.1"
-  constraints = "2.37.1"
+  version     = "2.38.0"
+  constraints = "2.38.0"
   hashes = [
-    "h1:/NV0D0ajptwUiD5E2gXqwGBx9Currf8sGZOSgP6RRvc=",
-    "h1:LE6vfBOeZ08/TDYeHhFGP5XGN0YVj3VkKNX+/B6GQ4E=",
-    "h1:UWJPvQZxW9Q6mxtUvIdnapPE8s8o4a2HUo53OInq9p4=",
-    "h1:byyuSfnbxm3Axg6G3fMFRz2UX5yRGLralCnhsBKHvw4=",
-    "h1:gLjGsetPC05itl0pQh0VX6gjyIOAXrslTQj+WfPX0lw=",
-    "h1:n8qUWUMJzz860ei9xmpilIo8jUsvb38oBo9FHOJxW74=",
-    "h1:uQ6QiHEMu5dm39sbMNE3ANFUeqTjrqb2P/lxHtfkctE=",
-    "h1:xozlOvRwcEh2wIviTQDKlJpMrTZhNNmoiJZX5dnoQ9o=",
-    "h1:yx50RFK63z7qvM6nB7nyftCorZ2zOekYfcINXfRPLkk=",
-    "zh:22031e9995b3dc7ae497305dc6c5b7bf1a585c378d46446e724601f992cd9e11",
-    "zh:3614bc188ae5040d892671009c66f56cfcb3859e11f42ed7ffc1cee384b1275b",
-    "zh:5d925944ac961bbe5fb4917a3e7e6d9bc0bef2f3198f26e8d4cd1793d5eadde3",
-    "zh:67a86d1576eb67a58cc68f47bffd370b2f834fd909980acdab38a9b9b2c1c809",
-    "zh:90c34fe321f937b34392bdc6ee1f9fa42db1c5ff93341c58a96a8a0c1f18327f",
-    "zh:943b0fb6db1ce3b64e177f74ae7931f485ef47713df861f0e98d6838e75087ff",
-    "zh:9c6f0164bf64b0d7baac29bc74aa0879956cec6dc28a7f52b2582c9deffb8c21",
-    "zh:b1d555c2977a2d7c689f88b9f4b8db24c104692b9233191719d1b10ca724f159",
-    "zh:c4d2ce2148a55d7d7dc5986f02119cc71ccb86ec1e96773f4c9430fd2944fda4",
+    "h1:nY7J9jFXcsRINog0KYagiWZw1GVYF9D2JmtIB7Wnrao=",
+    "zh:1096b41c4e5b2ee6c1980916fb9a8579bc1892071396f7a9432be058aabf3cbc",
+    "zh:2959fde9ae3d1deb5e317df0d7b02ea4977951ee6b9c4beb083c148ca8f3681c",
+    "zh:5082f98fcb3389c73339365f7df39fc6912bf2bd1a46d5f97778f441a67fd337",
+    "zh:620fd5d0fbc2d7a24ac6b420a4922e6093020358162a62fa8cbd37b2bac1d22e",
+    "zh:7f47c2de179bba35d759147c53082cad6c3449d19b0ec0c5a4ca8db5b06393e1",
+    "zh:89c3aa2a87e29febf100fd21cead34f9a4c0e6e7ae5f383b5cef815c677eb52a",
+    "zh:96eecc9f94938a0bc35b8a63d2c4a5f972395e44206620db06760b730d0471fc",
+    "zh:e15567c1095f898af173c281b66bffdc4f3068afdd9f84bb5b5b5521d9f29584",
+    "zh:ecc6b912629734a9a41a7cf1c4c73fb13b4b510afc9e7b2e0011d290bcd6d77f",
   ]
 }
 
@@ -197,23 +189,23 @@ provider "registry.opentofu.org/hashicorp/tls" {
 }
 
 provider "registry.opentofu.org/telmate/proxmox" {
-  version     = "3.0.2-rc01"
-  constraints = "3.0.2-rc01"
+  version     = "3.0.2-rc03"
+  constraints = "3.0.2-rc03"
   hashes = [
-    "h1:571ROPuTMC0w5lr9hbUXi7NVLsG3SpmZxXXZx8cAT+Q=",
-    "zh:34d264243a4513f4e30c01fb37cc6a3e592d7823dfd182c5edfb170ac7b7de3a",
-    "zh:544428311ad20fbb3ad2cd854e893bbf036023cb57c3acc5093d141976dac670",
-    "zh:5c2396b328edee8de7ac144c15a6b7e668e81063699bc8c110d7c39fb8da70e9",
-    "zh:5ca8e33476ad06a0259071120a59477e8f107f30c1178ea7b9f6cafe1a461ade",
-    "zh:5ea56eb8275edc754a01a0180750e9c939cd997d3a50659617770211f4337da9",
-    "zh:9dd3482df6bbe00a4a6152be3567b6c08d35c3644a327a1f5ac30fd95ccd449f",
-    "zh:a76075fafadcc94a825151aff169bae4e0c05e3c7717e16dcdcf16ffa61a0780",
-    "zh:b1d95f97b22f671db762f7adf428b409e6736c078bcf267d8391985b8847d6e3",
-    "zh:cc94255cd1b18e6a341c15089015c457c8c639c25c426b07f278d5ea9850b3b5",
-    "zh:ce991103cb69b0b3e275127e3ab92c88bb3b6b0f4e5a2cb082aeaef70a7f7d61",
-    "zh:d24838bce87b38e12544a1329f5ad30e2be045968e639a3f4ddd5c84aa648e04",
-    "zh:e106ebd4eea8d62d62e62f261a262febc615e17466b54ac18f7e65c7e79e0008",
-    "zh:e254ca76c95e6e92da973b7bddc36bfa0a1e31d7c7e758ef4b01315db969388b",
-    "zh:f1d1d5f4c39267cacebe0ab7e9e06caf9692707f3b5369685541b65bc8b840ce",
+    "h1:h1HrUaf8F4TF4gOY5ASb/aOhibmiK8BU9H7ei6747TI=",
+    "zh:1307001003c397f1e02eadcfc6a220840575cf1630472b5bdcd5f8b2df4a8ad4",
+    "zh:291290ca25becd1a05d11e5a0435786cb588926bfa86e0b7fe1c02f24948c55f",
+    "zh:30a56bd31cb7cf407974f1e719065c71265e637e600cf6b7fb0cf37648ffee26",
+    "zh:3968fe4ef438c676be4cac944cd38a1a8eb3114402e78e8a32c3295c4c396603",
+    "zh:468999a24794eca3c2ffb290ed445db7fc8055be67327d31389d59bac9550082",
+    "zh:696910c43f5b1d61eec8f4bd529acb2a17d00e820800ea0f7c2f4aeedcac7b64",
+    "zh:8007ca4ee20af5c433bc2d89d6d13793d250f465981c7ac050190510ad882678",
+    "zh:8e14e0a723dfb9dab4aade28f2ca916d780ba71917d21432cd7146f0c16402d3",
+    "zh:9f228d9afa38196fbafd742115c41df5afaf81f2e688dbbee49bf93bbc08543a",
+    "zh:c7b89242ec2f78e2b8e8315918d353f81b64a4a91c80295a86c05bf4dc6da03a",
+    "zh:ca28e199792c83b111e05f145ade628eb1efadae4be0754326bb71b8cd95aba4",
+    "zh:d408185a65992828b38f8a0fd7868b921e30513161b7dc5eb43cc78087d69cf1",
+    "zh:e3f242a7fd403738b6e30112ecd758cd8c08cae15cb9a1597e975080b48b722a",
+    "zh:f94773757796df7f7db9781d482b08e1736df60d86270a8b7ebe94492d00c398",
   ]
 }
