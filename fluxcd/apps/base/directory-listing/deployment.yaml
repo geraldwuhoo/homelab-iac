@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: directory
-        image: docker.io/p3terx/darkhttpd:1.16
+        image: docker.io/p3terx/darkhttpd:1.17
         imagePullPolicy: IfNotPresent
         args:
         - /public
