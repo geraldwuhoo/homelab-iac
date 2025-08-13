@@ -22,7 +22,7 @@ spec:
           main:
             image:
               repository: docker.io/syncthing/syncthing
-              tag: 1.30.0
+              tag: 2.0.0
     service:
       main:
         controller: main
