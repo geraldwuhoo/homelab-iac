@@ -22,7 +22,7 @@ spec:
           main:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.17.1
+              tag: 2.18.2
             env:
               # admin
               PAPERLESS_ADMIN_MAIL: fake@example.com
@@ -61,7 +61,7 @@ spec:
           main:
             image:
               repository: docker.io/gotenberg/gotenberg
-              tag: 8.21.1
+              tag: 8.22.0
             args:
             - gotenberg
             - "--chromium-disable-javascript=true"
