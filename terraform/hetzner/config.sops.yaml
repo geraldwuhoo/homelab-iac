@@ -1,12 +1,8 @@
-gitlab_token: ENC[AES256_GCM,data:SaXPrZM3VbduGwaoFY5Vy6Zbt7nUadCJNQw=,iv:V/F7i7iSToIkx8aaFYmBl1qiPyd8KDuVuCz4QpMuXSg=,tag:h7K7kPkld6cLo533kRkuKg==,type:str]
+gitlab_token: ENC[AES256_GCM,data:cASu2LWCT4+CcidFTE5/49HYekuN+kSf+geI8SNNfdvu4swd7ZBc6B52Z/h65ul7QPlCA4B/6Zz3,iv:N9hnRo1f0JQDOOlJDKy9PiYKX9teWMzW0bR2JzS6sHI=,tag:e97HXW1ku+fntRwOlyvohg==,type:str]
 hcloud_token: ENC[AES256_GCM,data:yr6EvfpFK3H0sZEt1M60zx/pBYVcma/B2ZI97WQ/xcpip+T9mGNN4/aelK4C3kTBFXgQuSRRg76XmEsLgTn4wA==,iv:A5USJ3oSDE9VdRPMX8ZUgfv4t7/Zbf2mun6NpKEOnGE=,tag:7PTXk7GYbF5QfMy0u4XIfQ==,type:str]
 cloudflare_api_token: ENC[AES256_GCM,data:Rs5dxo/6yVslY07+CoItotm3cq6zrJK3ENGdxCZwaHokCfmMvTawjA==,iv:jhcQObFXftcLNCmfzx1/QgwtmFChY5d/u0ZW9+KhY7k=,tag:nOLMDnKKidj1md430Ug1CA==,type:str]
 cloudflare_zone_id: ENC[AES256_GCM,data:qAi3A0SpipnD++QY+8n9ttJXu9vNf1SXM4eMF74DYPo=,iv:fDA8e+CtUpxgxb9z2kj0cRwkJHhhLAYdXSoGeHAACnk=,tag:j+wrcQ8vlremfXMkFBWbqg==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
           enc: |
@@ -17,8 +13,7 @@ sops:
             aVFQL2oxNFI0RWhBM3R2QURsK2hrOGcKz3pzyYZpSmmeY2ZS1YCqGKqDcFC2N5tw
             DKeM/OgSVplyJCCqU2U9S+Cd54HYroEkLZLdwEP5y1z/f17qBuZCgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-11-07T01:18:43Z"
-    mac: ENC[AES256_GCM,data:2n68Wz/4L0QhO0CrcXTWefvE/F2n4wbQ6eqJhcbmjB5+Y6omakif9IowM8W/cUhWFRSSax2H1ijWfHf64k7ZNqgdj3KZC8YwM9yNo0oBGSlq1kGyPZbxD7L1JYNxS4jfscjWKK3RxVO6fZ+QSOgJOf0FXDBlGIJvLwKAZjBxS7g=,iv:D4Sh2vFBcFvEhfYqWCpylndAZgCoTYYWJYVCUPoC0dk=,tag:ypiA8NRcKUsX1qCX+4/buQ==,type:str]
-    pgp: []
+    lastmodified: "2025-09-11T16:05:45Z"
+    mac: ENC[AES256_GCM,data:E/0GbsrAEz69EgewkHG0yuIbWwap5OPHh7nvAjJ9SNqh7Yr3AopBpEmChC6OfZ6bM58QqM83IVzTjgk6HZsaMB2XpX+MGjl7nQQ5G6sY7Jlpxp3iKkSKpJRNfsLbrQHCuB+7Uf8wEQqZbhbSVW5P1e6C9ULX31VWodmOjV4upLE=,iv:NWz6CnEMFl4D9EVzyj8Zn5YN/l0v3jGg/wogxOiZk/c=,tag:2Zal8qWT/tlM716tCNNxog==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.8.1
+    version: 3.10.2
