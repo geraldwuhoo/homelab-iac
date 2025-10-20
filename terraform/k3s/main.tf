@@ -6,7 +6,7 @@ terraform {
     }
     proxmox = {
       source  = "telmate/proxmox"
-      version = "3.0.2-rc04"
+      version = "3.0.2-rc05"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -22,7 +22,7 @@ terraform {
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.6.4"
+      version = "1.7.3"
     }
   }
 
