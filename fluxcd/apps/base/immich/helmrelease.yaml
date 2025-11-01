@@ -21,12 +21,12 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-    controllers: &controller
+    controllers:
       main:
         containers:
           main:
             image:
-              tag: v1.144.1
+              tag: v2.2.1
             env:
               REDIS_HOSTNAME: immich-keydb-headless
               REDIS_PASSWORD:
