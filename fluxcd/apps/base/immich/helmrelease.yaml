@@ -8,46 +8,45 @@ spec:
   chart:
     spec:
       chart: immich
-      version: 0.9.3
+      version: 0.10.1
       sourceRef:
         kind: HelmRepository
         name: immich
         namespace: flux-system
   interval: 10m0s
   values:
-    env:
-      REDIS_HOSTNAME: immich-keydb-headless
-      REDIS_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: immich-keydb-secret
-            key: password
-    envFrom:
-    - secretRef:
-        name: immich-secret
-    podAnnotations:
-      backup.velero.io/backup-volumes-excludes: library
-    image:
-      tag: v1.132.3
-    immich:
-      persistence:
-        library:
-          existingClaim: immich-pvc
-    postgresql:
-      enabled: false
-    redis:
-      enabled: false
-    server:
-      enabled: true
-      podSecurityContext:
+    defaultPodOptions:
+      securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+    controllers: &controller
+      main:
+        containers:
+          main:
+            image:
+              tag: v1.137.3
+            env:
+              REDIS_HOSTNAME: immich-keydb-headless
+              REDIS_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-keydb-secret
+                    key: password
+            envFrom:
+            - secretRef:
+                name: immich-secret
+    immich:
+      persistence:
+        library:
+          existingClaim: immich-pvc
+    server:
+      enabled: true
       ingress:
         main:
           enabled: true
-          ingressClassName: nginx-public
+          className: nginx-public
           annotations:
             homelab/public: "true"
             external-dns.alpha.kubernetes.io/hostname: photos.${DOMAIN}
@@ -60,7 +59,7 @@ spec:
             - path: "/"
         immich:
           enabled: true
-          ingressClassName: nginx-public
+          className: nginx-public
           annotations:
             homelab/public: "true"
             external-dns.alpha.kubernetes.io/hostname: immich.${DOMAIN}
@@ -72,14 +71,18 @@ spec:
             - path: "/"
     machine-learning:
       enabled: true
-      podSecurityContext:
-        seLinuxOptions:
-          user: system_u
-          role: system_r
-          type: container_t
+      controllers:
+        main:
+          containers:
+            main:
+              podSecurityContext:
+                seLinuxOptions:
+                  user: system_u
+                  role: system_r
+                  type: container_t
       persistence:
         cache:
           enabled: true
           size: 10Gi
-          type: pvc
+          type: persistentVolumeClaim
           accessMode: ReadWriteOnce
