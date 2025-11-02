@@ -6,7 +6,7 @@ metadata:
   annotations:
     k8up.io/backup: "false"
 spec:
-  dockerImage: registry.wuhoo.xyz/jerry/spilo-pgvecto.rs:spilo-16-4.0-p3-pgvectors-0.4.0-vectorchord-0.5.3
+  dockerImage: registry.wuhoo.xyz/jerry/spilo-pgvecto.rs:spilo-17-4.0-p3-pgvectors-0.4.0-vectorchord-0.5.3
   teamId: "immich"
   volume:
     size: 30Gi
