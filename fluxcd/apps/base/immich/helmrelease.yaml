@@ -15,12 +15,6 @@ spec:
         namespace: flux-system
   interval: 10m0s
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         containers:
@@ -43,6 +37,15 @@ spec:
           existingClaim: immich-pvc
     server:
       enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              podSecurityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+                fsGroup: 1000
+                fsGroupChangePolicy: "OnRootMismatch"
       ingress:
         main:
           enabled: true
