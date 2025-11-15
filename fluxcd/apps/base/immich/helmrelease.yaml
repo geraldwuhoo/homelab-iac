@@ -20,7 +20,7 @@ spec:
         containers:
           main:
             image:
-              tag: v2.2.1
+              tag: v2.2.3
             env:
               REDIS_HOSTNAME: immich-keydb-headless
               REDIS_PASSWORD:
