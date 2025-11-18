@@ -350,4 +350,4 @@ spec:
   interval: 10m0s
   url: oci://ghcr.io/jaredallard/helm-charts/ingress-anubis
   ref:
-    tag: 1.10.0
+    tag: 1.10.1
