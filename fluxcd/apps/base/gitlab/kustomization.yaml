@@ -9,7 +9,8 @@ resources:
 - secret.yaml
 - postgres.yaml
 - helmrelease.yaml
-- runner.yaml
+- runner-arm64.yaml
+- runner-amd64.yaml
 - hcloud-secret.yaml
 - hcloud-cronjob.yaml
 - renovate-secret.yaml

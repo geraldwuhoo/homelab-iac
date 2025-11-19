@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab-runner-arm64
+  namespace: gitlab
+spec:
+  chart:
+    spec:
+      chart: gitlab-runner
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: flux-system
+  interval: 30m0s
+  timeout: 30m0s
+  values:
+    gitlabUrl: https://gitlab.wuhoo.xyz
+    runnerToken: ${GITLAB_HETZNER_REGISTRATION_TOKEN_ARM64}
+    rbac:
+      create: true
+    serviceAccount:
+      create: true
+    # Unfortunately we need to run as root to add docker-machine hetzner plugin to PATH :(
+    securityContext:
+      runAsNonRoot: false
+    podSecurityContext:
+      runAsUser: 0
+    unregisterRunners: true
+    preEntrypointScript: |-
+      echo "Downloading docker-machine-driver-hetzner"
+
+      # Download the binary (this example downloads the binary for linux amd64)
+      wget https://github.com/JonasProgrammer/docker-machine-driver-hetzner/releases/download/5.0.2/docker-machine-driver-hetzner_5.0.2_linux_amd64.tar.gz
+      tar -xvf docker-machine-driver-hetzner_5.0.2_linux_amd64.tar.gz
+
+      # Make it executable and copy the binary in a directory accessible with your $PATH
+      chmod +x docker-machine-driver-hetzner
+      cp docker-machine-driver-hetzner /usr/local/bin/
+    runners:
+      executor: docker+machine
+      image: ubuntu:24.04
+      config: |-
+        [[runners]]
+          name = "hetzner-arm64"
+          executor = "docker+machine"
+          limit = 1
+          [runners.custom_build_dir]
+          [runners.docker]
+            tls_verify = false
+            image = "ubuntu:24.04"
+            privileged = false
+            disable_entrypoint_overwrite = false
+            oom_kill_disable = false
+            disable_cache = false
+            volumes = ["/cache"]
+            shm_size = 0
+          [runners.machine]
+            IdleCount = 0
+            IdleTime = 1800
+            MachineDriver = "hetzner"
+            MachineName = "runner-arm64-%s"
+            MachineOptions = ["hetzner-api-token=${HETZNER_API_TOKEN}", "hetzner-image=ubuntu-24.04", "hetzner-server-type=cax11"]

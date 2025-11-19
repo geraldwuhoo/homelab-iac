@@ -1,9 +1,8 @@
-
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: gitlab-runner
+  name: gitlab-runner-amd64
   namespace: gitlab
 spec:
   chart:
@@ -17,7 +16,7 @@ spec:
   timeout: 30m0s
   values:
     gitlabUrl: https://gitlab.wuhoo.xyz
-    runnerToken: ${GITLAB_HETZNER_REGISTRATION_TOKEN}
+    runnerToken: ${GITLAB_HETZNER_REGISTRATION_TOKEN_AMD64}
     rbac:
       create: true
     serviceAccount:
@@ -43,19 +42,10 @@ spec:
       image: ubuntu:24.04
       config: |-
         [[runners]]
-          name = "hetzner-arm64"
+          name = "hetzner-amd64"
           executor = "docker+machine"
-          limit = 1
+          limit = 2
           [runners.custom_build_dir]
-          # Soon(TM)
-          # [runners.cache]
-          #   Type = "s3"
-          #   Shared = true
-          #   [runners.cache.s3]
-          #     ServerAddress = "OPTIONAL S3 PROVIDER"
-          #     AccessKey = "OPTIONAL S3 CONFIG"
-          #     SecretKey = "OPTIONAL S3 CONFIG"
-          #     BucketName = "OPTIONAL S3 CONFIG"
           [runners.docker]
             tls_verify = false
             image = "ubuntu:24.04"
@@ -69,5 +59,5 @@ spec:
             IdleCount = 0
             IdleTime = 1800
             MachineDriver = "hetzner"
-            MachineName = "runner-%s"
-            MachineOptions = ["hetzner-api-token=${HETZNER_API_TOKEN}", "hetzner-image=ubuntu-24.04", "hetzner-server-type=cax11"]
+            MachineName = "runner-amd64-%s"
+            MachineOptions = ["hetzner-api-token=${HETZNER_API_TOKEN}", "hetzner-image=ubuntu-24.04", "hetzner-server-type=cx23"]
