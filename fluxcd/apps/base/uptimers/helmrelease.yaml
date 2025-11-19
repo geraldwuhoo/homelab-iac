@@ -104,5 +104,7 @@ spec:
                 name: Send
               - site: https://tachidesk.wuhoo.xyz/
                 name: Tachidesk
+                success_codes:
+                - 401
               - site: https://vaultwarden.wuhoo.xyz/
                 name: Vaultwarden
