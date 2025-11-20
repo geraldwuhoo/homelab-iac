@@ -103,8 +103,7 @@ spec:
         reply_to: noreply@no-reply.${DOMAIN}
     nginx-ingress:
       enabled: false
-    certmanager:
-      install: false
+    installCertmanager: false
     gitlab-runner:
       concurrent: 1
       unregisterRunners: true
