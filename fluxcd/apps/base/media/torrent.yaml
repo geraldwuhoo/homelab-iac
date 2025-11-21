@@ -74,7 +74,7 @@ spec:
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
-              tag: v3.40.2
+              tag: v3.40.3
             env:
               HEALTH_VPN_DURATION_INITIAL: 120s
             envFrom:
