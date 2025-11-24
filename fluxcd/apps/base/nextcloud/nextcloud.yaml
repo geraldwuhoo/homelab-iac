@@ -21,7 +21,8 @@ spec:
     targetPath: metrics.token
   values:
     image:
-      repository: docker.io/library/nextcloud
+      registry: docker.io
+      repository: library/nextcloud
       tag: 31.0.10-fpm
     ingress:
       enabled: true
