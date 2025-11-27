@@ -175,9 +175,9 @@ spec:
           proxyBodySize: 10G
         resources:
           requests:
-            memory: 1Gi
+            memory: 2Gi
           limits:
-            memory: 3Gi
+            memory: 4Gi
       sidekiq:
         enabled: true
         resources:
