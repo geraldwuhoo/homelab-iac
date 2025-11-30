@@ -79,7 +79,7 @@ spec:
         enabled: true
         host: ${PAGES_DOMAIN}
       psql:
-        host: gitlab-postgres-cluster
+        host: gitlab-postgres-cluster-pooler
         database: gitlabhq_production
         username: gitlab
         password:
