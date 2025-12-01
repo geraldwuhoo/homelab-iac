@@ -105,7 +105,7 @@ spec:
       enabled: false
     installCertmanager: false
     gitlab-runner:
-      concurrent: 1
+      concurrent: 2
       unregisterRunners: true
       runners:
         config: |-
