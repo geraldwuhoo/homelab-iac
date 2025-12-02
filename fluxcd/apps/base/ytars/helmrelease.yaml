@@ -48,6 +48,7 @@ spec:
               POSTGRES_HOST: ytars-postgres-cluster
               POSTGRES_DB: ytars
               VIDEO_PATH: /videos
+              SCAN_INTERVAL: 14400
               YT_DLP_DOWNLOAD_PATH: /videos
               YT_DLP_LIST_PATH: /videos/list.yaml
             securityContext:
