@@ -1,0 +1,32 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ytars-app-template
+spec:
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            dependsOn: gluetun
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40.3
+            env:
+              HEALTH_VPN_DURATION_INITIAL: 120s
+            envFrom:
+            - secretRef:
+                name: vpn-secret
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+              capabilities:
+                add:
+                - NET_ADMIN
+              seLinuxOptions:
+                user: system_u
+                role: system_r
+                type: container_t
+                level: s0:c102,c902

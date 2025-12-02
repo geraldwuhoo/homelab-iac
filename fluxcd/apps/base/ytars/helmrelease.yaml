@@ -15,6 +15,18 @@ spec:
   interval: 10m0s
   timeout: 10m0s
   values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        sysctls:
+        - name: net.ipv6.conf.all.disable_ipv6
+          value: "1"
+        - name: net.ipv6.conf.default.disable_ipv6
+          value: "1"
     controllers:
       main:
         containers:
