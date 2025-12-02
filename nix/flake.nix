@@ -2,7 +2,7 @@
   description = "NixOS server configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -10,7 +10,7 @@
     };
 
     disko = {
-      url = "github:nix-community/disko/v1.9.0";
+      url = "github:nix-community/disko/v1.12.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
