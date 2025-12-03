@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: registry.wuhoo.xyz/jerry/ytars
-              tag: v0.7.0-yt-dlp
+              tag: v0.7.1-yt-dlp
             env:
               POSTGRES_USERNAME:
                 valueFrom:
