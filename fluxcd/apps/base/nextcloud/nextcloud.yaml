@@ -61,7 +61,7 @@ spec:
       enabled: true
       image:
         repository: docker.io/library/nginx
-        tag: 1.29.3-alpine
+        tag: 1.29.4-alpine
     replicaCount: 3
     nextcloud:
       host: cloud.${DOMAIN}
