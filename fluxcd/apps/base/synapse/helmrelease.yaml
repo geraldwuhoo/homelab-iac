@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: ghcr.io/element-hq/synapse
-      tag: v1.143.0
+      tag: v1.144.0
     wellknown:
       enabled: true
       replicaCount: 2
