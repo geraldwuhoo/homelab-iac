@@ -29,7 +29,7 @@ spec:
           main: # Dummy container
             image:
               repository: docker.io/library/alpine
-              tag: 3.23.0
+              tag: 3.23.2
             command:
             - /bin/sh
             - /config/script.sh
