@@ -9,6 +9,5 @@ resources:
 - secret.yaml
 - postgres.yaml
 - nextcloud.yaml
-- collabora.yaml
 - volsync-nextcloud
 - volsync-nextcloud-data

@@ -166,6 +166,30 @@ spec:
       auth:
         enabled: true
         password: ${NEXTCLOUD_REDIS_PASS}
+    collabora:
+      collabora:
+        aliasgroups:
+        - host: https://cloud.${DOMAIN}:443
+        extra_params: --o:ssl.termination=true --o:ssl.enable=false
+        server_name: collabora.${DOMAIN}
+        existingSecret:
+          enabled: true
+          secretName: nextcloud-secret
+          usernameKey: COLLABORA_USERNAME
+          passwordKey: COLLABORA_PASSWORD
+      enabled: true
+      ingress:
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: collabora.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+          homelab/public: "true"
+        className: nginx-public
+        enabled: true
+        hosts:
+        - host: collabora.${DOMAIN}
+          paths:
+          - path: /
+            pathType: ImplementationSpecific
     persistence:
       enabled: true
       accessMode: ReadWriteMany
