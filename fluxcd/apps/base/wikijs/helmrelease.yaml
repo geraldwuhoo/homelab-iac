@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: ghcr.io/requarks/wiki
-      tag: 2.5.310
+      tag: 2.5.311
     ingress:
       enabled: true
       className: nginx-public
