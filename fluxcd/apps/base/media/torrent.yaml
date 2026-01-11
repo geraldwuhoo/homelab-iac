@@ -95,7 +95,7 @@ spec:
           custom-webui:
             image:
               repository: docker.io/curlimages/curl
-              tag: 8.17.0
+              tag: 8.18.0
             command:
             - "/bin/sh"
             - "-c"
