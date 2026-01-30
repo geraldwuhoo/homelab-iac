@@ -45,8 +45,8 @@ spec:
         initContainers:
           redis-isready:
             image:
-              repository: docker.io/bitnami/redis
-              tag: 8.2.1-debian-12-r0
+              repository: docker.io/library/redis
+              tag: 8.2.3-alpine3.22
             command:
             - "/bin/sh"
             - "-c"
