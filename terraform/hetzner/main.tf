@@ -6,7 +6,7 @@ terraform {
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.59.0"
+      version = "1.60.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -14,7 +14,7 @@ terraform {
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "4.1.0"
+      version = "4.2.1"
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
