@@ -28,7 +28,7 @@ spec:
           main:
             image:
               repository: registry.gitlab.com/fmd-foss/fmd-server
-              tag: 0.13.0
+              tag: 0.14.0
     service:
       main:
         controller: main
