@@ -23,7 +23,7 @@ spec:
           main:
             image:
               repository: ghcr.io/actualbudget/actual-server
-              tag: 26.2.0
+              tag: 26.2.1
     service:
       main:
         controller: main
