@@ -10,6 +10,13 @@ spec:
   teamId: "synapse"
   volume:
     size: 20Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 250Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
   numberOfInstances: 3
   users:
     # database owner
