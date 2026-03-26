@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: docker.io/rancher/local-path-provisioner
-      tag: v0.0.34
+      tag: v0.0.35
     storageClass:
       create: true
       defaultClass: true
