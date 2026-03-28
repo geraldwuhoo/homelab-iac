@@ -34,7 +34,7 @@ spec:
       - /synapse/appservice/mautrix-discord-registration.yaml
       - /synapse/appservice/double-puppet-registration.yaml
       password_config:
-        enabled: true
+        enabled: only_for_reauth
         policy:
           enabled: true
           minimum_length: 16
