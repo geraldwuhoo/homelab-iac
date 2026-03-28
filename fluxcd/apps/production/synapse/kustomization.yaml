@@ -44,3 +44,10 @@ patches:
         name: synapse-extra-config
         valuesKey: turnSecret
         targetPath: config.turnSecret
+    - op: add
+      path: /spec/valuesFrom/-
+      value:
+        kind: Secret
+        name: synapse-extra-config
+        valuesKey: pepper
+        targetPath: extraConfig.password_config.pepper

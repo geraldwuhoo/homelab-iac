@@ -34,7 +34,14 @@ spec:
       - /synapse/appservice/mautrix-discord-registration.yaml
       - /synapse/appservice/double-puppet-registration.yaml
       password_config:
-        enabled: false
+        enabled: true
+        policy:
+          enabled: true
+          minimum_length: 16
+          require_digit: true
+          require_lowercase: true
+          require_symbol: true
+          require_uppercase: true
       sso:
         client_whitelist:
         - https://element.${DOMAIN}/
