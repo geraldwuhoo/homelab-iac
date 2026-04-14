@@ -20,6 +20,7 @@ patches:
       restic:
         storageClassName: ""
         copyMethod: Direct
+        cacheCapacity: 20Gi
         moverSecurityContext:
           seLinuxOptions:
             user: system_u
