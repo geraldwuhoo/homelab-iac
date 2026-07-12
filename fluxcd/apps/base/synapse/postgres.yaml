@@ -17,7 +17,7 @@ spec:
     limits:
       cpu: "1"
       memory: 1Gi
-  numberOfInstances: 3
+  numberOfInstances: 1
   users:
     # database owner
     synapse:

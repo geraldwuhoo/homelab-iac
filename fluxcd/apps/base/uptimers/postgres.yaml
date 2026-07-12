@@ -7,7 +7,7 @@ spec:
   teamId: uptimers
   volume:
     size: 1Gi
-  numberOfInstances: 3
+  numberOfInstances: 1
   users:
     # database owner
     uptimers:

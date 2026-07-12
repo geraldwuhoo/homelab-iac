@@ -9,7 +9,7 @@ spec:
   teamId: "authentik"
   volume:
     size: 10Gi
-  numberOfInstances: 3
+  numberOfInstances: 1
   users:
     # database owner
     authentik:
