@@ -7,7 +7,7 @@
       },
       "Status": "Enabled",
       "Expiration": {
-        "Days": 7
+        "Days": 61
       }
     },
     {
@@ -17,17 +17,17 @@
       },
       "Status": "Enabled",
       "Expiration": {
-        "Days": 5
+        "Days": 31
       }
     },
     {
-      "ID": "GlacierRule",
+      "ID": "Transition",
       "Filter": {},
       "Status": "Enabled",
       "Transitions": [
         {
           "Days": 7,
-          "StorageClass": "GLACIER"
+          "StorageClass": "STANDARD_IA"
         }
       ]
     }

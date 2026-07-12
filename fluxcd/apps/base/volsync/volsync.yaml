@@ -17,7 +17,9 @@ spec:
     # Retention policy for backups
     retain:
       hourly: 6
-      daily: 5
+      daily: 7
+      weekly: 4
+      monthly: 3
     # Clone the source volume prior to taking a backup to ensure a
     # point-in-time image.
     copyMethod: Clone
