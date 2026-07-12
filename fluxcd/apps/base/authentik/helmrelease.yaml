@@ -12,6 +12,7 @@ spec:
         kind: HelmRepository
         name: authentik
         namespace: flux-system
+      version: 2026.5.3
   interval: 10m0s
   timeout: 10m0s
   valuesFrom:
@@ -19,7 +20,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2026.2.1
+        tag: 2026.5.3
       env:
       - name: PROXY_ADDRESS_FORWARDING
         value: "true"
