@@ -111,6 +111,7 @@
     echo "rolling back root to empty snapshot"
     zfs rollback -r zroot/ROOT/default@blank
   '';
+  boot.initrd.systemd.enable = false;
 
   fileSystems = {
     "/".neededForBoot = true;
