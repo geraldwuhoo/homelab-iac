@@ -5,14 +5,11 @@ metadata:
   name: immich
   namespace: immich
 spec:
-  chart:
-    spec:
-      chart: immich
-      version: 0.11.1
-      sourceRef:
-        kind: HelmRepository
-        name: immich
-        namespace: flux-system
+  releaseName: immich
+  chartRef:
+    kind: OCIRepository
+    name: immich
+    namespace: flux-system
   interval: 10m0s
   values:
     controllers:
@@ -20,7 +17,7 @@ spec:
         containers:
           main:
             image:
-              tag: v2.6.3
+              tag: v3.0.3
             env:
               REDIS_HOSTNAME: immich-keydb-headless
               REDIS_PASSWORD:
@@ -41,7 +38,7 @@ spec:
         main:
           containers:
             main:
-              podSecurityContext:
+              securityContext:
                 runAsUser: 1000
                 runAsGroup: 1000
                 fsGroup: 1000
@@ -79,7 +76,7 @@ spec:
           strategy: Recreate
           containers:
             main:
-              podSecurityContext:
+              securityContext:
                 seLinuxOptions:
                   user: system_u
                   role: system_r
