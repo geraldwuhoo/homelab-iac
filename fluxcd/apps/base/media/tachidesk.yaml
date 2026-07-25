@@ -39,7 +39,7 @@ spec:
               UPDATE_EXCLUDE_STARTED: "false"
               UPDATE_EXCLUDE_COMPLETED: "false"
               UPDATE_INTERVAL: 24
-              EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
+              EXTENSION_STORES: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
             envFrom:
             - secretRef:
                 name: tachidesk-secret
