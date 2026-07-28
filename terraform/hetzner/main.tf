@@ -6,7 +6,7 @@ terraform {
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.60.1"
+      version = "1.68.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -14,11 +14,11 @@ terraform {
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "4.2.1"
+      version = "4.3.0"
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "18.10.0"
+      version = "18.11.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -26,7 +26,7 @@ terraform {
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.8.8"
+      version = "1.9.3"
     }
   }
 
