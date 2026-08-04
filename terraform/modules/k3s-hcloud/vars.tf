@@ -24,7 +24,7 @@ variable "server_type" {
   default = "cax21"
 }
 
-variable "datacenter" {
+variable "location" {
   type    = string
   default = "hel1-dc2"
 }

@@ -17,11 +17,10 @@ resource "hcloud_ssh_key" "primary_ssh_key" {
 }
 
 resource "hcloud_primary_ip" "primary_ip" {
-  name          = "${var.name}_ipv4"
-  datacenter    = var.datacenter
-  type          = "ipv4"
-  assignee_type = "server"
-  auto_delete   = false
+  name        = "${var.name}_ipv4"
+  location    = var.location
+  type        = "ipv4"
+  auto_delete = false
 }
 
 resource "hcloud_rdns" "primary_ip" {
@@ -217,7 +216,7 @@ resource "hcloud_server" "node" {
   name         = var.name
   image        = "ubuntu-24.04" # we just need _something_ to be running for nixos-anywhere
   server_type  = var.server_type
-  datacenter   = var.datacenter
+  location     = var.location
   ssh_keys     = [hcloud_ssh_key.primary_ssh_key.id]
   firewall_ids = [hcloud_firewall.firewall.id]
 
