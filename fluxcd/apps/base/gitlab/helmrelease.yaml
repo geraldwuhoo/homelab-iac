@@ -76,6 +76,9 @@ spec:
             key: provider
         initialDefaults:
           signupEnabled: false
+        backups:
+          bucket: gitlab-backup-storage
+          tmpBucket: gitlab-tmp-storage
       pages:
         enabled: true
         host: ${PAGES_DOMAIN}
@@ -188,6 +191,12 @@ spec:
             memory: 1Gi
           limits:
             memory: 3Gi
+      toolbox:
+        backups:
+          objectStorage:
+            config:
+              secret: gitlab-secret
+              key: s3cfg
     registry:
       enabled: true
       database:

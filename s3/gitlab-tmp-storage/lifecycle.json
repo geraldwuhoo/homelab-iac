@@ -1,0 +1,12 @@
+{
+  "Rules": [
+    {
+      "ID": "Transition",
+      "Filter": {},
+      "Status": "Enabled",
+      "Expiration": {
+        "Days": 1
+      }
+    }
+  ]
+}
