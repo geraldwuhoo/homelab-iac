@@ -88,13 +88,13 @@ spec:
           key: password
       smtp:
         enabled: true
-        address: smtp.sendgrid.net
+        address: mail.smtp2go.com
         port: 587
-        user_name: apikey
+        user_name: wuhoo-gitlab
         password:
           secret: gitlab-secret
           key: SMTP_KEY
-        domain: smtp.sendgrid.net
+        domain: mail.smtp2go.com
         authentication: plain
         starttls_auto: true
         tls: false
