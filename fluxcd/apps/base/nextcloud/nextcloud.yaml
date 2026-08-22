@@ -202,7 +202,7 @@ spec:
         enabled: true
         storageClass: ceph-cephfs-hdd-sc
         accessMode: ReadWriteMany
-        size: 64Gi
+        size: 256Gi
     resources:
       requests:
         cpu: 100m
