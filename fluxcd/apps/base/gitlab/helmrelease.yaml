@@ -197,6 +197,14 @@ spec:
             config:
               secret: gitlab-secret
               key: s3cfg
+          registry:
+            database:
+              backupUser: registry
+              restoreUser: registry
+              password:
+                secret: registry.gitlab-postgres-cluster.credentials.postgresql.acid.zalan.do
+                backupPasswordKey: password
+                restorePasswordKey: password
     registry:
       enabled: true
       database:
