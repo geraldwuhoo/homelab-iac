@@ -23,7 +23,7 @@ spec:
     image:
       registry: docker.io
       repository: library/nextcloud
-      tag: 33.0.7-fpm
+      tag: 33.0.7-fpm-alpine
     ingress:
       enabled: true
       className: nginx-public
@@ -94,11 +94,11 @@ spec:
         zz-opcache.ini: |-
           opcache.enable=1
           opcache.enable_cli=1
-          opcache.interned_strings_buffer=8
-          opcache.max_accelerated_files=10000
-          opcache.memory_consumption=128
+          opcache.interned_strings_buffer=32
+          opcache.max_accelerated_files=20000
+          opcache.memory_consumption=256
           opcache.save_comments=1
-          opcache.revalidate_freq=1
+          opcache.revalidate_freq=60
         zz-nextcloud.ini: |-
           upload_max_filesize=25G
           post_max_size=25G
@@ -147,11 +147,16 @@ spec:
           role: system_r
           type: container_t
           level: "s0:c111,c222"
-    lifecycle:
-      postStartCommand:
-      - "sh"
-      - "-c"
-      - "find /usr/local/etc/php-fpm.d -name '*.ini' -exec ln -s {} /usr/local/etc/php/conf.d/ \\; && apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
+    cronjob:
+      enabled: true
+      type: cronjob
+      cronjob:
+        securityContext:
+          runAsUser: 82
+          runAsGroup: 82
+          fsGroup: 82
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
     internalDatabase:
       enabled: false
     externalDatabase:
