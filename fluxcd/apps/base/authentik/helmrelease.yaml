@@ -46,7 +46,7 @@ spec:
           name: authentik-secret
     authentik:
       email:
-        host: smtp.sendgrid.net
+        host: mail.smtp2go.com
         port: 587
         use_tls: true
         use_ssl: false
