@@ -21,7 +21,7 @@ spec:
           main:
             image:
               repository: ghcr.io/librespeed/speedtest
-              tag: 6.2.0
+              tag: 6.2.1
             env:
               MODE: standalone
               TELEMETRY: "false"
