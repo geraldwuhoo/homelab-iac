@@ -101,6 +101,8 @@ spec:
       email:
         from: gitlab@no-reply.${DOMAIN}
         reply_to: noreply@no-reply.${DOMAIN}
+      minio:
+        enabled: true
     nginx-ingress:
       enabled: false
     installCertmanager: false
