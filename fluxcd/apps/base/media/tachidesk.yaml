@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/suwayomi/tachidesk
-              tag: v2.3.2298
+              tag: v2.3.2333
             env:
               DOWNLOAD_AS_CBZ: "true"
               BASIC_AUTH_ENABLED: "true"
