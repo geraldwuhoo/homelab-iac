@@ -170,12 +170,20 @@ spec:
           helm.sh/resource-policy: keep
     gitlab:
       gitlab-pages:
+        hpa:
+          minReplicas: 1
+          maxReplicas: 3
         ingress:
           annotations:
             external-dns.alpha.kubernetes.io/hostname: "*.${PAGES_DOMAIN}"
             external-dns.alpha.kubernetes.io/target: ${PAGES_DOMAIN}
+      gitlab-shell:
+        minReplicas: 2
+        maxReplicas: 2
       webservice:
         enabled: true
+        minReplicas: 2
+        maxReplicas: 2
         workerProcesses: 2
         ingress:
           proxyBodySize: 10G
@@ -186,11 +194,16 @@ spec:
             memory: 4Gi
       sidekiq:
         enabled: true
+        minReplicas: 1
+        maxReplicas: 1
         resources:
           requests:
             memory: 1Gi
           limits:
             memory: 3Gi
+      kas:
+        minReplicas: 2
+        maxReplicas: 2
       toolbox:
         extraVolumes: |
           - name: gitlab-backup-s3
@@ -215,6 +228,9 @@ spec:
                 restorePasswordKey: password
     registry:
       enabled: true
+      hpa:
+        minReplicas: 2
+        maxReplicas: 4
       database:
         enabled: true
         name: registry
