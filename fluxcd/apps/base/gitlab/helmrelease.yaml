@@ -209,10 +209,21 @@ spec:
           - name: gitlab-backup-s3
             secret:
               secretName: gitlab-secret
+          - name: scratch
+            ephemeral:
+              volumeClaimTemplate:
+                spec:
+                  accessModes:
+                  - ReadWriteOnce
+                  resources:
+                    requests:
+                      storage: 250Gi
         extraVolumeMounts: |
           - name: gitlab-backup-s3
             readOnly: true
-            mountPath: "/etc/s3-backup"
+            mountPath: /etc/s3-backup
+          - name: scratch
+            mountPath: /srv/gitlab/tmp
         backups:
           # objectStorage:
           #   config:
