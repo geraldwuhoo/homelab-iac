@@ -192,11 +192,19 @@ spec:
           limits:
             memory: 3Gi
       toolbox:
+        extraVolumes: |
+          - name: gitlab-backup-s3
+            secret:
+              secretName: gitlab-secret
+        extraVolumeMounts: |
+          - name: gitlab-backup-s3
+            readOnly: true
+            mountPath: "/etc/s3-backup"
         backups:
-          objectStorage:
-            config:
-              secret: gitlab-secret
-              key: s3cfg
+          # objectStorage:
+          #   config:
+          #     secret: gitlab-secret
+          #     key: s3cfg
           registry:
             database:
               backupUser: registry
