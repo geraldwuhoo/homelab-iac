@@ -205,6 +205,18 @@ spec:
         minReplicas: 2
         maxReplicas: 2
       toolbox:
+        extraEnvFrom:
+          AWS_ACCESS_KEY_ID:
+            secretKeyRef:
+              name: gitlab-secret
+              key: AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY:
+            secretKeyRef:
+              name: gitlab-secret
+              key: AWS_SECRET_ACCESS_KEY
+        extraEnv:
+          AWS_DEFAULT_REGION: default
+          AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
         extraVolumes: |
           - name: gitlab-backup-s3
             secret:
@@ -225,10 +237,6 @@ spec:
           - name: scratch
             mountPath: /srv/gitlab/tmp
         backups:
-          # objectStorage:
-          #   config:
-          #     secret: gitlab-secret
-          #     key: s3cfg
           registry:
             database:
               backupUser: registry
