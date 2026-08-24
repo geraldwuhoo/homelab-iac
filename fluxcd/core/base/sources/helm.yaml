@@ -74,15 +74,6 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: kubernetes-dashboard
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://kubernetes.github.io/dashboard/
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: kube-vip
   namespace: flux-system
 spec:
@@ -353,3 +344,12 @@ spec:
   url: oci://ghcr.io/jaredallard/helm-charts/ingress-anubis
   ref:
     tag: 1.10.8
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: valkey
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://valkey.io/valkey-helm/

@@ -7,7 +7,9 @@ resources:
 - zalando-secret.yaml
 - zalando-registry-secret.yaml
 - secret.yaml
+- valkey-secret.yaml
 - postgres.yaml
+- valkey.yaml
 - helmrelease.yaml
 - runner-arm64.yaml
 - runner-amd64.yaml

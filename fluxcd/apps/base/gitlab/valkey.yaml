@@ -1,0 +1,28 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valkey
+  namespace: gitlab
+spec:
+  chart:
+    spec:
+      chart: valkey
+      sourceRef:
+        kind: HelmRepository
+        name: valkey
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    dataStorage:
+      enabled: true
+      requestedSize: 8Gi
+    metrics:
+      enabled: false
+    auth:
+      enabled: true
+      usersExistingSecret: valkey-secret
+      aclUsers:
+        default:
+          permissions: "~* &* +@all"

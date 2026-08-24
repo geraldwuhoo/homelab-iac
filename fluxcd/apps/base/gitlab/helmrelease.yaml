@@ -90,6 +90,11 @@ spec:
           useSecret: true
           secret: gitlab.gitlab-postgres-cluster.credentials.postgresql.acid.zalan.do
           key: password
+      redis:
+        host: valkey.gitlab.svc.cluster.local
+        auth:
+          secret: valkey-secret
+          key: default
       smtp:
         enabled: true
         address: mail.smtp2go.com
@@ -156,11 +161,9 @@ spec:
         backup.velero.io/backup-volumes-excludes: runner-secrets
     postgresql:
       install: false
-    redis:
-      architecture: replication
-      cluster:
-        enabled: true
     prometheus:
+      install: false
+    redis:
       install: false
     minio:
       persistence:
