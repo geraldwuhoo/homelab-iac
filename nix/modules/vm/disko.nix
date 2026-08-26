@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, ... }:
 {
   # Lots of config taken from https://git.elia.garden/leela/dotfiles
   disko.devices = {
@@ -107,11 +107,19 @@
 
   # Roll back to empty snapshot on every boot
   # Inspired by https://grahamc.com/blog/erase-your-darlings/
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    echo "rolling back root to empty snapshot"
-    zfs rollback -r zroot/ROOT/default@blank
-  '';
-  boot.initrd.systemd.enable = false;
+  boot.initrd.systemd.services.rollback = {
+    description = "Roll back root dataset to empty snapshot";
+    wantedBy = [ "initrd.target" ];
+    after = [ "zfs-import-zroot.service" ];
+    before = [ "sysroot.mount" ];
+    path = [ config.boot.zfs.package ];
+    unitConfig.DefaultDependencies = "no";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      echo "rolling back root to empty snapshot"
+      zfs rollback -r zroot/ROOT/default@blank
+    '';
+  };
 
   fileSystems = {
     "/".neededForBoot = true;
