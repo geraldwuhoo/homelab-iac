@@ -10,18 +10,21 @@ terraform {
 resource "proxmox_vm_qemu" "k3s_node" {
   count = length(var.hosts)
 
-  vmid = 3000 + count.index
-  name = var.hosts[count.index].hostname
-  desc = "k3s node ${count.index}"
+  vmid        = 3000 + count.index
+  name        = var.hosts[count.index].hostname
+  description = "k3s node ${count.index}"
 
-  target_node      = var.hosts[count.index].node
-  hastate          = var.hosts[count.index].hastate
-  onboot           = true
-  skip_ipv6        = true
-  automatic_reboot = false
+  target_node        = var.hosts[count.index].node
+  hastate            = var.hosts[count.index].hastate
+  start_at_node_boot = true
+  skip_ipv6          = true
+  automatic_reboot   = false
 
-  cores   = var.specs.cores
-  sockets = var.specs.sockets
+  cpu {
+    cores   = var.specs.cores
+    sockets = var.specs.sockets
+  }
+
   memory  = var.specs.memory
   balloon = var.specs.balloon
   tablet  = false
