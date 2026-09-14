@@ -146,7 +146,7 @@
           config.k3s.master && !config.k3s.singleNode
         ) config.sops.templates.k3s-config.path;
 
-        manifests = lib.mkIf (!config.k3s.singleNode) (
+        manifests = lib.mkIf (config.k3s.master && !config.k3s.singleNode) (
           builtins.mapAttrs (name: file: { source = ./manifests/${name}.yaml; }) {
             kube-vip-rbac = { };
             kube-vip-ds = { };

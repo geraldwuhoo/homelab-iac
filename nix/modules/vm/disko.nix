@@ -133,5 +133,8 @@
     "kernel.unprivileged_userns_clone=1"
   ];
 
+  # networking.hostId matches each pool's recorded hostid, so forcing the import is unnecessary
+  boot.zfs.forceImportRoot = false;
+
   services.zfs.trim.enable = true;
 }

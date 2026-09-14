@@ -16,9 +16,12 @@
     "sd_mod"
     "sr_mod"
   ];
-  boot.initrd.kernelModules = if pkgs.system == "aarch64-linux" then [ "virtio_gpu" ] else [ ];
-  boot.kernelModules = if pkgs.system == "aarch64-linux" then [ ] else [ "kvm-intel" ];
-  boot.kernelParams = if pkgs.system == "aarch64-linux" then [ "console=tty" ] else [ ];
+  boot.initrd.kernelModules =
+    if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then [ "virtio_gpu" ] else [ ];
+  boot.kernelModules =
+    if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then [ ] else [ "kvm-intel" ];
+  boot.kernelParams =
+    if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then [ "console=tty" ] else [ ];
   boot.extraModulePackages = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
