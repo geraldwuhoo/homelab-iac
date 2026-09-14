@@ -62,13 +62,6 @@ resource "hcloud_firewall" "firewall" {
   }
   rule {
     direction   = "in"
-    protocol    = "tcp"
-    port        = "6443"
-    source_ips  = ["0.0.0.0/0", "::/0"]
-    description = "Allow incoming requests to the Kube API server"
-  }
-  rule {
-    direction   = "in"
     protocol    = "udp"
     port        = "3478"
     source_ips  = ["0.0.0.0/0", "::/0"]
