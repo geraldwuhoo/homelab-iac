@@ -4,7 +4,7 @@ kind: DaemonSet
 metadata:
   labels:
     app.kubernetes.io/name: kube-vip-ds
-    app.kubernetes.io/version: v0.5.10
+    app.kubernetes.io/version: v1.2.3
   name: kube-vip-ds
   namespace: kube-system
 spec:
@@ -16,7 +16,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: kube-vip-ds
-        app.kubernetes.io/version: v0.5.10
+        app.kubernetes.io/version: v1.2.3
     spec:
       affinity:
         nodeAffinity:
@@ -36,9 +36,13 @@ spec:
           value: "true"
         - name: port
           value: "6443"
+        - name: vip_nodename
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
         - name: vip_interface
           value: eth0
-        - name: vip_cidr
+        - name: vip_subnet
           value: "32"
         - name: cp_enable
           value: "true"
@@ -68,7 +72,7 @@ spec:
           value: k3s.wuhoo.xyz
         - name: prometheus_server
           value: :2112
-        image: ghcr.io/kube-vip/kube-vip:v0.5.12
+        image: ghcr.io/kube-vip/kube-vip:v1.2.3
         imagePullPolicy: Always
         name: kube-vip
         securityContext:
@@ -76,6 +80,8 @@ spec:
             add:
             - NET_ADMIN
             - NET_RAW
+            drop:
+            - ALL
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
