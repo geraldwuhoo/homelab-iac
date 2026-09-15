@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: pod-gateway
-      version: 6.6.1
+      version: 7.1.1
       sourceRef:
         kind: HelmRepository
         name: angelnu
@@ -17,30 +17,32 @@ spec:
   values:
     routed_namespaces:
     - vpn
-    addons:
-      vpn:
-        enabled: true
-        type: gluetun
-        image:
-          repository: ghcr.io/qdm12/gluetun
-          tag: v3.41.3
-        env:
-          VPN_TYPE: wireguard
-          VPN_SERVICE_PROVIDER: airvpn
-          FIREWALL: "off"
-          DOT: "off"
-          WIREGUARD_MTU: "1320"
-          HTTPPROXY: "on"
-          HTTPPROXY_STEALTH: "on"
-        envFrom:
-        - secretRef:
-            name: vpn-secret
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-        networkPolicy:
-          enabled: true
+    controllers:
+      main:
+        containers:
+          gluetun:
+            enabled: true
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.41.3
+            env:
+              VPN_TYPE: wireguard
+              VPN_SERVICE_PROVIDER: airvpn
+              FIREWALL: "off"
+              DOT: "off"
+              WIREGUARD_MTU: "1320"
+              HTTPPROXY: "on"
+              HTTPPROXY_STEALTH: "on"
+            envFrom:
+            - secretRef:
+                name: vpn-secret
+            securityContext:
+              capabilities:
+                add:
+                - NET_ADMIN
+    networkpolicies:
+      main:
+        rules:
           egress:
           - to:
             - ipBlock:
@@ -52,12 +54,12 @@ spec:
             - namespaceSelector: {}
     service:
       gluetun:
-        enabled: true
+        controller: main
         type: ClusterIP
         ports:
           httpproxy:
             port: 8888
-            type: TCP
+            protocol: TCP
     settings:
       VPN_LOCAL_CIDRS: 10.0.0.0/8 192.168.0.0/16
       NOT_ROUTED_TO_GATEWAY_CIDRS: 10.0.0.0/8 192.168.0.0/16
