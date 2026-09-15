@@ -40,6 +40,13 @@ spec:
               capabilities:
                 add:
                 - NET_ADMIN
+      webhook:
+        containers:
+          main:
+            image:
+              # v3.11.0+ ship an amd64 binary in the arm64 image
+              # https://github.com/angelnu/gateway-admision-controller/issues/299
+              tag: v3.10.0
     networkpolicies:
       main:
         rules:
