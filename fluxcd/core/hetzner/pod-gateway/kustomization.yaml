@@ -17,6 +17,10 @@ patches:
     spec:
       values:
         routed_namespaces:
+        - anonymousoverflow
+        - breezewiki
         - libreddit
         - pixivfe
+        - quetre
         - rimgo
+        - scribe
