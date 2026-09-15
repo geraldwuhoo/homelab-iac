@@ -28,8 +28,9 @@ spec:
             env:
               VPN_TYPE: wireguard
               VPN_SERVICE_PROVIDER: airvpn
-              FIREWALL: "off"
-              DOT: "off"
+              # pod and service CIDRs; not 10.0.0.0/8, which overlaps the wireguard tunnel address
+              FIREWALL_OUTBOUND_SUBNETS: 10.42.0.0/16,10.43.0.0/16
+              DNS_SERVER: "off"
               WIREGUARD_MTU: "1320"
               HTTPPROXY: "on"
               HTTPPROXY_STEALTH: "on"
@@ -47,6 +48,24 @@ spec:
               # v3.11.0+ ship an amd64 binary in the arm64 image
               # https://github.com/angelnu/gateway-admision-controller/issues/299
               tag: v3.10.0
+    configMaps:
+      iptables:
+        suffix: iptables
+        data:
+          # let routed pods on vxlan0 through gluetun's firewall into the tunnel
+          post-rules.txt: |
+            iptables -A FORWARD -i vxlan0 -o wg0 -j ACCEPT
+            iptables -A FORWARD -i wg0 -o vxlan0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+            iptables -A OUTPUT -o vxlan0 -j ACCEPT
+    persistence:
+      iptables:
+        type: configMap
+        identifier: iptables
+        advancedMounts:
+          main:
+            gluetun:
+            - path: /iptables
+              readOnly: true
     networkpolicies:
       main:
         rules:
