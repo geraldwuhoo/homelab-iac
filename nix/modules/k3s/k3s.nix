@@ -22,6 +22,11 @@
         description = "Whether or not this is a single node cluster";
         default = false;
       };
+      nodeIp = mkOption {
+        type = types.nullOr types.str;
+        description = "Address to advertise for this node, pinning the node IP rather than letting k3s auto-detect it from the default-gateway interface";
+        default = null;
+      };
     };
   };
   config =
@@ -112,6 +117,7 @@
           [
             "--kubelet-arg=allowed-unsafe-sysctls=net.ipv6.conf.all.disable_ipv6,net.ipv6.conf.default.disable_ipv6,net.ipv4.ip_forward,net.ipv4.conf.all.src_valid_mark"
           ]
+          ++ (lib.optional (config.k3s.nodeIp != null) "--node-ip=${config.k3s.nodeIp}")
           ++ (
             if config.k3s.master then
               [
