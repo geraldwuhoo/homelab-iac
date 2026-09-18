@@ -7,6 +7,9 @@ resources:
 - zalando-secret.yaml
 - zalando-registry-secret.yaml
 - secret.yaml
+- gitlab-object-storage.yaml
+- gitlab-registry-storage.yaml
+- runner-cache-secret.yaml
 - valkey-secret.yaml
 - postgres.yaml
 - valkey.yaml

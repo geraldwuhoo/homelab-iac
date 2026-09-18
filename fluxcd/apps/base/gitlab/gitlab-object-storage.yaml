@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: gitlab-object-storage
+    namespace: gitlab
+stringData:
+    config: ENC[AES256_GCM,data:wvQu38FaKOgxJFjcydSDAVCIfj8tDFGasvuaPf0ORCjz3zQn6y0QLwiJETj9DbwSIcA6SjwEv1Tj/FFEb/EjV1dFld6JtxpMgrZEzlJqTRby4sGRItZaWCCZAhlOvl7jP3RZZWcPvXTmwxIvggW5Eh8XjIsFKhO9TMgzzX49UQaHV4g6wdahtp7/PdwmuOfy7ul6pC6AaCnOxBGJZPSyZ5HY4jXM1vU=,iv:O/NyWd9/g3kE64BW69r963xW43VSLldSmcUVvcKrOj8=,tag:J4QBhzR7PNBY1cOxghIlrQ==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3bUZNN09yaWREMUR1eWpv
+            b3dJcEh3WEFlT3BVYWhyMzgxZ3FxMVlsaEFvCnJWb0Q0Sk1mamJjMnJ2a3pzVDZn
+            OUJ3ZmsrQXMvbWNDUUhPNWMyTk5HTnMKLS0tIFpOZUV3YWlYUi9kVHp2bFFLcUJv
+            dS9zT2dXakdxUXJxZHBCNXpVdE9FMFUKuAsrsm9rtF/GymfpIdSHfIFMOQ6vipi2
+            Pb+iY1+tWdiq5lIZARCvav7mR/jaVGQDFmRLK2rvxUvHBf0tlgrDCg==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-09-16T04:17:02Z"
+    mac: ENC[AES256_GCM,data:dr3dloX9xq8zJKyoOcYGC6je8P/nD6UdAnBkAlZqX/EWt9D8FilOlU4spE1gtpkzuxYU+H8AfdJk721S5PyJ2lZfMaK2swZLpXvfstpWtLpcqZWmXCNh/7BSGIVSs8rRZrX6Rk6pYONGdpb5ZOknPSqA9rUFUtun9dlmrLzFwBs=,iv:1PgGi5edoGw3jhjHOBxLqlsyBBfvyIoDaaZuqOCrhsE=,tag:4qyOMq3Hj8uocnDHKUZF8Q==,type:str]
+    version: 3.13.3

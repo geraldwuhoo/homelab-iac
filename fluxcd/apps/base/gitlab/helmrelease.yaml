@@ -30,6 +30,38 @@ spec:
       hosts:
         domain: "${DOMAIN}"
       appConfig:
+        object_store:
+          enabled: true
+          proxy_download: true
+          connection:
+            secret: gitlab-object-storage
+            key: config
+        artifacts:
+          bucket: gitlab-artifacts
+        lfs:
+          bucket: git-lfs
+        uploads:
+          bucket: gitlab-uploads
+        packages:
+          bucket: gitlab-packages
+        externalDiffs:
+          enabled: true
+          bucket: gitlab-mr-diffs
+        terraformState:
+          enabled: true
+          bucket: gitlab-terraform-state
+        ciSecureFiles:
+          enabled: true
+          bucket: gitlab-ci-secure-files
+        agentPlanContent:
+          enabled: true
+          bucket: gitlab-agent-plan-content
+        ciCatalogBundles:
+          enabled: true
+          bucket: gitlab-ci-catalog-bundles
+        dependencyProxy:
+          enabled: true
+          bucket: gitlab-dependency-proxy
         enableUsagePing: false
         cron_jobs:
           poll_interval: 60
@@ -82,6 +114,12 @@ spec:
       pages:
         enabled: true
         host: ${PAGES_DOMAIN}
+        objectStore:
+          enabled: true
+          bucket: gitlab-pages
+          connection:
+            secret: gitlab-object-storage
+            key: config
       psql:
         host: gitlab-postgres-cluster-pooler
         database: gitlabhq_production
@@ -111,7 +149,7 @@ spec:
         from: gitlab@no-reply.${DOMAIN}
         reply_to: noreply@no-reply.${DOMAIN}
       minio:
-        enabled: true
+        enabled: false
     nginx-ingress:
       enabled: false
     installCertmanager: false
@@ -119,6 +157,9 @@ spec:
       concurrent: 2
       unregisterRunners: true
       runners:
+        cache:
+          secretName: gitlab-runner-cache
+          s3ServerAddress: s3.wuhoo.xyz
         config: |-
           [[runners]]
             executors = "kubernetes"
@@ -146,7 +187,6 @@ spec:
                       key = "custom"
                       operator = "In"
                       values = ["gitlab-runner"]
-            {{- if .Values.global.minio.enabled }}
             [runners.cache]
               Type = "s3"
               Path = "gitlab-runner"
@@ -154,9 +194,8 @@ spec:
               [runners.cache.s3]
                 ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
                 BucketName = "runner-cache"
-                BucketLocation = "us-east-1"
+                BucketLocation = "default"
                 Insecure = false
-            {{ end }}
       podAnnotations:
         backup.velero.io/backup-volumes-excludes: runner-secrets
     postgresql:
@@ -240,6 +279,10 @@ spec:
           - name: scratch
             mountPath: /srv/gitlab/tmp
         backups:
+          objectStorage:
+            config:
+              secret: gitlab-secret
+              key: s3cfg
           registry:
             database:
               backupUser: registry
@@ -250,6 +293,11 @@ spec:
                 restorePasswordKey: password
     registry:
       enabled: true
+      storage:
+        secret: gitlab-registry-storage
+        key: config
+        redirect:
+          disable: true
       hpa:
         minReplicas: 2
         maxReplicas: 4
