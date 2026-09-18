@@ -260,6 +260,7 @@ spec:
                   resources:
                     requests:
                       storage: 250Gi
+                  storageClassName: ceph-rbd-delete-sc
         extraVolumeMounts: |
           - name: scratch
             mountPath: /srv/gitlab/tmp
