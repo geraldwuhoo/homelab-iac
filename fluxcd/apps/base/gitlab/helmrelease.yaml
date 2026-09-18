@@ -250,21 +250,26 @@ spec:
         extraEnv:
           AWS_DEFAULT_REGION: default
           AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
-        extraVolumes: |
-          - name: scratch
-            ephemeral:
-              volumeClaimTemplate:
-                spec:
-                  accessModes:
-                  - ReadWriteOnce
-                  resources:
-                    requests:
-                      storage: 250Gi
-                  storageClassName: ceph-rbd-delete-sc
-        extraVolumeMounts: |
-          - name: scratch
-            mountPath: /srv/gitlab/tmp
         backups:
+          cron:
+            enabled: true
+            schedule: "0 10 * * *"
+            concurrencyPolicy: Forbid
+            backoffLimit: 1
+            activeDeadlineSeconds: 28800
+            ttlSecondsAfterFinished: 86400
+            failedJobsHistoryLimit: 3
+            persistence:
+              enabled: true
+              useGenericEphemeralVolume: true
+              accessMode: ReadWriteOnce
+              size: 256Gi
+              storageClass: ceph-rbd-delete-sc
+            resources:
+              requests:
+                memory: 1Gi
+              limits:
+                memory: 3Gi
           objectStorage:
             config:
               secret: gitlab-secret

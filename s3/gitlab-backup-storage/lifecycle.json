@@ -12,6 +12,9 @@
       ],
       "Expiration": {
         "Days": 7
+      },
+      "AbortIncompleteMultipartUpload": {
+        "DaysAfterInitiation": 1
       }
     }
   ]
