@@ -31,7 +31,27 @@
   };
   config =
     let
-      containerd-shim-wasmedge = pkgs.callPackage ./containerd-shim-wasmedge.nix { inherit pkgs lib; };
+      mkContainerdShim = pkgs.callPackage ./containerd-shim.nix { };
+      # k3s auto-detects these on its service PATH and generates the matching
+      # containerd runtimes; the RuntimeClasses already ship with k3s.
+      containerd-shims = [
+        (mkContainerdShim {
+          runtime = "wasmedge";
+          version = "0.6.1";
+          hashes = {
+            x86_64-linux = "sha256-mff1bGSgUk6h7DkizQlbEIglpRPQIS23Wl37CLoZbM4=";
+            aarch64-linux = "sha256-Sg+9gyPUAeyf8w49Zmxrg9J4BwqcJkkPYWsjqX8bxUY=";
+          };
+        })
+        (mkContainerdShim {
+          runtime = "wasmtime";
+          version = "0.6.1";
+          hashes = {
+            x86_64-linux = "sha256-qbEhXuZw8RQUyP2OlwtSZ5CFkpyOxzoP5u2c8hXPm6E=";
+            aarch64-linux = "sha256-CukicV3UhKkjgl/U+iUFL+APh2nSnCNnBPH1Y49zWuA=";
+          };
+        })
+      ];
     in
     {
       boot = {
@@ -57,7 +77,6 @@
       environment.systemPackages =
         with pkgs;
         [
-          containerd-shim-wasmedge
           ceph-client # ceph kernel modules for ceph-csi
         ]
         ++ (lib.optionals (config.k3s.master) [
@@ -91,17 +110,7 @@
 
       sops.secrets.k3s-token = { };
 
-      systemd.services.createContainerdShimWasmedge = {
-        description = "Create symlink for containerd-shim-wasmedge";
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-        script = ''
-          ${pkgs.coreutils-full}/bin/ln -sfnv ${containerd-shim-wasmedge}/containerd-shim-wasmedge-v1 $(${pkgs.coreutils-full}/bin/readlink /var/lib/rancher/k3s/data/current)/bin
-        '';
-        wantedBy = [ "multi-user.target" ];
-      };
+      systemd.services.k3s.path = containerd-shims;
 
       services.k3s = {
         enable = true;
