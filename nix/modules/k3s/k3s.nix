@@ -12,11 +12,6 @@
         type = types.bool;
         description = "Whether or not this is a master node";
       };
-      clusterInit = mkOption {
-        type = types.bool;
-        description = "Whether or not to initialize the HA cluster";
-        default = false;
-      };
       singleNode = mkOption {
         type = types.bool;
         description = "Whether or not this is a single node cluster";
@@ -117,10 +112,7 @@
         package = pkgs.k3s_1_35;
         role = if config.k3s.master then "server" else "agent";
         tokenFile = lib.mkIf (!config.k3s.singleNode) config.sops.secrets.k3s-token.path;
-        serverAddr = lib.mkIf (
-          !config.k3s.singleNode && !config.k3s.clusterInit
-        ) "https://k3s.wuhoo.xyz:6443";
-        clusterInit = config.k3s.clusterInit;
+        serverAddr = lib.mkIf (!config.k3s.singleNode) "https://k3s.wuhoo.xyz:6443";
 
         extraFlags = toString (
           [
