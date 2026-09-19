@@ -15,10 +15,6 @@ variable "ssh_key_path" {
   type = string
 }
 
-variable "sops-server-key-path" {
-  type = string
-}
-
 variable "server_type" {
   type    = string
   default = "cax21"

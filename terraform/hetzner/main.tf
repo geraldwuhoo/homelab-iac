@@ -68,13 +68,12 @@ locals {
 module "k3s-hetzner" {
   for_each = { for index, host in local.hetzner_hosts : host.hostname => host }
 
-  source               = "../modules/k3s-hcloud"
-  ssh_key_path         = "~/.ssh/id_rsa.pub"
-  name                 = each.value.hostname
-  location             = "nbg1"
-  zone_id              = data.sops_file.secret.data["cloudflare_zone_id"]
-  domain               = "wuhoo.xyz"
-  sops-server-key-path = "~/.config/sops/age/server-side-key.txt"
+  source       = "../modules/k3s-hcloud"
+  ssh_key_path = "~/.ssh/id_rsa.pub"
+  name         = each.value.hostname
+  location     = "nbg1"
+  zone_id      = data.sops_file.secret.data["cloudflare_zone_id"]
+  domain       = "wuhoo.xyz"
 }
 
 resource "local_sensitive_file" "kubeconfig" {

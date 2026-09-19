@@ -113,10 +113,6 @@ locals {
 module "k3s" {
   source = "../modules/k3s-proxmox"
 
-  proxmox = {
-    privkey = "~/.ssh/id_rsa"
-  }
-
   domain       = "wuhoo.xyz"
   vip_hostname = "k3s"
 

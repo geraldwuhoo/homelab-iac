@@ -1,10 +1,3 @@
-variable "proxmox" {
-  type = object({
-    privkey = string,
-  })
-  sensitive = true
-}
-
 variable "vip_hostname" {
   type = string
 }
