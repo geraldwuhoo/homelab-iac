@@ -2,29 +2,11 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: appscode
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.appscode.com/stable
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: authentik
   namespace: flux-system
 spec:
   interval: 10m0s
   url: https://charts.goauthentik.io
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: bitnami
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.bitnami.com/bitnami
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -65,15 +47,6 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: k8s-at-home
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://k8s-at-home.com/charts
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: kube-vip
   namespace: flux-system
 spec:
@@ -83,65 +56,11 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: loftsh
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.loft.sh
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: nextcloud
   namespace: flux-system
 spec:
   interval: 10m0s
   url: https://nextcloud.github.io/helm/
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: openfaas
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://openfaas.github.io/faas-netes/
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: prometheus-community
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://prometheus-community.github.io/helm-charts
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: vmware-tanzu
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://vmware-tanzu.github.io/helm-charts
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: chrisingenhaag
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://chrisingenhaag.github.io/helm
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: kasten
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.kasten.io/
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -182,15 +101,6 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: requarks
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.js.wiki
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: enapter
   namespace: flux-system
 spec:
@@ -218,38 +128,11 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: rancher-stable
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://releases.rancher.com/server-charts/stable
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: bjw-s
   namespace: flux-system
 spec:
   interval: 10m0s
   url: https://bjw-s-labs.github.io/helm-charts
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: linkerd
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://helm.linkerd.io/stable
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: portainer
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://portainer.github.io/k8s/
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
@@ -274,29 +157,11 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: k8up-io
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://k8up-io.github.io/k8up
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: emberstack
   namespace: flux-system
 spec:
   interval: 10m0s
   url: https://emberstack.github.io/helm-charts
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: invidious
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts-helm.invidious.io
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
