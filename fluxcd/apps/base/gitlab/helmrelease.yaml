@@ -240,6 +240,8 @@ spec:
           limits:
             memory: 4Gi
       sidekiq:
+        livenessProbe:
+          initialDelaySeconds: 180
         enabled: true
         minReplicas: 1
         maxReplicas: 1
