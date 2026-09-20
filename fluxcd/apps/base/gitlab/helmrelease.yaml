@@ -192,7 +192,7 @@ spec:
               Path = "gitlab-runner"
               Shared = true
               [runners.cache.s3]
-                ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
+                ServerAddress = "s3.wuhoo.xyz"
                 BucketName = "runner-cache"
                 BucketLocation = "default"
                 Insecure = false
