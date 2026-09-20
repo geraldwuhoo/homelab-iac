@@ -18,4 +18,4 @@ spec:
   databases:
     firefoxsync: firefoxsync
   postgresql:
-    version: "16"
+    version: "17"

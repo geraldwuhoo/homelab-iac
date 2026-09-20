@@ -27,6 +27,6 @@ spec:
     gitlabhq_production: gitlab
     registry: registry
   postgresql:
-    version: "16"
+    version: "17"
   enableConnectionPooler: true
   enableReplicaConnectionPooler: true
