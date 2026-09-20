@@ -12,13 +12,14 @@ spec:
         kind: HelmRepository
         name: gitlab
         namespace: flux-system
-      version: 9.11.12
+      version: 10.2.6
   interval: 30m0s
   timeout: 30m0s
   values:
     global:
       edition: ee
       ingress:
+        enabled: true
         configureCertmanager: false
         class: nginx-public
         annotations:
@@ -27,6 +28,10 @@ spec:
           external-dns.alpha.kubernetes.io/target: ${DOMAIN}
         tls:
           secretName: ${LETSENCRYPT_CERT}
+      gatewayApi:
+        enabled: false
+        configureCertmanager: false
+        installEnvoy: false
       hosts:
         domain: "${DOMAIN}"
       appConfig:
