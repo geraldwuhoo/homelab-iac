@@ -16,11 +16,11 @@ Starting with a minimal working Proxmox cluster and Ceph cluster, this IaC repo 
 * `tor-controller` for Tor onion services
 * `cert-manager` with automatic Let's Encrypt wildcard certificates via Cloudflare DNS-01 verification
 * `ceph-csi` driver for both RBD-backed and CephFS-backed dynamic PersistentVolumeClaims 
-* Copies the generated Kubernetes config file to local `${HOME}/.kube/config` to allow local control of the remote cluster via `kubectl`
+* Copies the generated Kubernetes config file to local `~/.kube/k3s.config` (override with the `config_path` variable) to allow local control of the remote cluster via `kubectl`
 * Deploys many pre-configured services using `flux` gitops (see [FluxCD gitops](#fluxcd-gitops) section)
 * Fully HA backed services with HA Postgres and HA Redis/KeyDB
   * Zalando's Postgres operator is used for multi-replica Postgres for true HA failover during rolling upgrades
-  * KeyDB is used in place of Redis for multi-master "Redis" for true HA during rolling upgrades
+  * KeyDB is used in place of Redis for multi-master "Redis" for true HA during rolling upgrades (GitLab is the exception, and runs Valkey)
 
 ## Requirements
 
@@ -40,7 +40,7 @@ The following already-existing infrastructure is expected for the IaC to work:
 * Ceph cluster, with RBD and CephFS pools
 * Static DHCP leases for expected Kubernetes nodes
 * DNS record for expected floating IP
-* PostgreSQL cluster (optional, Terraform remote state backend)
+* S3-compatible object store (Terraform remote state backend; the Ceph RGW above works)
 
 ### Configuration variables
 
@@ -48,17 +48,17 @@ Replace relevant variables in `terraform/k3s/main.tf`, `terraform/config.sops.ya
 
 ### Terraform remote state
 
-The Terraform config is configured to store its state in a remote postgresql cluster. To use your own postgresql cluster, you can initialize the Terraform/Terragrunt with:
+The Terraform config is configured to store its state in an S3-compatible bucket, with a separate state key per stack. To use your own object store, edit the `backend "s3"` block in `terraform/k3s/main.tf`, then initialize the Terraform/Terragrunt with:
 
 ```
 tofu init
 ```
 
-This will prompt for the postgresql connection string, which will be stored for future use. In case you do not have a postgresql cluster, you can instead store state locally, but be sure to secure this as it contains sensitive data and certainly should not be pushed unencrypted to a git repo. To store the state locally, delete the `backend "pg" {}` line in the `terraform` block in `terraform/main.tf`.
+Credentials are read from the usual AWS sources (`AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` or `~/.aws/credentials`). The backend sets `skip_credentials_validation` because Ceph RGW does not implement STS. In case you do not have an object store, you can instead store state locally, but be sure to secure this as it contains sensitive data and certainly should not be pushed unencrypted to a git repo. To store the state locally, delete the `backend "s3"` block in the `terraform` block in `terraform/k3s/main.tf`.
 
 ### Sops and Terraform
 
-The `terraform/k3s/config.sops.yaml` has sensitive variables encrypted with `sops`. The `sops` encryption expects an `age` key at `${HOME}/.config/sops/age/keys.txt` with corresponding public key `age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau`. If you do not have this key, you can delete the `sops` metadata section in `terraform/config.yaml` and replace the encrypted sensitive data with unencrypted secrets. Then, re-encrypt in place with:
+The `terraform/k3s/config.sops.yaml` has sensitive variables encrypted with `sops`. The `sops` encryption expects an `age` key at `${HOME}/.config/sops/age/keys.txt` with corresponding public key `age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau`. If you do not have this key, you can delete the `sops` metadata section in `terraform/config.sops.yaml` and replace the encrypted sensitive data with unencrypted secrets. Then, re-encrypt in place with:
 
 ```
 sops --encrypted-regex "(api.*|macaddr|username|password|connection_url)" --encrypt --in-place terraform/k3s/config.sops.yaml
@@ -161,13 +161,16 @@ This FluxCD infrastructure deploys the following to on-prem production:
 
 * `ceph-csi` storageclass
 * `cert-manager`
+* `coredns-autoscaler`
 * `Descheduler`
 * `external-dns`
-* Nginx ingress controller
+* Nginx ingress controller (plus separate `ingress-onion` and `ingress-public` instances for Tor and public-facing traffic)
 * [`tor-controller`](https://github.com/bugfest/tor-controller)
 * `keel.sh`
 * `kube-vip` cloud controller manager
 * Zalando's Postgres operator
+* `rclone`
+* `reflector`
 * `volsync` backup software
 
 #### Core resources
@@ -181,10 +184,11 @@ This FluxCD infrastructure deploys the following to on-prem production:
 * [Immich](https://immich.app/) (OIDC/Oauth2)
 * [GitLab EE](https://about.gitlab.com) with fully working CI/CD and registries (SAML2)
 * [Matrix Synapse](https://matrix.org) with workers and bridges (OIDC/Oauth2)
-* [Jellyfin](https://jellyfin.org) (LDAP)
+* [Jellyfin](https://jellyfin.org) (LDAP) and the surrounding `*arr` media stack
 * [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) (OIDC/Oauth2)
 * [blink](https://github.com/JaneJeon/blink) (OIDC/Oauth2)
-* [ntfy.sh](https://ntfy.sh)
+* [LubeLogger](https://github.com/hargata/lubelog) vehicle maintenance tracker (OIDC/Oauth2)
+* [Shynet](https://github.com/milesmcc/shynet) web analytics
 * [mollysocket](https://github.com/mollyim/mollysocket)
 * [Vaultwarden](https://github.com/dani-garcia/vaultwarden)
 * [FindMyDevice](https://gitlab.com/Nulide/findmydevice)
@@ -194,3 +198,13 @@ This FluxCD infrastructure deploys the following to on-prem production:
 * [timvisee's `send`](https://gitlab.com/timvisee/send)
 * [Syncthing](https://syncthing.net)
 * [drawio](https://draw.io)
+* [Kopia](https://kopia.io) backup server
+* [DumbBudget](https://github.com/DumbWareio/DumbBudget)
+* [hat.sh](https://github.com/sh-dv/hat.sh) in-browser file encryption
+* [ShortPaste](https://github.com/Adyanth/shortpaste)
+* [LibreSpeed](https://github.com/librespeed/speedtest)
+* [Shields.io](https://shields.io) badge server
+* [ipinfo.tw](https://github.com/PeterDaveHello/ipinfo.tw)
+* [A Dark Room](https://github.com/doublespeakgames/adarkroom)
+* `ytars` YouTube archiver (plus a second `ytars-next` instance)
+* Static sites: the `wuhoo.xyz` landing page, `blog.geraldwu.com`, `geraldwu.com` and `nekomimi.org`. All but the blog are also published as Tor onion services
