@@ -7,7 +7,9 @@ resources:
 - poddisruptionbudget.yaml
 - zalando-secret.yaml
 - secret.yaml
+- valkey-secret.yaml
 - postgres.yaml
+- valkey.yaml
 - nextcloud.yaml
 - volsync-nextcloud
 - volsync-nextcloud-data
