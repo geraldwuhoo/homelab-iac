@@ -229,20 +229,25 @@ spec:
         maxReplicas: 2
       webservice:
         enabled: true
-        minReplicas: 2
-        maxReplicas: 2
-        workerProcesses: 2
+        minReplicas: 1
+        maxReplicas: 1
+        workerProcesses: 0
+        puma:
+          threads:
+            min: 4
+            max: 4
         ingress:
           proxyBodySize: 10G
         resources:
           requests:
-            memory: 2Gi
+            memory: 1.5Gi
           limits:
-            memory: 4Gi
+            memory: 3Gi
       sidekiq:
         livenessProbe:
           initialDelaySeconds: 180
         enabled: true
+        concurrency: 5
         minReplicas: 1
         maxReplicas: 1
         resources:
