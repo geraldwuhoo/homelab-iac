@@ -6,6 +6,5 @@ resources:
 - namespace.yaml
 - zalando-secret.yaml
 - secret.yaml
-- keydb
 - postgres.yaml
 - helmrelease.yaml

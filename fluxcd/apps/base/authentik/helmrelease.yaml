@@ -36,11 +36,6 @@ spec:
           secretKeyRef:
             name: authentik.authentik-postgres-cluster.credentials.postgresql.acid.zalan.do
             key: password
-      - name: AUTHENTIK_REDIS__PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: authentik-keydb-secret
-            key: password
       envFrom:
       - secretRef:
           name: authentik-secret
@@ -54,8 +49,6 @@ spec:
       postgresql:
         host: authentik-postgres-cluster
         name: authentik
-      redis:
-        host: authentik-keydb-headless
       error_reporting:
         enabled: false
       disable_startup_analytics: true
@@ -73,6 +66,4 @@ spec:
         - /
         pathType: Prefix
     postgresql:
-      enabled: false
-    redis:
       enabled: false
