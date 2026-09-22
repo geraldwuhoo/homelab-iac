@@ -97,6 +97,7 @@
             2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
             5001 # k3s: embedded Spigel registry mirror
             10250 # k3s: metrics server
+            9100 # node-exporter: scraped by vmagent over the host network
           ]);
         allowedUDPPorts = lib.mkIf (!config.k3s.singleNode) [
           8472 # k3s, flannel: required if using multi-node for inter-node networking
