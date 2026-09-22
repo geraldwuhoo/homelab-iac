@@ -1,0 +1,203 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: victoria-metrics
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: victoria-metrics-k8s-stack
+      version: 0.93.0
+      sourceRef:
+        kind: HelmRepository
+        name: victoriametrics
+        namespace: flux-system
+  dependsOn:
+  - name: prometheus-operator-crds
+  interval: 10m0s
+  timeout: 10m0s
+  # operator crds ship in a crds/ dir, which helm never upgrades on its own
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    fullnameOverride: vm
+    victoria-metrics-operator:
+      crds:
+        cleanup:
+          enabled: false
+      resources:
+        requests:
+          cpu: 20m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
+
+    # only the builtin prometheus datasource; the vm plugin needs internet on grafana startup
+    defaultDatasources:
+      victoriametrics:
+        datasources:
+        - name: VictoriaMetrics
+          type: prometheus
+          access: proxy
+          uid: VictoriaMetrics
+          isDefault: true
+
+    defaultRules:
+      groups:
+        # these depend on the apiserver histograms dropped below
+        kube-apiserver-burnrate.rules:
+          enabled: false
+        kube-apiserver-histogram.rules:
+          enabled: false
+        kube-apiserver-slos:
+          enabled: false
+
+    vmsingle:
+      spec:
+        retentionPeriod: 30d
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            memory: 1Gi
+        storage:
+          resources:
+            requests:
+              storage: 20Gi
+
+    vmagent:
+      spec:
+        scrapeInterval: 30s
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+
+    vmalert:
+      spec:
+        evaluationInterval: 30s
+        resources:
+          requests:
+            cpu: 20m
+            memory: 64Mi
+          limits:
+            memory: 256Mi
+
+    alertmanager:
+      spec:
+        secrets:
+        - alertmanager-ntfy
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
+      config:
+        route:
+          receiver: blackhole
+          group_by: [alertname, namespace]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          routes:
+          - matchers:
+            - severity=~"warning|critical"
+            receiver: ntfy
+        inhibit_rules:
+        - source_matchers:
+          - severity="critical"
+          target_matchers:
+          - severity="warning"
+          equal: [alertname, namespace]
+        receivers:
+        - name: blackhole
+        - name: ntfy
+          webhook_configs:
+          - url: https://ntfy.${DOMAIN}/alerts?template=alertmanager
+            send_resolved: true
+            http_config:
+              authorization:
+                credentials_file: /etc/vm/secrets/alertmanager-ntfy/token
+
+    grafana:
+      admin:
+        existingSecret: grafana-admin
+      grafana.ini:
+        server:
+          root_url: https://grafana.${DOMAIN}
+      deploymentStrategy:
+        type: Recreate
+      persistence:
+        enabled: true
+        size: 1Gi
+      resources:
+        requests:
+          cpu: 20m
+          memory: 128Mi
+        limits:
+          memory: 384Mi
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+        - grafana.${DOMAIN}
+        # no secretName, so nginx serves the default cert; the chart only
+        # builds https alert links to grafana when tls is set
+        tls:
+        - hosts:
+          - grafana.${DOMAIN}
+
+    prometheus-node-exporter:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          memory: 64Mi
+
+    kube-state-metrics:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
+
+    kubelet:
+      vmScrapes:
+        probes:
+          enabled: false
+
+    kubeApiServer:
+      vmScrape:
+        spec:
+          endpoints:
+          - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+            port: https
+            scheme: https
+            tlsConfig:
+              caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+              serverName: kubernetes
+            # highest cardinality apiserver metrics, times three masters
+            metricRelabelConfigs:
+            - action: drop
+              source_labels: [__name__]
+              regex: (apiserver_request_(sli_)?duration_seconds_bucket|apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket|apiserver_request_body_size_bytes_bucket|etcd_request_duration_seconds_bucket|workqueue_.*)
+
+    # k3s runs these in one process with the apiserver, and the nixos firewall
+    # blocks their metrics ports on the masters anyway
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeEtcd:
+      enabled: false
