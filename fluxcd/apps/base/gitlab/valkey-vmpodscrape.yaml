@@ -1,0 +1,20 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: valkey
+  namespace: gitlab
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: valkey
+      app.kubernetes.io/instance: valkey
+  podMetricsEndpoints:
+  - port: metrics
+    seriesLimit: 200
+    metricRelabelConfigs:
+    # per command stats and exporter internals; keeps memory, clients,
+    # keyspace and hit rates
+    - action: drop
+      source_labels: [__name__]
+      regex: (redis_commands_.*|redis_latency_percentiles_usec|redis_errors_total|redis_exporter_.*|redis_target_scrape_.*|.+_bucket|go_.*|promhttp_.*)

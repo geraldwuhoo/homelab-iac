@@ -1,0 +1,75 @@
+# gitlab exposes ~90k series across these four, mostly per controller, per
+# worker class and per table breakdowns, so each keeps an explicit allowlist
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: gitlab-webservice
+  namespace: gitlab
+spec:
+  selector:
+    matchLabels:
+      app: webservice
+      release: gitlab
+  podMetricsEndpoints:
+  - port: http-metrics-ws
+    seriesLimit: 400
+    metricRelabelConfigs:
+    - action: keep
+      source_labels: [__name__]
+      regex: (puma_.*|ruby_process_(cpu_seconds_total|resident_memory_bytes|start_time_seconds)|http_requests_total|http_request_duration_seconds_(count|sum)|gitlab_database_connection_pool_(size|connections|busy|dead|idle|waiting)|gitlab_rails_queue_duration_seconds_(count|sum))
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: gitlab-sidekiq
+  namespace: gitlab
+spec:
+  selector:
+    matchLabels:
+      app: sidekiq
+      release: gitlab
+  podMetricsEndpoints:
+  - port: http-metrics
+    seriesLimit: 50
+    metricRelabelConfigs:
+    # queue sizes and latency come from gitlab-exporter
+    - action: keep
+      source_labels: [__name__]
+      regex: (sidekiq_concurrency|ruby_process_(cpu_seconds_total|resident_memory_bytes|start_time_seconds))
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: gitlab-gitaly
+  namespace: gitlab
+spec:
+  selector:
+    matchLabels:
+      app: gitaly
+      release: gitlab
+  podMetricsEndpoints:
+  - port: http-metrics
+    seriesLimit: 50
+    metricRelabelConfigs:
+    - action: keep
+      source_labels: [__name__]
+      regex: (gitaly_build_info|gitaly_connections_total|gitaly_catfile_cache_members|gitaly_housekeeping_tasks_total|process_(cpu_seconds_total|resident_memory_bytes|start_time_seconds))
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: gitlab-exporter
+  namespace: gitlab
+spec:
+  selector:
+    matchLabels:
+      app: gitlab-exporter
+      release: gitlab
+  podMetricsEndpoints:
+  - port: http-metrics
+    seriesLimit: 150
+    metricRelabelConfigs:
+    - action: keep
+      source_labels: [__name__]
+      regex: (gitlab_database_rows|sidekiq_(queue_size|queue_paused|queue_latency_seconds|default_queue_latency_seconds|workers_size|processes_size|jobs_.*)|ruby_process_(cpu_seconds_total|resident_memory_bytes))

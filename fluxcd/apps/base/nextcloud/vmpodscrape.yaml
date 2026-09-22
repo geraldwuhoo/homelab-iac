@@ -1,0 +1,18 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: nextcloud-exporter
+  namespace: nextcloud
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud
+      app.kubernetes.io/component: metrics
+  podMetricsEndpoints:
+  - port: metrics
+    seriesLimit: 100
+    metricRelabelConfigs:
+    - action: drop
+      source_labels: [__name__]
+      regex: (go_.*|promhttp_.*)

@@ -1,0 +1,23 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  selector:
+    matchExpressions:
+    - key: app.kubernetes.io/name
+      operator: In
+      values: [authentik]
+    - key: app.kubernetes.io/component
+      operator: In
+      values: [server, worker]
+  podMetricsEndpoints:
+  - port: metrics
+    seriesLimit: 500
+    metricRelabelConfigs:
+    # per view and per policy histograms and django internals are most of it
+    - action: drop
+      source_labels: [__name__]
+      regex: (.+_bucket|.+_created|django_.*|python_.*|authentik_tasks_queued)

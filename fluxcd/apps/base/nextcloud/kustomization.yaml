@@ -13,3 +13,5 @@ resources:
 - nextcloud.yaml
 - volsync-nextcloud
 - volsync-nextcloud-data
+- vmpodscrape.yaml
+- valkey-vmpodscrape.yaml

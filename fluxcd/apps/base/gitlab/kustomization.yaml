@@ -21,3 +21,5 @@ resources:
 - renovate-secret.yaml
 - renovate.yaml
 - volsync-gitaly
+- vmpodscrape.yaml
+- valkey-vmpodscrape.yaml

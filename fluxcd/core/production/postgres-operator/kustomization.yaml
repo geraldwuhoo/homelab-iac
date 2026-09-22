@@ -5,3 +5,43 @@ namespace: postgres-operator
 resources:
 - secret.yaml
 - ../../base/postgres-operator
+- vmpodscrape.yaml
+patches:
+- target:
+    kind: HelmRelease
+    name: postgres-operator
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: postgres-operator
+    spec:
+      values:
+        configGeneral:
+          # added to every spilo pod; the operator passes POSTGRES_USER and
+          # POSTGRES_PASSWORD ahead of these, so they can be referenced
+          sidecars:
+          - name: postgres-exporter
+            image: quay.io/prometheuscommunity/postgres-exporter:v0.20.1
+            args:
+            # per table stats are ~20 series per table, and gitlab has ~900
+            - --no-collector.stat_user_tables
+            - --no-collector.statio_user_tables
+            - --disable-settings-metrics
+            env:
+            - name: DATA_SOURCE_URI
+              value: localhost:5432/postgres?sslmode=disable
+            - name: DATA_SOURCE_USER
+              value: $(POSTGRES_USER)
+            - name: DATA_SOURCE_PASS
+              value: $(POSTGRES_PASSWORD)
+            ports:
+            - name: pg-exporter
+              containerPort: 9187
+              protocol: TCP
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 64Mi

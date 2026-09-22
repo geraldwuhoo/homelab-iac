@@ -1,0 +1,38 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: exportarr
+  namespace: media
+spec:
+  selector:
+    matchExpressions:
+    - key: app.kubernetes.io/instance
+      operator: In
+      values: [sonarr, sonarr4, radarr, radarr4, prowlarr]
+  podMetricsEndpoints:
+  - portNumber: 9707
+    seriesLimit: 300
+    metricRelabelConfigs:
+    - action: drop
+      source_labels: [__name__]
+      regex: (go_.*|promhttp_.*|process_(virtual_memory_.*|max_fds|open_fds))
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: jellyfin
+  namespace: media
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: jellyfin
+  podMetricsEndpoints:
+  - portNumber: 8096
+    path: /metrics
+    seriesLimit: 400
+    metricRelabelConfigs:
+    # per endpoint request histograms and .net runtime internals
+    - action: drop
+      source_labels: [__name__]
+      regex: (.+_bucket|dotnet_.*|process_(virtual_memory_.*|max_fds|open_fds))

@@ -1,0 +1,22 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: synapse
+  namespace: synapse
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: matrix-synapse
+      app.kubernetes.io/instance: synapse
+  podMetricsEndpoints:
+  - port: metrics
+    path: /_synapse/metrics
+    seriesLimit: 600
+    metricRelabelConfigs:
+    # per cache, per query, per background process and per servlet resource
+    # usage series, times every worker; keeps request, federation and
+    # process level metrics
+    - action: drop
+      source_labels: [__name__]
+      regex: (.+_bucket|.+_created|python_.*|synapse_util_caches_.*|synapse_util_metrics_block_.*|synapse_background_process_.*|synapse_storage_(transaction|query|schedule)_.*|synapse_http_server_(response|in_flight_requests)_(ru|db)_.*|synapse_replication_tcp_.*|synapse_pending_outgoing_replication_requests)

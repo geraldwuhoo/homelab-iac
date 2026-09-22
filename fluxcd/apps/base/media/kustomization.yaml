@@ -27,3 +27,4 @@ resources:
 - volsync-sonarr4-config
 - volsync-tachidesk-config
 - volsync-torrent-config
+- vmpodscrape.yaml

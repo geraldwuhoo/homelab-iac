@@ -63,6 +63,23 @@ spec:
                 role: system_r
                 type: container_t
                 level: s0:c123,c456
+          exportarr:
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.3.0
+            args:
+            - radarr
+            env:
+              PORT: "9707"
+              URL: http://localhost:7878
+              # reads the api key from the app's own config
+              CONFIG: /config/config.xml
+            resources:
+              requests:
+                cpu: 5m
+                memory: 16Mi
+              limits:
+                memory: 64Mi
     service:
       main:
         controller: main

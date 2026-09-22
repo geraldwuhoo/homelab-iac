@@ -1,0 +1,19 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: postgres-exporter
+  namespace: postgres-operator
+spec:
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      application: spilo
+  podMetricsEndpoints:
+  - port: pg-exporter
+    seriesLimit: 300
+    metricRelabelConfigs:
+    - action: drop
+      source_labels: [__name__]
+      regex: (go_.*|promhttp_.*|process_(virtual_memory_.*|max_fds|open_fds))

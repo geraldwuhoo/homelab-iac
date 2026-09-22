@@ -29,15 +29,34 @@ spec:
             - secretRef:
                 name: immich-secret
     immich:
+      metrics:
+        enabled: true
       persistence:
         library:
           existingClaim: immich-pvc
     server:
       enabled: true
+      # replaces the chart's endpoints to drop per route histograms; it can't
+      # be disabled, since the chart's merge treats false as unset
+      serviceMonitor:
+        main:
+          endpoints:
+          - port: metrics-api
+            scheme: http
+            metricRelabelings: &drop
+            - action: drop
+              sourceLabels: [__name__]
+              regex: (.+_bucket|.+_created|nodejs_.*|target_info)
+          - port: metrics-ms
+            scheme: http
+            metricRelabelings: *drop
       controllers:
         main:
           containers:
             main:
+              env:
+                # the chart sets all; io and repo are per query histograms
+                IMMICH_TELEMETRY_INCLUDE: host,api,job
               securityContext:
                 runAsUser: 1000
                 runAsGroup: 1000

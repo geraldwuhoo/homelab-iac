@@ -11,3 +11,4 @@ resources:
 - cinny.yaml
 - federation-tester.yaml
 - volsync
+- vmpodscrape.yaml

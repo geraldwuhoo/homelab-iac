@@ -1,0 +1,17 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: external-dns
+  namespace: external-dns
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: external-dns
+  podMetricsEndpoints:
+  - port: http
+    seriesLimit: 100
+    metricRelabelConfigs:
+    - action: drop
+      source_labels: [__name__]
+      regex: (go_.*|promhttp_.*|.+_bucket)

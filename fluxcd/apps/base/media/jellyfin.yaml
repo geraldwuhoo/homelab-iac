@@ -29,11 +29,25 @@ spec:
         type: deployment
         containers:
           main:
-            image:
+            image: &image
               repository: docker.io/jellyfin/jellyfin
               tag: 10.11.11
             env:
               TZ: UTC
+            securityContext:
+              seLinuxOptions:
+                user: system_u
+                role: system_r
+                type: container_t
+                level: s0:c123,c456
+        initContainers:
+          # metrics can only be turned on in system.xml on the config volume
+          enable-metrics:
+            image: *image
+            command:
+            - sh
+            - -c
+            - f=/config/config/system.xml; if [ -f "$f" ]; then sed -i "s|<EnableMetrics>false</EnableMetrics>|<EnableMetrics>true</EnableMetrics>|" "$f"; fi
             securityContext:
               seLinuxOptions:
                 user: system_u
