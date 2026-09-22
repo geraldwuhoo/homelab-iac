@@ -32,6 +32,9 @@ spec:
             image: &image
               repository: docker.io/jellyfin/jellyfin
               tag: 10.11.11
+            ports:
+            - name: http
+              containerPort: 8096
             env:
               TZ: UTC
             securityContext:

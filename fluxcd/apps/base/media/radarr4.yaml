@@ -69,6 +69,9 @@ spec:
               tag: v2.3.0
             args:
             - radarr
+            ports:
+            - name: metrics
+              containerPort: 9707
             env:
               PORT: "9707"
               URL: http://localhost:7878

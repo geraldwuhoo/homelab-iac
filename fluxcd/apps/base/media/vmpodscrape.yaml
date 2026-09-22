@@ -11,7 +11,7 @@ spec:
       operator: In
       values: [sonarr, sonarr4, radarr, radarr4, prowlarr]
   podMetricsEndpoints:
-  - portNumber: 9707
+  - port: metrics
     seriesLimit: 300
     metricRelabelConfigs:
     - action: drop
@@ -28,11 +28,11 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: jellyfin
   podMetricsEndpoints:
-  - portNumber: 8096
+  - port: http
     path: /metrics
     seriesLimit: 400
     metricRelabelConfigs:
     # per endpoint request histograms and .net runtime internals
     - action: drop
       source_labels: [__name__]
-      regex: (.+_bucket|dotnet_.*|process_(virtual_memory_.*|max_fds|open_fds))
+      regex: (.+_bucket|dotnet_.*|system_runtime_.*|process_(virtual_memory_.*|max_fds|open_fds))

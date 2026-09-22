@@ -68,6 +68,9 @@ spec:
               tag: v2.3.0
             args:
             - sonarr
+            ports:
+            - name: metrics
+              containerPort: 9707
             env:
               PORT: "9707"
               URL: http://localhost:8989
