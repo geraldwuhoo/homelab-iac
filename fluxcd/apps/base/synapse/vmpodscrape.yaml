@@ -13,6 +13,10 @@ spec:
   - port: metrics
     path: /_synapse/metrics
     seriesLimit: 600
+    relabelConfigs:
+    # worker type, e.g. generic-worker or federation-sender, for dashboards
+    - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_component]
+      target_label: worker
     metricRelabelConfigs:
     # per cache, per query, per background process and per servlet resource
     # usage series, times every worker; keeps request, federation and

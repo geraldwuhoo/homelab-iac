@@ -12,8 +12,11 @@ spec:
       application: spilo
   podMetricsEndpoints:
   - port: pg-exporter
-    seriesLimit: 300
+    seriesLimit: 400
     metricRelabelConfigs:
+    # keep only the settings the postgresql dashboard shows, of ~300
+    - action: drop
+      if: '{__name__=~"pg_settings_.+",__name__!~"pg_settings_(effective_cache_size_bytes|maintenance_work_mem_bytes|max_connections|max_parallel_workers|max_wal_size_bytes|max_worker_processes|random_page_cost|seq_page_cost|shared_buffers_bytes|work_mem_bytes)"}'
     - action: drop
       source_labels: [__name__]
-      regex: (pg_settings_.*|go_.*|promhttp_.*|process_(virtual_memory_.*|max_fds|open_fds))
+      regex: (pg_stat_activity_max_tx_duration|pg_roles_connection_limit|pg_scrape_collector_.*|go_.*|promhttp_.*)

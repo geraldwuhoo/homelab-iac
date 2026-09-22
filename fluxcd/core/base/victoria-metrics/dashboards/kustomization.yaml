@@ -1,0 +1,34 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    grafana_dashboard: "1"
+  annotations:
+    grafana_folder: Services
+    # dashboards are full of grafana ${var} syntax, which flux would blank out
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+# postgresql, valkey, nextcloud, immich and media come from grafana.com
+# (9628, 763, 20716, 22555) and the exportarr repo, adjusted for our labels;
+# the rest are built for the metrics kept after drops
+configMapGenerator:
+- name: dashboard-authentik
+  files: [authentik.json]
+- name: dashboard-gitlab
+  files: [gitlab.json]
+- name: dashboard-immich
+  files: [immich.json]
+- name: dashboard-jellyfin
+  files: [jellyfin.json]
+- name: dashboard-media
+  files: [media.json]
+- name: dashboard-nextcloud
+  files: [nextcloud.json]
+- name: dashboard-postgresql
+  files: [postgresql.json]
+- name: dashboard-synapse
+  files: [synapse.json]
+- name: dashboard-valkey
+  files: [valkey.json]

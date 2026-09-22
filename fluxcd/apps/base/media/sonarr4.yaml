@@ -76,6 +76,8 @@ spec:
               URL: http://localhost:8989
               # reads the api key from the app's own config
               CONFIG: /config/config.xml
+              # per quality episode counts for the sonarr dashboard
+              ENABLE_ADDITIONAL_METRICS: "true"
             resources:
               requests:
                 cpu: 5m

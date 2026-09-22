@@ -12,6 +12,8 @@ spec:
       values: [sonarr, sonarr4, radarr, radarr4, prowlarr]
   podMetricsEndpoints:
   - port: metrics
+    # additional metrics walk every series through the api, so not every 30s
+    interval: 2m
     seriesLimit: 300
     metricRelabelConfigs:
     - action: drop
@@ -35,4 +37,4 @@ spec:
     # per endpoint request histograms and .net runtime internals
     - action: drop
       source_labels: [__name__]
-      regex: (.+_bucket|dotnet_.*|system_runtime_.*|process_(virtual_memory_.*|max_fds|open_fds))
+      regex: (.+_bucket|dotnet_.*|system_runtime_.*|system_net_.*|private_.*|microsoft_entityframeworkcore_.*|prometheus_net_.*|process_(virtual_memory_.*|max_fds|open_fds))

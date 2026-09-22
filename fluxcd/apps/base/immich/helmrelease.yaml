@@ -46,7 +46,7 @@ spec:
             metricRelabelings: &drop
             - action: drop
               sourceLabels: [__name__]
-              regex: (.+_bucket|.+_created|nodejs_.*|target_info)
+              regex: (.+_bucket|.+_created|nodejs_.*)
           - port: metrics-ms
             scheme: http
             metricRelabelings: *drop

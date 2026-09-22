@@ -7,3 +7,4 @@ resources:
 - alertmanager-secret.yaml
 - prometheus-operator-crds.yaml
 - helmrelease.yaml
+- dashboards

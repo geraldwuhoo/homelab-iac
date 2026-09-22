@@ -11,10 +11,10 @@ spec:
       app.kubernetes.io/instance: valkey
   podMetricsEndpoints:
   - port: metrics
-    seriesLimit: 200
+    seriesLimit: 500
     metricRelabelConfigs:
-    # per command stats and exporter internals; keeps memory, clients,
-    # keyspace and hit rates
+    # per command latency and failure stats and exporter internals; keeps
+    # per command calls and time for the redis dashboard
     - action: drop
       source_labels: [__name__]
-      regex: (redis_commands_.*|redis_latency_percentiles_usec|redis_errors_total|redis_exporter_.*|redis_target_scrape_.*|.+_bucket|go_.*|promhttp_.*)
+      regex: (redis_commands_(latencies_usec_.*|failed_calls_total|rejected_calls_total)|redis_latency_percentiles_usec.*|redis_errors_total|redis_exporter_.*|redis_target_scrape_.*|.+_bucket|go_.*|promhttp_.*)

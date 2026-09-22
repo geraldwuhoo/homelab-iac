@@ -222,6 +222,9 @@ spec:
       enabled: true
       # the internal service name isn't a trusted domain, so serverinfo 400s
       server: https://cloud.${DOMAIN}
+      info:
+        # installed and updatable app counts, a couple of series
+        apps: true
       image:
         registry: docker.io
         repository: xperimental/nextcloud-exporter

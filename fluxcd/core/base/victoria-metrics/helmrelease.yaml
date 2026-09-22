@@ -157,6 +157,12 @@ spec:
           - grafana.${DOMAIN}
       vmScrape:
         enabled: false
+      sidecar:
+        dashboards:
+          # dashboards/ carry grafana_folder: Services; the chart's own stay in General
+          folderAnnotation: grafana_folder
+          provider:
+            foldersFromFilesStructure: true
 
     prometheus-node-exporter:
       resources:
@@ -196,7 +202,7 @@ spec:
               regex: ""
             - action: drop
               source_labels: [__name__]
-              regex: (container_tasks_state|container_memory_failures_total|container_blkio_device_usage_total|container_fs_(inodes_.*|io_.*|reads_merged_total|writes_merged_total|sector_.*|limit_bytes)|container_memory_(failcnt|mapped_file|kernel_usage|total_active_file_bytes|total_inactive_file_bytes)|container_(ulimits_soft|processes|threads|threads_max|sockets|file_descriptors|last_seen|start_time_seconds|spec_.*))
+              regex: (container_tasks_state|container_memory_failures_total|container_blkio_device_usage_total|container_fs_(inodes_.*|io_.*|reads_merged_total|writes_merged_total|sector_.*|limit_bytes)|container_memory_(failcnt|mapped_file|kernel_usage|total_active_file_bytes|total_inactive_file_bytes)|container_(ulimits_soft|processes|threads|threads_max|sockets|file_descriptors|last_seen|spec_.*))
             - action: labeldrop
               regex: (uid)
             - action: labeldrop
