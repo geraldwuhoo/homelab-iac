@@ -45,12 +45,12 @@ spec:
         initContainers:
           redis-isready:
             image:
-              repository: docker.io/library/redis
-              tag: 8.4.7-alpine3.22
+              repository: docker.io/valkey/valkey
+              tag: 9.1.2-alpine3.24
             command:
             - "/bin/sh"
             - "-c"
-            - "until redis-cli -h send-keydb-headless ping ; do sleep 2 ; done"
+            - "until valkey-cli -h send-keydb-headless ping ; do sleep 2 ; done"
     service:
       main:
         controller: main
