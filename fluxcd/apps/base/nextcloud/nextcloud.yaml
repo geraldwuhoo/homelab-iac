@@ -220,9 +220,11 @@ spec:
         memory: 1Gi
     metrics:
       enabled: true
-      https: true
+      # the internal service name isn't a trusted domain, so serverinfo 400s
+      server: https://cloud.${DOMAIN}
       image:
-        repository: docker.io/xperimental/nextcloud-exporter
+        registry: docker.io
+        repository: xperimental/nextcloud-exporter
         tag: 0.9.1
       resources:
         requests:
