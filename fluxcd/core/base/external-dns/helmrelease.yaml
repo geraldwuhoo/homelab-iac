@@ -18,6 +18,7 @@ spec:
       tag: v0.23.0
     provider:
       name: cloudflare
+    policy: upsert-only
     env:
     - name: CF_API_KEY
       valueFrom:
