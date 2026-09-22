@@ -48,6 +48,8 @@ spec:
     defaultRules:
       groups:
         # these depend on the apiserver histograms dropped below
+        kube-apiserver-availability.rules:
+          enabled: false
         kube-apiserver-burnrate.rules:
           enabled: false
         kube-apiserver-histogram.rules:
@@ -153,6 +155,8 @@ spec:
         tls:
         - hosts:
           - grafana.${DOMAIN}
+      vmScrape:
+        enabled: false
 
     prometheus-node-exporter:
       resources:
@@ -163,6 +167,12 @@ spec:
           memory: 64Mi
 
     kube-state-metrics:
+      # replicaset owner is kept for the pod owner recording rules
+      metricDenylist:
+      - kube_replicaset_(annotations|created|labels|metadata_generation|spec_replicas|status_.*)
+      - kube_pod_tolerations
+      - kube_pod_status_reason
+      - kube_.*_annotations
       resources:
         requests:
           cpu: 10m
@@ -171,12 +181,50 @@ spec:
           memory: 256Mi
 
     kubelet:
+      # each vmScrapes spec replaces vmScrape's metricRelabelConfigs rather
+      # than appending, so the shared rules are repeated in each list
       vmScrapes:
         probes:
           enabled: false
+        cadvisor:
+          spec:
+            path: /metrics/cadvisor
+            metricRelabelConfigs:
+            # non-pod cgroups; node level usage comes from node-exporter
+            - action: drop
+              source_labels: [namespace]
+              regex: ""
+            - action: drop
+              source_labels: [__name__]
+              regex: (container_tasks_state|container_memory_failures_total|container_blkio_device_usage_total|container_fs_(inodes_.*|io_.*|reads_merged_total|writes_merged_total|sector_.*|limit_bytes)|container_memory_(failcnt|mapped_file|kernel_usage|total_active_file_bytes|total_inactive_file_bytes)|container_(ulimits_soft|processes|threads|threads_max|sockets|file_descriptors|last_seen|start_time_seconds|spec_.*))
+            - action: labeldrop
+              regex: (uid)
+            - action: labeldrop
+              regex: (id|name)
+            - action: drop
+              source_labels: [__name__]
+              regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+        kubelet:
+          spec:
+            metricRelabelConfigs:
+            # k3s serves the whole apiserver registry on the masters' kubelet
+            # /metrics too; the apiserver job already scrapes these
+            - action: drop
+              source_labels: [__name__]
+              regex: (apiserver_.*|etcd_.*)
+            # keep only the histograms the kubelet rules and dashboard use
+            - action: drop
+              if: '{__name__=~".+_bucket",__name__!~"kubelet_(pleg_relist|pod_worker|pod_start)_duration_seconds_bucket"}'
+            - action: labeldrop
+              regex: (uid)
+            - action: labeldrop
+              regex: (id|name)
+            - action: drop
+              source_labels: [__name__]
+              regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
       vmScrape:
         spec:
-          # first three are the chart defaults, since lists are replaced not merged
+          # chart defaults, used as is by the resources scrape
           metricRelabelConfigs:
           - action: labeldrop
             regex: (uid)
@@ -185,11 +233,6 @@ spec:
           - action: drop
             source_labels: [__name__]
             regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
-          # k3s serves the whole apiserver registry on the masters' kubelet
-          # /metrics too; the apiserver job already scrapes these
-          - action: drop
-            source_labels: [__name__]
-            regex: (apiserver_.*|etcd_.*)
 
     kubeApiServer:
       vmScrape:
@@ -201,11 +244,12 @@ spec:
             tlsConfig:
               caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
               serverName: kubernetes
-            # highest cardinality apiserver metrics, times three masters
+            # histograms are most of the series, times three masters; rates
+            # and error counts are kept
             metricRelabelConfigs:
             - action: drop
               source_labels: [__name__]
-              regex: (apiserver_request_(sli_)?duration_seconds_bucket|apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket|apiserver_request_body_size_bytes_bucket|etcd_request_duration_seconds_bucket|workqueue_.*)
+              regex: (.+_bucket|workqueue_.*)
 
     # k3s runs these in one process with the apiserver, and the nixos firewall
     # blocks their metrics ports on the masters anyway
