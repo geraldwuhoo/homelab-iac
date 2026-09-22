@@ -16,4 +16,4 @@ spec:
     metricRelabelConfigs:
     - action: drop
       source_labels: [__name__]
-      regex: (go_.*|promhttp_.*|process_(virtual_memory_.*|max_fds|open_fds))
+      regex: (pg_settings_.*|go_.*|promhttp_.*|process_(virtual_memory_.*|max_fds|open_fds))

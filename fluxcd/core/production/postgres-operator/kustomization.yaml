@@ -24,10 +24,10 @@ patches:
           - name: postgres-exporter
             image: quay.io/prometheuscommunity/postgres-exporter:v0.20.1
             args:
-            # per table stats are ~20 series per table, and gitlab has ~900
+            # per table stats are ~20 series per table, and gitlab has ~900;
+            # pg_settings is dropped in vmpodscrape.yaml
             - --no-collector.stat_user_tables
             - --no-collector.statio_user_tables
-            - --disable-settings-metrics
             env:
             - name: DATA_SOURCE_URI
               value: localhost:5432/postgres?sslmode=disable
