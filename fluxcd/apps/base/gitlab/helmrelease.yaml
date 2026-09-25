@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: gitlab
         namespace: flux-system
-      version: 10.4.0
+      version: 10.4.1
   interval: 30m0s
   timeout: 30m0s
   values:
