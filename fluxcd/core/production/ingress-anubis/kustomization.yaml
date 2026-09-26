@@ -23,6 +23,8 @@ patches:
       values:
         config:
           WRAPPED_INGRESS_CLASS_NAME: nginx-public
-          ENVIRONMENT_VARIABLES: POLICY_FNAME:/etc/anubis/botPolicies.yaml
+          # anubis strips private IPs from X-Forwarded-For by default, so gitlab
+          # sees every in-cluster client (runners, keel) as the anubis pod
+          ENVIRONMENT_VARIABLES: POLICY_FNAME:/etc/anubis/botPolicies.yaml,XFF_STRIP_PRIVATE:false
           VOLUMES: '[{"name":"anubis-policy","configMap":{"name":"anubis-policy"}}]'
           VOLUME_MOUNTS: '[{"name":"anubis-policy","mountPath":"/etc/anubis","readOnly":true}]'
