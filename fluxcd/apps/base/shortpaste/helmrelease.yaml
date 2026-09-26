@@ -19,7 +19,7 @@ spec:
       main:
         type: deployment
         replicas: 1
-        strategy: RollingUpdate
+        strategy: Recreate
         annotations:
           keel.sh/policy: force
           keel.sh/trigger: poll
