@@ -258,6 +258,11 @@ spec:
         # replaced by ingress.yaml, which routes through anubis
         ingress:
           enabled: false
+        deployment:
+          strategy:
+            rollingUpdate:
+              maxSurge: 0
+              maxUnavailable: 1
         resources:
           requests:
             memory: 2240Mi
