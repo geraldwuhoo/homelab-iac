@@ -108,6 +108,10 @@
 
       systemd.services.k3s.path = containerd-shims;
 
+      systemd.services.k3s.environment = lib.mkIf config.k3s.master {
+        GOMEMLIMIT = "1536MiB";
+      };
+
       services.k3s = {
         enable = true;
         package = pkgs.k3s_1_35;
