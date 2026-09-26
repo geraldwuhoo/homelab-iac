@@ -47,12 +47,20 @@
           };
         })
       ];
+      memoryReserved =
+        if config.k3s.master && !config.k3s.singleNode then
+          "2560Mi"
+        else if config.k3s.master then
+          "2Gi"
+        else
+          "1536Mi";
     in
     {
       boot = {
         kernel.sysctl = {
           "fs.inotify.max_user_instances" = 8192;
           "fs.inotify.max_user_watches" = 524288;
+          "vm.page-cluster" = 0;
         };
         kernelModules = [
           # ceph for ceph-csi
@@ -67,6 +75,12 @@
           "tun"
           "wireguard"
         ];
+      };
+
+      zramSwap = {
+        enable = true;
+        algorithm = "zstd";
+        memoryPercent = 25;
       };
 
       environment.systemPackages =
@@ -122,6 +136,11 @@
         extraFlags = toString (
           [
             "--kubelet-arg=allowed-unsafe-sysctls=net.ipv6.conf.all.disable_ipv6,net.ipv6.conf.default.disable_ipv6,net.ipv4.ip_forward,net.ipv4.conf.all.src_valid_mark"
+            "--kubelet-arg=system-reserved=memory=${memoryReserved}"
+            "--kubelet-arg=eviction-hard=memory.available<500Mi,nodefs.available<5%,imagefs.available<5%"
+            "--kubelet-arg=eviction-soft=memory.available<1Gi"
+            "--kubelet-arg=eviction-soft-grace-period=memory.available=1m"
+            "--kubelet-arg=eviction-max-pod-grace-period=60"
           ]
           ++ (lib.optional (config.k3s.nodeIp != null) "--node-ip=${config.k3s.nodeIp}")
           ++ (
