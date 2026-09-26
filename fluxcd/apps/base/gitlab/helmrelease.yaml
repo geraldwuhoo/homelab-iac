@@ -222,12 +222,6 @@ spec:
       install: false
     redis:
       install: false
-    minio:
-      persistence:
-        size: 100Gi
-        enabled: true
-        annotations:
-          helm.sh/resource-policy: keep
     gitlab:
       gitlab-pages:
         hpa:
@@ -239,6 +233,7 @@ spec:
             external-dns.alpha.kubernetes.io/target: ${PAGES_DOMAIN}
         resources:
           requests:
+            cpu: 10m
             memory: 48Mi
       gitlab-shell:
         minReplicas: 2
@@ -277,6 +272,7 @@ spec:
         maxReplicas: 1
         resources:
           requests:
+            cpu: 200m
             memory: 1984Mi
           limits:
             memory: 3Gi
