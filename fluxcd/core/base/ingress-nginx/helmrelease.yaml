@@ -23,6 +23,14 @@ spec:
         enable-brotli: true
         brotli-level: "6"
         use-gzip: true
+        # deny all crawlers on every host. added to every server block, so an
+        # ingress must not define its own /robots.txt location, or nginx
+        # rejects the whole config
+        server-snippet: |
+          location = /robots.txt {
+            default_type text/plain;
+            return 200 "User-agent: *\nDisallow: /\n";
+          }
       kind: DaemonSet
       updateStrategy:
         rollingUpdate:
