@@ -28,4 +28,3 @@ spec:
   postgresql:
     version: "17"
   enableConnectionPooler: true
-  enableReplicaConnectionPooler: true
