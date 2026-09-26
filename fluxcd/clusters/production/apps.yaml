@@ -22,4 +22,19 @@ spec:
     substituteFrom:
     - kind: Secret
       name: cluster-vars
-
+  patches:
+  - target:
+      kind: postgresql
+    patch: |-
+      apiVersion: acid.zalan.do/v1
+      kind: postgresql
+      metadata:
+        name: all
+      spec:
+        topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              application: spilo
