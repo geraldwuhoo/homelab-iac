@@ -6,7 +6,13 @@ resources:
 - ../../base/ingress-anubis
 configMapGenerator:
 - name: anubis-policy
-  files: [botPolicies.yaml]
+  files:
+  - botPolicies.yaml
+  - cloud-alibaba.yaml
+  - cloud-aws-ec2.yaml
+  - cloud-byteplus.yaml
+  - cloud-digitalocean.yaml
+  - cloud-tencent.yaml
   options:
     # referenced by name inside the VOLUMES string below
     disableNameSuffixHash: true
