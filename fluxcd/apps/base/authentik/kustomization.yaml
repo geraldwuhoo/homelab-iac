@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: authentik
 resources:
 - namespace.yaml
+- limitrange.yaml
 - zalando-secret.yaml
 - secret.yaml
 - postgres.yaml
