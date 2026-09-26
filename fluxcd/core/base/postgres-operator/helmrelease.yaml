@@ -24,6 +24,7 @@ spec:
       connection_pooler_default_cpu_request: 10m
       connection_pooler_default_memory_request: 32Mi
     configKubernetes:
+      enable_pod_disruption_budget: false
       pod_environment_secret: pod-config
       inherited_annotations:
       - "k8up.io/backup"
