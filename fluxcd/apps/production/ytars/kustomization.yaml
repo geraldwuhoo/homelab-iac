@@ -10,3 +10,19 @@ patches:
     kind: HelmRelease
     name: ytars-app-template
   path: patch.yaml
+- target:
+    kind: postgresql
+    name: ytars-postgres-cluster
+  patch: |-
+    apiVersion: acid.zalan.do/v1
+    kind: postgresql
+    metadata:
+      name: ytars-postgres-cluster
+    spec:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: "1"
+          memory: 768Mi

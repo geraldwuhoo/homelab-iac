@@ -10,6 +10,13 @@ spec:
   volume:
     size: 10Gi
   numberOfInstances: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 192Mi
+    limits:
+      cpu: "1"
+      memory: 500Mi
   users:
     # database owner
     nextcloud:

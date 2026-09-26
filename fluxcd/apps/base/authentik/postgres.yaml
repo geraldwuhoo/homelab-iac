@@ -10,6 +10,13 @@ spec:
   volume:
     size: 10Gi
   numberOfInstances: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 384Mi
+    limits:
+      cpu: "1"
+      memory: 768Mi
   users:
     # database owner
     authentik:
