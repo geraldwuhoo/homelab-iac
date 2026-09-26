@@ -20,7 +20,17 @@ spec:
         loadBalancerIP: 10.40.0.92
       config:
         ssl-redirect: "false"
-      replicaCount: 3
+      kind: Deployment
+      replicaCount: 2
       autoscaling:
-        minReplicas: 3
-        maxReplicas: 10
+        enabled: false
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: controller
+                  app.kubernetes.io/instance: ingress-nginx-onion
