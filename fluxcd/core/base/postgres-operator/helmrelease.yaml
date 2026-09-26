@@ -20,6 +20,9 @@ spec:
       workers: 32
     configMajorVersionUpgrade:
       major_version_upgrade_mode: manual
+    configConnectionPooler:
+      connection_pooler_default_cpu_request: 10m
+      connection_pooler_default_memory_request: 32Mi
     configKubernetes:
       pod_environment_secret: pod-config
       inherited_annotations:
