@@ -16,17 +16,48 @@ spec:
   values:
     schedule: "*/10 * * * *"
     deschedulerPolicy:
-      strategies:
-        LowNodeUtilization:
-          enabled: true
-          params:
-            nodeResourceUtilizationThresholds:
-              thresholds:
-                cpu: 40
-                memory: 40
-                pods: 30
-              targetThresholds:
-                cpu: 70
-                memory: 70
-                pods: 40
+      profiles:
+      - name: default
+        pluginConfig:
+        - name: DefaultEvictor
+          args:
+            podProtections:
+              defaultDisabled:
+              - PodsWithLocalStorage
+              extraEnabled:
+              - PodsWithPVC
+        - name: RemoveDuplicates
+        - name: RemovePodsHavingTooManyRestarts
+          args:
+            podRestartThreshold: 100
+            includingInitContainers: true
+        - name: RemovePodsViolatingNodeAffinity
+          args:
+            nodeAffinityType:
+            - requiredDuringSchedulingIgnoredDuringExecution
+        - name: RemovePodsViolatingNodeTaints
+        - name: RemovePodsViolatingInterPodAntiAffinity
+        - name: RemovePodsViolatingTopologySpreadConstraint
+        - name: LowNodeUtilization
+          args:
+            thresholds:
+              cpu: 40
+              memory: 40
+              pods: 30
+            targetThresholds:
+              cpu: 70
+              memory: 70
+              pods: 40
+        plugins:
+          balance:
+            enabled:
+            - RemoveDuplicates
+            - RemovePodsViolatingTopologySpreadConstraint
+            - LowNodeUtilization
+          deschedule:
+            enabled:
+            - RemovePodsHavingTooManyRestarts
+            - RemovePodsViolatingNodeTaints
+            - RemovePodsViolatingNodeAffinity
+            - RemovePodsViolatingInterPodAntiAffinity
 
