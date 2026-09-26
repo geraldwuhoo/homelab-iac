@@ -46,11 +46,6 @@ spec:
           location = /.well-known/caldav {
             return 301 $scheme://$host/remote.php/dav;
           }
-          location = /robots.txt {
-            allow all;
-            log_not_found off;
-            access_log off;
-          }
           location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
             deny all;
           }
