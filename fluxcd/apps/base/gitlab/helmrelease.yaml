@@ -238,6 +238,8 @@ spec:
             max: 4
         ingress:
           proxyBodySize: 10G
+          annotations:
+            nginx.ingress.kubernetes.io/denylist-source-range: 43.172.0.0/15
         resources:
           requests:
             memory: 1.5Gi
