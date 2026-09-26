@@ -22,6 +22,7 @@ spec:
       - ${CEPH_MON_1}
       - ${CEPH_MON_2}
     provisioner:
+      replicaCount: 2
       attacher:
         enabled: false
       snapshotter:

@@ -5,7 +5,7 @@ metadata:
   name: nextcloud-pod-disruption-budget
   namespace: nextcloud
 spec:
-  minAvailable: 2
+  minAvailable: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: nextcloud

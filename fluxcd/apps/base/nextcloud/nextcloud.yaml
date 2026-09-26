@@ -62,7 +62,7 @@ spec:
           memory: 16Mi
         limits:
           memory: 128Mi
-    replicaCount: 3
+    replicaCount: 2
     livenessProbe:
       initialDelaySeconds: 0
       timeoutSeconds: 15
