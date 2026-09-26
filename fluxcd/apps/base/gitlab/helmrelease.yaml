@@ -236,10 +236,9 @@ spec:
           threads:
             min: 4
             max: 4
+        # replaced by ingress.yaml, which routes through anubis
         ingress:
-          proxyBodySize: 10G
-          annotations:
-            nginx.ingress.kubernetes.io/denylist-source-range: 43.172.0.0/15
+          enabled: false
         resources:
           requests:
             memory: 1.5Gi

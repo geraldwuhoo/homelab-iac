@@ -14,6 +14,7 @@ resources:
 - postgres.yaml
 - valkey.yaml
 - helmrelease.yaml
+- ingress.yaml
 - runner-arm64.yaml
 - runner-amd64.yaml
 - hcloud-secret.yaml

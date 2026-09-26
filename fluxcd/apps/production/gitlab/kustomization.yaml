@@ -20,3 +20,15 @@ patches:
               nginx.ingress.kubernetes.io/configuration-snippet: |-
                 subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/5302f4a6-4bf7-4d71-b1ae-206cabe0f326/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/5302f4a6-4bf7-4d71-b1ae-206cabe0f326/script.js\"></script></body>";
                 proxy_set_header Accept-Encoding "";
+- target:
+    kind: Ingress
+    name: gitlab
+  patch: |-
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: gitlab
+      annotations:
+        nginx.ingress.kubernetes.io/configuration-snippet: |-
+          subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/5302f4a6-4bf7-4d71-b1ae-206cabe0f326/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/5302f4a6-4bf7-4d71-b1ae-206cabe0f326/script.js\"></script></body>";
+          proxy_set_header Accept-Encoding "";

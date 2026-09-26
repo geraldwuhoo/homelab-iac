@@ -19,6 +19,6 @@ spec:
     annotations:
       kubed.appscode.com/sync: "cert-manager-tls=wildcard"
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
-      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: gitlab
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: gitlab,ingress-anubis
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true" # Auto create reflection for matching namespaces
-      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: gitlab # Control auto-reflection namespaces
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: gitlab,ingress-anubis # Control auto-reflection namespaces
