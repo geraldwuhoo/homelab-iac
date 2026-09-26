@@ -4,6 +4,12 @@ kind: Kustomization
 namespace: ingress-anubis
 resources:
 - ../../base/ingress-anubis
+configMapGenerator:
+- name: anubis-policy
+  files: [botPolicies.yaml]
+  options:
+    # referenced by name inside the VOLUMES string below
+    disableNameSuffixHash: true
 patches:
 - target:
     kind: HelmRelease
@@ -17,3 +23,6 @@ patches:
       values:
         config:
           WRAPPED_INGRESS_CLASS_NAME: nginx-public
+          ENVIRONMENT_VARIABLES: POLICY_FNAME:/etc/anubis/botPolicies.yaml
+          VOLUMES: '[{"name":"anubis-policy","configMap":{"name":"anubis-policy"}}]'
+          VOLUME_MOUNTS: '[{"name":"anubis-policy","mountPath":"/etc/anubis","readOnly":true}]'

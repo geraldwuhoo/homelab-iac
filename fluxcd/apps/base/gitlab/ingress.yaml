@@ -7,7 +7,8 @@ metadata:
     homelab/public: "true"
     external-dns.alpha.kubernetes.io/hostname: gitlab.${DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DOMAIN}
-    ingress-anubis.jaredallard.github.com/difficulty: "4"
+    # otherwise anubis renders the real page for every challenged request
+    ingress-anubis.jaredallard.github.com/og-passthrough: "false"
     nginx.ingress.kubernetes.io/denylist-source-range: 43.172.0.0/15
     nginx.ingress.kubernetes.io/proxy-body-size: 10G
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "15"
