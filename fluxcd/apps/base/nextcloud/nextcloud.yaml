@@ -58,6 +58,19 @@ spec:
         repository: docker.io/library/nginx
         tag: 1.31.6-alpine
     replicaCount: 3
+    livenessProbe:
+      initialDelaySeconds: 0
+      timeoutSeconds: 15
+      failureThreshold: 12
+    readinessProbe:
+      initialDelaySeconds: 0
+      timeoutSeconds: 15
+      failureThreshold: 6
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 0
+      timeoutSeconds: 15
+      failureThreshold: 60
     nextcloud:
       host: cloud.${DOMAIN}
       existingSecret:
@@ -107,9 +120,6 @@ spec:
         apcu.config.php: true
         redis.config.php: false
         autoconfig.php: true
-      livenessProbe:
-        enabled: true
-        initialDelaySeconds: 300  # first install may slow in rsync
       configs:
         custom.config.php: |-
           <?php
@@ -117,7 +127,8 @@ spec:
             'overwriteprotocol' => 'https',
             'trusted_proxies' => ['10.0.0.0/8'],
             'filelocking.enabled' => 'true',
-            'enable_previews' => 'true'
+            'enable_previews' => 'true',
+            'loglevel' => 2
           );
         redis.config.php: |-
           <?php
