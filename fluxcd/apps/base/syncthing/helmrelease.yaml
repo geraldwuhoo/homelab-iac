@@ -23,6 +23,11 @@ spec:
             image:
               repository: docker.io/syncthing/syncthing
               tag: 2.1.5
+            resources:
+              requests:
+                memory: 192Mi
+              limits:
+                memory: 384Mi
     service:
       main:
         controller: main

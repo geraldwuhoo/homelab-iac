@@ -56,6 +56,11 @@ spec:
             envFrom:
             - secretRef:
                 name: paperless-secret
+            resources:
+              requests:
+                memory: 768Mi
+              limits:
+                memory: 2Gi
       gotenberg:
         containers:
           main:
@@ -66,12 +71,22 @@ spec:
             - gotenberg
             - "--chromium-disable-javascript=true"
             - "--chromium-allow-list=file:///tmp/.*"
+            resources:
+              requests:
+                memory: 64Mi
+              limits:
+                memory: 1Gi
       tika:
         containers:
           main:
             image:
               repository: docker.io/apache/tika
               tag: 3.3.1.0
+            resources:
+              requests:
+                memory: 320Mi
+              limits:
+                memory: 1Gi
     service:
       main:
         controller: main

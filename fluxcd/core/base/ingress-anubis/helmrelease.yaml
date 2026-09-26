@@ -14,3 +14,8 @@ spec:
     config:
       INGRESS_CLASS_NAME: anubis
       WRAPPED_INGRESS_CLASS_NAME: nginx
+    resources:
+      requests:
+        memory: 48Mi
+      limits:
+        memory: 128Mi

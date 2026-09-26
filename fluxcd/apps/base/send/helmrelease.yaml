@@ -42,6 +42,11 @@ spec:
                     name: send-keydb-secret
                     key: password
               TZ: UTC
+            resources:
+              requests:
+                memory: 80Mi
+              limits:
+                memory: 160Mi
         initContainers:
           redis-isready:
             image:

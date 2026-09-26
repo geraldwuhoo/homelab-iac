@@ -31,7 +31,7 @@ spec:
       resources:
         requests:
           cpu: 20m
-          memory: 64Mi
+          memory: 128Mi
         limits:
           memory: 256Mi
 
@@ -63,7 +63,7 @@ spec:
         resources:
           requests:
             cpu: 100m
-            memory: 512Mi
+            memory: 1088Mi
           limits:
             memory: 2Gi
         storage:
@@ -77,7 +77,7 @@ spec:
         resources:
           requests:
             cpu: 50m
-            memory: 128Mi
+            memory: 256Mi
           limits:
             memory: 512Mi
 
@@ -142,9 +142,9 @@ spec:
       resources:
         requests:
           cpu: 20m
-          memory: 128Mi
-        limits:
           memory: 384Mi
+        limits:
+          memory: 768Mi
       ingress:
         enabled: true
         ingressClassName: nginx
@@ -163,6 +163,11 @@ spec:
           folderAnnotation: grafana_folder
           provider:
             foldersFromFilesStructure: true
+        resources:
+          requests:
+            memory: 96Mi
+          limits:
+            memory: 192Mi
 
     prometheus-node-exporter:
       resources:
@@ -182,7 +187,7 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 64Mi
+          memory: 128Mi
         limits:
           memory: 256Mi
 

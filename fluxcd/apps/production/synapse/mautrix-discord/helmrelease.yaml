@@ -23,6 +23,11 @@ spec:
               repository: dock.mau.dev/mautrix/discord
               tag: v0.7.7
               pullPolicy: IfNotPresent
+            resources:
+              requests:
+                memory: 32Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

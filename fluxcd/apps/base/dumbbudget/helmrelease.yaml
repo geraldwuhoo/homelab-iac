@@ -37,6 +37,11 @@ spec:
             envFrom:
             - secretRef:
                 name: dumbbudget-secret
+            resources:
+              requests:
+                memory: 48Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

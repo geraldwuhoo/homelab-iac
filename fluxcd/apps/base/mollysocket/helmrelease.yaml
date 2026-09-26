@@ -41,6 +41,11 @@ spec:
                 name: mollysocket-secret
             args:
             - server
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

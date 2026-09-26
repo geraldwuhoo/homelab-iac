@@ -46,3 +46,8 @@ spec:
         accessModes: ReadWriteMany
         storageClass: ceph-cephfs-ssd-sc
         emptyDir: false
+    resources:
+      requests:
+        memory: 48Mi
+      limits:
+        memory: 128Mi

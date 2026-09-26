@@ -41,6 +41,11 @@ spec:
             envFrom:
             - secretRef:
                 name: blink-secret
+            resources:
+              requests:
+                memory: 80Mi
+              limits:
+                memory: 160Mi
     service:
       main:
         controller: main

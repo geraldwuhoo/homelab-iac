@@ -36,3 +36,8 @@ spec:
     - --ignore-ingress-tls-spec
     sources:
     - ingress
+    resources:
+      requests:
+        memory: 48Mi
+      limits:
+        memory: 128Mi

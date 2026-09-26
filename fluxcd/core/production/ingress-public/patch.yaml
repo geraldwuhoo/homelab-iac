@@ -25,5 +25,8 @@ spec:
       autoscaling:
         minReplicas: 3
         maxReplicas: 10
+      resources:
+        requests:
+          memory: 192Mi
     tcp:
       "22": "gitlab/gitlab-gitlab-shell:22"

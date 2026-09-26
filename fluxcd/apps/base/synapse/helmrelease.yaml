@@ -62,9 +62,19 @@ spec:
           role: system_r
           type: container_t
           level: "s0:c103,c903"
+      resources:
+        requests:
+          memory: 160Mi
+        limits:
+          memory: 320Mi
     workers:
       default:
         extraEnv: *extraEnv
+        resources:
+          requests:
+            memory: 128Mi
+          limits:
+            memory: 256Mi
     postgresql:
       enabled: false
     externalPostgresql:

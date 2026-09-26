@@ -34,6 +34,11 @@ spec:
                   - "/bin/sh"
                   - "-c"
                   - "wget https://files.catbox.moe/ujwnph.webp -O /public/logo.webp"
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

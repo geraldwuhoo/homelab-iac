@@ -77,3 +77,8 @@ spec:
         paths:
         - path: /
           pathType: ImplementationSpecific
+    resources:
+      requests:
+        memory: 176Mi
+      limits:
+        memory: 352Mi

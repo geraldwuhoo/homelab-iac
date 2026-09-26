@@ -32,6 +32,11 @@ spec:
             envFrom:
             - secretRef:
                 name: vaultwarden-secret
+            resources:
+              requests:
+                memory: 64Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

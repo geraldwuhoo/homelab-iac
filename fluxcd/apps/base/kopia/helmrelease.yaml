@@ -35,6 +35,11 @@ spec:
             - --address=0.0.0.0:51515
             - --override-username=jerry@k3s
             - --server-username=jerry@k3s
+            resources:
+              requests:
+                memory: 320Mi
+              limits:
+                memory: 1Gi
     persistence:
       backup:
         type: persistentVolumeClaim

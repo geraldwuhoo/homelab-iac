@@ -25,6 +25,11 @@ spec:
             image:
               repository: docker.io/matrixdotorg/federation-tester-ui
               tag: v0.4
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

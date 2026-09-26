@@ -18,3 +18,13 @@ spec:
         pullPolicy: Always
         repository: docker.io/bitnami/kube-rbac-proxy
         tag: latest
+      resources:
+        requests:
+          memory: 48Mi
+        limits:
+          memory: 128Mi
+    resources:
+      requests:
+        memory: 160Mi
+      limits:
+        memory: 320Mi

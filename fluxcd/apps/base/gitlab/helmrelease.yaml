@@ -171,6 +171,14 @@ spec:
             environment = [ "container=kube" ]
             [runners.kubernetes]
             image = "ubuntu:18.04"
+            memory_request = "1Gi"
+            memory_limit = "4Gi"
+            memory_request_overwrite_max_allowed = "4Gi"
+            memory_limit_overwrite_max_allowed = "8Gi"
+            helper_memory_request = "64Mi"
+            helper_memory_limit = "256Mi"
+            service_memory_request = "128Mi"
+            service_memory_limit = "1Gi"
               [runners.kubernetes.pod_labels]
               "custom" = "gitlab-runner"
               [runners.kubernetes.affinity]
@@ -203,6 +211,11 @@ spec:
                 Insecure = false
       podAnnotations:
         backup.velero.io/backup-volumes-excludes: runner-secrets
+      resources:
+        requests:
+          memory: 64Mi
+        limits:
+          memory: 160Mi
     postgresql:
       install: false
     prometheus:
@@ -224,9 +237,15 @@ spec:
           annotations:
             external-dns.alpha.kubernetes.io/hostname: "*.${PAGES_DOMAIN}"
             external-dns.alpha.kubernetes.io/target: ${PAGES_DOMAIN}
+        resources:
+          requests:
+            memory: 48Mi
       gitlab-shell:
         minReplicas: 2
         maxReplicas: 2
+        resources:
+          requests:
+            memory: 48Mi
       webservice:
         enabled: true
         minReplicas: 1
@@ -241,7 +260,7 @@ spec:
           enabled: false
         resources:
           requests:
-            memory: 1.5Gi
+            memory: 2240Mi
           limits:
             memory: 3Gi
       sidekiq:
@@ -253,13 +272,23 @@ spec:
         maxReplicas: 1
         resources:
           requests:
-            memory: 1Gi
+            memory: 1984Mi
           limits:
             memory: 3Gi
       kas:
         minReplicas: 2
         maxReplicas: 2
+        resources:
+          requests:
+            memory: 48Mi
+      gitaly:
+        resources:
+          requests:
+            memory: 384Mi
       toolbox:
+        resources:
+          requests:
+            memory: 256Mi
         extraEnv:
           AWS_DEFAULT_REGION: default
           AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED

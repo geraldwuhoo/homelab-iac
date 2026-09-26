@@ -16,6 +16,11 @@ spec:
           main:
             image:
               tag: latest
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     ingress:
       main:
         enabled: true

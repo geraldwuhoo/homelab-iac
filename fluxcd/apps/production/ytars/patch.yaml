@@ -10,6 +10,11 @@ spec:
         containers:
           main:
             dependsOn: gluetun
+            resources:
+              requests:
+                memory: 736Mi
+              limits:
+                memory: 1472Mi
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
@@ -30,3 +35,8 @@ spec:
                 role: system_r
                 type: container_t
                 level: s0:c102,c902
+            resources:
+              requests:
+                memory: 32Mi
+              limits:
+                memory: 128Mi

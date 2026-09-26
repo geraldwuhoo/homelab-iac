@@ -28,6 +28,11 @@ spec:
             envFrom:
             - secretRef:
                 name: shynet-config
+            resources:
+              requests:
+                memory: 128Mi
+              limits:
+                memory: 256Mi
       celeryworker:
         type: deployment
         replicas: 2
@@ -41,6 +46,11 @@ spec:
             envFrom:
             - secretRef:
                 name: shynet-config
+            resources:
+              requests:
+                memory: 176Mi
+              limits:
+                memory: 352Mi
     service:
       main:
         controller: main

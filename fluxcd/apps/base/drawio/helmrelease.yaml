@@ -25,6 +25,11 @@ spec:
             image:
               repository: docker.io/jgraph/drawio
               tag: 31.4.6
+            resources:
+              requests:
+                memory: 352Mi
+              limits:
+                memory: 704Mi
     service:
       main:
         controller: main

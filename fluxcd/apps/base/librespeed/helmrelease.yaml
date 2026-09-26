@@ -25,6 +25,11 @@ spec:
             env:
               MODE: standalone
               TELEMETRY: "false"
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

@@ -62,6 +62,9 @@ spec:
         image: ghcr.io/kube-vip/kube-vip:v1.2.3
         imagePullPolicy: Always
         name: kube-vip
+        resources:
+          requests:
+            memory: 32Mi
         securityContext:
           capabilities:
             add:

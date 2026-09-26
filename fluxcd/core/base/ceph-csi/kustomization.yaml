@@ -21,3 +21,15 @@ resources:
 - rbd-hdd-sc.yaml
 - rbd-delete-sc.yaml
 - rbd-secret.yaml
+patches:
+- target:
+    kind: Deployment
+    name: snapshot-controller
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          memory: 32Mi
+        limits:
+          memory: 128Mi

@@ -26,6 +26,11 @@ spec:
             image:
               repository: registry.wuhoo.xyz/jerry/adarkroom-docker
               tag: 1.4
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

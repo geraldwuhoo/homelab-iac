@@ -65,5 +65,16 @@ spec:
         paths:
         - /
         pathType: Prefix
+      resources:
+        requests:
+          memory: 768Mi
+        limits:
+          memory: 1536Mi
     postgresql:
       enabled: false
+    worker:
+      resources:
+        requests:
+          memory: 384Mi
+        limits:
+          memory: 1Gi

@@ -25,6 +25,11 @@ spec:
           "platform": "gitlab",
           "printConfig": true
         }
+    resources:
+      requests:
+        memory: 1792Mi
+      limits:
+        memory: 3Gi
     envFrom:
     - secretRef:
         name: renovate-secret

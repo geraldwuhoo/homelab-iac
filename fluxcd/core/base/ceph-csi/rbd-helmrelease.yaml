@@ -26,3 +26,27 @@ spec:
         image:
           repository: registry.k8s.io/sig-storage/csi-snapshotter
           tag: v8.6.0
+        resources:
+          requests:
+            memory: 48Mi
+      provisioner:
+        resources:
+          requests:
+            memory: 48Mi
+      attacher:
+        resources:
+          requests:
+            memory: 48Mi
+      resizer:
+        resources:
+          requests:
+            memory: 48Mi
+    nodeplugin:
+      plugin:
+        resources:
+          requests:
+            memory: 64Mi
+      registrar:
+        resources:
+          requests:
+            memory: 16Mi

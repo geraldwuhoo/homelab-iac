@@ -32,6 +32,11 @@ spec:
             envFrom:
             - secretRef:
                 name: firefoxsync-secret
+            resources:
+              requests:
+                memory: 96Mi
+              limits:
+                memory: 192Mi
     service:
       main:
         controller: main

@@ -31,6 +31,11 @@ spec:
             image:
               repository: docker.io/shdv/hat.sh
               tag: latest
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     service:
       main:
         controller: main

@@ -57,6 +57,11 @@ spec:
       image:
         repository: docker.io/library/nginx
         tag: 1.31.6-alpine
+      resources:
+        requests:
+          memory: 16Mi
+        limits:
+          memory: 128Mi
     replicaCount: 3
     livenessProbe:
       initialDelaySeconds: 0
@@ -163,6 +168,11 @@ spec:
           fsGroup: 82
           runAsNonRoot: true
           readOnlyRootFilesystem: true
+        resources:
+          requests:
+            memory: 96Mi
+          limits:
+            memory: 256Mi
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -208,6 +218,11 @@ spec:
           paths:
           - path: /
             pathType: ImplementationSpecific
+      resources:
+        requests:
+          memory: 640Mi
+        limits:
+          memory: 2Gi
     persistence:
       enabled: true
       accessMode: ReadWriteMany

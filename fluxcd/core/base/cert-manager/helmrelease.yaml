@@ -30,3 +30,20 @@ spec:
       nameservers:
         - "1.1.1.1"
         - "9.9.9.9"
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 128Mi
+    webhook:
+      resources:
+        requests:
+          memory: 32Mi
+        limits:
+          memory: 128Mi
+    cainjector:
+      resources:
+        requests:
+          memory: 96Mi
+        limits:
+          memory: 192Mi

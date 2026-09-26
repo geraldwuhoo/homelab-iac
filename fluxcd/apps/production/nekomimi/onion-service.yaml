@@ -18,3 +18,9 @@ spec:
     name: onion-secret-nekomimi
   extraConfig: |
       HiddenServiceEnableIntroDoSDefense 1
+  template:
+    resources:
+      requests:
+        memory: 80Mi
+      limits:
+        memory: 256Mi

@@ -61,3 +61,8 @@ spec:
             MachineDriver = "hetzner"
             MachineName = "runner-arm64-%s"
             MachineOptions = ["hetzner-api-token=${HETZNER_API_TOKEN}", "hetzner-image=ubuntu-24.04", "hetzner-server-type=cax11"]
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 192Mi

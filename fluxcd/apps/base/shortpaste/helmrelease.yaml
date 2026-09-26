@@ -33,6 +33,11 @@ spec:
             env:
               SP_NOAUTH: "true"
               SP_STORAGE_PATH: /shortpaste
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 128Mi
     persistence:
       data:
         type: persistentVolumeClaim

@@ -110,6 +110,11 @@ spec:
       generic_worker:
         enabled: true
         replicaCount: 3
+        resources:
+          requests:
+            memory: 160Mi
+          limits:
+            memory: 320Mi
         listeners: [client, federation]
         csPaths:
         - "/_matrix/client/(api/v1|r0|v3|unstable)/publicRooms"
@@ -229,9 +234,19 @@ spec:
         enabled: true
       federation_sender:
         enabled: true
+        resources:
+          requests:
+            memory: 160Mi
+          limits:
+            memory: 320Mi
       media_repository:
         enabled: true
         listeners: [client, federation, media]
+        resources:
+          requests:
+            memory: 160Mi
+          limits:
+            memory: 1Gi
         csPaths:
           - "/_matrix/media/.*"
           - "/_matrix/client/v1/media/.*"

@@ -26,3 +26,6 @@ spec:
       - "k8up.io/backup"
     configAwsOrGcp:
       wal_s3_bucket: backup
+    resources:
+      requests:
+        memory: 64Mi

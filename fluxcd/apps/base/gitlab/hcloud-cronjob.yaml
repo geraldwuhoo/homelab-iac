@@ -36,6 +36,11 @@ spec:
             envFrom:
             - secretRef:
                 name: hcloud-secret
+            resources:
+              requests:
+                memory: 64Mi
+              limits:
+                memory: 128Mi
     persistence:
       config:
         enabled: true

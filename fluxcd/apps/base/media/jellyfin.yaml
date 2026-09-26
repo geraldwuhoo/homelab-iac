@@ -43,6 +43,11 @@ spec:
                 role: system_r
                 type: container_t
                 level: s0:c123,c456
+            resources:
+              requests:
+                memory: 768Mi
+              limits:
+                memory: 2Gi
         initContainers:
           # metrics can only be turned on in system.xml on the config volume
           enable-metrics:

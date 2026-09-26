@@ -47,6 +47,11 @@ spec:
             - --use-server-modtime
             - $(RCLONE_SRC)
             - $(RCLONE_DST)
+            resources:
+              requests:
+                memory: 352Mi
+              limits:
+                memory: 2Gi
           2-cleanup:
             image: *image
             env:
@@ -56,6 +61,11 @@ spec:
             - cleanup-hidden
             - --log-level=INFO
             - $(RCLONE_DST)
+            resources:
+              requests:
+                memory: 32Mi
+              limits:
+                memory: 128Mi
       full:
         type: cronjob
         cronjob:

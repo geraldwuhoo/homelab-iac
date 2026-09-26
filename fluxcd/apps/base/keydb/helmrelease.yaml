@@ -20,3 +20,8 @@ spec:
     activeReplicas: "yes"
     persistentVolume:
       enabled: true
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 256Mi
