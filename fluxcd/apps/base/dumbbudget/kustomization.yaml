@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: dumbbudget
 resources:
 - namespace.yaml
-- secret.yaml
+- secret.sops.yaml
 - helmrelease.yaml
 - volsync

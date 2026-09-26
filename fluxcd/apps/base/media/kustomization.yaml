@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: media
 resources:
 - namespace.yaml
-- secret.yaml
+- secret.sops.yaml
 - jellyfin.yaml
 - torrent.yaml
 - sonarr.yaml
@@ -15,7 +15,7 @@ resources:
 - jellyseerr.yaml
 - jf-vue.yaml
 - feishin.yaml
-- tachidesk-secret.yaml
+- tachidesk-secret.sops.yaml
 - tachidesk.yaml
 - volsync-jellyfin-cache
 - volsync-jellyfin-config

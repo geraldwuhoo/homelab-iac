@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: immich
 resources:
 - namespace.yaml
-- secret.yaml
-- zalando-secret.yaml
+- secret.sops.yaml
+- zalando-secret.sops.yaml
 - keydb
 - pvc
 - postgres.yaml

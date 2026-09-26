@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: coturn
 resources:
 - namespace.yaml
-- secret.yaml
+- secret.sops.yaml
 - daemonset.yaml
 - service.yaml

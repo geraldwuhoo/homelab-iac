@@ -3,6 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: synapse
 resources:
-- zalando-secret.yaml
+- zalando-secret.sops.yaml
 - helmrelease.yaml
 - volsync

@@ -5,8 +5,8 @@ namespace: authentik
 resources:
 - namespace.yaml
 - limitrange.yaml
-- zalando-secret.yaml
-- secret.yaml
+- zalando-secret.sops.yaml
+- secret.sops.yaml
 - postgres.yaml
 - helmrelease.yaml
 - vmpodscrape.yaml

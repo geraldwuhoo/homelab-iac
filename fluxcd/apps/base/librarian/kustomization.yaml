@@ -4,5 +4,5 @@ kind: Kustomization
 namespace: librarian
 resources:
 - namespace.yaml
-- secret.yaml
+- secret.sops.yaml
 - helmrelease.yaml

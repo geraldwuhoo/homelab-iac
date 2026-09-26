@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: ytars-next
 namePrefix: next-
 resources:
-- zalando-secret.yaml
+- zalando-secret.sops.yaml
 - ../../base/ytars
 transformers:
 - deploy-transformer.yaml

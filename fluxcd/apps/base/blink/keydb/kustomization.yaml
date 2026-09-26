@@ -4,5 +4,5 @@ kind: Kustomization
 namespace: blink
 namePrefix: blink-
 resources:
-- secret.yaml
+- secret.sops.yaml
 - ../../keydb

@@ -3,8 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - namespace.yaml
-- zalando-secret.yaml
-- synapse-redis-secret.yaml
+- zalando-secret.sops.yaml
+- synapse-redis-secret.sops.yaml
 - postgres.yaml
 - helmrelease.yaml
 - element-web.yaml

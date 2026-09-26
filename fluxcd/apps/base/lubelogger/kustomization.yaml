@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: lubelogger
 resources:
 - namespace.yaml
-- secret.yaml
-- smtp-secret.yaml
-- oidc-secret.yaml
-- zalando-secret.yaml
+- secret.sops.yaml
+- smtp-secret.sops.yaml
+- oidc-secret.sops.yaml
+- zalando-secret.sops.yaml
 - postgres.yaml
 - helmrelease.yaml

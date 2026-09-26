@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: kopia
 resources:
 - namespace.yaml
-- secret.yaml
-- repository-config.yaml
+- secret.sops.yaml
+- repository-config.sops.yaml
 - helmrelease.yaml

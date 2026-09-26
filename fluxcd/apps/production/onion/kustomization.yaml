@@ -3,5 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ingress-nginx-onion
 resources:
-- secret.yaml
+- secret.sops.yaml
 - onion-service.yaml

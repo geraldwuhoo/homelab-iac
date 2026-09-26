@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: ytars
 resources:
 - namespace.yaml
-- zalando-secret.yaml
+- zalando-secret.sops.yaml
 - postgres.yaml
 - ./youtube-pvc
 - helmrelease.yaml

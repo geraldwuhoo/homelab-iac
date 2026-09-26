@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: piped
 resources:
 - namespace.yaml
-- config.yaml
-- zalando-secret.yaml
+- config.sops.yaml
+- zalando-secret.sops.yaml
 - postgres.yaml
 - helmrelease.yaml
