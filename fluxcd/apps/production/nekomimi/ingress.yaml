@@ -11,13 +11,14 @@ metadata:
       subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/script.js\"></script></body>";
       proxy_set_header Accept-Encoding "";
       add_header Onion-Location http://${ONION_DOMAIN_NEKO}$request_uri;
+      if ($request_method = POST) { return 405; }
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
   labels:
     name: landing
   name: landing-ingress-nekomimi
   namespace: nekomimi
 spec:
-  ingressClassName: nginx-public
+  ingressClassName: anubis
   rules:
   - host: nekomimi.org
     http:
