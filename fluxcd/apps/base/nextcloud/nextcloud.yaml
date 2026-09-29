@@ -130,6 +130,7 @@ spec:
           <?php
           $CONFIG = array (
             'overwriteprotocol' => 'https',
+            'trusted_domains' => ['localhost', 'cloud.${DOMAIN}', 'nextcloud.nextcloud.svc.cluster.local'],
             'trusted_proxies' => ['10.0.0.0/8'],
             'filelocking.enabled' => 'true',
             'enable_previews' => 'true',
@@ -241,8 +242,7 @@ spec:
         memory: 1Gi
     metrics:
       enabled: true
-      # the internal service name isn't a trusted domain, so serverinfo 400s
-      server: https://cloud.${DOMAIN}
+      server: http://nextcloud.nextcloud.svc.cluster.local:8080
       info:
         # installed and updatable app counts, a couple of series
         apps: true
