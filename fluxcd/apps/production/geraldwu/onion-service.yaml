@@ -18,6 +18,7 @@ spec:
     name: onion-secret-geraldwu
   extraConfig: |
       HiddenServiceEnableIntroDoSDefense 1
+      FascistFirewall 1
   template:
     resources:
       requests:
