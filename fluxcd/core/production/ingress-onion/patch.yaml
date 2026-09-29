@@ -17,7 +17,8 @@ spec:
       watchIngressWithoutClass: false
       extraArgs: null
       service:
-        loadBalancerIP: 10.40.0.92
+        type: ClusterIP
+        loadBalancerIP: null
       config:
         ssl-redirect: "false"
       kind: Deployment
