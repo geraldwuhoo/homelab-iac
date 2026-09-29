@@ -66,18 +66,6 @@ spec:
             gluetun:
             - path: /iptables
               readOnly: true
-    networkpolicies:
-      main:
-        rules:
-          egress:
-          - to:
-            - ipBlock:
-                cidr: 0.0.0.0/0
-            ports:
-            - port: 1637
-              protocol: UDP
-          - to:
-            - namespaceSelector: {}
     service:
       gluetun:
         controller: main

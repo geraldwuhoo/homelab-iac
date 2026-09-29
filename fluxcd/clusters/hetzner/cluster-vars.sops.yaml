@@ -11,14 +11,10 @@ stringData:
     CLOUDFLARE_EMAIL: ENC[AES256_GCM,data:BjgSa6tJxTSMuIe/kS6F9mKl4GY=,iv:LpCRdFF4D3zEaStWF3GtS4Q1NVrc9CveOxG5XHRwK/4=,tag:ceLtey3g6QhUO+3mJ9RydA==,type:str]
     LETSENCRYPT_EMAIL: ENC[AES256_GCM,data:cN6VKR9/2KgJpEaBUipcRhURpzA=,iv:3MW9qNQ9amcvM0jwluSSOwj866easjZ7CXtFpTgJ3tc=,tag:Or2LHV0Y1q5w3gM1hw7GfQ==,type:str]
     LETSENCRYPT_CERT: ENC[AES256_GCM,data:9nkutMiG9ne0LcI=,iv:nzu+4CRzo72Q0DJj/zB6TOvVirZ9od0KdmbWD0pnbO4=,tag:8GmvImIlOXf+4/CvT5qPmw==,type:str]
+    KUBE_API_CIDR: ENC[AES256_GCM,data:6TQOld7p3t4CfjptkXPbIYw=,iv:58i8y40V37fV06XFPYvsPYfGtr96SnRnNrMBow/Nez4=,tag:l2O+22F9FwrO5a/yoO9Jbw==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
-        - recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
-          enc: |
+        - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
             YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB6eCtZV0FiR1VQMEcwSFBu
             T0krUldLZHVCeWt5UlpZUGFXVEw0SFhFdkc4CmZPdGhiY3Via2RkVEI3RTRTRHh6
@@ -26,8 +22,8 @@ sops:
             STBlRUxoTFRvbWJWK21rZEo2aEpiQTQKkITQU3R6MPsdDGZ5ng4/ZRbkBHfFDM5E
             6M/nTT1ToNDab3KSf8d/YrQCb8E8+dXypRZq1o5QHz7fmxFF5oFhiQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-06-04T05:47:58Z"
-    mac: ENC[AES256_GCM,data:NvMuqCL88r2lcM6RGPoTUGN5mFkjlLthl8jNWphY0PtB/tHw0i1aIKoX64Dw8rjlFn4VxmI4JqeqSDX/mDkPyfLx6jrsGeD2TQNucAqAIbxD9Dr1pPATazGNQKjlkKf4ASvUZsGO6aZWvDaCS9LgG2x7Hp6ClwJC1+1/smaFFuA=,iv:0DIC6D28ve7IJ+eHPl+W8QVorlCcfsqIFk9KPw4Blgw=,tag:2yFmqLSpXZS4vQYTqP/U6A==,type:str]
-    pgp: []
+          recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
     encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-09-29T03:38:42Z"
+    mac: ENC[AES256_GCM,data:Ba2BKiF41cRackAakTDp5QH3Tl/tmNpoS3/xABdq5Bg0z3XfFqSZKV5X7Z7WydlsTzU0LbfVY4ussu/DGqEt4Xt86/8aEJOa6jNMxZ5TUWXc5WKNSk3P4ozS03PVHav7b5BLnNqdsat/IkB277A8MLXlx0i93n7ex3FDz1QwDHs=,iv:q6Wma92rBW7Nt7j1/ti+BvxZt2gxtgQxBLo+ZKTbHa8=,tag:PHmlvdDvGkhBoI+XrRovJA==,type:str]
     version: 3.7.3

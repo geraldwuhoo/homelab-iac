@@ -35,3 +35,5 @@ spec:
         memory: 128Mi
       limits:
         memory: 1Gi
+    moverPodLabels:
+      app.kubernetes.io/name: volsync-mover

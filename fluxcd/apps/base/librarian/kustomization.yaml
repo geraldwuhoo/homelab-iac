@@ -6,3 +6,6 @@ resources:
 - namespace.yaml
 - secret.sops.yaml
 - helmrelease.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base

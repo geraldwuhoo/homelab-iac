@@ -1,0 +1,62 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: pod-gateway-main
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: pod-gateway
+      app.kubernetes.io/controller: main
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          routed-gateway: "true"
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: piped
+    ports:
+    - port: 8888
+      protocol: TCP
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          routed-gateway: "true"
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+        - 100.64.0.0/10
+        - 169.254.0.0/16
+        - ${KUBE_API_CIDR}
+    ports:
+    - port: 1637
+      protocol: UDP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: pod-gateway-webhook
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: pod-gateway
+      app.kubernetes.io/controller: webhook
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: ${KUBE_API_CIDR}
+    ports:
+    - port: 6443
+      protocol: TCP

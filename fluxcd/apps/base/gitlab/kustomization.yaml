@@ -24,3 +24,9 @@ resources:
 - volsync-gitaly
 - vmpodscrape.yaml
 - valkey-vmpodscrape.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/postgres
+- ../../../components/netpol/postgres-backup
+- ../../../components/netpol/volsync

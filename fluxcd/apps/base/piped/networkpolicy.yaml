@@ -1,0 +1,72 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: piped-nginx
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: piped
+      app.kubernetes.io/component: nginx
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-anubis
+    ports:
+    - port: 80
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: piped-proxy
+spec:
+  podSelector:
+    matchExpressions:
+    - key: app.kubernetes.io/component
+      operator: In
+      values:
+      - piped
+      - ytproxy
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: pod-gateway
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: pod-gateway
+          app.kubernetes.io/controller: main
+    ports:
+    - port: 8888
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: piped-egress
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: piped
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+        - 100.64.0.0/10
+        - 169.254.0.0/16
+        - ${KUBE_API_CIDR}
+    ports:
+    - port: 443
+      protocol: TCP

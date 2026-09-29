@@ -1,0 +1,29 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-nginx
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/component: controller
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 10.42.0.0/16
+    ports:
+    - port: 8443
+      protocol: TCP
+  egress:
+  - to:
+    - ipBlock:
+        cidr: ${KUBE_API_CIDR}
+    ports:
+    - port: 6443
+      protocol: TCP
+  - to:
+    - namespaceSelector: {}

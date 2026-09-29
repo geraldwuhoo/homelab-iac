@@ -9,3 +9,8 @@ resources:
 - keydb
 - postgres.yaml
 - helmrelease.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/postgres
+- ../../../components/netpol/postgres-backup

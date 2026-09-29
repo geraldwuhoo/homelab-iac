@@ -8,4 +8,5 @@ resources:
 - service.yaml
 - ingress.yaml
 - onion-service.yaml
+- netpol
 - onion-ingress.yaml

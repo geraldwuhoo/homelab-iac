@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: ingress-nginx
 resources:
 - ../../base/ingress-nginx
+- networkpolicy.yaml
 patches:
 - target:
     kind: HelmRelease

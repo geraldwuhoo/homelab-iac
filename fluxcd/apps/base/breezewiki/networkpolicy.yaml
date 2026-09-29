@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: breezewiki
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: breezewiki
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-anubis
+    ports:
+    - port: 10416
+      protocol: TCP

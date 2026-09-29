@@ -28,3 +28,7 @@ resources:
 - volsync-tachidesk-config
 - volsync-torrent-config
 - vmpodscrape.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/volsync

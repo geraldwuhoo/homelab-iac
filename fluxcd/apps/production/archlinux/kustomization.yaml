@@ -7,3 +7,6 @@ resources:
 - pvc
 - aur
 - mirror
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base

@@ -12,3 +12,9 @@ resources:
 - federation-tester.yaml
 - volsync
 - vmpodscrape.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/postgres
+- ../../../components/netpol/postgres-backup
+- ../../../components/netpol/volsync

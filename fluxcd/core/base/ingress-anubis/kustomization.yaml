@@ -5,3 +5,6 @@ namespace: ingress-anubis
 resources:
 - namespace.yaml
 - helmrelease.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base

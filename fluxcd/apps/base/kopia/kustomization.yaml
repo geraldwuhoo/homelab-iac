@@ -7,3 +7,6 @@ resources:
 - secret.sops.yaml
 - repository-config.sops.yaml
 - helmrelease.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base

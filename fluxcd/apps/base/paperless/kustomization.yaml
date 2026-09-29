@@ -10,3 +10,9 @@ resources:
 - postgres.yaml
 - helmrelease.yaml
 - volsync-pvc
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/postgres
+- ../../../components/netpol/postgres-backup
+- ../../../components/netpol/volsync

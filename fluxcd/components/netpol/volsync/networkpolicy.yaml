@@ -1,0 +1,18 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-volsync-mover
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: volsync-mover
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: ${S3_CIDR}
+    ports:
+    - port: 443
+      protocol: TCP

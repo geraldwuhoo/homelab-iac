@@ -8,3 +8,7 @@ resources:
 - zalando-secret.sops.yaml
 - postgres.yaml
 - helmrelease.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/postgres

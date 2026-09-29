@@ -7,3 +7,7 @@ resources:
 - secret.sops.yaml
 - helmrelease.yaml
 - volsync
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/volsync

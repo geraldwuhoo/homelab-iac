@@ -11,6 +11,7 @@ resources:
 - ../../base/synapse
 - signal
 - mautrix-discord
+- networkpolicy.yaml
 patches:
 - path: synapse-patch.yaml
 - target:

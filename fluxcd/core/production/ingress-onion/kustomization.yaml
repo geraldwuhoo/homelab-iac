@@ -5,5 +5,7 @@ namespace: ingress-nginx-onion
 nameSuffix: -onion
 resources:
 - ../../base/ingress-nginx
+components:
+- ../../../components/netpol/tor
 patches:
 - path: patch.yaml

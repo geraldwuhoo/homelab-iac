@@ -8,3 +8,7 @@ resources:
 - postgres.yaml
 - ./youtube-pvc
 - helmrelease.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/postgres
+- ../../../components/netpol/postgres-backup

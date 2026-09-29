@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: adbir
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: adbir
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values:
+          - ingress-anubis
+          - ingress-nginx-onion
+          - ingress-nginx-public
+    ports:
+    - port: 8080
+      protocol: TCP

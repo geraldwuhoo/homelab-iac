@@ -5,6 +5,7 @@ namespace: ytars
 resources:
 - secret.sops.yaml
 - ../../base/ytars
+- networkpolicy.yaml
 patches:
 - target:
     kind: HelmRelease

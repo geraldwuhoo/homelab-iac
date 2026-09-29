@@ -6,3 +6,7 @@ resources:
 - namespace.yaml
 - secret.yaml
 - helmrelease.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/kube-api

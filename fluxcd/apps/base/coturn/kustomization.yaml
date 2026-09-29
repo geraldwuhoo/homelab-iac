@@ -7,3 +7,5 @@ resources:
 - secret.sops.yaml
 - daemonset.yaml
 - service.yaml
+components:
+- ../../../components/netpol/base

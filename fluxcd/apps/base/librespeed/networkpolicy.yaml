@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: librespeed
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: librespeed
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values:
+          - ingress-nginx
+          - ingress-nginx-public
+    ports:
+    - port: 80
+      protocol: TCP

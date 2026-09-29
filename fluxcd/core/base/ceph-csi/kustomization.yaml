@@ -21,6 +21,8 @@ resources:
 - rbd-hdd-sc.yaml
 - rbd-delete-sc.yaml
 - rbd-secret.yaml
+- netpol-cephfs
+- netpol-rbd
 patches:
 - target:
     kind: Deployment

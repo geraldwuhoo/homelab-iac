@@ -21,3 +21,5 @@ patches:
             annotations:
               nginx.ingress.kubernetes.io/configuration-snippet: |-
                 add_header Onion-Location http://quetrevlrqya4swd6jjmvncxcwoovekvc2qmr5mat7rczhfhd57plsad.onion$request_uri;
+components:
+- ../../../components/netpol/tor

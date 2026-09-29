@@ -1,0 +1,22 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgres-operator
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: postgres-operator
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          application: spilo
+    ports:
+    - port: 5432
+      protocol: TCP
+    - port: 8008
+      protocol: TCP

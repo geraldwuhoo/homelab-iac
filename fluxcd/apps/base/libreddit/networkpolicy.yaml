@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: libreddit
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: libreddit
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values:
+          - ingress-anubis
+          - ingress-nginx
+    ports:
+    - port: 8080
+      protocol: TCP

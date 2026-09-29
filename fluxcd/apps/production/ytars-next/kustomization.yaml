@@ -6,6 +6,7 @@ namePrefix: next-
 resources:
 - zalando-secret.sops.yaml
 - ../../base/ytars
+- networkpolicy.yaml
 transformers:
 - deploy-transformer.yaml
 patches:

@@ -10,3 +10,8 @@ resources:
 - postgres.yaml
 - helmrelease.yaml
 - vmpodscrape.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
+- ../../../components/netpol/postgres
+- ../../../components/netpol/postgres-backup

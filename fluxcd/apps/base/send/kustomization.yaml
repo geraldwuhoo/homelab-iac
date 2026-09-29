@@ -6,3 +6,6 @@ resources:
 - namespace.yaml
 - keydb
 - helmrelease.yaml
+- networkpolicy.yaml
+components:
+- ../../../components/netpol/base
