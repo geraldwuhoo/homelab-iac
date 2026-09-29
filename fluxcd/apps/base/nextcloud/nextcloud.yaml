@@ -163,6 +163,13 @@ spec:
       enabled: true
       type: cronjob
       cronjob:
+        command:
+        - sh
+        - -c
+        - >-
+          i=0;
+          until nc -z -w1 "$POSTGRES_HOST" 5432 && nc -z -w1 "$REDIS_HOST" "$REDIS_HOST_PORT" || [ "$i" -ge 30 ]; do i=$((i+1)); sleep 1; done;
+          exec php -f /var/www/html/cron.php -- --verbose
         securityContext:
           runAsUser: 82
           runAsGroup: 82
