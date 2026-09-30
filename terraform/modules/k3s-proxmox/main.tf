@@ -17,8 +17,15 @@ resource "proxmox_vm_qemu" "k3s_node" {
   target_node        = var.hosts[count.index].node
   hastate            = var.hosts[count.index].hastate
   start_at_node_boot = true
+  power_state        = "running"
   skip_ipv6          = true
   automatic_reboot   = false
+
+  startup_shutdown {
+    order            = -1
+    shutdown_timeout = -1
+    startup_delay    = -1
+  }
 
   cpu {
     cores   = var.specs.cores
