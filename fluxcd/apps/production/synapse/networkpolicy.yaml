@@ -15,6 +15,13 @@ spec:
   - Egress
   egress:
   - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-nginx-public
+    ports:
+    - port: 443
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
