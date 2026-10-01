@@ -52,6 +52,9 @@ spec:
       error_reporting:
         enabled: false
       disable_startup_analytics: true
+    blueprints:
+      configMaps:
+      - authentik-blueprints
     server:
       ingress:
         enabled: true

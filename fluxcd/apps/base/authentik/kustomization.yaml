@@ -11,6 +11,12 @@ resources:
 - helmrelease.yaml
 - vmpodscrape.yaml
 - networkpolicy.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+configMapGenerator:
+- name: authentik-blueprints
+  files:
+  - blueprints/homelab.yaml
 components:
 - ../../../components/netpol/base
 - ../../../components/netpol/postgres
