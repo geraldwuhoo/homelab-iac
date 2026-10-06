@@ -4,7 +4,7 @@ metadata:
     name: gitlab-registry-storage
     namespace: gitlab
 stringData:
-    config: ENC[AES256_GCM,data:L2VFQjECI/bj59GwG5lZ0KrxlM/65M8BjtN/AUWsqpKi+6BHhK8GqPOIfVzN630I13o+SQITRovXbfVUkFrIK47qJdGd22FOYB416Xm6j3ELvNtxhwFlt0IT9rUoJthJnHZQC/D2fBIepZLRlcjLpBo734WYVcA7G/eyp/aV4W3gi5GrLWWULBGiysHoVfqqAgz9jxdpzwCMwBPbuzmpyjcyxCRBRlZjnvirFi8Py7+oMWhoTVGcMVAE3NpGP7IO+Q8Y08/F,iv:K5yvn08T8xHreTQy8KvRffC1Va8GGtjH84D0djY62WQ=,tag:M3WRLJFjGfKZ98XA2zYolg==,type:str]
+    config: ENC[AES256_GCM,data:KusaieNQNL7mWyj6HORx9NN+6ixfcEzc3vNSbG81HZjXyydkr79sEpKtYkKYwUl5b9QGPBU+rz12Cyt60Ti+qz3OAmUNC+ecCj73ZWbvsXY+0h1+F5bR6Mf6gbqBTzEYEsi+TnptcCozRyXwAPp3uMeQZARLRCe6ybnoCB6At/4F8Sy7ntOltAGHoIqqpa22HvCBJJMpUD7qO68fvNPvc3xaMftA+ToBDvwU4ZvHhSCUbbl79W1iqrCOkC6k06VXHZeFnWl35fNOnHZmm5/SHdeKnKAuW/UbA3rg1DiggSg=,iv:v5cFwEtxfX0g/7TnRbVWZRbu+Q/t3K0nBVtulVpmVrE=,tag:0ozlC1voFbLeglnWx+mIOQ==,type:str]
 sops:
     age:
         - enc: |
@@ -17,6 +17,6 @@ sops:
             -----END AGE ENCRYPTED FILE-----
           recipient: age145q8qdg9ljfsl88dl3d5j9qqcq62nhev49eyqj30ssl5ryqc5vgssrmuau
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-09-16T04:19:33Z"
-    mac: ENC[AES256_GCM,data:uqFiXpsL+u3uVIpiYbkcKH6eA6Sq8t/3DNSUjKlTCzSDAfjmWXGz7CBy0nVehZ40Eji7Ya4rpZy0RSgWVwqyqG7/ELomiptjHer9kk0QEqaxIfXVPJxJCqgdxQo4T2JqvJKz6aOaYfMC+nWu8zo/6WhO56Unp/49Epat7Wd1kx4=,iv:mmQhEIJI8EVIDfiIOQpOrzWXjdDsQw/stEZXHPmcOkU=,tag:6dVrj6qYsTKnyD2rBwZypQ==,type:str]
+    lastmodified: "2026-10-06T01:44:39Z"
+    mac: ENC[AES256_GCM,data:r42m0swr3oksoynqZ1ce3eZU5MN8RevKONQs3swnj8iz2YzJzffqQ1Rc/96lpNxJXv3UFAKjGodFmfwr5UCZPT5FKa/wZ0WL4uO5H+LJ4uDPFflWHLK/CUPRgnQedJMDz8H3VOc6guWi3cFh/lANh4nkBSUVTUYZq4oZxhi1D+g=,iv:7RODh5pzR+5Dec8pQpmBy+c5e7AY81dVrCPK2+a55to=,tag:dw+PItbCeRd1A3S17Ugbsg==,type:str]
     version: 3.13.3
