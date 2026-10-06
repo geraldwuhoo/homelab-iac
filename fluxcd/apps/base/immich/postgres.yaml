@@ -26,4 +26,4 @@ spec:
   databases:
     immich: immich
   postgresql:
-    version: "16"
+    version: "17"
