@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: firefox-syncstorage-rs
+  namespace: firefox-syncstorage-rs
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 10m0s
+  timeout: 10m0s
+  values:
+    controllers:
+      main:
+        type: deployment
+        containers:
+          main:
+            image:
+              repository: ghcr.io/mozilla-services/syncstorage-rs/syncserver-postgres
+              tag: 0.22.3
+            env:
+              SYNC_HOST: 0.0.0.0
+              SYNC_PORT: &port 8000
+              SYNC_TOKENSERVER__ENABLED: "true"
+              SYNC_TOKENSERVER__RUN_MIGRATIONS: "true"
+              SYNC_TOKENSERVER__NODE_TYPE: postgres
+              SYNC_TOKENSERVER__FXA_EMAIL_DOMAIN: api.accounts.firefox.com
+              SYNC_TOKENSERVER__FXA_OAUTH_SERVER_URL: https://oauth.accounts.firefox.com
+              SYNC_TOKENSERVER__INIT_NODE_URL: https://ffsync.${DOMAIN}
+            envFrom:
+            - secretRef:
+                name: firefox-syncstorage-rs-secret
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /__lbheartbeat__
+                    port: *port
+              readiness: *probe
+            resources:
+              requests:
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: ffsync.${DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+          nginx.ingress.kubernetes.io/proxy-body-size: 1G
+        hosts:
+        - host: ffsync.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: *port
