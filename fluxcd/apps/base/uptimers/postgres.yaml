@@ -16,4 +16,4 @@ spec:
   databases:
     uptimers: uptimers
   postgresql:
-    version: "17"
+    version: "18"

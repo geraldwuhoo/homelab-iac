@@ -25,4 +25,4 @@ spec:
   databases:
     nextcloud: nextcloud
   postgresql:
-    version: "17"
+    version: "18"

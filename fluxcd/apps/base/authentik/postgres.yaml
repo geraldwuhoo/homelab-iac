@@ -25,4 +25,4 @@ spec:
   databases:
     authentik: authentik
   postgresql:
-    version: "17"
+    version: "18"

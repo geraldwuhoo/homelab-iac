@@ -18,4 +18,4 @@ spec:
   databases:
     privatebin: privatebin
   postgresql:
-    version: "17"
+    version: "18"

@@ -25,4 +25,4 @@ spec:
   databases:
     shynet: shynet
   postgresql:
-    version: "17"
+    version: "18"

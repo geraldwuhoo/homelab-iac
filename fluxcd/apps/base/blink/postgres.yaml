@@ -18,4 +18,4 @@ spec:
   databases:
     blink: blink
   postgresql:
-    version: "17"
+    version: "18"

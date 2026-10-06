@@ -26,5 +26,5 @@ spec:
   databases:
     synapse: synapse
   postgresql:
-    version: "17"
+    version: "18"
   enableConnectionPooler: true
