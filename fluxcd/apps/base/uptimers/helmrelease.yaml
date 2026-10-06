@@ -82,6 +82,8 @@ spec:
                 name: Cinny
               - site: https://fmd.wuhoo.xyz/
                 name: FindMyDevice
+              - site: https://ffsync.wuhoo.xyz/__heartbeat__
+                name: Firefox Sync
               - site: https://gitlab.wuhoo.xyz/-/liveness
                 name: GitLab
               - site: https://photos.wuhoo.xyz/
