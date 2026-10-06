@@ -50,6 +50,15 @@ spec:
                 memory: 64Mi
               limits:
                 memory: 256Mi
+        initContainers:
+          postgres-isready:
+            image:
+              repository: docker.io/library/postgres
+              tag: 18-alpine
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "until pg_isready -h firefox-syncstorage-rs-postgres-cluster ; do sleep 2 ; done"
     service:
       main:
         controller: main
