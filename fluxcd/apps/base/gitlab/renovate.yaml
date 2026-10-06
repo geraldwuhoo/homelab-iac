@@ -16,15 +16,20 @@ spec:
   timeout: 15m0s
   values:
     cronjob:
-      schedule: "7 */2 * * *"
+      schedule: "7 */6 * * *"
+      concurrencyPolicy: Forbid
       failedJobsHistoryLimit: 1
       successfulJobsHistoryLimit: 3
     renovate:
       config: |-
         {
-          "platform": "gitlab",
-          "printConfig": true
+          "platform": "gitlab"
         }
+      persistence:
+        cache:
+          enabled: true
+          storageClass: ceph-rbd-delete-sc
+          storageSize: 5Gi
     resources:
       requests:
         memory: 1792Mi
@@ -34,10 +39,12 @@ spec:
     - secretRef:
         name: renovate-secret
     env:
-      LOG_LEVEL: debug
+      LOG_LEVEL: info
+      NODE_OPTIONS: --max-old-space-size=1024
       RENOVATE_AUTODISCOVER: "true"
       RENOVATE_DETECT_HOST_RULES_FROM_ENV: "true"
       RENOVATE_ONBOARDING: "true"
+      RENOVATE_PERSIST_REPO_DATA: "true"
       RENOVATE_PLATFORM: gitlab
       RENOVATE_PR_CONCURRENT_LIMIT: "20"
       RENOVATE_PR_HOURLY_LIMIT: "10"
