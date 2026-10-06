@@ -194,7 +194,7 @@ This FluxCD infrastructure deploys the following to on-prem production:
 * [FindMyDevice](https://gitlab.com/Nulide/findmydevice)
 * [Arch Linux packages mirror](https://mirror.wuhoo.xyz)
 * [PrivateBin](https://privatebin.info)
-* [Firefox SyncServer](https://github.com/mozilla-services/syncserver)
+* [Firefox Sync](https://github.com/mozilla-services/syncstorage-rs)
 * [timvisee's `send`](https://gitlab.com/timvisee/send)
 * [Syncthing](https://syncthing.net)
 * [drawio](https://draw.io)
