@@ -57,8 +57,8 @@ spec:
         annotations:
           homelab/public: "true"
           cert-manager.io/cluster-issuer: letsencrypt
-          external-dns.alpha.kubernetes.io/hostname: redlib.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+          external-dns.kubernetes.io/hostname: redlib.${DOMAIN}
+          external-dns.kubernetes.io/target: hetzner.${DOMAIN}
           ingress-anubis.jaredallard.github.com/difficulty: "4"
         hosts:
         - host: redlib.${DOMAIN}
@@ -77,8 +77,8 @@ spec:
         annotations:
           homelab/public: "true"
           cert-manager.io/cluster-issuer: letsencrypt
-          external-dns.alpha.kubernetes.io/hostname: libreddit.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+          external-dns.kubernetes.io/hostname: libreddit.${DOMAIN}
+          external-dns.kubernetes.io/target: hetzner.${DOMAIN}
           nginx.ingress.kubernetes.io/permanent-redirect: "https://redlib.${DOMAIN}$request_uri"
         hosts:
         - host: libreddit.${DOMAIN}

@@ -4,8 +4,8 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    external-dns.alpha.kubernetes.io/hostname: www.geraldwu.com
-    external-dns.alpha.kubernetes.io/target: geraldwu.com
+    external-dns.kubernetes.io/hostname: www.geraldwu.com
+    external-dns.kubernetes.io/target: geraldwu.com
     homelab/public: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |-
       subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/script.js\"></script></body>";

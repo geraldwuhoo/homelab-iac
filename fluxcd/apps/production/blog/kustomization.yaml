@@ -44,8 +44,8 @@ patches:
       name: landing-ingress
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
-        external-dns.alpha.kubernetes.io/hostname: blog.geraldwu.com
-        external-dns.alpha.kubernetes.io/target: geraldwu.com
+        external-dns.kubernetes.io/hostname: blog.geraldwu.com
+        external-dns.kubernetes.io/target: geraldwu.com
         nginx.ingress.kubernetes.io/configuration-snippet: |-
           if ($request_method = POST) { return 405; }
     spec:

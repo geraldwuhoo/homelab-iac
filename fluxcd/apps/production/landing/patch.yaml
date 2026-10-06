@@ -9,8 +9,8 @@ spec:
       main:
         className: anubis
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: www.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+          external-dns.kubernetes.io/hostname: www.${DOMAIN}
+          external-dns.kubernetes.io/target: ${DOMAIN}
           homelab/public: "true"
           nginx.ingress.kubernetes.io/configuration-snippet: |-
             subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/22c4ce0f-2e1e-4474-b305-13187cf926f8/script.js\"></script></body>";
@@ -30,8 +30,8 @@ spec:
         enabled: true
         className: nginx-public
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: adbir.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+          external-dns.kubernetes.io/hostname: adbir.${DOMAIN}
+          external-dns.kubernetes.io/target: ${DOMAIN}
           nginx.ingress.kubernetes.io/permanent-redirect: "https://${DOMAIN}$request_uri"
           homelab/public: "true"
         hosts:

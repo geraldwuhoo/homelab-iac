@@ -274,6 +274,6 @@ spec:
       accessMode: ReadWriteMany
     ingress:
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: matrix.${DOMAIN}
-        external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+        external-dns.kubernetes.io/hostname: matrix.${DOMAIN}
+        external-dns.kubernetes.io/target: ${DOMAIN}
         homelab/public: "true"

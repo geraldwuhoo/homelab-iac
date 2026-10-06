@@ -5,5 +5,5 @@ metadata:
   name: directory-ingress
   annotations:
     homelab/public: "true"
-    external-dns.alpha.kubernetes.io/hostname: mirror.${DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${DOMAIN}
+    external-dns.kubernetes.io/hostname: mirror.${DOMAIN}
+    external-dns.kubernetes.io/target: ${DOMAIN}

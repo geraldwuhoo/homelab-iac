@@ -4,8 +4,8 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    external-dns.alpha.kubernetes.io/hostname: www.nekomimi.org
-    external-dns.alpha.kubernetes.io/target: nekomimi.org
+    external-dns.kubernetes.io/hostname: www.nekomimi.org
+    external-dns.kubernetes.io/target: nekomimi.org
     homelab/public: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |-
       subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/1a0faabb-c831-4022-9cb7-2021ad174875/script.js\"></script></body>";

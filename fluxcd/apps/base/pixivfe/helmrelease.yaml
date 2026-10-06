@@ -75,8 +75,8 @@ spec:
         annotations:
           homelab/public: "true"
           cert-manager.io/cluster-issuer: letsencrypt
-          external-dns.alpha.kubernetes.io/hostname: pixiv.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+          external-dns.kubernetes.io/hostname: pixiv.${DOMAIN}
+          external-dns.kubernetes.io/target: hetzner.${DOMAIN}
           ingress-anubis.jaredallard.github.com/difficulty: "4"
         hosts:
         - host: pixiv.${DOMAIN}
@@ -96,8 +96,8 @@ spec:
         annotations:
           homelab/public: "true"
           cert-manager.io/cluster-issuer: letsencrypt
-          external-dns.alpha.kubernetes.io/hostname: pximg.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+          external-dns.kubernetes.io/hostname: pximg.${DOMAIN}
+          external-dns.kubernetes.io/target: hetzner.${DOMAIN}
           ingress-anubis.jaredallard.github.com/difficulty: "4"
         hosts:
         - host: pximg.${DOMAIN}

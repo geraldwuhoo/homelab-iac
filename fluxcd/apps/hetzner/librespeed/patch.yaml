@@ -9,8 +9,8 @@ spec:
       main:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt
-          external-dns.alpha.kubernetes.io/hostname: speedtest-hetzner.${DOMAIN}
-          external-dns.alpha.kubernetes.io/target: hetzner.${DOMAIN}
+          external-dns.kubernetes.io/hostname: speedtest-hetzner.${DOMAIN}
+          external-dns.kubernetes.io/target: hetzner.${DOMAIN}
         className: null
         hosts:
         - host: speedtest-hetzner.${DOMAIN}
