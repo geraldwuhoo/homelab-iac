@@ -289,3 +289,22 @@ spec:
     ports:
     - port: 443
       protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gitlab-shared-secrets
+spec:
+  podSelector:
+    matchLabels:
+      app: gitlab
+      release: gitlab
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: ${KUBE_API_CIDR}
+    ports:
+    - port: 6443
+      protocol: TCP
