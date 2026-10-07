@@ -1,0 +1,53 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mirror-sync
+spec:
+  schedule: "3 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app: mirror-sync
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: sync
+            image: docker.io/instrumentisto/rsync-ssh:alpine3.23-r3
+            imagePullPolicy: IfNotPresent
+            command:
+            - sh
+            - /scripts/syncrepo.sh
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 50m
+              limits:
+                memory: 256Mi
+            volumeMounts:
+            - mountPath: /mnt/archlinux
+              name: files
+            - mountPath: /scripts
+              name: scripts
+          volumes:
+          - name: files
+            persistentVolumeClaim:
+              claimName: archlinux-pvc
+          - name: scripts
+            configMap:
+              name: mirror-sync
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 10
+            runAsNonRoot: true
+            seLinuxOptions:
+              user: system_u
+              role: system_r
+              type: container_t
+              level: s0:c104,c904
