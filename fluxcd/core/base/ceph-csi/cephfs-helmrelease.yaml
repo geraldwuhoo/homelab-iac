@@ -23,6 +23,10 @@ spec:
       - ${CEPH_MON_2}
     provisioner:
       replicaCount: 2
+      httpMetrics:
+        enabled: false
+        service:
+          enabled: false
       attacher:
         enabled: false
       snapshotter:
@@ -41,6 +45,10 @@ spec:
           requests:
             memory: 32Mi
     nodeplugin:
+      httpMetrics:
+        enabled: false
+        service:
+          enabled: false
       plugin:
         resources:
           requests:
