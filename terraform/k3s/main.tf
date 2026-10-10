@@ -232,11 +232,11 @@ module "nixos" {
   )
 
   depends_on = [module.k3s, proxmox_lxc.nixos]
-  source     = "github.com/Gabriella439/terraform-nixos-ng//nixos"
+  source     = "../modules/nixos"
 
   host      = "nixos@${each.key}"
   flake     = "../../nix#${each.key}"
-  arguments = ["--use-remote-sudo"]
+  arguments = ["--sudo"]
 }
 
 # Configure the GitLab repository for Flux
