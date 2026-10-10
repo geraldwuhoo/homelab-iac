@@ -13,6 +13,16 @@ spec:
         name: backube
         namespace: flux-system
   interval: 10m0s
+  postRenderers:
+  - kustomize:
+      patches:
+      - target:
+          kind: ServiceMonitor
+          name: volsync
+        patch: |
+          - op: add
+            path: /spec/endpoints/0/bearerTokenFile
+            value: /var/run/secrets/kubernetes.io/serviceaccount/token
   values:
     manageCRDs: true
     resources:
