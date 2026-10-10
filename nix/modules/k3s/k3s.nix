@@ -133,6 +133,8 @@
         tokenFile = lib.mkIf (!config.k3s.singleNode) config.sops.secrets.k3s-token.path;
         serverAddr = lib.mkIf (!config.k3s.singleNode) "https://k3s.wuhoo.xyz:6443";
 
+        extraKubeletConfig.memorySwap.swapBehavior = "LimitedSwap";
+
         extraFlags = toString (
           [
             "--kubelet-arg=allowed-unsafe-sysctls=net.ipv6.conf.all.disable_ipv6,net.ipv6.conf.default.disable_ipv6,net.ipv4.ip_forward,net.ipv4.conf.all.src_valid_mark"
