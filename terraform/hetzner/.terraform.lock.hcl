@@ -115,6 +115,7 @@ provider "registry.opentofu.org/gitlabhq/gitlab" {
     "zh:a1bb7c52ca920bbe05e0d3adfd86afe59a3ce3667a5a87a8eedd071297188c39",
     "zh:bc2f56983d7768207c0017c9f25e6b8fe2089750fc9c14f529487cc3bf271dcb",
     "zh:df6bbcb4124f324072249f4b5c9cbb633fcf7c65a2cd98bd419b28a33221905d",
+    "zh:f809ab383cca0a5f83072981c64208cbd7fa67e986a86ee02dd2c82333221e32",
   ]
 }
 
