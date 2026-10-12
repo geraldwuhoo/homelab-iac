@@ -20,6 +20,7 @@
         enable = true;
         zfsSupport = true;
         efiSupport = config.vm.efi;
+        configurationLimit = 3;
       };
       timeout = 1;
     };
