@@ -88,11 +88,11 @@ module "nixos" {
   for_each = { for index, host in local.hetzner_hosts : host.hostname => host }
 
   depends_on = [module.k3s-hetzner]
-  source     = "github.com/Gabriella439/terraform-nixos-ng//nixos"
+  source     = "../modules/nixos"
 
   host      = "nixos@${each.value.hostname}"
   flake     = "../../nix#${each.value.hostname}"
-  arguments = ["--use-remote-sudo"]
+  arguments = ["--sudo"]
 }
 
 # Configure the GitLab repository for Flux
