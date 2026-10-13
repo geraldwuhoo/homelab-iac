@@ -49,11 +49,11 @@
       ];
       memoryReserved =
         if config.k3s.master && !config.k3s.singleNode then
-          "2560Mi"
+          "3Gi"
         else if config.k3s.master then
-          "2Gi"
+          "2560Mi"
         else
-          "1536Mi";
+          "2Gi";
     in
     {
       boot = {

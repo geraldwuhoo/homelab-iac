@@ -129,7 +129,7 @@
 
   boot.kernelParams = [
     "zfs.zfs_arc_min=268435456"
-    "zfs.zfs_arc_max=536870912"
+    "zfs.zfs_arc_max=1073741824"
     "kernel.unprivileged_userns_clone=1"
   ];
 
