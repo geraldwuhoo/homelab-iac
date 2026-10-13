@@ -64,3 +64,5 @@ spec:
     ports:
     - port: 443
       protocol: TCP
+    - port: 587
+      protocol: TCP
