@@ -22,7 +22,7 @@ spec:
           main:
             image:
               repository: docker.io/syncthing/syncthing
-              tag: 2.1.5
+              tag: 2.1.6
             resources:
               requests:
                 memory: 192Mi
