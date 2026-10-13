@@ -52,6 +52,10 @@ spec:
             metricRelabelings: *drop
       controllers:
         main:
+          pod:
+            securityContext:
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
           containers:
             main:
               env:
@@ -60,8 +64,6 @@ spec:
               securityContext:
                 runAsUser: 1000
                 runAsGroup: 1000
-                fsGroup: 1000
-                fsGroupChangePolicy: "OnRootMismatch"
               resources:
                 requests:
                   memory: 768Mi
