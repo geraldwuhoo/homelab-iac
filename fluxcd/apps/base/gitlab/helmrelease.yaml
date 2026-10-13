@@ -242,6 +242,8 @@ spec:
           requests:
             memory: 48Mi
       webservice:
+        livenessProbe:
+          initialDelaySeconds: 600
         enabled: true
         minReplicas: 1
         maxReplicas: 1
