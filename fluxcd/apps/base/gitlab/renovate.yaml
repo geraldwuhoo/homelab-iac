@@ -32,7 +32,7 @@ spec:
           storageSize: 5Gi
     resources:
       requests:
-        memory: 1792Mi
+        memory: 1152Mi
       limits:
         memory: 3Gi
     envFrom:
@@ -40,7 +40,7 @@ spec:
         name: renovate-secret
     env:
       LOG_LEVEL: info
-      NODE_OPTIONS: --max-old-space-size=1024
+      NODE_OPTIONS: --max-old-space-size=640
       RENOVATE_AUTODISCOVER: "true"
       RENOVATE_DETECT_HOST_RULES_FROM_ENV: "true"
       RENOVATE_ONBOARDING: "true"
