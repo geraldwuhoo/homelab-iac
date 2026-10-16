@@ -126,13 +126,15 @@ spec:
   url: https://privatebin.github.io/helm-chart
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
-  name: bjw-s
+  name: app-template
   namespace: flux-system
 spec:
   interval: 10m0s
-  url: https://bjw-s-labs.github.io/helm-charts
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+  ref:
+    tag: 5.3.0
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
