@@ -7,7 +7,7 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: piped
-      app.kubernetes.io/component: nginx
+      app.kubernetes.io/controller: nginx
   policyTypes:
   - Ingress
   ingress:
@@ -26,7 +26,7 @@ metadata:
 spec:
   podSelector:
     matchExpressions:
-    - key: app.kubernetes.io/component
+    - key: app.kubernetes.io/controller
       operator: In
       values:
       - piped
@@ -53,7 +53,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/component: piped
+      app.kubernetes.io/controller: piped
   policyTypes:
   - Egress
   egress:

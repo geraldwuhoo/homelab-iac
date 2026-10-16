@@ -6,7 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/component: main
+      app.kubernetes.io/controller: main
   policyTypes:
   - Ingress
   - Egress
