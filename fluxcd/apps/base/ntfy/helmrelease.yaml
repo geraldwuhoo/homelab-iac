@@ -18,7 +18,7 @@ spec:
           main:
             image:
               repository: docker.io/binwiederhier/ntfy
-              tag: v2.30.0
+              tag: v2.32.0
             env:
               TZ: UTC
               NTFY_BASE_URL: https://ntfy.${DOMAIN}
