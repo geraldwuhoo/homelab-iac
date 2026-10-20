@@ -242,9 +242,6 @@ spec:
           requests:
             memory: 48Mi
       webservice:
-        deployment:
-          livenessProbe:
-            initialDelaySeconds: 600
         enabled: true
         minReplicas: 1
         maxReplicas: 1
@@ -257,6 +254,8 @@ spec:
         ingress:
           enabled: false
         deployment:
+          livenessProbe:
+            initialDelaySeconds: 600
           strategy:
             rollingUpdate:
               maxSurge: 0
