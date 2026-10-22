@@ -6,7 +6,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.52.10"
+      version = "5.28.1"
     }
   }
 }
@@ -196,9 +196,9 @@ resource "hcloud_firewall" "firewall" {
   }
 }
 
-resource "cloudflare_record" "name_record" {
+resource "cloudflare_dns_record" "name_record" {
   zone_id = var.zone_id
-  name    = var.name
+  name    = "${var.name}.${var.domain}"
   content = hcloud_primary_ip.primary_ip.ip_address
   type    = "A"
   ttl     = 60
@@ -250,7 +250,7 @@ resource "hcloud_server" "node" {
     EOT
   }
 
-  depends_on = [cloudflare_record.name_record]
+  depends_on = [cloudflare_dns_record.name_record]
   lifecycle {
     ignore_changes = [ssh_keys]
   }
