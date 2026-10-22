@@ -18,6 +18,8 @@ spec:
     ports:
     - port: 8443
       protocol: TCP
+    - port: 10254
+      protocol: TCP
   egress:
   - to:
     - ipBlock:

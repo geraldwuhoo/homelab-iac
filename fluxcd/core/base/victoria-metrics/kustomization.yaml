@@ -8,6 +8,8 @@ resources:
 - alertmanager-secret.sops.yaml
 - prometheus-operator-crds.yaml
 - helmrelease.yaml
+- rules.yaml
+- scrapes.yaml
 - dashboards
 - networkpolicy.yaml
 components:

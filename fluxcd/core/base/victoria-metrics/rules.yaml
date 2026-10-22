@@ -1,0 +1,219 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: homelab
+  namespace: monitoring
+spec:
+  groups:
+  - name: postgres
+    rules:
+    - alert: PostgresDown
+      expr: pg_up{job="postgres-operator/postgres-exporter"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: Postgres exporter cannot reach the database.
+        description: "{{ $labels.namespace }}/{{ $labels.pod }} is down."
+    - alert: PostgresConnectionsHigh
+      expr: |
+        sum by (namespace, pod) (pg_stat_activity_count{job="postgres-operator/postgres-exporter"})
+          / sum by (namespace, pod) (pg_settings_max_connections{job="postgres-operator/postgres-exporter"})
+          > 0.85
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: Postgres is close to max_connections.
+        description: "{{ $labels.namespace }}/{{ $labels.pod }} is using {{ $value | humanizePercentage }} of max_connections."
+    - alert: PostgresArchiverFailed
+      expr: increase(pg_stat_archiver_failed_count{job="postgres-operator/postgres-exporter"}[30m]) > 0
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: Postgres failed to archive WAL.
+        description: "{{ $labels.namespace }}/{{ $labels.pod }} failed {{ $value }} archive attempts in 30 minutes."
+  - name: volsync
+    rules:
+    - alert: VolsyncOutOfSync
+      expr: volsync_volume_out_of_sync{role="source"} > 0
+      for: 1h
+      labels:
+        severity: warning
+      annotations:
+        summary: Volsync replication is behind.
+        description: "{{ $labels.obj_namespace }}/{{ $labels.obj_name }} ({{ $labels.method }}) has been out of sync for an hour."
+    - alert: VolsyncMissedInterval
+      expr: increase(volsync_missed_intervals_total{role="source"}[1h]) > 0
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: Volsync missed a replication interval.
+        description: "{{ $labels.obj_namespace }}/{{ $labels.obj_name }} ({{ $labels.method }}) missed {{ $value }} interval(s) in the last hour."
+  - name: cronjobs
+    rules:
+    # thresholds follow each schedule, with room for one missed run.
+    # rclone-main is weekdays only, so the gap covers a weekend
+    - alert: CronJobNotSucceeded
+      expr: |
+        (
+            (time() - kube_cronjob_status_last_successful_time{namespace="archlinux",cronjob="mirror-sync"}) > 3 * 3600
+          or
+            (time() - kube_cronjob_status_last_successful_time{namespace="gitlab",cronjob="hcloud-cronjob"}) > 3 * 3600
+          or
+            (time() - kube_cronjob_status_last_successful_time{namespace="nextcloud",cronjob="nextcloud-cron"}) > 30 * 60
+          or
+            (time() - kube_cronjob_status_last_successful_time{namespace="kube-system",cronjob="descheduler"}) > 3600
+          or
+            (time() - kube_cronjob_status_last_successful_time{namespace="gitlab",cronjob="renovate"}) > 18 * 3600
+          or
+            (time() - kube_cronjob_status_last_successful_time{namespace="rclone",cronjob="rclone-main"}) > 3 * 24 * 3600
+          or
+            (time() - kube_cronjob_status_last_successful_time{namespace="gitlab",cronjob="gitlab-toolbox-backup"}) > 36 * 3600
+          or
+            (time() - kube_cronjob_status_last_successful_time{namespace="rclone",cronjob="rclone-full"}) > 8 * 24 * 3600
+        )
+        and on (namespace, cronjob)
+        kube_cronjob_spec_suspend == 0
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: CronJob has not succeeded recently.
+        description: "{{ $labels.namespace }}/{{ $labels.cronjob }} last succeeded {{ $value | humanizeDuration }} ago."
+  - name: kubernetes-apps-extra
+    rules:
+    - alert: KubePodOOMKilled
+      expr: |
+        increase(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[1h]) > 2
+        and on (namespace, pod, container)
+        kube_pod_container_status_last_terminated_reason{job="kube-state-metrics",reason="OOMKilled"} == 1
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: Container is restarting after being OOMKilled.
+        description: "{{ $labels.namespace }}/{{ $labels.pod }} container {{ $labels.container }} was OOMKilled and restarted {{ $value }} times in the last hour."
+    # stock rule also matches PodInitializing, which fires for the whole rclone full sync
+    - alert: KubeContainerWaiting
+      expr: kube_pod_container_status_waiting_reason{job="kube-state-metrics",reason!~"CrashLoopBackOff|PodInitializing"} > 0
+      for: 1h
+      labels:
+        severity: warning
+      annotations:
+        summary: Pod container waiting longer than 1 hour.
+        description: "pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} container {{ $labels.container }} has been waiting for longer than 1 hour (reason: \"{{ $labels.reason }}\")."
+        runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecontainerwaiting
+  - name: external-dns
+    rules:
+    - alert: ExternalDNSSyncStale
+      expr: time() - external_dns_controller_last_sync_timestamp_seconds > 15 * 60
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: external-dns has not synced.
+        description: "The last successful sync was {{ $value | humanizeDuration }} ago."
+    - alert: ExternalDNSSyncErrors
+      expr: external_dns_controller_consecutive_soft_errors > 0
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: external-dns sync is failing.
+        description: "external-dns has {{ $value }} consecutive soft errors."
+  - name: nextcloud
+    rules:
+    - alert: NextcloudDown
+      expr: nextcloud_up == 0
+      for: 10m
+      labels:
+        severity: critical
+      annotations:
+        summary: Nextcloud exporter reports the instance down.
+        description: nextcloud_up has been 0 for 10 minutes.
+  - name: gitlab
+    rules:
+    # sidekiq_jobs_dead_size sits above zero, so the dead set is not an alert
+    - alert: GitlabSidekiqRetry
+      expr: sidekiq_jobs_retry_size > 0
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: GitLab Sidekiq has jobs waiting to retry.
+        description: "{{ $value }} jobs have been in the retry set for 30 minutes."
+    - alert: GitlabSidekiqLatency
+      expr: sidekiq_queue_latency_seconds > 120
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: GitLab Sidekiq queue is behind.
+        description: "Queue {{ $labels.name }} latency is {{ $value | humanizeDuration }}."
+  - name: cert-manager
+    rules:
+    - alert: CertificateExpiring
+      expr: (certmanager_certificate_expiration_timestamp_seconds - time()) < 21 * 24 * 3600
+      for: 1h
+      labels:
+        severity: warning
+      annotations:
+        summary: Certificate expires within 21 days.
+        description: "{{ $labels.namespace }}/{{ $labels.name }} expires in {{ $value | humanizeDuration }}."
+    - alert: CertificateExpiring
+      expr: (certmanager_certificate_expiration_timestamp_seconds - time()) < 7 * 24 * 3600
+      for: 1h
+      labels:
+        severity: critical
+      annotations:
+        summary: Certificate expires within 7 days.
+        description: "{{ $labels.namespace }}/{{ $labels.name }} expires in {{ $value | humanizeDuration }}."
+    - alert: CertificateNotReady
+      expr: certmanager_certificate_ready_status{condition="False"} == 1
+      for: 1h
+      labels:
+        severity: warning
+      annotations:
+        summary: Certificate is not ready.
+        description: "{{ $labels.namespace }}/{{ $labels.name }} has been NotReady for an hour."
+  - name: flux
+    rules:
+    - alert: FluxResourceNotReady
+      expr: |
+        gotk_resource_info{ready="False",suspended!="true",customresource_kind=~"HelmRelease|Kustomization|GitRepository"} == 1
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: Flux resource is not ready.
+        description: "{{ $labels.customresource_kind }} {{ $labels.exported_namespace }}/{{ $labels.name }} has been NotReady for 15 minutes."
+  - name: ingress-nginx
+    rules:
+    - alert: IngressConfigReloadFailed
+      expr: nginx_ingress_controller_config_last_reload_successful == 0
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: ingress-nginx failed to reload its config.
+        description: "{{ $labels.namespace }}/{{ $labels.pod }} last config reload failed."
+    # 0.05 rps is about 45 requests in 15 minutes, so one 500 on a quiet host stays quiet
+    - alert: IngressHigh5xxRate
+      expr: |
+        (
+          sum by (namespace, exported_namespace, ingress) (rate(nginx_ingress_controller_requests{status=~"5.."}[15m]))
+          /
+          sum by (namespace, exported_namespace, ingress) (rate(nginx_ingress_controller_requests[15m]))
+        ) > 0.05
+        and
+        sum by (namespace, exported_namespace, ingress) (rate(nginx_ingress_controller_requests[15m])) > 0.05
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: Ingress is returning 5xx.
+        description: "{{ $labels.exported_namespace }}/{{ $labels.ingress }} on {{ $labels.namespace }} has {{ $value | humanizePercentage }} 5xx responses."

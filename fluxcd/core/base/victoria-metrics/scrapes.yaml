@@ -1,0 +1,48 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: cert-manager
+  namespace: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+    - cert-manager
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cert-manager
+      app.kubernetes.io/component: controller
+  podMetricsEndpoints:
+  - port: http-metrics
+    # certificate name and namespace come from the metric, not the pod
+    honorLabels: true
+    seriesLimit: 500
+    metricRelabelConfigs:
+    - action: drop
+      source_labels: [__name__]
+      regex: (go_.*|promhttp_.*|.+_bucket)
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: ingress-nginx
+  namespace: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+    - ingress-nginx
+    - ingress-nginx-public
+    - ingress-nginx-onion
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/component: controller
+  podMetricsEndpoints:
+  - port: metrics
+    # path stays so the 5xx ratio counts every request. the rest of the
+    # controller's metrics are per-path histograms
+    seriesLimit: 2000
+    metricRelabelConfigs:
+    - action: keep
+      source_labels: [__name__]
+      regex: nginx_ingress_controller_(config_last_reload_successful|requests)

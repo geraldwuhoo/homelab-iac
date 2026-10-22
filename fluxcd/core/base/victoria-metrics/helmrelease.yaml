@@ -46,6 +46,11 @@ spec:
           isDefault: true
 
     defaultRules:
+      rules:
+        # PodInitializing is a container waiting on its init containers. rclone
+        # full sync stays there for hours. rules.yaml replaces this alert
+        KubeContainerWaiting:
+          enabled: false
       groups:
         # these depend on the apiserver histograms dropped below
         kube-apiserver-availability.rules:
@@ -184,6 +189,75 @@ spec:
       - kube_pod_tolerations
       - kube_pod_status_reason
       - kube_.*_annotations
+      # flux 2.9 no longer exports gotk_reconcile_condition. readiness is read
+      # off the objects themselves
+      rbac:
+        extraRules:
+        - apiGroups:
+          - helm.toolkit.fluxcd.io
+          - kustomize.toolkit.fluxcd.io
+          - source.toolkit.fluxcd.io
+          resources:
+          - helmreleases
+          - kustomizations
+          - gitrepositories
+          verbs: ["list", "watch"]
+      customResourceState:
+        enabled: true
+        config:
+          spec:
+            resources:
+            - groupVersionKind:
+                group: helm.toolkit.fluxcd.io
+                version: v2
+                kind: HelmRelease
+              metricNamePrefix: gotk
+              metrics:
+              - name: resource_info
+                help: Current state of a Flux HelmRelease.
+                each:
+                  type: Info
+                  info:
+                    labelsFromPath:
+                      name: [metadata, name]
+                labelsFromPath:
+                  exported_namespace: [metadata, namespace]
+                  ready: [status, conditions, "[type=Ready]", status]
+                  suspended: [spec, suspend]
+            - groupVersionKind:
+                group: kustomize.toolkit.fluxcd.io
+                version: v1
+                kind: Kustomization
+              metricNamePrefix: gotk
+              metrics:
+              - name: resource_info
+                help: Current state of a Flux Kustomization.
+                each:
+                  type: Info
+                  info:
+                    labelsFromPath:
+                      name: [metadata, name]
+                labelsFromPath:
+                  exported_namespace: [metadata, namespace]
+                  ready: [status, conditions, "[type=Ready]", status]
+                  suspended: [spec, suspend]
+            - groupVersionKind:
+                group: source.toolkit.fluxcd.io
+                version: v1
+                kind: GitRepository
+              metricNamePrefix: gotk
+              metrics:
+              - name: resource_info
+                help: Current state of a Flux GitRepository.
+                each:
+                  type: Info
+                  info:
+                    labelsFromPath:
+                      name: [metadata, name]
+                labelsFromPath:
+                  exported_namespace: [metadata, namespace]
+                  ready: [status, conditions, "[type=Ready]", status]
+                  suspended: [spec, suspend]
       resources:
         requests:
           cpu: 10m

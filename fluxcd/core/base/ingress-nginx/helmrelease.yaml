@@ -19,6 +19,9 @@ spec:
       enableAnnotationValidations: false
       podAnnotations:
         linkerd.io/inject: enabled
+        # vmagent scrapes the metrics port directly. linkerd would otherwise
+        # require the scrape to present a mesh identity
+        config.linkerd.io/skip-inbound-ports: "10254"
       config:
         enable-brotli: true
         brotli-level: "6"
@@ -59,7 +62,7 @@ spec:
         targetCPUUtilizationPercentage: 75
         targetMemoryUtilizationPercentage: 75
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
           enabled: false
           namespace: prometheus
