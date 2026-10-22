@@ -77,7 +77,7 @@ spec:
           main:
             image:
               repository: docker.io/apache/tika
-              tag: 3.3.1.0
+              tag: 3.3.3.0
             resources:
               requests:
                 memory: 320Mi
