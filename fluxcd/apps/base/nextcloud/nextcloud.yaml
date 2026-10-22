@@ -203,6 +203,9 @@ spec:
         secretName: valkey-secret
         passwordKey: default
     collabora:
+      image:
+        repository: collabora/code
+        tag: 26.04.5.1.1
       collabora:
         aliasgroups:
         - host: https://cloud.${DOMAIN}:443
