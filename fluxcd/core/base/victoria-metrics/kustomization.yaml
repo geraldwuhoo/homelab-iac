@@ -5,6 +5,7 @@ namespace: monitoring
 resources:
 - namespace.yaml
 - grafana-secret.sops.yaml
+- grafana-oidc-secret.sops.yaml
 - alertmanager-secret.sops.yaml
 - prometheus-operator-crds.yaml
 - helmrelease.yaml

@@ -419,6 +419,47 @@ entries:
     meta_launch_url: https://blink.${DOMAIN}/app/
     policy_engine_mode: any
 
+- model: authentik_providers_oauth2.oauth2provider
+  id: provider-grafana
+  identifiers:
+    name: grafana-oauth
+  attrs:
+    authentication_flow: *authn_flow
+    authorization_flow: *authz_flow
+    invalidation_flow: *invalidation_flow
+    client_type: confidential
+    client_id: 6XvGMIKzKRGuUp5wvlQZFLA8zHBDt4WDyjKmhY8pK5q
+    client_secret: !Env BLUEPRINT_OIDC_SECRET_GRAFANA
+    access_code_validity: hours=1
+    access_token_validity: hours=1
+    refresh_token_validity: days=30
+    signing_key: *signing_key
+    property_mappings: *oauth_scopes
+    logout_method: frontchannel
+    logout_uri: https://grafana.${DOMAIN}/logout
+    redirect_uris:
+    - matching_mode: strict
+      redirect_uri_type: authorization
+      url: https://grafana.${DOMAIN}/login/generic_oauth
+    - matching_mode: strict
+      redirect_uri_type: logout
+      url: https://grafana.${DOMAIN}/login
+- model: authentik_core.application
+  id: app-grafana
+  identifiers:
+    slug: grafana
+  attrs:
+    name: Grafana
+    provider: !KeyOf provider-grafana
+    meta_icon: https://${DOMAIN}/icons/svg/grafana.svg
+    meta_launch_url: https://grafana.${DOMAIN}
+    policy_engine_mode: any
+- model: authentik_policies.policybinding
+  identifiers:
+    target: !KeyOf app-grafana
+    group: !KeyOf group-cluster-admins
+    order: 0
+
 - model: authentik_providers_proxy.proxyprovider
   id: provider-sonarr
   identifiers:

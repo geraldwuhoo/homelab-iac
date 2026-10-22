@@ -136,9 +136,37 @@ spec:
     grafana:
       admin:
         existingSecret: grafana-admin
+      envValueFrom:
+        GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+          secretKeyRef:
+            name: grafana-oidc
+            key: client_secret
       grafana.ini:
         server:
           root_url: https://grafana.${DOMAIN}
+        auth:
+          # /login?disableAutoLogin shows the local admin form
+          oauth_auto_login: true
+          signout_redirect_url: https://auth.${DOMAIN}/application/o/grafana/end-session/
+        auth.basic:
+          enabled: false
+        auth.generic_oauth:
+          enabled: true
+          name: authentik
+          allow_sign_up: true
+          client_id: 6XvGMIKzKRGuUp5wvlQZFLA8zHBDt4WDyjKmhY8pK5q
+          scopes: openid profile email
+          auth_url: https://auth.${DOMAIN}/application/o/authorize/
+          token_url: https://auth.${DOMAIN}/application/o/token/
+          api_url: https://auth.${DOMAIN}/application/o/userinfo/
+          use_pkce: true
+          login_attribute_path: preferred_username
+          groups_attribute_path: groups
+          allowed_groups:
+          - Cluster Admins
+          role_attribute_strict: true
+          role_attribute_path: contains(groups[*], 'Cluster Admins') && 'Admin' || 'None'
+          allow_assign_grafana_admin: false
       deploymentStrategy:
         type: Recreate
       persistence:
