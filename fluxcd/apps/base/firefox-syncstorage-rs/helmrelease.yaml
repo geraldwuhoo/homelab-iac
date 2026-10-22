@@ -19,7 +19,7 @@ spec:
           main:
             image:
               repository: ghcr.io/mozilla-services/syncstorage-rs/syncserver-postgres
-              tag: 0.23.3
+              tag: 0.24.0
             env:
               SYNC_HOST: 0.0.0.0
               SYNC_PORT: &port 8000
