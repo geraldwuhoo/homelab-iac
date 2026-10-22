@@ -81,6 +81,7 @@ provider "registry.opentofu.org/gitlabhq/gitlab" {
     "zh:d0698a9359a9707d9653929bb1ee58578b27ea238c14067b45b1a560ce77802a",
     "zh:d6d09a3b9b709af0092bd9c6a23713e5f7e4f925cc38af45ab3e97a67e146f1f",
     "zh:d82aec6a11918a7d87c2ec0f4401a6249361ca6bb773702fe65dba30d614ecd2",
+    "zh:f809ab383cca0a5f83072981c64208cbd7fa67e986a86ee02dd2c82333221e32",
   ]
 }
 
