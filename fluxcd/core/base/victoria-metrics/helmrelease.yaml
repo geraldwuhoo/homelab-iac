@@ -76,6 +76,37 @@ spec:
             requests:
               storage: 20Gi
 
+    # container logs from vlagent. masters sit near the soft eviction line,
+    # so the store stays on workers.
+    vlsingle:
+      enabled: true
+      spec:
+        retentionPeriod: 30d
+        extraArgs:
+          # pin the cache. otherwise it takes 60% of whatever memory it
+          # detects, which is the whole node when the cgroup limit is missed
+          memory.allowedBytes: 512MiB
+          # counts partition bytes, not the whole volume. the rest of the
+          # 20Gi disk is left for merges
+          retention.maxDiskSpaceUsageBytes: 15GiB
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: DoesNotExist
+        resources:
+          requests:
+            cpu: 50m
+            memory: 512Mi
+          limits:
+            memory: 1Gi
+        storage:
+          resources:
+            requests:
+              storage: 20Gi
+
     vmagent:
       spec:
         scrapeInterval: 30s
@@ -86,6 +117,20 @@ spec:
           limits:
             memory: 512Mi
 
+    # one pod per node, masters included. k8sCollector defaults on in this
+    # chart and tails /var/log/containers
+    vlagent:
+      enabled: true
+      spec:
+        extraArgs:
+          memory.allowedBytes: 32MiB
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            memory: 128Mi
+
     vmalert:
       spec:
         evaluationInterval: 30s
@@ -95,6 +140,20 @@ spec:
             memory: 64Mi
           limits:
             memory: 256Mi
+
+    # chart adds this when both stores exist, so vmalert can run LogsQL
+    # against VictoriaLogs and MetricsQL against VictoriaMetrics
+    internal:
+      vmauth:
+        spec:
+          extraArgs:
+            memory.allowedBytes: 16MiB
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 64Mi
 
     alertmanager:
       spec:
@@ -172,6 +231,10 @@ spec:
       persistence:
         enabled: true
         size: 1Gi
+      # no builtin grafana type for VictoriaLogs. public 443 egress is
+      # already allowed, and that is what the plugin download uses
+      plugins:
+      - victoriametrics-logs-datasource
       resources:
         requests:
           cpu: 20m
