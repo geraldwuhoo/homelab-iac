@@ -430,6 +430,9 @@ entries:
     client_type: confidential
     client_id: 6XvGMIKzKRGuUp5wvlQZFLA8zHBDt4WDyjKmhY8pK5q
     client_secret: !Env BLUEPRINT_OIDC_SECRET_GRAFANA
+    grant_types:
+    - authorization_code
+    - refresh_token
     access_code_validity: hours=1
     access_token_validity: hours=1
     refresh_token_validity: days=30
