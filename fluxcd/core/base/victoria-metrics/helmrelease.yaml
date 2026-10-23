@@ -83,8 +83,8 @@ spec:
       spec:
         retentionPeriod: 30d
         extraArgs:
-          # pin the cache. otherwise it takes 60% of whatever memory it
-          # detects, which is the whole node when the cgroup limit is missed
+          # cache only, not the process. a 512MiB cache already reaches ~1Gi
+          # RSS at startup, and the 1Gi limit OOM-killed it on the first ingest
           memory.allowedBytes: 512MiB
           # counts partition bytes, not the whole volume. the rest of the
           # 20Gi disk is left for merges
@@ -99,9 +99,9 @@ spec:
         resources:
           requests:
             cpu: 50m
-            memory: 512Mi
-          limits:
             memory: 1Gi
+          limits:
+            memory: 2Gi
         storage:
           resources:
             requests:
