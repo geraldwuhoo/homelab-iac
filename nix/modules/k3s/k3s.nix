@@ -54,6 +54,9 @@
           "2560Mi"
         else
           "2Gi";
+      # k3s.wuhoo.xyz. kube-vip hosts this on a control-plane node, and the
+      # apiserver certificate is valid for that name.
+      apiVip = "10.40.0.80";
     in
     {
       boot = {
@@ -116,6 +119,17 @@
         allowedUDPPorts = lib.mkIf (!config.k3s.singleNode) [
           8472 # k3s, flannel: required if using multi-node for inter-node networking
         ];
+        # Spegel dials every address libp2p returns for a peer and keeps the
+        # first completed TCP handshake, canceling the rest before TLS. kube-vip
+        # service addresses on eth0 are not on the kubelet certificate, so a VIP
+        # handshake wins and the mirror fails. Reset 6443 to any other address.
+        # Inserted ahead of the unconditional accept for port 6443.
+        extraCommands = lib.optionalString (!config.k3s.singleNode && config.k3s.nodeIp != null) ''
+          iptables -w -I nixos-fw 1 -p tcp --dport 6443 -m comment --comment "k3s spegel: reject non-node registry dials" -j REJECT --reject-with tcp-reset
+          iptables -w -I nixos-fw 1 -p tcp --dport 6443 -d 127.0.0.1/32 -j nixos-fw-accept
+          iptables -w -I nixos-fw 1 -p tcp --dport 6443 -d ${config.k3s.nodeIp}/32 -j nixos-fw-accept
+          iptables -w -I nixos-fw 1 -p tcp --dport 6443 -d ${apiVip}/32 -j nixos-fw-accept
+        '';
       };
 
       sops.secrets.k3s-token = { };
