@@ -23,13 +23,6 @@ spec:
             env:
               OUT_DIR: /public
               CONFIG_PATH: /config/config.yaml
-            lifecycle:
-              postStart:
-                exec:
-                  command:
-                  - "/bin/sh"
-                  - "-c"
-                  - "wget https://files.catbox.moe/ujwnph.webp -O /public/logo.webp"
             resources:
               requests:
                 memory: 16Mi
@@ -67,7 +60,7 @@ spec:
         data:
           config.yaml: |-
             title: "wuhoo!"
-            image: "logo.webp"
+            image: "https://files.wuhoo.xyz/logo.webp"
 
             services:
               - name: "Federated"
