@@ -205,7 +205,7 @@ spec:
     collabora:
       image:
         repository: collabora/code
-        tag: 26.04.5.1.1
+        tag: 26.04.5.2.1
       collabora:
         aliasgroups:
         - host: https://cloud.${DOMAIN}:443
