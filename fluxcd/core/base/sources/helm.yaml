@@ -210,7 +210,7 @@ spec:
   interval: 10m0s
   url: oci://ghcr.io/jaredallard/helm-charts/ingress-anubis
   ref:
-    tag: 1.10.8
+    tag: 1.10.9
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
