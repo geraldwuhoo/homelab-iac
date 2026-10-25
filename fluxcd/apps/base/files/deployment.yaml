@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: files
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: files
+  template:
+    metadata:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: files
+      labels:
+        app: files
+    spec:
+      securityContext:
+        seLinuxOptions:
+          user: system_u
+          role: system_r
+          type: container_t
+          level: s0:c105,c905
+      containers:
+      - name: files
+        image: docker.io/p3terx/darkhttpd:1.17
+        imagePullPolicy: IfNotPresent
+        args:
+        - /public
+        - --no-listing
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 10m
+          limits:
+            memory: 128Mi
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /public
+          name: files
+          readOnly: true
+      volumes:
+      - name: files
+        persistentVolumeClaim:
+          claimName: files-pvc

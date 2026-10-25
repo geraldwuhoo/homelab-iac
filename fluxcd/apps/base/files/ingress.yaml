@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: files
+  annotations:
+    homelab/public: "true"
+    external-dns.kubernetes.io/hostname: files.${DOMAIN}
+    external-dns.kubernetes.io/target: ${DOMAIN}
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    nginx.ingress.kubernetes.io/configuration-snippet: |-
+      add_header X-Content-Type-Options nosniff always;
+      add_header X-Robots-Tag "noindex, nofollow" always;
+spec:
+  ingressClassName: nginx-public
+  rules:
+  - host: files.${DOMAIN}
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: files
+            port:
+              number: 8080
