@@ -21,10 +21,6 @@ spec:
       config:
         ssl-redirect: "true"
         force-ssl-redirect: "true"
-      replicaCount: 3
-      autoscaling:
-        minReplicas: 3
-        maxReplicas: 10
       resources:
         requests:
           memory: 192Mi

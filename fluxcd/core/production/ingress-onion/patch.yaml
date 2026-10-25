@@ -21,17 +21,3 @@ spec:
         loadBalancerIP: null
       config:
         ssl-redirect: "false"
-      kind: Deployment
-      replicaCount: 2
-      autoscaling:
-        enabled: false
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/component: controller
-                  app.kubernetes.io/instance: ingress-nginx-onion

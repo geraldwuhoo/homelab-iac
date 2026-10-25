@@ -34,12 +34,26 @@ spec:
             default_type text/plain;
             return 200 "User-agent: *\nDisallow: /\n";
           }
-      kind: DaemonSet
+      kind: Deployment
+      replicaCount: 2
+      # chart default; keeps a drain or rollout from taking the last pod
+      minAvailable: 1
       updateStrategy:
         rollingUpdate:
           maxUnavailable: 0
-          maxSurge: 100%
+          maxSurge: 1
         type: RollingUpdate
+      affinity:
+        podAntiAffinity:
+          # preferred so a one-node cluster can still place both pods
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: ingress-nginx
+                  app.kubernetes.io/component: controller
       allowSnippetAnnotations: true
       setAsDefaultIngress: true
       ingressClassResource:
@@ -55,12 +69,6 @@ spec:
           memory: 128Mi
         limits:
           memory: 1Gi
-      autoscaling:
-        enabled: true
-        minReplicas: 1
-        maxReplicas: 3
-        targetCPUUtilizationPercentage: 75
-        targetMemoryUtilizationPercentage: 75
       metrics:
         enabled: true
         serviceMonitor:
