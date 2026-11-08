@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: anubis-geoip
+  labels:
+    no-backup: "true"
+  annotations:
+    k8up.io/backup: "false"
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      # The two DB-IP Lite files are about 20MiB. CephFS is shared so every
+      # Anubis pod can mount the same copy.
+      storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: ceph-cephfs-ssd-sc

@@ -13,6 +13,20 @@
 # use, so each cloud-*.yaml matches one network's address ranges directly, with
 # its source in its header. Refresh them every few months.
 # Anubis loads these files at startup: restart ia-* deployments after changing them.
+#
+# The databases below turn on two WEIGH rules from the imported default policy.
+# Neither rule denies anyone:
+# - Brazil and China get +10, so a plain browser there is difficulty 6.
+# - AS13335 (Cloudflare, including WARP), AS136907 (Huawei Cloud) and AS45102
+#   (Alibaba Cloud) get +10. Alibaba and Huawei addresses already covered by
+#   the built-in deny lists are still denied, because that rule runs first.
+# anubis-geoip downloads DB-IP Lite and renames the files into place. A running
+# pod keeps the database it opened; the next restart picks up a newer one.
+geoip:
+  asn:
+    path: /var/lib/geoip/dbip-asn-lite.mmdb
+  country:
+    path: /var/lib/geoip/dbip-country-lite.mmdb
 bots:
 - import: (data)/meta/default-config.yaml
 - import: /etc/anubis/cloud-alibaba.yaml

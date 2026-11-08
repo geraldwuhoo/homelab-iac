@@ -4,6 +4,9 @@ kind: Kustomization
 namespace: ingress-anubis
 resources:
 - ../../base/ingress-anubis
+- geoip-pvc.yaml
+- geoip-sync.yaml
+- geoip-netpol.yaml
 configMapGenerator:
 - name: anubis-policy
   files:
@@ -30,5 +33,5 @@ patches:
         config:
           WRAPPED_INGRESS_CLASS_NAME: nginx-public
           ENVIRONMENT_VARIABLES: POLICY_FNAME:/etc/anubis/botPolicies.yaml
-          VOLUMES: '[{"name":"anubis-policy","configMap":{"name":"anubis-policy"}}]'
-          VOLUME_MOUNTS: '[{"name":"anubis-policy","mountPath":"/etc/anubis","readOnly":true}]'
+          VOLUMES: '[{"name":"anubis-policy","configMap":{"name":"anubis-policy"}},{"name":"anubis-geoip","persistentVolumeClaim":{"claimName":"anubis-geoip","readOnly":true}}]'
+          VOLUME_MOUNTS: '[{"name":"anubis-policy","mountPath":"/etc/anubis","readOnly":true},{"name":"anubis-geoip","mountPath":"/var/lib/geoip","readOnly":true}]'

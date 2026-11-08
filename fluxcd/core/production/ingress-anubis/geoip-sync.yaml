@@ -1,0 +1,117 @@
+# Downloads the DB-IP Lite country and ASN databases (CC BY 4.0).
+# Attribution: IP Geolocation by DB-IP, https://db-ip.com/
+# The files are MaxMind-compatible MMDB. Anubis accepts the country database
+# because its type contains "Country", and the ASN database because its type
+# is "DBIP-ASN-Lite (compat=GeoLite2-ASN)".
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: anubis-geoip-sync
+data:
+  sync.sh: |
+    #!/bin/sh
+    set -u
+    dest=/var/lib/geoip
+
+    previous_month() {
+      y=$(date -u +%Y)
+      m=$(date -u +%m)
+      m=$((10#$m - 1))
+      if [ "$m" -eq 0 ]; then
+        m=12
+        y=$((y - 1))
+      fi
+      printf '%04d-%02d' "$y" "$m"
+    }
+
+    fetch() {
+      kind=$1
+      base="dbip-${kind}-lite"
+      out="${dest}/${base}.mmdb"
+      gz="${dest}/${base}.mmdb.gz.partial"
+      tmp="${out}.tmp"
+      ym=$(date -u +%Y-%m)
+      pym=$(previous_month)
+      rm -f "$gz" "$tmp"
+      if ! wget -q -T 60 -O "$gz" "https://download.db-ip.com/free/${base}-${ym}.mmdb.gz"; then
+        wget -q -T 60 -O "$gz" "https://download.db-ip.com/free/${base}-${pym}.mmdb.gz"
+      fi
+      gzip -dc "$gz" > "$tmp"
+      rm -f "$gz"
+      size=$(wc -c < "$tmp")
+      if [ "$size" -lt 1000000 ]; then
+        echo "downloaded ${kind} database is only ${size} bytes" >&2
+        rm -f "$tmp"
+        return 1
+      fi
+      chmod 644 "$tmp"
+      # Rename on the same volume so a running Anubis keeps its old mapping.
+      mv -f "$tmp" "$out"
+    }
+
+    while true; do
+      if fetch country && fetch asn; then
+        echo "geoip databases updated"
+        sleep 86400
+      else
+        echo "geoip download failed, retrying in 5 minutes" >&2
+        sleep 300
+      fi
+    done
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anubis-geoip
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: anubis-geoip
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: anubis-geoip
+    spec:
+      # The fresh CephFS volume is root-owned. This pod writes the files
+      # world-readable; the Anubis containers run as uid 1000 and only read.
+      securityContext:
+        runAsUser: 0
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: sync
+        image: docker.io/library/alpine:3.22
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "/scripts/sync.sh"]
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
+        volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+          readOnly: true
+        - name: geoip
+          mountPath: /var/lib/geoip
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: scripts
+        configMap:
+          name: anubis-geoip-sync
+          defaultMode: 0555
+      - name: geoip
+        persistentVolumeClaim:
+          claimName: anubis-geoip
+      - name: tmp
+        emptyDir: {}
