@@ -1,30 +1,3 @@
-# The CephFS provisioner does not create volumes on this cluster, so this is a
-# static mount of /volumes/nas/anubis-geoip. The storage class matches the
-# claim; the provisioner parameters are not used.
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: anubis-geoip
-spec:
-  accessModes:
-  - ReadWriteMany
-  capacity:
-    storage: 1Gi
-  csi:
-    driver: cephfs.csi.ceph.com
-    nodeStageSecretRef:
-      name: csi-cephfs-secret
-      namespace: default
-    volumeAttributes:
-      "clusterID": "${CEPH_CLUSTER_ID}"
-      "fsName": "cephfs"
-      "staticVolume": "true"
-      "rootPath": /volumes/nas/anubis-geoip
-    volumeHandle: anubis-geoip
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: ceph-cephfs-ssd-sc
-  volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -39,8 +12,8 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      # The two DB-IP Lite files are about 20MiB.
+      # The two DB-IP Lite files are about 20MiB. CephFS is shared so every
+      # Anubis pod can mount the same copy.
       storage: 1Gi
   volumeMode: Filesystem
   storageClassName: ceph-cephfs-ssd-sc
-  volumeName: anubis-geoip
