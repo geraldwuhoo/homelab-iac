@@ -15,39 +15,39 @@ data:
     dest=/var/lib/geoip
 
     previous_month() {
-      y=$(date -u +%Y)
-      m=$(date -u +%m)
-      m=$((10#$m - 1))
-      if [ "$m" -eq 0 ]; then
+      y=$$(date -u +%Y)
+      m=$$(date -u +%m)
+      m=$$((10#$$m - 1))
+      if [ "$$m" -eq 0 ]; then
         m=12
-        y=$((y - 1))
+        y=$$((y - 1))
       fi
-      printf '%04d-%02d' "$y" "$m"
+      printf '%04d-%02d' "$$y" "$$m"
     }
 
     fetch() {
-      kind=$1
-      base="dbip-${kind}-lite"
-      out="${dest}/${base}.mmdb"
-      gz="${dest}/${base}.mmdb.gz.partial"
-      tmp="${out}.tmp"
-      ym=$(date -u +%Y-%m)
-      pym=$(previous_month)
-      rm -f "$gz" "$tmp"
-      if ! wget -q -T 60 -O "$gz" "https://download.db-ip.com/free/${base}-${ym}.mmdb.gz"; then
-        wget -q -T 60 -O "$gz" "https://download.db-ip.com/free/${base}-${pym}.mmdb.gz"
+      kind=$$1
+      base="dbip-$${kind}-lite"
+      out="$${dest}/$${base}.mmdb"
+      gz="$${dest}/$${base}.mmdb.gz.partial"
+      tmp="$${out}.tmp"
+      ym=$$(date -u +%Y-%m)
+      pym=$$(previous_month)
+      rm -f "$$gz" "$$tmp"
+      if ! wget -q -T 60 -O "$$gz" "https://download.db-ip.com/free/$${base}-$${ym}.mmdb.gz"; then
+        wget -q -T 60 -O "$$gz" "https://download.db-ip.com/free/$${base}-$${pym}.mmdb.gz"
       fi
-      gzip -dc "$gz" > "$tmp"
-      rm -f "$gz"
-      size=$(wc -c < "$tmp")
-      if [ "$size" -lt 1000000 ]; then
-        echo "downloaded ${kind} database is only ${size} bytes" >&2
-        rm -f "$tmp"
+      gzip -dc "$$gz" > "$$tmp"
+      rm -f "$$gz"
+      size=$$(wc -c < "$$tmp")
+      if [ "$$size" -lt 1000000 ]; then
+        echo "downloaded $${kind} database is only $${size} bytes" >&2
+        rm -f "$$tmp"
         return 1
       fi
-      chmod 644 "$tmp"
+      chmod 644 "$$tmp"
       # Rename on the same volume so a running Anubis keeps its old mapping.
-      mv -f "$tmp" "$out"
+      mv -f "$$tmp" "$$out"
     }
 
     while true; do
