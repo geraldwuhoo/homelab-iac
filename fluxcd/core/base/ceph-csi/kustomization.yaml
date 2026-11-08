@@ -8,7 +8,6 @@ resources:
 - external-snapshotter/rbac-snapshot-controller.yaml
 - external-snapshotter/setup-snapshot-controller.yaml
 - cephfs-helmrelease.yaml
-- cephfs-provisioner-rbac.yaml
 - cephfs-namespace.yaml
 - cephfs-snapshot-class.yaml
 - cephfs-sc.yaml
