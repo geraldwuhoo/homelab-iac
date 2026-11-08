@@ -1,0 +1,13 @@
+# DMZHOST address ranges, imported by botPolicies.yaml.
+# Announced prefixes from RIPEstat, fetched 2026-11-08, overlaps collapsed:
+#   https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS48090
+- name: scraper-cloud-dmzhost
+  action: WEIGH
+  user_agent_regex: >-
+    Mozilla|Opera
+  weight:
+    adjust: 10
+  remote_addresses:
+  - 45.148.10.0/24
+  - 93.123.109.0/24
+  - 195.178.110.0/24

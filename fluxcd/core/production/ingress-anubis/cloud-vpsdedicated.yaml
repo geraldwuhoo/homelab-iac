@@ -1,0 +1,16 @@
+# VPS Dedicated address ranges, imported by botPolicies.yaml.
+# Announced prefixes from RIPEstat, fetched 2026-11-08, overlaps collapsed:
+#   https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS197769
+- name: scraper-cloud-vpsdedicated
+  action: WEIGH
+  user_agent_regex: >-
+    Mozilla|Opera
+  weight:
+    adjust: 10
+  remote_addresses:
+  - 31.57.37.0/24
+  - 31.57.184.0/24
+  - 31.57.216.0/24
+  - 102.220.160.0/22
+  - 130.12.181.0/24
+  - 130.12.182.0/24

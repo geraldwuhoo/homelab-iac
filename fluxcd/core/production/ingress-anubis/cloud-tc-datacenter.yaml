@@ -1,0 +1,12 @@
+# TC Datacenter address ranges, imported by botPolicies.yaml.
+# Announced prefixes from RIPEstat, fetched 2026-11-08, overlaps collapsed:
+#   https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS218785
+- name: scraper-cloud-tc-datacenter
+  action: WEIGH
+  user_agent_regex: >-
+    Mozilla|Opera
+  weight:
+    adjust: 10
+  remote_addresses:
+  - 45.138.12.0/24
+  - 185.218.86.0/24

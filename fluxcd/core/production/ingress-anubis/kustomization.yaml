@@ -14,8 +14,21 @@ configMapGenerator:
   - cloud-alibaba.yaml
   - cloud-aws-ec2.yaml
   - cloud-byteplus.yaml
+  - cloud-colocrossing.yaml
+  - cloud-contabo.yaml
+  - cloud-datacamp.yaml
   - cloud-digitalocean.yaml
+  - cloud-dmzhost.yaml
+  - cloud-egihosting.yaml
+  - cloud-hetzner.yaml
+  - cloud-m247.yaml
+  - cloud-nebula.yaml
+  - cloud-oracle.yaml
+  - cloud-ovh.yaml
+  - cloud-selectel.yaml
+  - cloud-tc-datacenter.yaml
   - cloud-tencent.yaml
+  - cloud-vpsdedicated.yaml
   options:
     # referenced by name inside the VOLUMES string below
     disableNameSuffixHash: true

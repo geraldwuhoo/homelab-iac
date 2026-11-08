@@ -3,11 +3,11 @@
 # - ordinary browsers (weight 10) get difficulty 4 instead of 2. The DIFFICULTY
 #   env var and the difficulty annotation have no effect here: every challenge
 #   comes from a threshold below, and each threshold sets its own difficulty.
-# - browser-like clients on the cloud networks that scrape gitlab get 10 extra
-#   weight, landing them in mild-proof-of-work (difficulty 6 instead of 4).
-#   That averaged 30s on a desktop, but mullvad, airvpn and ivpn servers are
-#   outside these ranges, as are nearly all tor exits. Non-browser user agents
-#   (git, renovate, runners) from these networks are unaffected.
+# - browser-like clients on the tracked hosting networks get 10 extra weight,
+#   landing them in mild-proof-of-work (difficulty 6 instead of 4). That
+#   averaged 30s on a desktop. AirVPN, IVPN, and nearly all tor exits are
+#   outside these ranges. Non-browser user agents (git, renovate, runners)
+#   are unaffected.
 #
 # The default policy weighs networks via Thoth, a paid lookup service we don't
 # use, so each cloud-*.yaml matches one network's address ranges directly, with
@@ -34,6 +34,19 @@ bots:
 - import: /etc/anubis/cloud-byteplus.yaml
 - import: /etc/anubis/cloud-digitalocean.yaml
 - import: /etc/anubis/cloud-tencent.yaml
+- import: /etc/anubis/cloud-colocrossing.yaml
+- import: /etc/anubis/cloud-contabo.yaml
+- import: /etc/anubis/cloud-datacamp.yaml
+- import: /etc/anubis/cloud-dmzhost.yaml
+- import: /etc/anubis/cloud-egihosting.yaml
+- import: /etc/anubis/cloud-hetzner.yaml
+- import: /etc/anubis/cloud-m247.yaml
+- import: /etc/anubis/cloud-nebula.yaml
+- import: /etc/anubis/cloud-oracle.yaml
+- import: /etc/anubis/cloud-ovh.yaml
+- import: /etc/anubis/cloud-selectel.yaml
+- import: /etc/anubis/cloud-tc-datacenter.yaml
+- import: /etc/anubis/cloud-vpsdedicated.yaml
 
 # every challenge difficulty comes from these; moderate-suspicion (2 -> 4) and
 # mild-proof-of-work (4 -> 6) differ from the default policy
