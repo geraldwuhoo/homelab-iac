@@ -27,6 +27,8 @@ spec:
         enabled: false
         service:
           enabled: false
+      # Leaves attachRequired false. VolumeAttachment RBAC is granted
+      # separately in cephfs-provisioner-rbac.yaml.
       attacher:
         enabled: false
       snapshotter:
