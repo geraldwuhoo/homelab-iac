@@ -83,16 +83,28 @@ spec:
                 name: Firefox Sync
               - site: https://gitlab.wuhoo.xyz/-/liveness
                 name: GitLab
+              - site: https://registry.wuhoo.xyz/v2/
+                name: GitLab Registry
+                success_codes:
+                - 401
               - site: https://photos.wuhoo.xyz/
                 name: Immich
               - site: https://jellyfin.wuhoo.xyz/
                 name: Jellyfin
+              - site: https://feishin.wuhoo.xyz/
+                name: Feishin
+              - site: https://jellyseerr.wuhoo.xyz/login
+                name: Jellyseerr
               - site: https://wuhoo.xyz/
                 name: Landing Page
+              - site: https://lubelogger.wuhoo.xyz/Login/Index
+                name: LubeLogger
               - site: https://mollysocket.wuhoo.xyz/
                 name: Mollysocket
               - site: https://cloud.wuhoo.xyz/status.php
                 name: Nextcloud
+              - site: https://collabora.wuhoo.xyz/hosting/discovery
+                name: Collabora
               - site: https://ntfy.wuhoo.xyz/
                 name: Ntfy
               - site: https://paperless.wuhoo.xyz/
