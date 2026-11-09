@@ -20,7 +20,7 @@ spec:
           main:
             image:
               repository: registry.gitlab.com/pixivfe/pixivfe
-              tag: v3.0.4
+              tag: v3.1.0
             env:
               PIXIVFE_HOST: 0.0.0.0
               PIXIVFE_IMAGEPROXY: https://pximg.${DOMAIN}
