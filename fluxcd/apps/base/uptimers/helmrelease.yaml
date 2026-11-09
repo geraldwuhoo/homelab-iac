@@ -18,7 +18,7 @@ spec:
           main:
             image:
               repository: registry.wuhoo.xyz/jerry/uptimers
-              tag: v0.3.2
+              tag: v0.5.0
             env:
               CONFIG_PATH: /config/config.yaml
               POSTGRES_USERNAME:
