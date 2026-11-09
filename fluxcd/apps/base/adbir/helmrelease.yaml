@@ -146,7 +146,7 @@ spec:
                   - name: "Uptime.rs"
                     logo: "/icons/svg/uptime-kuma.svg"
                     subtitle: "Uptime monitoring"
-                    url: "https://uptimers.${DOMAIN}"
+                    url: "https://status.${DOMAIN}"
                   - name: "LubeLogger"
                     logo: "/icons/png/lubelogger.png"
                     subtitle: "Vehicle maintenance and fuel mileage tracker"

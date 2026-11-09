@@ -49,16 +49,27 @@ spec:
         className: nginx-public
         annotations:
           homelab/public: "true"
-          external-dns.kubernetes.io/hostname: uptimers.${DOMAIN}
+          external-dns.kubernetes.io/hostname: status.${DOMAIN}
           external-dns.kubernetes.io/target: ${DOMAIN}
         hosts:
-        - host: uptimers.${DOMAIN}
-          paths:
+        - host: status.${DOMAIN}
+          paths: &paths
           - path: /
             pathType: Prefix
             service:
               identifier: main
               port: *port
+      uptimers:
+        enabled: true
+        className: nginx-public
+        annotations:
+          homelab/public: "true"
+          external-dns.kubernetes.io/hostname: uptimers.${DOMAIN}
+          external-dns.kubernetes.io/target: ${DOMAIN}
+          nginx.ingress.kubernetes.io/temporal-redirect: "https://status.${DOMAIN}$request_uri"
+        hosts:
+        - host: uptimers.${DOMAIN}
+          paths: *paths
     persistence:
       config:
         type: configMap

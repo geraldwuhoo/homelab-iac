@@ -14,5 +14,14 @@ spec:
         className: null
         tls:
         - hosts:
+          - status.${DOMAIN}
+          secretName: status-cert
+      uptimers:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt
+          external-dns.kubernetes.io/target: hetzner.${DOMAIN}
+        className: null
+        tls:
+        - hosts:
           - uptimers.${DOMAIN}
           secretName: uptimers-cert
