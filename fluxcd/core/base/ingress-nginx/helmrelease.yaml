@@ -23,6 +23,7 @@ spec:
         # require the scrape to present a mesh identity
         config.linkerd.io/skip-inbound-ports: "10254"
       config:
+        annotations-risk-level: Critical
         enable-brotli: true
         brotli-level: "6"
         use-gzip: true
