@@ -83,7 +83,7 @@ spec:
           type: RuntimeDefault
       containers:
       - name: sync
-        image: docker.io/library/alpine:3.22
+        image: docker.io/library/alpine:3.24
         imagePullPolicy: IfNotPresent
         command: ["/bin/sh", "/scripts/sync.sh"]
         resources:
