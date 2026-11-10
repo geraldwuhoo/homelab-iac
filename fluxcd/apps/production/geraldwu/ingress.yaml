@@ -8,7 +8,7 @@ metadata:
     external-dns.kubernetes.io/target: geraldwu.com
     homelab/public: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |-
-      subs_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/script.js\"></script></body>";
+      sub_filter "</body>" "<noscript><img src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/pixel.gif\"></noscript><script defer src=\"https://shy.wuhoo.xyz/ingress/c64ae4ec-f6b1-4bdd-903b-08dd46e795f3/script.js\"></script></body>";
       proxy_set_header Accept-Encoding "";
       add_header Onion-Location http://${ONION_DOMAIN_GERALD}$request_uri;
       if ($request_method = POST) { return 405; }
