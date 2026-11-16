@@ -16,9 +16,9 @@ spec:
   timeout: 10m0s
   values:
     deploymentStrategy: Recreate
-    dataStorage:
+    persistence:
       enabled: true
-      requestedSize: 8Gi
+      size: 8Gi
     metrics:
       enabled: true
       exporter:

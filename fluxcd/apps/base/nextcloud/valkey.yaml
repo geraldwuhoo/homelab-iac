@@ -16,10 +16,10 @@ spec:
   timeout: 10m0s
   values:
     deploymentStrategy: Recreate
-    dataStorage:
+    persistence:
       enabled: true
-      requestedSize: 8Gi
-    valkeyConfig: |
+      size: 8Gi
+    extraConfig: |
       appendonly yes
       save ""
       rename-command FLUSHDB ""
