@@ -260,6 +260,8 @@ spec:
             rollingUpdate:
               maxSurge: 0
               maxUnavailable: 1
+        extraEnv:
+          WAIT_FOR_TIMEOUT: "1800"
         resources:
           requests:
             memory: 2240Mi
@@ -272,6 +274,8 @@ spec:
         concurrency: 5
         minReplicas: 1
         maxReplicas: 1
+        extraEnv:
+          WAIT_FOR_TIMEOUT: "1800"
         resources:
           requests:
             cpu: 200m
