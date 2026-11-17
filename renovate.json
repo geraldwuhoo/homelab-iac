@@ -13,5 +13,11 @@
   },
   "helm-values": {
     "fileMatch": ["fluxcd/.+\\.yaml$"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["docker.io/kopia/kopia"],
+      "allowedVersions": "/^\\d{1,3}\\.\\d+\\.\\d+$/"
+    }
+  ]
 }

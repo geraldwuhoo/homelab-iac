@@ -20,7 +20,7 @@ spec:
           main:
             image:
               repository: docker.io/kopia/kopia
-              tag: 20251020.0.233929
+              tag: 0.23.1
             envFrom:
             - secretRef:
                 name: kopia-secret
