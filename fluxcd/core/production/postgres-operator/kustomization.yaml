@@ -22,7 +22,7 @@ patches:
           # POSTGRES_PASSWORD ahead of these, so they can be referenced
           sidecars:
           - name: postgres-exporter
-            image: quay.io/prometheuscommunity/postgres-exporter:v0.20.1
+            image: quay.io/prometheuscommunity/postgres-exporter:v0.21.1
             args:
             # per table stats are ~20 series per table, and gitlab has ~900;
             # pg_settings is dropped in vmpodscrape.yaml
