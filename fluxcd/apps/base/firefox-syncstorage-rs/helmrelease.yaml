@@ -51,7 +51,7 @@ spec:
           postgres-isready:
             image:
               repository: docker.io/library/postgres
-              tag: 18-alpine
+              tag: 19-alpine
             command:
             - "/bin/sh"
             - "-c"
