@@ -18,7 +18,7 @@ spec:
           main:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 3.5.0
+              tag: 3.5.1
             env:
               # admin
               PAPERLESS_ADMIN_MAIL: fake@example.com
@@ -62,7 +62,7 @@ spec:
           main:
             image:
               repository: docker.io/gotenberg/gotenberg
-              tag: 9.6.0
+              tag: 9.9.1
             args:
             - gotenberg
             - "--chromium-disable-javascript=true"
