@@ -169,6 +169,8 @@ spec:
           [[runners]]
             executors = "kubernetes"
             environment = [ "container=kube" ]
+            [runners.feature_flags]
+              FF_USE_ADVANCED_POD_SPEC_CONFIGURATION = true
             [runners.kubernetes]
             image = "ubuntu:18.04"
             memory_request = "1Gi"
@@ -198,6 +200,10 @@ spec:
                       key = "custom"
                       operator = "In"
                       values = ["gitlab-runner"]
+              [[runners.kubernetes.pod_spec]]
+                name = "user-namespaces"
+                patch_type = "strategic"
+                patch = '{"hostUsers": false}'
             [runners.cache]
               Type = "s3"
               Path = "gitlab-runner"
